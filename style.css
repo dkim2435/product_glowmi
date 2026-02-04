@@ -49,11 +49,16 @@ body {
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 12px var(--shadow-color);
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+    max-width: 500px;
+    width: 90%;
 }
 
-.container:hover {
-    transform: translateY(-5px);
+.subtitle {
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
 h1 {
@@ -62,25 +67,62 @@ h1 {
     transition: color 0.3s ease;
 }
 
-.numbers-container {
+.sets-container {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 12px;
     margin-bottom: 30px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.set-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: var(--bg-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.set-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.set-label {
+    font-weight: bold;
+    color: var(--text-color);
+    min-width: 30px;
+}
+
+.numbers-row {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
 }
 
 .number {
-    width: 50px;
-    height: 50px;
+    width: 36px;
+    height: 36px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bold;
     color: white;
     background-color: #4CAF50;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.number.large {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
 }
 
 #generate-btn {
