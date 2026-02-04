@@ -1,23 +1,75 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>오늘 저녁 뭐 먹지? - 한식 메뉴 추천</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-    <div class="main-container">
-        <h1>🍚 오늘 저녁 뭐 먹지?</h1>
-        <p class="subtitle">한식 메뉴 추천 서비스</p>
-        <div class="input-section">
-            <label for="menu-count">몇 개의 메뉴를 추천해드릴까요?</label>
-            <input type="number" id="menu-count" min="1" max="10" value="3">
-            <button id="recommend-btn">추천받기</button>
+    <div class="app">
+        <header>
+            <h1>🍜 오늘 뭐 먹지?</h1>
+            <p class="tagline">스와이프로 저녁 메뉴를 정해보세요</p>
+        </header>
+
+        <div class="swipe-container">
+            <div class="card-stack">
+                <div class="menu-card" id="menu-card">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <span class="card-tag"></span>
+                        <h2 class="card-name"></h2>
+                        <p class="card-description"></p>
+                    </div>
+                    <div class="swipe-hint">
+                        <span class="hint-left">← 다음 메뉴</span>
+                        <span class="hint-right">레시피 보기 →</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="cards-container"></div>
+
+        <div class="action-buttons">
+            <button class="btn-skip" id="btn-skip">
+                <span>✕</span>
+                <small>다음</small>
+            </button>
+            <button class="btn-recipe" id="btn-recipe">
+                <span>📖</span>
+                <small>레시피</small>
+            </button>
+        </div>
+
+        <!-- Recipe Modal -->
+        <div class="modal" id="recipe-modal">
+            <div class="modal-content">
+                <button class="modal-close" id="modal-close">✕</button>
+                <div class="recipe-header">
+                    <span class="recipe-emoji" id="recipe-emoji"></span>
+                    <h2 class="recipe-title" id="recipe-title"></h2>
+                    <span class="recipe-tag" id="recipe-tag"></span>
+                </div>
+                <div class="recipe-body">
+                    <h3>🥘 재료</h3>
+                    <ul class="ingredients" id="ingredients"></ul>
+                    <h3>👨‍🍳 만드는 법</h3>
+                    <ol class="steps" id="steps"></ol>
+                    <h3>💡 팁</h3>
+                    <p class="tip" id="tip"></p>
+                </div>
+                <div class="recipe-rating">
+                    <div class="rating-counts">
+                        <span class="likes"><span id="like-count">0</span> 명이 좋아해요</span>
+                        <span class="dislikes"><span id="dislike-count">0</span> 명이 별로래요</span>
+                    </div>
+                    <div class="rating-buttons">
+                        <button class="btn-like" id="btn-like">👍 맛있어요!</button>
+                        <button class="btn-dislike" id="btn-dislike">👎 별로예요</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>
