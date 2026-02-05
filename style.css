@@ -1152,6 +1152,115 @@ body {
     }
 }
 
+/* Personal Color Test */
+.pc-screen.hidden {
+    display: none;
+}
+
+.pc-start-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 25px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+}
+
+.pc-start-card h2 {
+    color: var(--secondary-pink);
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.pc-start-card h3 {
+    color: #888;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.pc-start-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.pc-start-card p.korean {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 25px;
+}
+
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.color-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.swatch-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.swatch-name {
+    font-size: 0.75rem;
+    color: #555;
+    text-align: center;
+}
+
+.worst-colors {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(196, 69, 105, 0.1);
+}
+
+.worst-colors h4 {
+    color: #999;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.season-result-badge {
+    display: inline-block;
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.celeb-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(196, 69, 105, 0.1);
+}
+
+.celeb-section h4 {
+    color: var(--secondary-pink);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.celeb-item {
+    display: inline-block;
+    background: var(--light-pink);
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: #555;
+    margin: 4px;
+}
+
 /* Mobile Optimizations */
 @media (max-width: 500px) {
     .app-container {

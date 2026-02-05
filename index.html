@@ -175,18 +175,33 @@
                     <div class="coming-badge">Coming Soon</div>
                 </div>
 
-                <!-- Personal Color - PLACEHOLDER -->
-                <!--
-                    🔧 개발 명령어: "퍼스널컬러 진단 기능 만들어줘. 사진 올리면 피부톤 분석해서
-                    봄웜/여름쿨/가을웜/겨울쿨 알려주고 어울리는 컬러 팔레트 보여줘."
-                    필요: 컬러 분석 알고리즘, 피부톤 감지
-                -->
-                <div class="feature-card placeholder-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Personal Color Test</h3>
-                    <p class="feature-korean">퍼스널컬러 진단</p>
-                    <p class="feature-desc">Find out if you're Spring, Summer, Fall, or Winter and discover your best colors.</p>
-                    <div class="coming-badge">Coming Soon</div>
+                <!-- Personal Color Test -->
+                <div id="pc-section">
+                    <!-- Screen 1: Start -->
+                    <div id="pc-start" class="pc-screen">
+                        <div class="pc-start-card">
+                            <div class="quiz-icon">🎨</div>
+                            <h2>Personal Color Test</h2>
+                            <h3>퍼스널컬러 진단</h3>
+                            <p>Answer 7 questions to discover your seasonal color type and find the colors that make you glow!</p>
+                            <p class="korean">7가지 질문에 답하고 나에게 어울리는 컬러를 찾아보세요!</p>
+                            <button class="primary-btn" onclick="startPersonalColor()">Start Test 시작하기</button>
+                        </div>
+                    </div>
+                    <!-- Screen 2: Questions -->
+                    <div id="pc-questions" class="pc-screen hidden">
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div id="pc-progress-fill" class="progress-fill"></div>
+                            </div>
+                            <span id="pc-progress-text" class="progress-text">1 / 7</span>
+                        </div>
+                        <div id="pc-question-container" class="question-container"></div>
+                    </div>
+                    <!-- Screen 3: Result -->
+                    <div id="pc-result" class="pc-screen hidden">
+                        <div id="pc-result-content" class="result-card"></div>
+                    </div>
                 </div>
 
                 <!-- Surgery Simulation - PLACEHOLDER -->
@@ -711,6 +726,312 @@ var proceduresData = [
     { english: "Thread Lift", korean: "실리프팅", description: "Dissolvable threads inserted under skin for natural V-line lifting effect.", priceKRW: "₩300,000 - ₩1,500,000", priceUSD: "$230 - $1,150", duration: "30-60 min", downtime: "3-7 days", lasts: "1-2 years", rank: "#9 Popular", tags: ["V-Line", "Lifting", "Contouring"] },
     { english: "Aqua Peel", korean: "아쿠아필", description: "Water-based exfoliation for deep pore cleansing and skin hydration. Great entry-level treatment.", priceKRW: "₩50,000 - ₩150,000", priceUSD: "$40 - $115", duration: "30-45 min", downtime: "None", lasts: "2-4 weeks", rank: "#10 Popular", tags: ["Pores", "Hydration", "Beginner-Friendly"] }
 ];
+
+// Personal Color Quiz Data
+var personalColorQuestions = [
+    {
+        english: "What best describes your skin undertone?",
+        korean: "피부 언더톤은 어떤가요?",
+        options: [
+            { english: "Warm, yellowish or peachy", korean: "따뜻한, 노란/복숭아빛", scores: { spring: 2, summer: 0, fall: 2, winter: 0 } },
+            { english: "Cool, pinkish or bluish", korean: "차가운, 핑크/푸른빛", scores: { spring: 0, summer: 2, fall: 0, winter: 2 } },
+            { english: "Neutral, mix of warm and cool", korean: "중립적, 웜과 쿨의 혼합", scores: { spring: 1, summer: 1, fall: 1, winter: 1 } },
+            { english: "Olive or greenish undertone", korean: "올리브나 녹색빛 언더톤", scores: { spring: 0, summer: 1, fall: 2, winter: 1 } }
+        ]
+    },
+    {
+        english: "What is your natural hair color?",
+        korean: "자연 머리카락 색은 무엇인가요?",
+        options: [
+            { english: "Light brown, golden, or strawberry blonde", korean: "밝은 갈색, 금발, 또는 딸기빛 금발", scores: { spring: 2, summer: 0, fall: 1, winter: 0 } },
+            { english: "Ash brown or light ash blonde", korean: "애쉬 브라운 또는 밝은 애쉬 금발", scores: { spring: 0, summer: 2, fall: 0, winter: 0 } },
+            { english: "Dark brown, auburn, or chestnut", korean: "짙은 갈색, 적갈색, 또는 밤색", scores: { spring: 0, summer: 0, fall: 2, winter: 1 } },
+            { english: "Black or very dark brown", korean: "검정 또는 매우 짙은 갈색", scores: { spring: 0, summer: 1, fall: 0, winter: 2 } }
+        ]
+    },
+    {
+        english: "What color are your eyes?",
+        korean: "눈 색깔은 무엇인가요?",
+        options: [
+            { english: "Light brown, hazel, or green", korean: "밝은 갈색, 헤이즐, 또는 녹색", scores: { spring: 2, summer: 0, fall: 1, winter: 0 } },
+            { english: "Soft gray, light blue, or soft brown", korean: "부드러운 회색, 연한 파랑, 또는 소프트 브라운", scores: { spring: 0, summer: 2, fall: 0, winter: 0 } },
+            { english: "Dark brown, warm amber, or olive", korean: "짙은 갈색, 따뜻한 호박색, 또는 올리브", scores: { spring: 0, summer: 0, fall: 2, winter: 0 } },
+            { english: "Very dark brown or sharp black", korean: "매우 짙은 갈색 또는 선명한 검정", scores: { spring: 0, summer: 0, fall: 0, winter: 2 } }
+        ]
+    },
+    {
+        english: "What color of jewelry suits you best?",
+        korean: "어울리는 주얼리 색은 무엇인가요?",
+        options: [
+            { english: "Bright gold and rose gold", korean: "밝은 골드와 로즈골드", scores: { spring: 2, summer: 0, fall: 1, winter: 0 } },
+            { english: "Silver and white gold", korean: "실버와 화이트골드", scores: { spring: 0, summer: 2, fall: 0, winter: 1 } },
+            { english: "Antique gold and bronze", korean: "앤틱 골드와 브론즈", scores: { spring: 0, summer: 0, fall: 2, winter: 0 } },
+            { english: "Platinum and sharp silver", korean: "플래티넘과 샤프한 실버", scores: { spring: 0, summer: 0, fall: 0, winter: 2 } }
+        ]
+    },
+    {
+        english: "What happens when you get sun exposure?",
+        korean: "햇빛에 노출되면 어떻게 되나요?",
+        options: [
+            { english: "Burn slightly, then tan golden", korean: "약간 타다가 골든 톤으로 태닝", scores: { spring: 2, summer: 0, fall: 1, winter: 0 } },
+            { english: "Burn easily, barely tan", korean: "쉽게 타고, 거의 태닝 안 됨", scores: { spring: 0, summer: 2, fall: 0, winter: 1 } },
+            { english: "Rarely burn, tan deeply", korean: "거의 안 타고, 진하게 태닝", scores: { spring: 0, summer: 0, fall: 2, winter: 0 } },
+            { english: "Burn first then tan, or don't tan at all", korean: "타고 나서 태닝되거나, 아예 안 됨", scores: { spring: 0, summer: 1, fall: 0, winter: 2 } }
+        ]
+    },
+    {
+        english: "Which color group makes you look healthier?",
+        korean: "어떤 색 계열이 더 건강해 보이게 하나요?",
+        options: [
+            { english: "Peach, coral, warm yellow, light green", korean: "피치, 코랄, 따뜻한 노랑, 연두", scores: { spring: 2, summer: 0, fall: 0, winter: 0 } },
+            { english: "Lavender, soft pink, powder blue, mauve", korean: "라벤더, 소프트 핑크, 파우더 블루, 모브", scores: { spring: 0, summer: 2, fall: 0, winter: 0 } },
+            { english: "Terracotta, olive, mustard, burgundy", korean: "테라코타, 올리브, 머스타드, 버건디", scores: { spring: 0, summer: 0, fall: 2, winter: 0 } },
+            { english: "Pure white, black, vivid red, royal blue", korean: "순백, 블랙, 비비드 레드, 로열 블루", scores: { spring: 0, summer: 0, fall: 0, winter: 2 } }
+        ]
+    },
+    {
+        english: "How would you describe your overall coloring contrast?",
+        korean: "전체적인 외모 대비는 어떤가요?",
+        options: [
+            { english: "Low contrast, light and warm overall", korean: "낮은 대비, 전체적으로 밝고 따뜻함", scores: { spring: 2, summer: 0, fall: 0, winter: 0 } },
+            { english: "Low contrast, light and soft overall", korean: "낮은 대비, 전체적으로 밝고 부드러움", scores: { spring: 0, summer: 2, fall: 0, winter: 0 } },
+            { english: "Medium contrast, rich and warm tones", korean: "중간 대비, 풍부하고 따뜻한 톤", scores: { spring: 0, summer: 0, fall: 2, winter: 0 } },
+            { english: "High contrast, sharp and cool features", korean: "높은 대비, 선명하고 차가운 이목구비", scores: { spring: 0, summer: 0, fall: 0, winter: 2 } }
+        ]
+    }
+];
+
+var personalColorResults = {
+    spring: {
+        emoji: "🌸",
+        english: "Spring Warm",
+        korean: "봄 웜톤",
+        subtitle: "Warm & Bright",
+        description: "You radiate warmth and brightness! Your skin glows with warm undertones and you look best in fresh, vibrant colors that reflect sunlight.",
+        bestColors: [
+            { name: "Coral", hex: "#FF7F50" },
+            { name: "Peach", hex: "#FFDAB9" },
+            { name: "Warm Yellow", hex: "#FFD700" },
+            { name: "Light Green", hex: "#90EE90" },
+            { name: "Salmon Pink", hex: "#FA8072" },
+            { name: "Ivory", hex: "#FFFFF0" }
+        ],
+        worstColors: [
+            { name: "Black", hex: "#000000" },
+            { name: "Dark Gray", hex: "#444444" },
+            { name: "Burgundy", hex: "#800020" }
+        ],
+        tips: [
+            "Choose warm, clear colors over muted tones",
+            "Gold jewelry enhances your natural glow",
+            "Peach and coral blush suits you perfectly",
+            "Avoid heavy, dark makeup — keep it fresh",
+            "Warm brown and caramel hair tones are ideal"
+        ],
+        celebs: ["Yoona (SNSD)", "Suzy (Miss A)"]
+    },
+    summer: {
+        emoji: "🌊",
+        english: "Summer Cool",
+        korean: "여름 쿨톤",
+        subtitle: "Cool & Soft",
+        description: "You have a soft, elegant aura with cool undertones. Muted, powdery colors complement your gentle complexion beautifully.",
+        bestColors: [
+            { name: "Lavender", hex: "#E6E6FA" },
+            { name: "Powder Blue", hex: "#B0E0E6" },
+            { name: "Rose Pink", hex: "#FFB6C1" },
+            { name: "Mauve", hex: "#E0B0FF" },
+            { name: "Soft Gray", hex: "#C0C0C0" },
+            { name: "Dusty Rose", hex: "#DCAE96" }
+        ],
+        worstColors: [
+            { name: "Orange", hex: "#FF8C00" },
+            { name: "Mustard", hex: "#FFDB58" },
+            { name: "Olive Green", hex: "#808000" }
+        ],
+        tips: [
+            "Soft, muted tones look better than bold ones",
+            "Silver and rose gold jewelry suit you best",
+            "Pink-toned blush and lip colors are your go-to",
+            "Ash or cool brown hair tones are flattering",
+            "Avoid overly warm or earthy makeup shades"
+        ],
+        celebs: ["IU", "Kim Taehee"]
+    },
+    fall: {
+        emoji: "🍂",
+        english: "Fall Warm",
+        korean: "가을 웜톤",
+        subtitle: "Warm & Deep",
+        description: "You have a rich, earthy warmth. Deep, muted warm tones bring out your natural depth and make you look stunning.",
+        bestColors: [
+            { name: "Terracotta", hex: "#E2725B" },
+            { name: "Olive", hex: "#808000" },
+            { name: "Mustard", hex: "#FFDB58" },
+            { name: "Burgundy", hex: "#800020" },
+            { name: "Camel", hex: "#C19A6B" },
+            { name: "Chocolate", hex: "#7B3F00" }
+        ],
+        worstColors: [
+            { name: "Pastel Pink", hex: "#FFB6C1" },
+            { name: "Bright Blue", hex: "#0000FF" },
+            { name: "Neon Colors", hex: "#39FF14" }
+        ],
+        tips: [
+            "Rich, earthy tones are your signature look",
+            "Antique gold and bronze jewelry look amazing",
+            "Warm brown and terracotta lip colors are ideal",
+            "Deep auburn or chestnut hair tones suit you",
+            "Layer warm neutrals for a polished look"
+        ],
+        celebs: ["Jennie (BLACKPINK)", "Song Hyekyo"]
+    },
+    winter: {
+        emoji: "❄️",
+        english: "Winter Cool",
+        korean: "겨울 쿨톤",
+        subtitle: "Cool & Vivid",
+        description: "You have a striking, high-contrast appearance. Bold, vivid colors and sharp contrasts make you look powerful and chic.",
+        bestColors: [
+            { name: "Pure White", hex: "#FFFFFF" },
+            { name: "True Red", hex: "#FF0000" },
+            { name: "Royal Blue", hex: "#4169E1" },
+            { name: "Emerald", hex: "#50C878" },
+            { name: "Fuchsia", hex: "#FF00FF" },
+            { name: "Black", hex: "#000000" }
+        ],
+        worstColors: [
+            { name: "Beige", hex: "#F5F5DC" },
+            { name: "Warm Orange", hex: "#FF8C00" },
+            { name: "Muted Brown", hex: "#A0522D" }
+        ],
+        tips: [
+            "Bold, high-contrast outfits look stunning on you",
+            "Platinum and silver jewelry enhance your features",
+            "Berry and wine lip colors are your power shades",
+            "Cool black or blue-black hair is most flattering",
+            "Don't be afraid of pure white and jet black"
+        ],
+        celebs: ["Jisoo (BLACKPINK)", "Jun Jihyun"]
+    }
+};
+
+// Personal Color Quiz State
+var pcCurrentQuestion = 0;
+var pcScores = { spring: 0, summer: 0, fall: 0, winter: 0 };
+
+function startPersonalColor() {
+    pcCurrentQuestion = 0;
+    pcScores = { spring: 0, summer: 0, fall: 0, winter: 0 };
+    document.getElementById('pc-start').classList.add('hidden');
+    document.getElementById('pc-questions').classList.remove('hidden');
+    renderPCQuestion();
+}
+
+function renderPCQuestion() {
+    var q = personalColorQuestions[pcCurrentQuestion];
+    var progress = ((pcCurrentQuestion + 1) / personalColorQuestions.length) * 100;
+
+    document.getElementById('pc-progress-fill').style.width = progress + '%';
+    document.getElementById('pc-progress-text').textContent = (pcCurrentQuestion + 1) + ' / ' + personalColorQuestions.length;
+
+    var html = '<p class="question-text">' + q.english + '</p>' +
+               '<p class="question-text-korean">' + q.korean + '</p>' +
+               '<div class="options-list">';
+
+    for (var i = 0; i < q.options.length; i++) {
+        html += '<button class="option-btn" onclick="selectPCOption(' + i + ')">' +
+                '<span class="english">' + q.options[i].english + '</span>' +
+                '<span class="korean">' + q.options[i].korean + '</span></button>';
+    }
+    html += '</div>';
+    document.getElementById('pc-question-container').innerHTML = html;
+}
+
+function selectPCOption(idx) {
+    var q = personalColorQuestions[pcCurrentQuestion];
+    var s = q.options[idx].scores;
+    pcScores.spring += s.spring;
+    pcScores.summer += s.summer;
+    pcScores.fall += s.fall;
+    pcScores.winter += s.winter;
+
+    pcCurrentQuestion++;
+    if (pcCurrentQuestion < personalColorQuestions.length) {
+        renderPCQuestion();
+    } else {
+        showPCResult();
+    }
+}
+
+function showPCResult() {
+    document.getElementById('pc-questions').classList.add('hidden');
+    document.getElementById('pc-result').classList.remove('hidden');
+
+    var maxSeason = 'spring';
+    var maxScore = 0;
+    for (var season in pcScores) {
+        if (pcScores[season] > maxScore) {
+            maxScore = pcScores[season];
+            maxSeason = season;
+        }
+    }
+
+    var r = personalColorResults[maxSeason];
+
+    var bestColorsHtml = '<div class="color-palette">';
+    for (var i = 0; i < r.bestColors.length; i++) {
+        var c = r.bestColors[i];
+        bestColorsHtml += '<div class="color-swatch">' +
+            '<div class="swatch-circle" style="background:' + c.hex + ';' + (c.hex === '#FFFFFF' ? 'border:2px solid #ddd;' : '') + '"></div>' +
+            '<span class="swatch-name">' + c.name + '</span></div>';
+    }
+    bestColorsHtml += '</div>';
+
+    var worstColorsHtml = '<div class="worst-colors"><h4>Colors to Avoid 피해야 할 컬러</h4><div class="color-palette">';
+    for (var j = 0; j < r.worstColors.length; j++) {
+        var w = r.worstColors[j];
+        worstColorsHtml += '<div class="color-swatch">' +
+            '<div class="swatch-circle" style="background:' + w.hex + ';"></div>' +
+            '<span class="swatch-name">' + w.name + '</span></div>';
+    }
+    worstColorsHtml += '</div></div>';
+
+    var tipsHtml = '';
+    for (var k = 0; k < r.tips.length; k++) {
+        tipsHtml += '<li>' + r.tips[k] + '</li>';
+    }
+
+    var celebsHtml = '<div class="celeb-section"><h4>Celebrity References 참고 셀럽</h4>';
+    for (var m = 0; m < r.celebs.length; m++) {
+        celebsHtml += '<span class="celeb-item">' + r.celebs[m] + '</span>';
+    }
+    celebsHtml += '</div>';
+
+    var seasonColors = { spring: '#FF7F50', summer: '#B0E0E6', fall: '#E2725B', winter: '#4169E1' };
+
+    document.getElementById('pc-result-content').innerHTML =
+        '<div class="result-emoji">' + r.emoji + '</div>' +
+        '<h2 class="result-type">' + r.english + '</h2>' +
+        '<p class="result-type-korean">' + r.korean + '</p>' +
+        '<div class="season-result-badge" style="background:' + seasonColors[maxSeason] + ';">' + r.subtitle + '</div>' +
+        '<div class="result-description"><h4>About Your Colors</h4><p>' + r.description + '</p>' +
+        '<h4>Best Colors 베스트 컬러</h4>' + bestColorsHtml +
+        worstColorsHtml +
+        '<h4>Styling Tips</h4><ul>' + tipsHtml + '</ul>' +
+        celebsHtml +
+        '</div>' +
+        '<button class="secondary-btn" onclick="retakePersonalColor()">Retake Test 다시하기</button>';
+
+    document.getElementById('pc-result-content').classList.add('animated');
+    createConfetti();
+}
+
+function retakePersonalColor() {
+    document.getElementById('pc-result').classList.add('hidden');
+    document.getElementById('pc-start').classList.remove('hidden');
+    document.getElementById('pc-result-content').classList.remove('animated');
+}
 
 // App State
 var currentQuestion = 0;
