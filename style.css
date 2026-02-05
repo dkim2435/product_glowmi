@@ -1261,25 +1261,66 @@ body {
     margin: 4px;
 }
 
-/* Content Cards (Educational Content) */
+/* Content Cards (Educational Content — Accordion) */
 .content-card {
     background: white;
     border-radius: 16px;
-    padding: 25px;
+    padding: 16px 20px;
     box-shadow: var(--card-shadow);
     margin-bottom: 15px;
+    border-left: 4px solid var(--primary-pink);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.content-card:hover {
+    box-shadow: 0 8px 30px rgba(196, 69, 105, 0.18);
 }
 
 .content-card h3 {
     color: var(--secondary-pink);
     font-size: 1.1rem;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .content-subtitle {
     color: #888;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+.content-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-chevron {
+    font-size: 0.7rem;
+    color: #aaa;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+.content-card.open .content-chevron {
+    transform: rotate(180deg);
+    color: var(--primary-pink);
+}
+
+.content-card-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+    margin-top: 0;
+}
+
+.content-card.open .content-card-body {
+    max-height: 3000px;
+    opacity: 1;
+    margin-top: 15px;
 }
 
 .content-text {
