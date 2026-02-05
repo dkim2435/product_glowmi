@@ -1,80 +1,161 @@
-// Quiz Data
-const quizQuestions = [
+// Quiz Data - Summer Version
+const summerQuizQuestions = [
     {
-        english: "How does your skin feel 2 hours after washing?",
-        korean: "세안 후 2시간 뒤 피부 상태는?",
+        english: "How does your skin feel during hot summer days?",
+        korean: "더운 여름날 피부가 어떻게 느껴지나요?",
         options: [
-            { english: "Very tight and dry", korean: "매우 당기고 건조함", scores: { dry: 2, oily: 0, combination: 0, sensitive: 1, normal: 0 } },
-            { english: "Comfortable, not tight or oily", korean: "편안하고, 당기지도 번들거리지도 않음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
-            { english: "Oily all over", korean: "전체적으로 번들거림", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
-            { english: "Oily in T-zone, dry on cheeks", korean: "T존은 번들, 볼은 건조", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
-            { english: "Slightly irritated or red", korean: "약간 자극받거나 붉어짐", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+            { english: "Dry and tight despite the heat", korean: "더위에도 건조하고 당김", scores: { dry: 2, oily: 0, combination: 0, sensitive: 1, normal: 0 } },
+            { english: "Comfortable, stays balanced", korean: "편안하고 균형 잡힌 상태 유지", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Extremely oily and shiny", korean: "매우 기름지고 번들거림", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "T-zone gets very oily, cheeks normal", korean: "T존은 매우 기름지고, 볼은 괜찮음", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Red and irritated from heat/sweat", korean: "열과 땀으로 붉어지고 자극받음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
         ]
     },
     {
-        english: "How visible are your pores?",
-        korean: "모공이 얼마나 눈에 띄나요?",
+        english: "How does your skin react to sunscreen in summer?",
+        korean: "여름에 선크림 바르면 피부 반응은?",
         options: [
-            { english: "Almost invisible", korean: "거의 보이지 않음", scores: { dry: 2, oily: 0, combination: 0, sensitive: 1, normal: 1 } },
-            { english: "Small and barely noticeable", korean: "작고 거의 눈에 띄지 않음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
-            { english: "Large and visible all over", korean: "크고 전체적으로 잘 보임", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
-            { english: "Large on nose/forehead only", korean: "코/이마에만 크게 보임", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
-            { english: "Varies depending on skin condition", korean: "피부 컨디션에 따라 다름", scores: { dry: 0, oily: 0, combination: 1, sensitive: 1, normal: 0 } }
+            { english: "Absorbs quickly, still feels dry", korean: "빠르게 흡수되고, 여전히 건조함", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Sits well, no issues", korean: "잘 맞고, 문제 없음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Makes skin feel greasy and heavy", korean: "기름지고 무겁게 느껴짐", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Gets oily on forehead, ok elsewhere", korean: "이마는 기름져지고, 다른 곳은 괜찮음", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Causes breakouts or irritation", korean: "트러블이나 자극을 유발함", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
         ]
     },
     {
-        english: "How often do you get breakouts?",
-        korean: "여드름이나 트러블이 얼마나 자주 생기나요?",
+        english: "How often do you need to blot oil in summer?",
+        korean: "여름에 기름종이를 얼마나 자주 사용하나요?",
         options: [
-            { english: "Rarely or never", korean: "거의 없거나 전혀 없음", scores: { dry: 1, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
-            { english: "Occasionally, around period", korean: "가끔, 생리 전후로", scores: { dry: 0, oily: 0, combination: 1, sensitive: 0, normal: 1 } },
-            { english: "Frequently, especially in T-zone", korean: "자주, 특히 T존에", scores: { dry: 0, oily: 2, combination: 1, sensitive: 0, normal: 0 } },
-            { english: "When using new products", korean: "새 제품 사용 시", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } },
-            { english: "Constantly battling breakouts", korean: "항상 트러블과 싸우는 중", scores: { dry: 0, oily: 2, combination: 0, sensitive: 1, normal: 0 } }
+            { english: "Never, my skin is never oily", korean: "전혀 안 씀, 기름진 적 없음", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Rarely, once a day at most", korean: "거의 안 씀, 하루에 한 번 정도", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Multiple times throughout the day", korean: "하루 종일 여러 번", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Just for T-zone areas", korean: "T존 부위만", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Avoid touching my face due to sensitivity", korean: "민감해서 얼굴 만지는 걸 피함", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
         ]
     },
     {
-        english: "How does your skin react to new products?",
-        korean: "새로운 화장품 사용 시 반응은?",
+        english: "How does humidity affect your skin?",
+        korean: "습도가 피부에 어떤 영향을 주나요?",
         options: [
-            { english: "Usually fine, no reaction", korean: "보통 괜찮고, 반응 없음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
-            { english: "Sometimes stings or burns", korean: "가끔 따끔거리거나 화끈거림", scores: { dry: 1, oily: 0, combination: 0, sensitive: 2, normal: 0 } },
-            { english: "Often breaks out", korean: "자주 트러블 발생", scores: { dry: 0, oily: 2, combination: 0, sensitive: 1, normal: 0 } },
-            { english: "Gets red and irritated easily", korean: "쉽게 붉어지고 자극받음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } },
-            { english: "Depends on the product type", korean: "제품 종류에 따라 다름", scores: { dry: 0, oily: 0, combination: 2, sensitive: 1, normal: 0 } }
+            { english: "Still feels dehydrated", korean: "여전히 수분 부족 느낌", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Feels great, skin looks healthy", korean: "좋은 느낌, 피부가 건강해 보임", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Gets even more oily and sticky", korean: "더 기름지고 끈적해짐", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "T-zone suffers, cheeks feel nice", korean: "T존은 힘들고, 볼은 좋음", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Can trigger redness or rashes", korean: "홍조나 발진 유발 가능", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
         ]
     },
     {
-        english: "How does your skin change with seasons?",
-        korean: "계절이 바뀌면 피부가 어떻게 변하나요?",
+        english: "What happens when you sweat in summer?",
+        korean: "여름에 땀 흘리면 어떻게 되나요?",
         options: [
-            { english: "Gets very dry in winter", korean: "겨울에 매우 건조해짐", scores: { dry: 2, oily: 0, combination: 0, sensitive: 1, normal: 0 } },
-            { english: "Gets very oily in summer", korean: "여름에 매우 기름져짐", scores: { dry: 0, oily: 2, combination: 1, sensitive: 0, normal: 0 } },
-            { english: "Stays pretty consistent", korean: "꽤 일정하게 유지됨", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
-            { english: "Becomes more sensitive", korean: "더 민감해짐", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } },
-            { english: "Oilier in summer, drier in winter", korean: "여름에 지성, 겨울에 건성", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } }
+            { english: "Skin still feels dry after sweating", korean: "땀 흘려도 피부는 여전히 건조", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Normal, washes off easily", korean: "보통, 쉽게 씻겨나감", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Sweat mixes with oil, causes breakouts", korean: "땀이 유분과 섞여 트러블 유발", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Breakouts mainly on forehead/nose", korean: "주로 이마/코에 트러블", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Causes stinging or prickly heat", korean: "따끔거리거나 땀띠 유발", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
         ]
     },
     {
-        english: "What is your skin tone like?",
-        korean: "피부 톤이 어떤가요?",
+        english: "What's your biggest summer skin concern?",
+        korean: "여름철 가장 큰 피부 고민은?",
         options: [
-            { english: "Often looks dull and flaky", korean: "자주 칙칙하고 각질이 일어남", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
-            { english: "Even and healthy looking", korean: "균일하고 건강해 보임", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
-            { english: "Shiny, tends to look greasy", korean: "번들거리고, 기름져 보이는 경향", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
-            { english: "Uneven, shiny and dry patches", korean: "고르지 않고, 번들/건조 부분 공존", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
-            { english: "Often red or blotchy", korean: "자주 붉거나 얼룩덜룩함", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+            { english: "Dehydration and flakiness", korean: "수분 부족과 각질", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Maintaining current good condition", korean: "현재 좋은 상태 유지하기", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Excess shine and enlarged pores", korean: "과도한 번들거림과 넓은 모공", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Balancing oily and dry areas", korean: "지성/건성 부위 밸런스", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Sun sensitivity and redness", korean: "햇빛 민감성과 홍조", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
         ]
     },
     {
-        english: "What is your biggest skin concern?",
-        korean: "가장 큰 피부 고민은?",
+        english: "How does your skin look by end of summer day?",
+        korean: "여름 하루가 끝날 때 피부 상태는?",
         options: [
-            { english: "Dryness and fine lines", korean: "건조함과 잔주름", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
-            { english: "Excess oil and large pores", korean: "과도한 유분과 넓은 모공", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
-            { english: "Keeping skin balanced", korean: "피부 밸런스 유지", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
-            { english: "Redness and irritation", korean: "붉음과 자극", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } },
-            { english: "Maintaining current condition", korean: "현재 상태 유지", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } }
+            { english: "Tight, dull, needs moisture", korean: "당기고, 칙칙하고, 수분 필요", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Pretty much the same as morning", korean: "아침과 거의 같음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Very shiny, can see oil on face", korean: "매우 번들거리고, 기름이 보임", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Shiny T-zone, normal cheeks", korean: "T존은 번들, 볼은 보통", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Flushed and uncomfortable", korean: "상기되고 불편함", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+        ]
+    }
+];
+
+// Quiz Data - Winter Version
+const winterQuizQuestions = [
+    {
+        english: "How does your skin feel during cold winter days?",
+        korean: "추운 겨울날 피부가 어떻게 느껴지나요?",
+        options: [
+            { english: "Extremely dry, flaky, and tight", korean: "극도로 건조하고, 각질이 일어나고, 당김", scores: { dry: 2, oily: 0, combination: 0, sensitive: 1, normal: 0 } },
+            { english: "Slightly drier but manageable", korean: "약간 건조하지만 관리 가능", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Still oily, especially by afternoon", korean: "여전히 기름지고, 특히 오후에", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Cheeks get dry, T-zone stays oily", korean: "볼은 건조하고, T존은 여전히 기름짐", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Red, irritated, and reactive", korean: "붉고, 자극받고, 민감해짐", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+        ]
+    },
+    {
+        english: "How does indoor heating affect your skin?",
+        korean: "실내 난방이 피부에 어떤 영향을 주나요?",
+        options: [
+            { english: "Makes skin feel parched and cracked", korean: "피부가 바싹 마르고 갈라지는 느낌", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Slight tightness, nothing major", korean: "약간 당기지만, 심하진 않음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Doesn't dry me out much", korean: "별로 건조해지지 않음", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Cheeks feel tight, nose stays oily", korean: "볼은 당기고, 코는 여전히 기름짐", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Triggers redness and discomfort", korean: "홍조와 불편함 유발", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+        ]
+    },
+    {
+        english: "How many layers of moisturizer do you need in winter?",
+        korean: "겨울에 보습제를 몇 겹 바르시나요?",
+        options: [
+            { english: "Multiple layers plus facial oil", korean: "여러 겹 + 페이셜 오일까지", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "One good cream is enough", korean: "좋은 크림 하나면 충분", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Light moisturizer only, heavy feels greasy", korean: "가벼운 것만, 무거우면 기름져짐", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Heavy on cheeks, light on T-zone", korean: "볼엔 무겁게, T존엔 가볍게", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Gentle, fragrance-free products only", korean: "순하고 무향 제품만", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+        ]
+    },
+    {
+        english: "How does cold wind affect your skin?",
+        korean: "차가운 바람이 피부에 어떤 영향을 주나요?",
+        options: [
+            { english: "Causes painful dryness and chapping", korean: "고통스러운 건조함과 갈라짐 유발", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Minor discomfort, bounces back quickly", korean: "약간 불편하지만, 금방 회복됨", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Not much effect, still produces oil", korean: "큰 영향 없음, 여전히 유분 분비", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Cheeks suffer, T-zone is fine", korean: "볼은 힘들고, T존은 괜찮음", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Triggers windburn and redness", korean: "윈드번과 홍조 유발", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+        ]
+    },
+    {
+        english: "What happens to your pores in winter?",
+        korean: "겨울에 모공은 어떻게 변하나요?",
+        options: [
+            { english: "Almost invisible, skin looks flat", korean: "거의 보이지 않고, 피부가 평평해 보임", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Stay the same size year-round", korean: "일 년 내내 같은 크기 유지", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Still visible and can get clogged", korean: "여전히 보이고 막힐 수 있음", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Smaller on cheeks, larger on nose", korean: "볼은 작아지고, 코는 크게 유지", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Skin texture becomes uneven", korean: "피부결이 고르지 않게 됨", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+        ]
+    },
+    {
+        english: "What's your biggest winter skin concern?",
+        korean: "겨울철 가장 큰 피부 고민은?",
+        options: [
+            { english: "Extreme dryness and cracking", korean: "극심한 건조함과 갈라짐", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Keeping skin healthy and glowing", korean: "피부를 건강하고 윤기있게 유지", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Still dealing with oiliness and acne", korean: "여전히 유분과 여드름 관리", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Different needs for different areas", korean: "부위별로 다른 케어 필요", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Redness and reactive skin", korean: "홍조와 민감 반응", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
+        ]
+    },
+    {
+        english: "How does your morning skincare absorb in winter?",
+        korean: "겨울에 아침 스킨케어 흡수는 어떤가요?",
+        options: [
+            { english: "Absorbs instantly, needs more", korean: "즉시 흡수되고, 더 필요함", scores: { dry: 2, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Absorbs well at normal pace", korean: "적당한 속도로 잘 흡수됨", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Takes forever, sits on skin", korean: "오래 걸리고, 피부 위에 남음", scores: { dry: 0, oily: 2, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Quick on cheeks, slow on T-zone", korean: "볼은 빠르고, T존은 느림", scores: { dry: 0, oily: 0, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "Some products cause stinging", korean: "일부 제품이 따끔거림 유발", scores: { dry: 0, oily: 0, combination: 0, sensitive: 2, normal: 0 } }
         ]
     }
 ];
@@ -250,100 +331,79 @@ const proceduresData = [
 ];
 
 // App State
-let currentQuestion = 0;
-let scores = { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 };
+var currentQuestion = 0;
+var scores = { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 };
+var selectedSeason = null;
+var quizQuestions = summerQuizQuestions;
 
-// DOM Elements
-const tabBtns = document.querySelectorAll('.tab-btn');
-const tabPanels = document.querySelectorAll('.tab-panel');
-const startQuizBtn = document.getElementById('start-quiz-btn');
-const quizStart = document.getElementById('quiz-start');
-const quizQuestionsEl = document.getElementById('quiz-questions');
-const quizResult = document.getElementById('quiz-result');
-const questionContainer = document.getElementById('question-container');
-const progressFill = document.getElementById('progress-fill');
-const progressText = document.getElementById('progress-text');
-const resultContent = document.getElementById('result-content');
-const proceduresGrid = document.getElementById('procedures-grid');
+// Global Functions for onclick handlers
+function selectSeason(season) {
+    selectedSeason = season;
 
-// Initialize App
-function init() {
-    setupTabs();
-    setupQuiz();
-    renderProcedures();
+    // Set the quiz questions based on season
+    if (season === 'summer') {
+        quizQuestions = summerQuizQuestions;
+        document.getElementById('season-quiz-icon').textContent = '☀️';
+        document.getElementById('season-quiz-title').textContent = 'Summer Skin Quiz';
+        document.getElementById('season-quiz-subtitle').textContent = '여름 피부 퀴즈';
+        document.getElementById('season-quiz-desc').textContent = 'Answer 7 questions about your summer skin to get personalized hot-weather skincare recommendations!';
+        document.getElementById('season-quiz-desc-kr').textContent = '여름 피부에 대한 7가지 질문에 답하고 더운 날씨용 맞춤 스킨케어 추천을 받아보세요!';
+    } else {
+        quizQuestions = winterQuizQuestions;
+        document.getElementById('season-quiz-icon').textContent = '❄️';
+        document.getElementById('season-quiz-title').textContent = 'Winter Skin Quiz';
+        document.getElementById('season-quiz-subtitle').textContent = '겨울 피부 퀴즈';
+        document.getElementById('season-quiz-desc').textContent = 'Answer 7 questions about your winter skin to get personalized cold-weather skincare recommendations!';
+        document.getElementById('season-quiz-desc-kr').textContent = '겨울 피부에 대한 7가지 질문에 답하고 추운 날씨용 맞춤 스킨케어 추천을 받아보세요!';
+    }
+
+    // Show quiz start screen
+    document.getElementById('quiz-season-select').classList.add('hidden');
+    document.getElementById('quiz-start').classList.remove('hidden');
 }
 
-// Tab Navigation
-function setupTabs() {
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tabId = btn.dataset.tab;
-
-            // Update button states
-            tabBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Update panel visibility
-            tabPanels.forEach(panel => {
-                panel.classList.add('hidden');
-                if (panel.id === tabId) {
-                    panel.classList.remove('hidden');
-                }
-            });
-        });
-    });
-}
-
-// Quiz Functions
-function setupQuiz() {
-    startQuizBtn.addEventListener('click', startQuiz);
+function backToSeasonSelect() {
+    document.getElementById('quiz-start').classList.add('hidden');
+    document.getElementById('quiz-season-select').classList.remove('hidden');
 }
 
 function startQuiz() {
     currentQuestion = 0;
     scores = { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 };
 
-    quizStart.classList.add('hidden');
-    quizQuestionsEl.classList.remove('hidden');
-    quizResult.classList.add('hidden');
+    document.getElementById('quiz-start').classList.add('hidden');
+    document.getElementById('quiz-questions').classList.remove('hidden');
+    document.getElementById('quiz-result').classList.add('hidden');
 
     renderQuestion();
 }
 
 function renderQuestion() {
-    const question = quizQuestions[currentQuestion];
-    const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+    var question = quizQuestions[currentQuestion];
+    var progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
 
-    progressFill.style.width = `${progress}%`;
-    progressText.textContent = `${currentQuestion + 1} / ${quizQuestions.length}`;
+    document.getElementById('progress-fill').style.width = progress + '%';
+    document.getElementById('progress-text').textContent = (currentQuestion + 1) + ' / ' + quizQuestions.length;
 
-    let optionsHTML = question.options.map((option, index) => `
-        <button class="option-btn" data-index="${index}">
-            <span class="english">${option.english}</span>
-            <span class="korean">${option.korean}</span>
-        </button>
-    `).join('');
+    var optionsHTML = question.options.map(function(option, index) {
+        return '<button class="option-btn" onclick="selectOption(' + index + ')">' +
+            '<span class="english">' + option.english + '</span>' +
+            '<span class="korean">' + option.korean + '</span>' +
+        '</button>';
+    }).join('');
 
-    questionContainer.innerHTML = `
-        <p class="question-text">${question.english}</p>
-        <p class="question-text-korean">${question.korean}</p>
-        <div class="options-list">
-            ${optionsHTML}
-        </div>
-    `;
-
-    // Add click handlers to options
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.addEventListener('click', () => selectOption(parseInt(btn.dataset.index)));
-    });
+    document.getElementById('question-container').innerHTML =
+        '<p class="question-text">' + question.english + '</p>' +
+        '<p class="question-text-korean">' + question.korean + '</p>' +
+        '<div class="options-list">' + optionsHTML + '</div>';
 }
 
 function selectOption(optionIndex) {
-    const question = quizQuestions[currentQuestion];
-    const selectedScores = question.options[optionIndex].scores;
+    var question = quizQuestions[currentQuestion];
+    var selectedScores = question.options[optionIndex].scores;
 
     // Add scores
-    Object.keys(selectedScores).forEach(type => {
+    Object.keys(selectedScores).forEach(function(type) {
         scores[type] += selectedScores[type];
     });
 
@@ -357,88 +417,170 @@ function selectOption(optionIndex) {
 }
 
 function showResult() {
-    quizQuestionsEl.classList.add('hidden');
-    quizResult.classList.remove('hidden');
+    document.getElementById('quiz-questions').classList.add('hidden');
+    document.getElementById('quiz-result').classList.remove('hidden');
 
     // Find highest score
-    const skinType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-    const result = skinTypeResults[skinType];
+    var skinType = Object.keys(scores).reduce(function(a, b) {
+        return scores[a] > scores[b] ? a : b;
+    });
+    var result = skinTypeResults[skinType];
 
-    const tipsHTML = result.tips.map(tip => `<li>${tip}</li>`).join('');
-    const productsHTML = result.products.map(product => `
-        <a href="${product.link}" target="_blank" rel="noopener noreferrer" class="product-item">
-            <span class="product-emoji">${product.emoji}</span>
-            <div class="product-info">
-                <span class="product-name">${product.name}</span>
-                <span class="product-brand">${product.brand}</span>
-            </div>
-            <span class="product-arrow">→</span>
-        </a>
-    `).join('');
+    // Season-specific tip
+    var seasonTip = selectedSeason === 'summer'
+        ? '☀️ Summer tip: Use lightweight, gel-based products and reapply sunscreen!'
+        : '❄️ Winter tip: Layer hydrating products and use occlusive creams at night!';
 
-    resultContent.innerHTML = `
-        <div class="result-emoji">${result.emoji}</div>
-        <h2 class="result-type">${result.english}</h2>
-        <p class="result-type-korean">${result.korean}</p>
+    var tipsHTML = result.tips.map(function(tip) {
+        return '<li>' + tip + '</li>';
+    }).join('');
 
-        <div class="result-description">
-            <h4>About Your Skin</h4>
-            <p>${result.description}</p>
-            <h4>Care Tips</h4>
-            <ul>${tipsHTML}</ul>
-        </div>
+    var productsHTML = result.products.map(function(product) {
+        return '<a href="' + product.link + '" target="_blank" rel="noopener noreferrer" class="product-item">' +
+            '<span class="product-emoji">' + product.emoji + '</span>' +
+            '<div class="product-info">' +
+                '<span class="product-name">' + product.name + '</span>' +
+                '<span class="product-brand">' + product.brand + '</span>' +
+            '</div>' +
+            '<span class="product-arrow">→</span>' +
+        '</a>';
+    }).join('');
 
-        <div class="recommended-products">
-            <h4>🛒 Recommended Products (Olive Young)</h4>
-            ${productsHTML}
-        </div>
+    var seasonBadge = selectedSeason === 'summer' ? '☀️ Summer Result' : '❄️ Winter Result';
 
-        <button class="secondary-btn" id="retake-btn">Retake Quiz 다시하기</button>
-    `;
+    document.getElementById('result-content').innerHTML =
+        '<div class="result-emoji">' + result.emoji + '</div>' +
+        '<h2 class="result-type">' + result.english + '</h2>' +
+        '<p class="result-type-korean">' + result.korean + '</p>' +
+        '<div class="season-badge">' + seasonBadge + '</div>' +
+        '<div class="result-description">' +
+            '<h4>About Your Skin</h4>' +
+            '<p>' + result.description + '</p>' +
+            '<div class="season-tip">' + seasonTip + '</div>' +
+            '<h4>Care Tips</h4>' +
+            '<ul>' + tipsHTML + '</ul>' +
+        '</div>' +
+        '<div class="recommended-products">' +
+            '<h4>🛒 Recommended Products (Olive Young)</h4>' +
+            productsHTML +
+        '</div>' +
+        '<button class="secondary-btn" onclick="retakeQuiz()">Retake Quiz 다시하기</button>';
 
-    document.getElementById('retake-btn').addEventListener('click', () => {
-        quizResult.classList.add('hidden');
-        quizStart.classList.remove('hidden');
+    // Add animation class
+    document.getElementById('result-content').classList.add('animated');
+
+    // Create confetti effect
+    createConfetti();
+}
+
+function retakeQuiz() {
+    document.getElementById('quiz-result').classList.add('hidden');
+    document.getElementById('quiz-season-select').classList.remove('hidden');
+    document.getElementById('result-content').classList.remove('animated');
+}
+
+// Confetti Animation
+function createConfetti() {
+    var colors = ['#ff6b9d', '#c44569', '#ff9500', '#00bcd4', '#4caf50', '#ffeb3b'];
+    var container = document.createElement('div');
+    container.className = 'confetti-container';
+    document.body.appendChild(container);
+
+    for (var i = 0; i < 50; i++) {
+        var confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+
+        // Random shapes
+        var shapes = ['50%', '0%'];
+        confetti.style.borderRadius = shapes[Math.floor(Math.random() * shapes.length)];
+
+        container.appendChild(confetti);
+    }
+
+    // Remove confetti after animation
+    setTimeout(function() {
+        container.remove();
+    }, 4000);
+}
+
+// Tab Navigation
+function setupTabs() {
+    var tabBtns = document.querySelectorAll('.tab-btn');
+    var tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var tabId = btn.dataset.tab;
+
+            // Update button states
+            tabBtns.forEach(function(b) {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            // Update panel visibility
+            tabPanels.forEach(function(panel) {
+                panel.classList.add('hidden');
+                if (panel.id === tabId) {
+                    panel.classList.remove('hidden');
+                }
+            });
+        });
     });
 }
 
 // Procedures Functions
 function renderProcedures() {
-    proceduresGrid.innerHTML = proceduresData.map(procedure => `
-        <div class="procedure-card">
-            <div class="procedure-header">
-                <div>
-                    <div class="procedure-title">${procedure.english}</div>
-                    <div class="procedure-title-korean">${procedure.korean}</div>
-                </div>
-                <span class="procedure-rank">${procedure.rank}</span>
-            </div>
-            <p class="procedure-description">${procedure.description}</p>
-            <div class="procedure-details">
-                <div class="detail-item">
-                    <div class="detail-label">Price</div>
-                    <div class="detail-value">${procedure.priceKRW}</div>
-                    <div class="detail-value-sub">${procedure.priceUSD}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Duration</div>
-                    <div class="detail-value">${procedure.duration}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Downtime</div>
-                    <div class="detail-value">${procedure.downtime}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Lasts</div>
-                    <div class="detail-value">${procedure.lasts}</div>
-                </div>
-            </div>
-            <div class="procedure-tags">
-                ${procedure.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-            </div>
-        </div>
-    `).join('');
+    var proceduresGrid = document.getElementById('procedures-grid');
+    if (!proceduresGrid) return;
+
+    proceduresGrid.innerHTML = proceduresData.map(function(procedure) {
+        var tagsHTML = procedure.tags.map(function(tag) {
+            return '<span class="tag">' + tag + '</span>';
+        }).join('');
+
+        return '<div class="procedure-card">' +
+            '<div class="procedure-header">' +
+                '<div>' +
+                    '<div class="procedure-title">' + procedure.english + '</div>' +
+                    '<div class="procedure-title-korean">' + procedure.korean + '</div>' +
+                '</div>' +
+                '<span class="procedure-rank">' + procedure.rank + '</span>' +
+            '</div>' +
+            '<p class="procedure-description">' + procedure.description + '</p>' +
+            '<div class="procedure-details">' +
+                '<div class="detail-item">' +
+                    '<div class="detail-label">Price</div>' +
+                    '<div class="detail-value">' + procedure.priceKRW + '</div>' +
+                    '<div class="detail-value-sub">' + procedure.priceUSD + '</div>' +
+                '</div>' +
+                '<div class="detail-item">' +
+                    '<div class="detail-label">Duration</div>' +
+                    '<div class="detail-value">' + procedure.duration + '</div>' +
+                '</div>' +
+                '<div class="detail-item">' +
+                    '<div class="detail-label">Downtime</div>' +
+                    '<div class="detail-value">' + procedure.downtime + '</div>' +
+                '</div>' +
+                '<div class="detail-item">' +
+                    '<div class="detail-label">Lasts</div>' +
+                    '<div class="detail-value">' + procedure.lasts + '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="procedure-tags">' + tagsHTML + '</div>' +
+        '</div>';
+    }).join('');
 }
 
-// Start the app
+// Initialize App
+function init() {
+    setupTabs();
+    renderProcedures();
+}
+
+// Start the app when DOM is ready
 document.addEventListener('DOMContentLoaded', init);
