@@ -5,17 +5,17 @@
 }
 
 :root {
-    --primary-pink: #ff6b9d;
-    --secondary-pink: #c44569;
-    --light-pink: #fff0f5;
-    --gradient: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-    --shadow: 0 4px 15px rgba(196, 69, 105, 0.2);
+    --primary: #f0a060;
+    --secondary: #d4854a;
+    --light: #fdf6f0;
+    --gradient: linear-gradient(135deg, #f0a060, #e06888);
+    --shadow: 0 4px 15px rgba(240, 160, 96, 0.25);
     --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
+    background: linear-gradient(180deg, #fdf6f0 0%, #f8efe8 100%);
     min-height: 100vh;
     color: #333;
 }
@@ -32,7 +32,7 @@ body {
 
 /* Header */
 .header {
-    background: var(--gradient);
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1030 100%);
     color: white;
     text-align: center;
     padding: 25px 20px;
@@ -42,11 +42,32 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 5px;
+    background: linear-gradient(135deg, #f0a060, #e8618c, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .subtitle {
     font-size: 0.9rem;
     opacity: 0.9;
+}
+
+.glow-icon {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #f0a060;
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 0 12px #f0a060, 0 0 24px rgba(240,160,96,0.4);
+    animation: glowPulse 2s ease-in-out infinite;
+    vertical-align: middle;
+}
+
+@keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 12px #f0a060, 0 0 24px rgba(240,160,96,0.4); }
+    50% { box-shadow: 0 0 20px #f0a060, 0 0 40px rgba(240,160,96,0.6); }
 }
 
 /* Tab Navigation */
@@ -73,7 +94,7 @@ body {
 }
 
 .tab-btn.active {
-    color: var(--primary-pink);
+    color: var(--primary);
 }
 
 .tab-btn.active::after {
@@ -126,7 +147,7 @@ body {
 }
 
 .quiz-intro-card h2 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.5rem;
     margin-bottom: 5px;
 }
@@ -165,7 +186,7 @@ body {
 
 .primary-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(196, 69, 105, 0.3);
+    box-shadow: 0 6px 20px rgba(212, 133, 74, 0.3);
 }
 
 .primary-btn:active {
@@ -228,7 +249,7 @@ body {
 }
 
 .option-btn {
-    background: var(--light-pink);
+    background: var(--light);
     border: 2px solid transparent;
     padding: 15px 18px;
     border-radius: 12px;
@@ -239,7 +260,7 @@ body {
 }
 
 .option-btn:hover {
-    border-color: var(--primary-pink);
+    border-color: var(--primary);
     transform: translateX(5px);
 }
 
@@ -273,7 +294,7 @@ body {
 .result-type {
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--secondary-pink);
+    color: var(--secondary);
     margin-bottom: 5px;
 }
 
@@ -305,7 +326,7 @@ body {
 }
 
 .result-description {
-    background: var(--light-pink);
+    background: var(--light);
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 25px;
@@ -313,7 +334,7 @@ body {
 }
 
 .result-description h4 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     margin-bottom: 10px;
     font-size: 1rem;
 }
@@ -334,7 +355,7 @@ body {
     padding: 8px 0;
     color: #555;
     font-size: 0.9rem;
-    border-bottom: 1px solid rgba(196, 69, 105, 0.1);
+    border-bottom: 1px solid rgba(212, 133, 74, 0.1);
 }
 
 .result-description li:last-child {
@@ -347,7 +368,7 @@ body {
 }
 
 .recommended-products h4 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     margin-bottom: 15px;
     font-size: 1rem;
 }
@@ -357,7 +378,7 @@ body {
     align-items: center;
     gap: 12px;
     padding: 12px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 12px;
     margin-bottom: 10px;
     text-decoration: none;
@@ -392,14 +413,14 @@ body {
 }
 
 .product-arrow {
-    color: var(--primary-pink);
+    color: var(--primary);
     font-size: 1.2rem;
 }
 
 .secondary-btn {
     background: white;
-    color: var(--secondary-pink);
-    border: 2px solid var(--secondary-pink);
+    color: var(--secondary);
+    border: 2px solid var(--secondary);
     padding: 12px 30px;
     font-size: 1rem;
     font-weight: 600;
@@ -409,14 +430,14 @@ body {
 }
 
 .secondary-btn:hover {
-    background: var(--secondary-pink);
+    background: var(--secondary);
     color: white;
 }
 
 /* Procedures Section */
 .section-title {
     text-align: center;
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.3rem;
     margin-bottom: 5px;
 }
@@ -439,13 +460,13 @@ body {
     border-radius: 16px;
     padding: 16px 20px;
     box-shadow: var(--card-shadow);
-    border-left: 4px solid var(--primary-pink);
+    border-left: 4px solid var(--primary);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .procedure-card:hover {
-    box-shadow: 0 8px 30px rgba(196, 69, 105, 0.18);
+    box-shadow: 0 8px 30px rgba(212, 133, 74, 0.18);
 }
 
 .procedure-card .procedure-body {
@@ -471,7 +492,7 @@ body {
 
 .procedure-card.open .procedure-chevron {
     transform: rotate(180deg);
-    color: var(--primary-pink);
+    color: var(--primary);
 }
 
 .procedure-header-right {
@@ -491,7 +512,7 @@ body {
 .procedure-title {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--secondary-pink);
+    color: var(--secondary);
 }
 
 .procedure-title-korean {
@@ -525,7 +546,7 @@ body {
 }
 
 .detail-item {
-    background: var(--light-pink);
+    background: var(--light);
     padding: 10px 12px;
     border-radius: 10px;
 }
@@ -584,7 +605,7 @@ body {
 }
 
 .feature-card h3 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.1rem;
     margin-bottom: 5px;
 }
@@ -613,7 +634,7 @@ body {
 }
 
 .subsection-title {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1rem;
     margin: 20px 0 15px;
     padding-bottom: 10px;
@@ -645,12 +666,12 @@ body {
 
 .sub-tab-btn.active {
     background: white;
-    color: var(--secondary-pink);
+    color: var(--secondary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sub-tab-btn:hover:not(.active) {
-    color: var(--primary-pink);
+    color: var(--primary);
 }
 
 .sub-tab-panel {
@@ -687,8 +708,8 @@ body {
 }
 
 .filter-btn:hover:not(.active) {
-    border-color: var(--primary-pink);
-    color: var(--primary-pink);
+    border-color: var(--primary);
+    color: var(--primary);
 }
 
 .clinics-grid {
@@ -824,7 +845,7 @@ body {
 }
 
 .coming-soon-card h2 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.5rem;
     margin-bottom: 5px;
 }
@@ -860,7 +881,7 @@ body {
 
 .feature-list li {
     padding: 12px 15px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 10px;
     margin-bottom: 10px;
     color: #555;
@@ -897,7 +918,7 @@ body {
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: var(--light-pink);
+    background: var(--light);
 }
 
 .season-btn:hover {
@@ -958,7 +979,7 @@ body {
 }
 
 .scanner-preview h2 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.5rem;
     margin-bottom: 5px;
 }
@@ -978,9 +999,9 @@ body {
     width: 200px;
     height: 200px;
     margin: 0 auto 15px;
-    border: 3px dashed var(--primary-pink);
+    border: 3px dashed var(--primary);
     border-radius: 20px;
-    background: rgba(255, 107, 157, 0.05);
+    background: rgba(240, 160, 96, 0.05);
 }
 
 .fake-scanner-ui p {
@@ -1008,8 +1029,8 @@ body {
     border-radius: 25px;
     padding: 35px 40px;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(196, 69, 105, 0.3);
-    border: 3px solid var(--primary-pink);
+    box-shadow: 0 20px 60px rgba(212, 133, 74, 0.3);
+    border: 3px solid var(--primary);
 }
 
 .popup-icon {
@@ -1024,7 +1045,7 @@ body {
 }
 
 .popup-content h2 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.8rem;
     margin-bottom: 5px;
 }
@@ -1137,7 +1158,7 @@ body {
     position: absolute;
     width: 10px;
     height: 10px;
-    background: var(--primary-pink);
+    background: var(--primary);
     animation: confettiFall 3s ease-out forwards;
 }
 
@@ -1166,7 +1187,7 @@ body {
 }
 
 .pc-start-card h2 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.5rem;
     margin-bottom: 5px;
 }
@@ -1220,7 +1241,7 @@ body {
 .worst-colors {
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid rgba(196, 69, 105, 0.1);
+    border-top: 1px solid rgba(212, 133, 74, 0.1);
 }
 
 .worst-colors h4 {
@@ -1242,18 +1263,18 @@ body {
 .celeb-section {
     margin-top: 20px;
     padding-top: 15px;
-    border-top: 1px solid rgba(196, 69, 105, 0.1);
+    border-top: 1px solid rgba(212, 133, 74, 0.1);
 }
 
 .celeb-section h4 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 0.9rem;
     margin-bottom: 10px;
 }
 
 .celeb-item {
     display: inline-block;
-    background: var(--light-pink);
+    background: var(--light);
     padding: 6px 14px;
     border-radius: 15px;
     font-size: 0.8rem;
@@ -1268,17 +1289,17 @@ body {
     padding: 16px 20px;
     box-shadow: var(--card-shadow);
     margin-bottom: 15px;
-    border-left: 4px solid var(--primary-pink);
+    border-left: 4px solid var(--primary);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .content-card:hover {
-    box-shadow: 0 8px 30px rgba(196, 69, 105, 0.18);
+    box-shadow: 0 8px 30px rgba(212, 133, 74, 0.18);
 }
 
 .content-card h3 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.1rem;
     margin-bottom: 2px;
 }
@@ -1306,7 +1327,7 @@ body {
 
 .content-card.open .content-chevron {
     transform: rotate(180deg);
-    color: var(--primary-pink);
+    color: var(--primary);
 }
 
 .content-card-body {
@@ -1342,7 +1363,7 @@ body {
     gap: 12px;
     align-items: flex-start;
     padding: 12px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 12px;
 }
 
@@ -1395,7 +1416,7 @@ body {
     gap: 12px;
     align-items: flex-start;
     padding: 12px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 12px;
 }
 
@@ -1426,7 +1447,7 @@ body {
 
 .tip-item {
     padding: 12px 15px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 12px;
     color: #555;
     font-size: 0.88rem;
@@ -1449,7 +1470,7 @@ body {
     gap: 12px;
     align-items: flex-start;
     padding: 12px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 12px;
 }
 
@@ -1479,12 +1500,12 @@ body {
 
 .makeup-season {
     padding: 12px 15px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 12px;
 }
 
 .makeup-season strong {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 0.9rem;
 }
 
@@ -1503,7 +1524,7 @@ body {
 }
 
 .food-section h4 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 0.95rem;
     margin-bottom: 8px;
 }
@@ -1522,7 +1543,7 @@ body {
 }
 
 .food-bad {
-    background: #fce4ec;
+    background: #fef2e8;
     color: #c62828;
 }
 
@@ -1542,7 +1563,7 @@ body {
 }
 
 .footer-links a:hover {
-    color: var(--primary-pink);
+    color: var(--primary);
 }
 
 .footer-copy {
@@ -1601,19 +1622,19 @@ body {
 }
 
 .page-modal-close:hover {
-    background: var(--primary-pink);
+    background: var(--primary);
     color: white;
 }
 
 .page-modal-content h2 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.4rem;
     margin-bottom: 5px;
     padding-right: 40px;
 }
 
 .page-modal-content h3 {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 1.05rem;
     margin: 20px 0 10px;
 }
@@ -1644,7 +1665,7 @@ body {
 }
 
 .page-modal-content a {
-    color: var(--primary-pink);
+    color: var(--primary);
 }
 
 .contact-info {
@@ -1656,12 +1677,12 @@ body {
 
 .contact-item {
     padding: 15px;
-    background: var(--light-pink);
+    background: var(--light);
     border-radius: 12px;
 }
 
 .contact-item strong {
-    color: var(--secondary-pink);
+    color: var(--secondary);
     font-size: 0.9rem;
     display: block;
     margin-bottom: 4px;
