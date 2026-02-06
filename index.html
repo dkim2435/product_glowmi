@@ -34,7 +34,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7280155441452276"
      crossorigin="anonymous"></script>
     <script type="module">
-        import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs";
+        import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
         window.FaceLandmarker = FaceLandmarker;
         window.FilesetResolver = FilesetResolver;
     </script>
@@ -2210,7 +2210,7 @@ async function initFaceLandmarker() {
     await waitForMediaPipe(10000);
 
     var vision = await window.FilesetResolver.forVisionTasks(
-        'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm'
+        'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
     );
 
     // Try GPU first, fall back to CPU
