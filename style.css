@@ -96,6 +96,9 @@ body {
 
 .tab-panel {
     animation: fadeIn 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .tab-panel.hidden {
