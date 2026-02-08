@@ -38,6 +38,7 @@
         window.FaceLandmarker = FaceLandmarker;
         window.FilesetResolver = FilesetResolver;
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -527,6 +528,73 @@
                     <!-- Screen 5: Result -->
                     <div id="pc-result" class="pc-screen hidden">
                         <div id="pc-result-content" class="result-card"></div>
+                    </div>
+                </div>
+
+                <!-- AI Ingredient Scanner -->
+                <div id="ia-section">
+                    <!-- Screen 1: Start -->
+                    <div id="ia-start" class="ia-screen">
+                        <div class="pc-start-card">
+                            <div class="quiz-icon">📋</div>
+                            <h2>AI Ingredient Scanner</h2>
+                            <h3>AI 성분 스캐너</h3>
+                            <p>Snap a photo of any product's ingredient list and get an instant analysis powered by OCR.</p>
+                            <p class="korean">제품 성분표를 촬영하면 OCR로 즉시 성분 분석을 해드려요.</p>
+                            <div class="pc-btn-group">
+                                <button class="primary-btn" onclick="startIACamera()">📸 Take Photo 촬영</button>
+                                <button class="secondary-btn" onclick="triggerIAUpload()">🖼️ Upload Image 업로드</button>
+                                <input type="file" id="ia-file-input" accept="image/*" style="display:none" onchange="handleIAUpload(event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Camera / Preview -->
+                    <div id="ia-camera" class="ia-screen hidden">
+                        <div class="ia-camera-card">
+                            <div class="ia-camera-wrapper">
+                                <video id="ia-video" autoplay playsinline></video>
+                                <canvas id="ia-canvas" style="display:none"></canvas>
+                                <img id="ia-preview" style="display:none" alt="Preview">
+                                <div id="ia-scan-guide" class="ia-scan-guide">
+                                    <div class="ia-scan-frame"></div>
+                                    <p class="ia-scan-hint">Align ingredient list inside the frame<br>성분표를 프레임 안에 맞춰주세요</p>
+                                </div>
+                            </div>
+                            <div id="ia-camera-controls" class="pc-controls">
+                                <button class="secondary-btn" onclick="cancelIACamera()">← Back 뒤로</button>
+                                <button class="primary-btn" id="ia-capture-btn" onclick="captureIAPhoto()">📸 Capture 촬영</button>
+                            </div>
+                            <div id="ia-preview-controls" class="pc-controls hidden">
+                                <button class="secondary-btn" onclick="retakeIAPhoto()">↩️ Retake 다시</button>
+                                <button class="primary-btn" onclick="scanIngredients()">🔍 Scan 스캔</button>
+                            </div>
+                            <p id="ia-cam-error" class="fs-error hidden"></p>
+                        </div>
+                    </div>
+
+                    <!-- Screen 3: Scanning -->
+                    <div id="ia-scanning" class="ia-screen hidden">
+                        <div class="pc-analyzing-card">
+                            <div class="pc-analyzing-spinner"></div>
+                            <h3 id="ia-scan-status">Scanning ingredients...</h3>
+                            <p class="korean">성분을 스캔하고 있어요...</p>
+                            <div class="ia-progress-bar"><div id="ia-progress-fill" class="progress-fill" style="width:0%"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Screen 4: Result -->
+                    <div id="ia-result" class="ia-screen hidden">
+                        <div class="ia-result-card">
+                            <div class="ia-ocr-section">
+                                <button class="ia-ocr-toggle" onclick="toggleOCRText()">📝 Show OCR Text <span class="korean">원문 보기</span> <span id="ia-ocr-chevron" class="content-chevron">&#9660;</span></button>
+                                <div id="ia-ocr-text" class="ia-ocr-text hidden"></div>
+                            </div>
+                            <div id="ia-results" class="analyzer-results"></div>
+                            <div class="ia-result-actions">
+                                <button class="secondary-btn" onclick="retakeIAPhoto()">↩️ Scan Another 다시 스캔</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1238,8 +1306,8 @@ function analyzeIngredients() {
     renderAnalysisResults(recognized, unknown, actives, warnings);
 }
 
-function renderAnalysisResults(recognized, unknown, actives, warnings) {
-    var container = document.getElementById('analyzer-results');
+function renderAnalysisResults(recognized, unknown, actives, warnings, containerId) {
+    var container = document.getElementById(containerId || 'analyzer-results');
     var html = '';
 
     // Summary stats
@@ -2788,6 +2856,223 @@ function retryFaceShape() {
     fsCapturedImageData = null;
     document.getElementById('fs-result-content').classList.remove('animated');
     showFsScreen('fs-start');
+}
+
+// ========== AI Ingredient Scanner ==========
+var iaStream = null;
+var iaCapturedImageData = null;
+
+function showIaScreen(screenId) {
+    var screens = document.querySelectorAll('#ia-section .ia-screen');
+    for (var i = 0; i < screens.length; i++) {
+        screens[i].classList.add('hidden');
+    }
+    document.getElementById(screenId).classList.remove('hidden');
+}
+
+function showIaError(msg) {
+    var el = document.getElementById('ia-cam-error');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+    setTimeout(function() { el.classList.add('hidden'); }, 5000);
+}
+
+async function startIACamera() {
+    showIaScreen('ia-camera');
+    document.getElementById('ia-camera-controls').classList.remove('hidden');
+    document.getElementById('ia-preview-controls').classList.add('hidden');
+    document.getElementById('ia-cam-error').classList.add('hidden');
+    document.getElementById('ia-scan-guide').style.display = '';
+    document.getElementById('ia-preview').style.display = 'none';
+
+    var video = document.getElementById('ia-video');
+    video.style.display = '';
+
+    try {
+        iaStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 960 } }
+        });
+        video.srcObject = iaStream;
+    } catch (e) {
+        stopIACamera();
+        showIaScreen('ia-start');
+        var startCard = document.querySelector('#ia-start .pc-start-card');
+        var existingErr = startCard.querySelector('.fs-error');
+        if (!existingErr) {
+            var errP = document.createElement('p');
+            errP.className = 'fs-error';
+            errP.textContent = 'Camera not available. Please use image upload. 카메라를 사용할 수 없습니다. 이미지 업로드를 이용해주세요.';
+            startCard.appendChild(errP);
+            setTimeout(function() { errP.remove(); }, 5000);
+        }
+    }
+}
+
+function stopIACamera() {
+    if (iaStream) {
+        var tracks = iaStream.getTracks();
+        for (var i = 0; i < tracks.length; i++) {
+            tracks[i].stop();
+        }
+        iaStream = null;
+    }
+}
+
+function captureIAPhoto() {
+    var video = document.getElementById('ia-video');
+    var canvas = document.getElementById('ia-canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0);
+
+    stopIACamera();
+    var dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    var preview = document.getElementById('ia-preview');
+    preview.src = dataUrl;
+    preview.style.display = '';
+    video.style.display = 'none';
+    document.getElementById('ia-scan-guide').style.display = 'none';
+    document.getElementById('ia-camera-controls').classList.add('hidden');
+    document.getElementById('ia-preview-controls').classList.remove('hidden');
+    iaCapturedImageData = dataUrl;
+}
+
+function triggerIAUpload() {
+    document.getElementById('ia-file-input').click();
+}
+
+function handleIAUpload(event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+        showIaError('Please upload an image file. 이미지 파일을 업로드해주세요.');
+        return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+        showIaError('File is too large (max 10MB). 파일이 너무 큽니다 (최대 10MB).');
+        return;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        iaCapturedImageData = e.target.result;
+        showIaScreen('ia-camera');
+        var preview = document.getElementById('ia-preview');
+        preview.src = iaCapturedImageData;
+        preview.style.display = '';
+        document.getElementById('ia-video').style.display = 'none';
+        document.getElementById('ia-scan-guide').style.display = 'none';
+        document.getElementById('ia-camera-controls').classList.add('hidden');
+        document.getElementById('ia-preview-controls').classList.remove('hidden');
+    };
+    reader.readAsDataURL(file);
+    event.target.value = '';
+}
+
+function retakeIAPhoto() {
+    iaCapturedImageData = null;
+    stopIACamera();
+    showIaScreen('ia-start');
+}
+
+function cancelIACamera() {
+    stopIACamera();
+    iaCapturedImageData = null;
+    showIaScreen('ia-start');
+}
+
+function parseOCRText(text) {
+    // Normalize: replace newlines, tabs, and multiple spaces
+    var normalized = text.replace(/[\r\n\t]+/g, ', ').replace(/\s{2,}/g, ' ');
+    // Split on commas, semicolons, slashes, or bullet-like separators
+    var parts = normalized.split(/[,;/·•|]+/);
+    var names = [];
+    for (var i = 0; i < parts.length; i++) {
+        // Remove parenthetical content like "(12%)" but keep ingredient names in parens
+        var cleaned = parts[i].trim()
+            .replace(/^\d+[\.\)]\s*/, '')       // remove leading numbers like "1." or "2)"
+            .replace(/\(\d+%?\)/g, '')           // remove "(12%)" type annotations
+            .replace(/[^\w\s\-\(\)가-힣ㄱ-ㅎㅏ-ㅣéèêëàâäùûüôöîïçñ]/g, '')  // keep letters, Korean, hyphens, parens
+            .trim();
+        if (cleaned.length >= 3 && cleaned.length <= 80) {
+            names.push(cleaned);
+        }
+    }
+    return names;
+}
+
+async function scanIngredients() {
+    if (!iaCapturedImageData) return;
+
+    showIaScreen('ia-scanning');
+    var statusEl = document.getElementById('ia-scan-status');
+    var progressFill = document.getElementById('ia-progress-fill');
+    statusEl.textContent = 'Initializing OCR...';
+    progressFill.style.width = '10%';
+
+    try {
+        var result = await Tesseract.recognize(iaCapturedImageData, 'eng+kor', {
+            logger: function(m) {
+                if (m.status === 'recognizing text') {
+                    var pct = Math.round(m.progress * 100);
+                    progressFill.style.width = Math.max(10, pct) + '%';
+                    statusEl.textContent = 'Scanning... ' + pct + '%';
+                }
+            }
+        });
+
+        var ocrText = result.data.text;
+        if (!ocrText || ocrText.trim().length < 5) {
+            showIaScreen('ia-camera');
+            document.getElementById('ia-preview-controls').classList.remove('hidden');
+            document.getElementById('ia-camera-controls').classList.add('hidden');
+            showIaError('Could not read any text. Try a clearer photo. 텍스트를 읽을 수 없습니다. 더 선명한 사진을 찍어주세요.');
+            return;
+        }
+
+        // Parse OCR text into ingredient names
+        var ingredientNames = parseOCRText(ocrText);
+
+        if (ingredientNames.length === 0) {
+            showIaScreen('ia-camera');
+            document.getElementById('ia-preview-controls').classList.remove('hidden');
+            document.getElementById('ia-camera-controls').classList.add('hidden');
+            showIaError('No ingredients detected. Try a clearer photo. 성분을 감지하지 못했습니다. 더 선명한 사진을 찍어주세요.');
+            return;
+        }
+
+        // Lookup each ingredient
+        var results = ingredientNames.map(function(n) { return lookupIngredient(n); });
+        var recognized = results.filter(function(r) { return r.found; });
+        var unknown = results.filter(function(r) { return !r.found; });
+        var actives = recognized.filter(function(r) {
+            return r.data.rating === 'great' && (r.data.category === 'active' || r.data.category === 'ferment' || r.data.category === 'soothing');
+        });
+        var warnings = recognized.filter(function(r) {
+            return r.data.rating === 'poor' || r.data.rating === 'bad';
+        });
+
+        // Show OCR raw text
+        document.getElementById('ia-ocr-text').textContent = ocrText;
+
+        // Render results
+        renderAnalysisResults(recognized, unknown, actives, warnings, 'ia-results');
+        showIaScreen('ia-result');
+
+    } catch (err) {
+        showIaScreen('ia-camera');
+        document.getElementById('ia-preview-controls').classList.remove('hidden');
+        document.getElementById('ia-camera-controls').classList.add('hidden');
+        showIaError('Scan failed: ' + err.message + ' 스캔에 실패했습니다.');
+    }
+}
+
+function toggleOCRText() {
+    var textEl = document.getElementById('ia-ocr-text');
+    var chevron = document.getElementById('ia-ocr-chevron');
+    textEl.classList.toggle('hidden');
+    chevron.style.transform = textEl.classList.contains('hidden') ? '' : 'rotate(180deg)';
 }
 
 document.addEventListener('DOMContentLoaded', function() {

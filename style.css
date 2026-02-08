@@ -2669,4 +2669,162 @@ body {
     .pc-analyzing-card {
         padding: 40px 20px;
     }
+
+    .ia-camera-card {
+        padding: 15px;
+    }
+}
+
+/* ========== AI Ingredient Scanner ========== */
+.ia-screen.hidden {
+    display: none;
+}
+
+.ia-camera-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+.ia-camera-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: #1a1a2e;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.ia-camera-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* No mirroring — rear camera for reading text */
+}
+
+.ia-camera-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Rectangular scan guide */
+.ia-scan-guide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.ia-scan-frame {
+    width: 85%;
+    height: 50%;
+    border: 2.5px dashed rgba(255, 107, 157, 0.8);
+    border-radius: 12px;
+    animation: ia-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ia-pulse {
+    0%, 100% { border-color: rgba(255, 107, 157, 0.8); box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.2); }
+    50% { border-color: rgba(255, 107, 157, 1); box-shadow: 0 0 20px 4px rgba(255, 107, 157, 0.15); }
+}
+
+.ia-scan-hint {
+    margin-top: 12px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    line-height: 1.5;
+}
+
+/* Progress bar in scanning screen */
+.ia-progress-bar {
+    width: 80%;
+    max-width: 240px;
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    margin: 16px auto 0;
+    overflow: hidden;
+}
+
+.ia-progress-bar .progress-fill {
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* Result card */
+.ia-result-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+}
+
+/* OCR text toggle */
+.ia-ocr-section {
+    margin-bottom: 16px;
+}
+
+.ia-ocr-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--light-pink);
+    border: 1px solid #f0d0dd;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--secondary-pink);
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.ia-ocr-toggle:hover {
+    background: #ffe4ec;
+}
+
+.ia-ocr-toggle .content-chevron {
+    margin-left: auto;
+    font-size: 0.7rem;
+    transition: transform 0.3s;
+}
+
+.ia-ocr-toggle .korean {
+    font-weight: 400;
+    color: #888;
+}
+
+.ia-ocr-text {
+    margin-top: 10px;
+    padding: 12px;
+    background: #f8f8f8;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ia-ocr-text.hidden {
+    display: none;
+}
+
+.ia-result-actions {
+    margin-top: 20px;
+    text-align: center;
 }
