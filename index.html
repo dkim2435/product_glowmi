@@ -438,21 +438,24 @@
                     <div class="clinics-grid" id="clinics-grid"></div>
                 </div>
 
-                <!-- Understanding Procedures Guide -->
-                <div class="content-card" onclick="toggleContent(this)">
-                    <div class="content-card-header"><div><h3>Understanding K-Beauty Procedures</h3><p class="content-subtitle">K-뷰티 시술 이해하기</p></div><span class="content-chevron">&#9660;</span></div>
-                    <div class="content-card-body">
-                        <p class="content-text">Korea is the global capital of aesthetic procedures. Here is what first-timers should know before visiting a clinic:</p>
-                        <div class="tip-list">
-                            <div class="tip-item"><strong>Consultation is always first.</strong> Every reputable clinic provides a free consultation. The doctor examines your skin and recommends the right treatment.</div>
-                            <div class="tip-item"><strong>Non-surgical is mainstream.</strong> Most popular treatments like Botox, fillers, and laser toning are non-surgical with little to no downtime.</div>
-                            <div class="tip-item"><strong>Prices are competitive.</strong> Korean clinics offer world-class treatments at a fraction of Western prices, which is why medical tourism is booming.</div>
-                            <div class="tip-item"><strong>Maintenance matters.</strong> Botox lasts 3-6 months, fillers 6-18 months, and laser results are cumulative. Plan for follow-up visits.</div>
-                            <div class="tip-item"><strong>Ask about English support.</strong> Many Gangnam clinics have English-speaking staff or translators. Check our Treatments tab for English-friendly options.</div>
-                        </div>
+            </section>
+
+            <!-- Procedures Guide Popup -->
+            <div id="procedures-guide-modal" class="page-modal hidden" onclick="if(event.target===this)closeProceduresGuide()">
+                <div class="page-modal-content procedures-guide-popup">
+                    <button class="page-modal-close" onclick="closeProceduresGuide()">&times;</button>
+                    <h2>Understanding K-Beauty Procedures</h2>
+                    <p class="procedures-guide-subtitle">K-뷰티 시술 이해하기</p>
+                    <p class="content-text">Korea is the global capital of aesthetic procedures. Here is what first-timers should know before visiting a clinic:</p>
+                    <div class="tip-list">
+                        <div class="tip-item"><strong>Consultation is always first.</strong> Every reputable clinic provides a free consultation. The doctor examines your skin and recommends the right treatment.</div>
+                        <div class="tip-item"><strong>Non-surgical is mainstream.</strong> Most popular treatments like Botox, fillers, and laser toning are non-surgical with little to no downtime.</div>
+                        <div class="tip-item"><strong>Prices are competitive.</strong> Korean clinics offer world-class treatments at a fraction of Western prices, which is why medical tourism is booming.</div>
+                        <div class="tip-item"><strong>Maintenance matters.</strong> Botox lasts 3-6 months, fillers 6-18 months, and laser results are cumulative. Plan for follow-up visits.</div>
+                        <div class="tip-item"><strong>Ask about English support.</strong> Many Gangnam clinics have English-speaking staff or translators. Look for the English-friendly badge on clinic cards.</div>
                     </div>
                 </div>
-            </section>
+            </div>
 
             <!-- AI Beauty Tab -->
             <section id="ai" class="tab-panel hidden">
@@ -2229,8 +2232,16 @@ function setupTabs() {
             for (var k = 0; k < panels.length; k++) panels[k].classList.add('hidden');
             this.classList.add('active');
             document.getElementById(tabId).classList.remove('hidden');
+            if (tabId === 'procedures' && !sessionStorage.getItem('proceduresGuideSeen')) {
+                document.getElementById('procedures-guide-modal').classList.remove('hidden');
+            }
         });
     }
+}
+
+function closeProceduresGuide() {
+    document.getElementById('procedures-guide-modal').classList.add('hidden');
+    sessionStorage.setItem('proceduresGuideSeen', '1');
 }
 
 function renderClinics(filter) {

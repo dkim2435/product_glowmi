@@ -431,7 +431,19 @@ body {
 .procedures-grid {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px;
+}
+
+.procedures-guide-popup h2 {
+    color: var(--secondary-pink);
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.procedures-guide-subtitle {
+    color: #999;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
 }
 
 .procedure-card {
@@ -694,7 +706,7 @@ body {
 .clinics-grid {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 18px;
 }
 
 .clinic-card {
