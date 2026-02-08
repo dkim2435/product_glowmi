@@ -51,8 +51,8 @@
         <!-- Tab Navigation -->
         <nav class="tab-nav">
             <button class="tab-btn active" data-tab="quiz">Quiz</button>
-            <button class="tab-btn" data-tab="products">Products</button>
-            <button class="tab-btn" data-tab="procedures">Clinics</button>
+            <button class="tab-btn" data-tab="products">Skincare</button>
+            <button class="tab-btn" data-tab="procedures">Treatments</button>
             <button class="tab-btn" data-tab="ai">AI Beauty</button>
             <button class="tab-btn" data-tab="wellness">Wellness</button>
         </nav>
@@ -408,7 +408,7 @@
 
             <!-- Procedures/Clinics Tab -->
             <section id="procedures" class="tab-panel hidden">
-                <h2 class="section-title">K-Beauty Clinics</h2>
+                <h2 class="section-title">K-Beauty Treatments</h2>
                 <p class="section-subtitle">한국 피부과 & 시술 정보</p>
 
                 <!-- Sub Tab Navigation -->
@@ -436,6 +436,21 @@
                         <button class="filter-btn" onclick="filterClinics('aquapeel', event)">Aqua Peel</button>
                     </div>
                     <div class="clinics-grid" id="clinics-grid"></div>
+                </div>
+
+                <!-- Understanding Procedures Guide -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>Understanding K-Beauty Procedures</h3><p class="content-subtitle">K-뷰티 시술 이해하기</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <p class="content-text">Korea is the global capital of aesthetic procedures. Here is what first-timers should know before visiting a clinic:</p>
+                        <div class="tip-list">
+                            <div class="tip-item"><strong>Consultation is always first.</strong> Every reputable clinic provides a free consultation. The doctor examines your skin and recommends the right treatment.</div>
+                            <div class="tip-item"><strong>Non-surgical is mainstream.</strong> Most popular treatments like Botox, fillers, and laser toning are non-surgical with little to no downtime.</div>
+                            <div class="tip-item"><strong>Prices are competitive.</strong> Korean clinics offer world-class treatments at a fraction of Western prices, which is why medical tourism is booming.</div>
+                            <div class="tip-item"><strong>Maintenance matters.</strong> Botox lasts 3-6 months, fillers 6-18 months, and laser results are cumulative. Plan for follow-up visits.</div>
+                            <div class="tip-item"><strong>Ask about English support.</strong> Many Gangnam clinics have English-speaking staff or translators. Check our Treatments tab for English-friendly options.</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -560,21 +575,6 @@
                     <!-- Screen 5: Result -->
                     <div id="pc-result" class="pc-screen hidden">
                         <div id="pc-result-content" class="result-card"></div>
-                    </div>
-                </div>
-
-                <!-- Popular Procedures Explained -->
-                <div class="content-card" onclick="toggleContent(this)">
-                    <div class="content-card-header"><div><h3>Understanding K-Beauty Procedures</h3><p class="content-subtitle">K-뷰티 시술 이해하기</p></div><span class="content-chevron">&#9660;</span></div>
-                    <div class="content-card-body">
-                        <p class="content-text">Korea is the global capital of aesthetic procedures. Here is what first-timers should know before visiting a clinic:</p>
-                        <div class="tip-list">
-                            <div class="tip-item"><strong>Consultation is always first.</strong> Every reputable clinic provides a free consultation. The doctor examines your skin and recommends the right treatment.</div>
-                            <div class="tip-item"><strong>Non-surgical is mainstream.</strong> Most popular treatments like Botox, fillers, and laser toning are non-surgical with little to no downtime.</div>
-                            <div class="tip-item"><strong>Prices are competitive.</strong> Korean clinics offer world-class treatments at a fraction of Western prices, which is why medical tourism is booming.</div>
-                            <div class="tip-item"><strong>Maintenance matters.</strong> Botox lasts 3-6 months, fillers 6-18 months, and laser results are cumulative. Plan for follow-up visits.</div>
-                            <div class="tip-item"><strong>Ask about English support.</strong> Many Gangnam clinics have English-speaking staff or translators. Check our Clinics tab for English-friendly options.</div>
-                        </div>
                     </div>
                 </div>
 

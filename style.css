@@ -2257,14 +2257,22 @@ body {
 
 .analyzer-buttons {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
     justify-content: center;
     margin-top: 14px;
 }
 
+.analyzer-buttons .secondary-btn {
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
 .analyzer-btn {
-    padding: 12px 28px;
-    font-size: 0.95rem;
+    padding: 10px 22px;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .analyzer-clear-btn {
