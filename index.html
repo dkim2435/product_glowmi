@@ -165,6 +165,30 @@
                     <div id="analyzer-results" class="analyzer-results"></div>
                 </div>
 
+                <!-- Product Compatibility Checker -->
+                <div class="analyzer-tool">
+                    <div class="analyzer-icon">⚗️</div>
+                    <h3 class="analyzer-title">Product Compatibility Checker</h3>
+                    <p class="analyzer-title-kr">제품 궁합 체크</p>
+                    <p class="analyzer-desc">Paste two products' ingredient lists to check for conflicts.</p>
+                    <div class="compat-inputs">
+                        <div class="compat-input-group">
+                            <label class="compat-label">Product A 제품 A</label>
+                            <textarea id="compat-input-a" class="analyzer-textarea" placeholder="e.g. Water, Glycerin, Retinol, Tocopherol…" rows="3"></textarea>
+                        </div>
+                        <div class="compat-vs">VS</div>
+                        <div class="compat-input-group">
+                            <label class="compat-label">Product B 제품 B</label>
+                            <textarea id="compat-input-b" class="analyzer-textarea" placeholder="e.g. Water, Niacinamide, Glycolic Acid…" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="analyzer-buttons">
+                        <button class="primary-btn analyzer-btn" onclick="checkCompatibility()">Check 궁합 체크</button>
+                        <button class="secondary-btn analyzer-clear-btn" onclick="clearCompatibility()">Clear</button>
+                    </div>
+                    <div id="compat-results" class="analyzer-results"></div>
+                </div>
+
                 <!-- 10-Step Routine Guide -->
                 <div class="content-card" onclick="toggleContent(this)">
                     <div class="content-card-header"><div><h3>The Korean 10-Step Skincare Routine</h3><p class="content-subtitle">한국식 10단계 스킨케어 루틴</p></div><span class="content-chevron">&#9660;</span></div>
@@ -578,6 +602,57 @@
                     <!-- Screen 5: Result -->
                     <div id="pc-result" class="pc-screen hidden">
                         <div id="pc-result-content" class="result-card"></div>
+                    </div>
+                </div>
+
+                <!-- AI Skin Condition Analyzer -->
+                <div id="skin-section">
+                    <!-- Screen 1: Start -->
+                    <div id="skin-start" class="skin-screen">
+                        <div class="pc-start-card">
+                            <div class="quiz-icon">🔬</div>
+                            <h2>AI Skin Condition Analyzer</h2>
+                            <h3>AI 피부 상태 진단</h3>
+                            <p>Take a photo or upload a selfie to analyze your skin condition and get personalized skincare recommendations!</p>
+                            <p class="korean">셀카를 촬영하거나 업로드하여 피부 상태를 분석하고 맞춤 스킨케어 추천을 받아보세요!</p>
+                            <div class="fs-btn-group">
+                                <button class="primary-btn" onclick="startSkinCamera()">📸 Take Photo 촬영</button>
+                                <button class="secondary-btn" onclick="triggerSkinUpload()">🖼️ Upload Image 업로드</button>
+                                <input type="file" id="skin-file-input" accept="image/*" style="display:none" onchange="handleSkinUpload(event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Camera / Preview -->
+                    <div id="skin-camera" class="skin-screen hidden">
+                        <div class="fs-camera-card">
+                            <div class="fs-camera-wrapper">
+                                <video id="skin-video" autoplay playsinline></video>
+                                <canvas id="skin-canvas" style="display:none"></canvas>
+                                <img id="skin-preview" style="display:none" alt="Preview">
+                                <div id="skin-face-guide" class="fs-face-guide">
+                                    <div class="fs-face-oval"></div>
+                                </div>
+                            </div>
+                            <div id="skin-camera-controls" class="fs-controls">
+                                <button class="secondary-btn" onclick="cancelSkinCamera()">← Back 뒤로</button>
+                                <button class="primary-btn" id="skin-capture-btn" onclick="captureSkinPhoto()">📸 Capture 촬영</button>
+                            </div>
+                            <div id="skin-preview-controls" class="fs-controls hidden">
+                                <button class="secondary-btn" onclick="retakeSkinPhoto()">↩️ Retake 다시</button>
+                                <button class="primary-btn" onclick="analyzeSkinCondition()">🔍 Analyze 분석</button>
+                            </div>
+                            <div id="skin-loading" class="fs-loading hidden">
+                                <div class="fs-spinner"></div>
+                                <p>Analyzing your skin... 피부 분석 중...</p>
+                            </div>
+                            <p id="skin-error" class="fs-error hidden"></p>
+                        </div>
+                    </div>
+
+                    <!-- Screen 3: Result -->
+                    <div id="skin-result" class="skin-screen hidden">
+                        <div id="skin-result-content" class="result-card"></div>
                     </div>
                 </div>
 
@@ -1203,6 +1278,81 @@ var INGREDIENT_ALIASES = {
     "disodium edetate": "EDTA"
 };
 
+// ========== Ingredient Conflict Data ==========
+var INGREDIENT_CONFLICTS = [
+    {
+        nameA: "Retinol", nameB: "AHA",
+        keywordsA: ["retinol", "retinal", "retinaldehyde", "retinoic", "retinoid", "retinyl", "adapalene", "tretinoin", "레티놀"],
+        keywordsB: ["glycolic acid", "lactic acid", "mandelic acid", "aha", "alpha hydroxy", "글리콜산"],
+        severity: "high",
+        message: "Retinol + AHA can cause severe irritation, peeling, and compromise your skin barrier.",
+        messageKr: "레티놀 + AHA는 심한 자극, 각질, 피부 장벽 손상을 일으킬 수 있습니다.",
+        tip: "Use retinol at night and AHA in the morning, or alternate days."
+    },
+    {
+        nameA: "Retinol", nameB: "BHA",
+        keywordsA: ["retinol", "retinal", "retinaldehyde", "retinoic", "retinoid", "retinyl", "adapalene", "tretinoin", "레티놀"],
+        keywordsB: ["salicylic acid", "bha", "beta hydroxy", "살리실산"],
+        severity: "high",
+        message: "Retinol + BHA together can over-exfoliate and irritate skin significantly.",
+        messageKr: "레티놀 + BHA는 과도한 각질 제거와 심한 자극을 일으킬 수 있습니다.",
+        tip: "Use retinol at night and BHA in the morning, or alternate days."
+    },
+    {
+        nameA: "Retinol", nameB: "Vitamin C",
+        keywordsA: ["retinol", "retinal", "retinaldehyde", "retinoic", "retinoid", "retinyl", "adapalene", "tretinoin", "레티놀"],
+        keywordsB: ["ascorbic acid", "vitamin c", "l-ascorbic", "비타민c", "아스코르빅"],
+        severity: "medium",
+        message: "Retinol + Vitamin C (L-ascorbic acid) at the same time can cause irritation. Stable Vit C derivatives are generally okay.",
+        messageKr: "레티놀 + 비타민C(순수형)를 동시 사용하면 자극이 생길 수 있습니다. 안정형 비타민C는 보통 괜찮습니다.",
+        tip: "Use Vitamin C in the morning and Retinol at night."
+    },
+    {
+        nameA: "Niacinamide", nameB: "Vitamin C",
+        keywordsA: ["niacinamide", "nicotinamide", "vitamin b3", "나이아신아마이드"],
+        keywordsB: ["ascorbic acid", "l-ascorbic", "vitamin c", "비타민c", "아스코르빅"],
+        severity: "low",
+        message: "Niacinamide + pure Vitamin C may reduce each other's efficacy and cause flushing in some people. Modern formulations have largely resolved this.",
+        messageKr: "나이아신아마이드 + 순수 비타민C는 효과가 감소하거나 홍조가 생길 수 있습니다. 최신 제형에서는 대부분 해결되었습니다.",
+        tip: "Generally safe together in modern products. If sensitive, apply at different times."
+    },
+    {
+        nameA: "Benzoyl Peroxide", nameB: "Retinol",
+        keywordsA: ["benzoyl peroxide", "벤조일퍼옥사이드"],
+        keywordsB: ["retinol", "retinal", "retinaldehyde", "retinoic", "retinoid", "retinyl", "tretinoin", "레티놀"],
+        severity: "high",
+        message: "Benzoyl Peroxide can deactivate retinol and cause extreme dryness and irritation.",
+        messageKr: "벤조일퍼옥사이드는 레티놀을 비활성화시키고 극심한 건조함과 자극을 유발합니다.",
+        tip: "Use Benzoyl Peroxide in the morning and Retinol at night. Never layer together."
+    },
+    {
+        nameA: "Benzoyl Peroxide", nameB: "Vitamin C",
+        keywordsA: ["benzoyl peroxide", "벤조일퍼옥사이드"],
+        keywordsB: ["ascorbic acid", "vitamin c", "l-ascorbic", "비타민c"],
+        severity: "high",
+        message: "Benzoyl Peroxide oxidizes Vitamin C, rendering both less effective.",
+        messageKr: "벤조일퍼옥사이드는 비타민C를 산화시켜 두 성분 모두 효과가 감소합니다.",
+        tip: "Use at different times of day. Do not layer."
+    },
+    {
+        nameA: "Vitamin C", nameB: "Direct Acids",
+        keywordsA: ["ascorbic acid", "l-ascorbic", "vitamin c", "비타민c"],
+        keywordsB: ["glycolic acid", "salicylic acid", "lactic acid", "mandelic acid", "aha", "bha", "글리콜산", "살리실산"],
+        severity: "medium",
+        message: "Vitamin C + direct acids (AHA/BHA) at overlapping low pH can irritate skin and destabilize Vitamin C.",
+        messageKr: "비타민C + 직접산(AHA/BHA)을 동시에 사용하면 피부 자극과 비타민C 불안정화가 생길 수 있습니다.",
+        tip: "Use Vitamin C in the morning and acids at night."
+    }
+];
+
+var STRONG_ACTIVE_NAMES = [
+    "retinol", "retinal", "retinaldehyde", "tretinoin", "adapalene",
+    "glycolic acid", "salicylic acid", "lactic acid", "mandelic acid",
+    "ascorbic acid", "l-ascorbic acid", "vitamin c",
+    "benzoyl peroxide", "azelaic acid", "hydroquinone",
+    "aha", "bha", "niacinamide"
+];
+
 // Build a lowercase lookup map from INGREDIENT_DB for fast exact matching
 var _ingredientMap = {};
 var _ingredientMapKr = {};
@@ -1344,6 +1494,165 @@ function renderIngredientRow(data, extraClass) {
 function clearAnalyzer() {
     document.getElementById('analyzer-input').value = '';
     document.getElementById('analyzer-results').innerHTML = '';
+}
+
+// ========== Product Compatibility Checker ==========
+function parseIngredientList(text) {
+    if (!text.trim()) return [];
+    return text.split(/,(?![^()]*\))/).map(function(s) { return s.trim(); }).filter(Boolean);
+}
+
+function findConflicts(listA, listB) {
+    var conflicts = [];
+    var allTextA = listA.join(' ').toLowerCase();
+    var allTextB = listB.join(' ').toLowerCase();
+
+    for (var i = 0; i < INGREDIENT_CONFLICTS.length; i++) {
+        var rule = INGREDIENT_CONFLICTS[i];
+        var matchA_inA = false, matchB_inB = false;
+        var matchA_inB = false, matchB_inA = false;
+        var matchedIngA = '', matchedIngB = '';
+
+        // Check if A-keywords appear in product A and B-keywords in product B
+        for (var j = 0; j < rule.keywordsA.length; j++) {
+            if (allTextA.indexOf(rule.keywordsA[j]) !== -1) { matchA_inA = true; matchedIngA = rule.keywordsA[j]; break; }
+        }
+        for (var k = 0; k < rule.keywordsB.length; k++) {
+            if (allTextB.indexOf(rule.keywordsB[k]) !== -1) { matchB_inB = true; matchedIngB = rule.keywordsB[k]; break; }
+        }
+
+        // Also check reverse direction (A-keywords in B, B-keywords in A)
+        if (!matchA_inA || !matchB_inB) {
+            for (var j2 = 0; j2 < rule.keywordsA.length; j2++) {
+                if (allTextB.indexOf(rule.keywordsA[j2]) !== -1) { matchA_inB = true; matchedIngA = rule.keywordsA[j2]; break; }
+            }
+            for (var k2 = 0; k2 < rule.keywordsB.length; k2++) {
+                if (allTextA.indexOf(rule.keywordsB[k2]) !== -1) { matchB_inA = true; matchedIngB = rule.keywordsB[k2]; break; }
+            }
+        }
+
+        if ((matchA_inA && matchB_inB) || (matchA_inB && matchB_inA)) {
+            conflicts.push({
+                rule: rule,
+                ingredientA: matchedIngA,
+                ingredientB: matchedIngB
+            });
+        }
+    }
+    return conflicts;
+}
+
+function countStrongActives(listA, listB) {
+    var combined = listA.concat(listB).join(' ').toLowerCase();
+    var count = 0;
+    var found = [];
+    for (var i = 0; i < STRONG_ACTIVE_NAMES.length; i++) {
+        if (combined.indexOf(STRONG_ACTIVE_NAMES[i]) !== -1) {
+            count++;
+            found.push(STRONG_ACTIVE_NAMES[i]);
+        }
+    }
+    return { count: count, names: found };
+}
+
+function checkCompatibility() {
+    var inputA = document.getElementById('compat-input-a').value.trim();
+    var inputB = document.getElementById('compat-input-b').value.trim();
+    if (!inputA || !inputB) return;
+
+    var listA = parseIngredientList(inputA);
+    var listB = parseIngredientList(inputB);
+    var conflicts = findConflicts(listA, listB);
+    var actives = countStrongActives(listA, listB);
+
+    renderCompatibilityResults(conflicts, actives, listA.length, listB.length);
+}
+
+function renderCompatibilityResults(conflicts, actives, countA, countB) {
+    var container = document.getElementById('compat-results');
+    var html = '';
+
+    // Summary
+    var highCount = conflicts.filter(function(c) { return c.rule.severity === 'high'; }).length;
+    var medCount = conflicts.filter(function(c) { return c.rule.severity === 'medium'; }).length;
+    var lowCount = conflicts.filter(function(c) { return c.rule.severity === 'low'; }).length;
+
+    var overallClass, overallEmoji, overallText, overallTextKr;
+    if (highCount > 0) {
+        overallClass = 'compat-summary-bad';
+        overallEmoji = '⚠️';
+        overallText = 'Conflicts detected — use caution!';
+        overallTextKr = '충돌 감지 — 주의가 필요합니다!';
+    } else if (medCount > 0) {
+        overallClass = 'compat-summary-warn';
+        overallEmoji = '⚡';
+        overallText = 'Some ingredients may interact — check tips below.';
+        overallTextKr = '일부 성분이 상호작용할 수 있습니다 — 아래 팁을 확인하세요.';
+    } else {
+        overallClass = 'compat-summary-good';
+        overallEmoji = '✅';
+        overallText = 'No major conflicts found — these products look compatible!';
+        overallTextKr = '주요 충돌이 없습니다 — 이 제품들은 함께 사용 가능합니다!';
+    }
+
+    html += '<div class="compat-summary ' + overallClass + '">';
+    html += '<span class="compat-summary-emoji">' + overallEmoji + '</span>';
+    html += '<div><strong>' + overallText + '</strong><br><span class="compat-summary-kr">' + overallTextKr + '</span></div>';
+    html += '</div>';
+
+    // Stats bar
+    html += '<div class="compat-stats">';
+    html += '<span class="compat-stat">Product A: ' + countA + ' ingredients</span>';
+    html += '<span class="compat-stat">Product B: ' + countB + ' ingredients</span>';
+    if (highCount > 0) html += '<span class="compat-stat compat-stat-high">' + highCount + ' high risk</span>';
+    if (medCount > 0) html += '<span class="compat-stat compat-stat-med">' + medCount + ' medium</span>';
+    if (lowCount > 0) html += '<span class="compat-stat compat-stat-low">' + lowCount + ' low</span>';
+    html += '</div>';
+
+    // Active stacking warning
+    if (actives.count >= 3) {
+        html += '<div class="compat-active-warning">';
+        html += '<strong>⚠️ Active Stacking Warning 활성 성분 과다 경고</strong>';
+        html += '<p>' + actives.count + ' strong actives detected across both products: <em>' + actives.names.join(', ') + '</em>. ';
+        html += 'Using too many actives at once can compromise your skin barrier.</p>';
+        html += '<p class="compat-summary-kr">두 제품에 ' + actives.count + '개의 강력한 활성 성분이 포함되어 있습니다. 동시에 너무 많은 활성 성분을 사용하면 피부 장벽이 손상될 수 있습니다.</p>';
+        html += '</div>';
+    }
+
+    // Conflict cards
+    if (conflicts.length > 0) {
+        html += '<div class="compat-conflicts">';
+        for (var i = 0; i < conflicts.length; i++) {
+            html += renderConflictCard(conflicts[i]);
+        }
+        html += '</div>';
+    }
+
+    container.innerHTML = html;
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderConflictCard(conflict) {
+    var rule = conflict.rule;
+    var severityLabel = rule.severity === 'high' ? '🔴 High Risk' : rule.severity === 'medium' ? '🟡 Medium' : '🟢 Low';
+    var severityClass = 'compat-card-' + rule.severity;
+
+    var html = '<div class="compat-conflict-card ' + severityClass + '">';
+    html += '<div class="compat-card-header">';
+    html += '<span class="compat-severity">' + severityLabel + '</span>';
+    html += '<strong>' + rule.nameA + ' + ' + rule.nameB + '</strong>';
+    html += '</div>';
+    html += '<p class="compat-card-msg">' + rule.message + '</p>';
+    html += '<p class="compat-card-msg-kr">' + rule.messageKr + '</p>';
+    html += '<p class="compat-card-tip">💡 <strong>Tip:</strong> ' + rule.tip + '</p>';
+    html += '</div>';
+    return html;
+}
+
+function clearCompatibility() {
+    document.getElementById('compat-input-a').value = '';
+    document.getElementById('compat-input-b').value = '';
+    document.getElementById('compat-results').innerHTML = '';
 }
 
 // Clinics Data
@@ -3001,6 +3310,482 @@ async function scanIngredients() {
         progressArea.classList.add('hidden');
         showIaError('Scan failed: ' + err.message);
     }
+}
+
+// ========== AI Skin Condition Analyzer ==========
+var skinStream = null;
+var skinIsMirrored = false;
+var skinCapturedImageData = null;
+
+var SKIN_CONCERNS = {
+    redness: { name: 'Redness', nameKr: '붉은기', emoji: '🔴', description: 'Redness or flushing detected in the skin.' },
+    oiliness: { name: 'Oiliness', nameKr: '유분', emoji: '💧', description: 'Excess sebum or oily sheen detected.' },
+    dryness: { name: 'Dryness', nameKr: '건조함', emoji: '🏜️', description: 'Skin appears dry or lacking moisture.' },
+    darkSpots: { name: 'Dark Spots', nameKr: '색소침착', emoji: '🟤', description: 'Uneven pigmentation or dark patches detected.' },
+    texture: { name: 'Texture', nameKr: '피부결', emoji: '🔍', description: 'Uneven skin texture or roughness detected.' }
+};
+
+var SKIN_RECOMMENDATIONS = {
+    redness: {
+        tips: [
+            'Use a gentle, fragrance-free cleanser to avoid irritation.',
+            'Apply centella asiatica (CICA) products to calm inflammation.',
+            'Avoid hot water when washing your face — use lukewarm water.',
+            'Consider a green-tinted color corrector for visible redness.'
+        ],
+        tipsKr: [
+            '자극을 피하기 위해 순한 무향 클렌저를 사용하세요.',
+            '시카(병풀) 제품으로 염증을 진정시키세요.',
+            '세안 시 뜨거운 물 대신 미지근한 물을 사용하세요.',
+            '눈에 보이는 붉은기에는 그린 컬러 보정 제품을 고려하세요.'
+        ],
+        ingredients: ['Centella Asiatica (CICA)', 'Niacinamide', 'Aloe Vera', 'Green Tea Extract', 'Panthenol (Vitamin B5)']
+    },
+    oiliness: {
+        tips: [
+            'Use a BHA (salicylic acid) toner to control excess oil.',
+            'Choose lightweight, gel-based moisturizers instead of heavy creams.',
+            'Do not skip moisturizer — dehydration can cause more oil production.',
+            'Use oil-blotting sheets during the day for quick touch-ups.'
+        ],
+        tipsKr: [
+            'BHA(살리실산) 토너로 과도한 유분을 조절하세요.',
+            '무거운 크림 대신 가벼운 젤 타입 보습제를 선택하세요.',
+            '보습을 건너뛰지 마세요 — 탈수가 오히려 유분 분비를 증가시킵니다.',
+            '낮 동안 유분 흡수 시트로 간단히 관리하세요.'
+        ],
+        ingredients: ['Salicylic Acid (BHA)', 'Niacinamide', 'Green Tea Extract', 'Tea Tree Oil']
+    },
+    dryness: {
+        tips: [
+            'Layer hydrating products — toner, essence, then moisturizer.',
+            'Use hyaluronic acid serums on damp skin for maximum absorption.',
+            'Apply a sleeping mask 2-3 times a week for deep hydration.',
+            'Avoid harsh cleansers that strip natural oils.'
+        ],
+        tipsKr: [
+            '보습 제품을 겹겹이 발라주세요 — 토너, 에센스, 보습제 순서로.',
+            '히알루론산 세럼은 촉촉한 피부 위에 발라야 흡수가 잘 됩니다.',
+            '주 2-3회 수면 마스크를 사용해 깊은 보습을 하세요.',
+            '천연 유분을 벗기는 강한 클렌저는 피하세요.'
+        ],
+        ingredients: ['Hyaluronic Acid', 'Ceramides', 'Squalane', 'Panthenol (Vitamin B5)', 'Snail Mucin (Secretion Filtrate)']
+    },
+    darkSpots: {
+        tips: [
+            'Apply Vitamin C serum in the morning for brightening.',
+            'Always use sunscreen SPF 50+ to prevent further pigmentation.',
+            'Use niacinamide to even out skin tone over time.',
+            'Consider products with arbutin or licorice root extract.'
+        ],
+        tipsKr: [
+            '아침에 비타민C 세럼을 발라 미백 효과를 높이세요.',
+            '추가 색소침착을 방지하기 위해 SPF 50+ 자외선 차단제를 사용하세요.',
+            '나이아신아마이드로 피부톤을 점차 균일하게 만드세요.',
+            '알부틴이나 감초 뿌리 추출물이 든 제품을 고려하세요.'
+        ],
+        ingredients: ['Vitamin C (Ascorbic Acid)', 'Niacinamide', 'Arbutin', 'Licorice Root Extract']
+    },
+    texture: {
+        tips: [
+            'Use a gentle AHA (glycolic/lactic acid) exfoliant 2-3 times a week.',
+            'Apply retinol at night to promote cell turnover.',
+            'Use a hydrating toner to plump and smooth skin surface.',
+            'Do not over-exfoliate — give your skin time to recover.'
+        ],
+        tipsKr: [
+            '주 2-3회 순한 AHA(글리콜산/젖산) 각질 제거제를 사용하세요.',
+            '밤에 레티놀을 발라 세포 재생을 촉진하세요.',
+            '보습 토너로 피부 표면을 매끄럽게 만드세요.',
+            '과도한 각질 제거는 피하고 피부 회복 시간을 주세요.'
+        ],
+        ingredients: ['Glycolic Acid (AHA)', 'Retinol', 'Niacinamide', 'Hyaluronic Acid']
+    }
+};
+
+function showSkinScreen(screenId) {
+    var screens = document.querySelectorAll('#skin-section .skin-screen');
+    for (var i = 0; i < screens.length; i++) {
+        screens[i].classList.add('hidden');
+    }
+    document.getElementById(screenId).classList.remove('hidden');
+}
+
+function showSkinError(msg) {
+    var el = document.getElementById('skin-error');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+    setTimeout(function() { el.classList.add('hidden'); }, 5000);
+}
+
+function stopSkinCamera() {
+    if (skinStream) {
+        var tracks = skinStream.getTracks();
+        for (var i = 0; i < tracks.length; i++) { tracks[i].stop(); }
+        skinStream = null;
+    }
+}
+
+async function startSkinCamera() {
+    showSkinScreen('skin-camera');
+    document.getElementById('skin-camera-controls').classList.remove('hidden');
+    document.getElementById('skin-preview-controls').classList.add('hidden');
+    document.getElementById('skin-loading').classList.add('hidden');
+    document.getElementById('skin-error').classList.add('hidden');
+    document.getElementById('skin-face-guide').style.display = '';
+    document.getElementById('skin-preview').style.display = 'none';
+
+    var video = document.getElementById('skin-video');
+    video.style.display = '';
+    skinIsMirrored = true;
+
+    try {
+        skinStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
+        });
+        video.srcObject = skinStream;
+    } catch (e) {
+        stopSkinCamera();
+        showSkinScreen('skin-start');
+        showSkinError('Camera access denied. Please use image upload instead. 카메라 접근이 거부되었습니다.');
+    }
+}
+
+function captureSkinPhoto() {
+    var video = document.getElementById('skin-video');
+    var canvas = document.getElementById('skin-canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    var ctx = canvas.getContext('2d');
+    if (skinIsMirrored) {
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+    }
+    ctx.drawImage(video, 0, 0);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    stopSkinCamera();
+    var dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    var preview = document.getElementById('skin-preview');
+    preview.src = dataUrl;
+    preview.style.display = '';
+    video.style.display = 'none';
+    document.getElementById('skin-face-guide').style.display = 'none';
+    document.getElementById('skin-camera-controls').classList.add('hidden');
+    document.getElementById('skin-preview-controls').classList.remove('hidden');
+    skinCapturedImageData = dataUrl;
+}
+
+function triggerSkinUpload() {
+    document.getElementById('skin-file-input').click();
+}
+
+function handleSkinUpload(event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+        showSkinError('Please upload an image file. 이미지 파일을 업로드해주세요.');
+        return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+        showSkinError('File is too large (max 10MB). 파일이 너무 큽니다 (최대 10MB).');
+        return;
+    }
+
+    skinIsMirrored = false;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        skinCapturedImageData = e.target.result;
+        showSkinScreen('skin-camera');
+        var preview = document.getElementById('skin-preview');
+        preview.src = skinCapturedImageData;
+        preview.style.display = '';
+        document.getElementById('skin-video').style.display = 'none';
+        document.getElementById('skin-face-guide').style.display = 'none';
+        document.getElementById('skin-camera-controls').classList.add('hidden');
+        document.getElementById('skin-preview-controls').classList.remove('hidden');
+        document.getElementById('skin-loading').classList.add('hidden');
+        document.getElementById('skin-error').classList.add('hidden');
+    };
+    reader.readAsDataURL(file);
+    event.target.value = '';
+}
+
+function retakeSkinPhoto() {
+    skinCapturedImageData = null;
+    showSkinScreen('skin-start');
+    stopSkinCamera();
+}
+
+function cancelSkinCamera() {
+    stopSkinCamera();
+    skinCapturedImageData = null;
+    showSkinScreen('skin-start');
+}
+
+async function analyzeSkinCondition() {
+    document.getElementById('skin-preview-controls').classList.add('hidden');
+    document.getElementById('skin-loading').classList.remove('hidden');
+    document.getElementById('skin-error').classList.add('hidden');
+
+    try {
+        // Use face landmarker to detect face region
+        var landmarker = await initFaceLandmarker();
+
+        var img = new Image();
+        img.src = skinCapturedImageData;
+        await new Promise(function(resolve, reject) {
+            img.onload = resolve;
+            img.onerror = reject;
+        });
+
+        var result = landmarker.detect(img);
+
+        if (!result.faceLandmarks || result.faceLandmarks.length === 0) {
+            document.getElementById('skin-loading').classList.add('hidden');
+            document.getElementById('skin-preview-controls').classList.remove('hidden');
+            showSkinError('No face detected. Please try again with a clearer photo. 얼굴이 감지되지 않았습니다.');
+            return;
+        }
+
+        var landmarks = result.faceLandmarks[0];
+
+        // Draw image on a temporary canvas for pixel analysis
+        var tempCanvas = document.createElement('canvas');
+        tempCanvas.width = img.width;
+        tempCanvas.height = img.height;
+        var ctx = tempCanvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        var scores = analyzeSkinPixels(ctx, landmarks, img.width, img.height);
+        showSkinResult(scores);
+
+    } catch (e) {
+        document.getElementById('skin-loading').classList.add('hidden');
+        document.getElementById('skin-preview-controls').classList.remove('hidden');
+        console.error('Skin analysis error:', e);
+        var msg = (e.message && e.message.indexOf('MediaPipe') !== -1)
+            ? 'AI model is loading. Please wait and try again. AI 모델을 불러오는 중입니다.'
+            : 'Analysis failed. Please try again. 분석에 실패했습니다.';
+        showSkinError(msg);
+    }
+}
+
+function analyzeSkinPixels(ctx, landmarks, imgW, imgH) {
+    // Get face bounding box from landmarks
+    var minX = 1, maxX = 0, minY = 1, maxY = 0;
+    for (var i = 0; i < landmarks.length; i++) {
+        if (landmarks[i].x < minX) minX = landmarks[i].x;
+        if (landmarks[i].x > maxX) maxX = landmarks[i].x;
+        if (landmarks[i].y < minY) minY = landmarks[i].y;
+        if (landmarks[i].y > maxY) maxY = landmarks[i].y;
+    }
+
+    // Convert normalized coords to pixel coords with padding
+    var pad = 0.02;
+    var x1 = Math.max(0, Math.floor((minX - pad) * imgW));
+    var y1 = Math.max(0, Math.floor((minY - pad) * imgH));
+    var x2 = Math.min(imgW, Math.ceil((maxX + pad) * imgW));
+    var y2 = Math.min(imgH, Math.ceil((maxY + pad) * imgH));
+    var w = x2 - x1;
+    var h = y2 - y1;
+
+    if (w < 10 || h < 10) {
+        return { redness: 30, oiliness: 25, dryness: 35, darkSpots: 20, texture: 30 };
+    }
+
+    var imageData = ctx.getImageData(x1, y1, w, h);
+    var pixels = imageData.data;
+    var totalPixels = w * h;
+
+    // Analyze pixel data
+    var totalR = 0, totalG = 0, totalB = 0;
+    var highRedCount = 0;
+    var brightCount = 0;
+    var darkCount = 0;
+    var varianceSum = 0;
+    var luminanceValues = [];
+
+    for (var p = 0; p < pixels.length; p += 4) {
+        var r = pixels[p];
+        var g = pixels[p + 1];
+        var b = pixels[p + 2];
+
+        totalR += r;
+        totalG += g;
+        totalB += b;
+
+        var luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+        luminanceValues.push(luminance);
+
+        // Redness: R channel dominance
+        if (r > g + 30 && r > b + 30 && r > 120) highRedCount++;
+
+        // Brightness (oiliness indicator — shiny areas)
+        if (luminance > 200) brightCount++;
+
+        // Dark areas (dark spots)
+        if (luminance < 80) darkCount++;
+    }
+
+    var avgR = totalR / totalPixels;
+    var avgG = totalG / totalPixels;
+    var avgB = totalB / totalPixels;
+    var avgLum = luminanceValues.reduce(function(a, b) { return a + b; }, 0) / totalPixels;
+
+    // Texture: variance of luminance in a grid (roughness indicator)
+    var gridSize = 8;
+    var blockW = Math.floor(w / gridSize);
+    var blockH = Math.floor(h / gridSize);
+    var blockAverages = [];
+
+    if (blockW > 0 && blockH > 0) {
+        for (var gy = 0; gy < gridSize; gy++) {
+            for (var gx = 0; gx < gridSize; gx++) {
+                var sum = 0;
+                var count = 0;
+                for (var by = 0; by < blockH; by++) {
+                    for (var bx = 0; bx < blockW; bx++) {
+                        var idx = ((gy * blockH + by) * w + (gx * blockW + bx));
+                        if (idx < luminanceValues.length) {
+                            sum += luminanceValues[idx];
+                            count++;
+                        }
+                    }
+                }
+                if (count > 0) blockAverages.push(sum / count);
+            }
+        }
+
+        if (blockAverages.length > 1) {
+            var blockMean = blockAverages.reduce(function(a, b) { return a + b; }, 0) / blockAverages.length;
+            for (var v = 0; v < blockAverages.length; v++) {
+                varianceSum += Math.pow(blockAverages[v] - blockMean, 2);
+            }
+            varianceSum = Math.sqrt(varianceSum / blockAverages.length);
+        }
+    }
+
+    // Compute scores (0-100, higher = more concern)
+    var rednessRatio = highRedCount / totalPixels;
+    var rednessScore = Math.min(100, Math.round(rednessRatio * 500 + (avgR - avgG) * 1.5));
+    rednessScore = Math.max(5, Math.min(95, rednessScore));
+
+    var brightnessRatio = brightCount / totalPixels;
+    var oilinessScore = Math.min(100, Math.round(brightnessRatio * 400 + (avgLum > 160 ? (avgLum - 160) * 0.8 : 0)));
+    oilinessScore = Math.max(5, Math.min(95, oilinessScore));
+
+    var drynessScore = Math.max(5, Math.min(95, Math.round(100 - oilinessScore * 0.5 - (avgLum > 130 ? 20 : 0) + varianceSum * 0.5)));
+
+    var darkRatio = darkCount / totalPixels;
+    var darkSpotsScore = Math.min(100, Math.round(darkRatio * 600 + Math.abs(avgR - avgG) * 0.5));
+    darkSpotsScore = Math.max(5, Math.min(95, darkSpotsScore));
+
+    var textureScore = Math.min(100, Math.round(varianceSum * 3));
+    textureScore = Math.max(5, Math.min(95, textureScore));
+
+    return {
+        redness: rednessScore,
+        oiliness: oilinessScore,
+        dryness: drynessScore,
+        darkSpots: darkSpotsScore,
+        texture: textureScore
+    };
+}
+
+function showSkinResult(scores) {
+    // Compute overall skin score (inverse of average concern)
+    var avgConcern = (scores.redness + scores.oiliness + scores.dryness + scores.darkSpots + scores.texture) / 5;
+    var overallScore = Math.round(100 - avgConcern * 0.6);
+    overallScore = Math.max(10, Math.min(95, overallScore));
+
+    var grade, gradeClass;
+    if (overallScore >= 80) { grade = 'Excellent 우수'; gradeClass = 'skin-grade-excellent'; }
+    else if (overallScore >= 60) { grade = 'Good 양호'; gradeClass = 'skin-grade-good'; }
+    else if (overallScore >= 40) { grade = 'Fair 보통'; gradeClass = 'skin-grade-fair'; }
+    else { grade = 'Needs Care 관리필요'; gradeClass = 'skin-grade-care'; }
+
+    // Find top 2 concerns
+    var concernKeys = Object.keys(scores);
+    concernKeys.sort(function(a, b) { return scores[b] - scores[a]; });
+    var topConcerns = concernKeys.slice(0, 2);
+
+    // Build HTML
+    var html = '';
+
+    // Overall score
+    html += '<div class="skin-overall">';
+    html += '<div class="skin-score-circle">';
+    html += '<span class="skin-score-number">' + overallScore + '</span>';
+    html += '<span class="skin-score-label">/ 100</span>';
+    html += '</div>';
+    html += '<div class="skin-grade ' + gradeClass + '">' + grade + '</div>';
+    html += '<p class="skin-overall-desc">Your overall skin health score based on AI pixel analysis.</p>';
+    html += '<p class="skin-overall-desc-kr">AI 픽셀 분석 기반 전체 피부 건강 점수입니다.</p>';
+    html += '</div>';
+
+    // Score bars
+    html += '<div class="skin-scores">';
+    html += '<h4>Skin Concern Scores 피부 고민 점수</h4>';
+    for (var i = 0; i < concernKeys.length; i++) {
+        var key = concernKeys[i];
+        var concern = SKIN_CONCERNS[key];
+        var score = scores[key];
+        var barClass = score >= 60 ? 'skin-bar-high' : score >= 35 ? 'skin-bar-med' : 'skin-bar-low';
+        html += '<div class="skin-score-row">';
+        html += '<div class="skin-score-label-row"><span>' + concern.emoji + ' ' + concern.name + ' <span class="skin-score-kr">' + concern.nameKr + '</span></span><span class="skin-score-value">' + score + '</span></div>';
+        html += '<div class="skin-bar-track"><div class="skin-bar-fill ' + barClass + '" style="width:' + score + '%"></div></div>';
+        html += '</div>';
+    }
+    html += '</div>';
+
+    // Top concerns with recommendations
+    html += '<div class="skin-recommendations">';
+    html += '<h4>Personalized Recommendations 맞춤 추천</h4>';
+    for (var j = 0; j < topConcerns.length; j++) {
+        var cKey = topConcerns[j];
+        var cData = SKIN_CONCERNS[cKey];
+        var rec = SKIN_RECOMMENDATIONS[cKey];
+
+        html += '<div class="skin-rec-card">';
+        html += '<div class="skin-rec-header">' + cData.emoji + ' <strong>' + cData.name + ' ' + cData.nameKr + '</strong> — Score: ' + scores[cKey] + '</div>';
+        html += '<p class="skin-rec-desc">' + cData.description + '</p>';
+
+        // Tips
+        html += '<div class="skin-rec-tips"><strong>Tips 팁:</strong><ul>';
+        for (var t = 0; t < rec.tips.length; t++) {
+            html += '<li>' + rec.tips[t] + '<br><span class="skin-tip-kr">' + rec.tipsKr[t] + '</span></li>';
+        }
+        html += '</ul></div>';
+
+        // Recommended ingredients
+        html += '<div class="skin-rec-ingredients"><strong>Key Ingredients 핵심 성분:</strong><div class="skin-ingredient-tags">';
+        for (var k = 0; k < rec.ingredients.length; k++) {
+            var lookup = lookupIngredient(rec.ingredients[k]);
+            var tagClass = lookup.found ? 'skin-ing-tag-found' : 'skin-ing-tag';
+            html += '<span class="' + tagClass + '">' + rec.ingredients[k] + '</span>';
+        }
+        html += '</div></div>';
+
+        html += '</div>';
+    }
+    html += '</div>';
+
+    // Retry button
+    html += '<div class="fs-result-buttons">';
+    html += '<button class="primary-btn" onclick="retrySkinAnalysis()">🔄 Try Again 다시하기</button>';
+    html += '</div>';
+
+    document.getElementById('skin-result-content').innerHTML = html;
+    showSkinScreen('skin-result');
+    document.getElementById('skin-result-content').classList.add('animated');
+    createConfetti();
+}
+
+function retrySkinAnalysis() {
+    skinCapturedImageData = null;
+    document.getElementById('skin-result-content').classList.remove('animated');
+    showSkinScreen('skin-start');
 }
 
 document.addEventListener('DOMContentLoaded', function() {

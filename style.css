@@ -2444,6 +2444,173 @@ body {
     font-size: 0.75rem;
 }
 
+/* Product Compatibility Checker */
+.compat-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 12px;
+}
+
+.compat-input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.compat-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--secondary-pink);
+    margin-bottom: 4px;
+}
+
+.compat-vs {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ccc;
+    padding: 4px 0;
+}
+
+.compat-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.compat-summary-emoji {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.compat-summary strong {
+    font-size: 0.88rem;
+}
+
+.compat-summary-kr {
+    font-size: 0.78rem;
+    color: #888;
+}
+
+.compat-summary-bad {
+    background: #fff0f0;
+    border: 1px solid #ffcccc;
+}
+
+.compat-summary-warn {
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+}
+
+.compat-summary-good {
+    background: #f0fff4;
+    border: 1px solid #b7eb8f;
+}
+
+.compat-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.compat-stat {
+    font-size: 0.75rem;
+    background: #f5f5f5;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: #666;
+}
+
+.compat-stat-high { background: #fff0f0; color: #d32f2f; }
+.compat-stat-med { background: #fffbe6; color: #d48806; }
+.compat-stat-low { background: #f0fff4; color: #389e0d; }
+
+.compat-active-warning {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.compat-active-warning strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.compat-conflicts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.compat-conflict-card {
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid #eee;
+}
+
+.compat-card-high {
+    background: #fff5f5;
+    border-color: #ffcccc;
+}
+
+.compat-card-medium {
+    background: #fffde6;
+    border-color: #ffe58f;
+}
+
+.compat-card-low {
+    background: #f6ffed;
+    border-color: #b7eb8f;
+}
+
+.compat-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.compat-severity {
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.compat-card-header strong {
+    font-size: 0.88rem;
+}
+
+.compat-card-msg {
+    font-size: 0.82rem;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 2px;
+}
+
+.compat-card-msg-kr {
+    font-size: 0.78rem;
+    color: #888;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+.compat-card-tip {
+    font-size: 0.8rem;
+    color: #555;
+    background: rgba(255,255,255,0.6);
+    padding: 8px 10px;
+    border-radius: 8px;
+    line-height: 1.4;
+}
+
 /* Face Shape Detector */
 .fs-screen.hidden {
     display: none;
@@ -2796,4 +2963,202 @@ body {
 
 .analyzer-scan-btn:hover {
     background: #ffe4ec;
+}
+
+/* AI Skin Condition Analyzer */
+.skin-screen.hidden {
+    display: none;
+}
+
+.skin-overall {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.skin-score-circle {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--gradient);
+    color: white;
+    margin-bottom: 10px;
+    box-shadow: 0 6px 20px rgba(196, 69, 105, 0.3);
+}
+
+.skin-score-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.skin-score-circle .skin-score-label {
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+
+.skin-grade {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.skin-grade-excellent { background: #f0fff4; color: #389e0d; }
+.skin-grade-good { background: #e6f7ff; color: #1890ff; }
+.skin-grade-fair { background: #fffbe6; color: #d48806; }
+.skin-grade-care { background: #fff0f0; color: #d32f2f; }
+
+.skin-overall-desc {
+    font-size: 0.82rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.skin-overall-desc-kr {
+    font-size: 0.78rem;
+    color: #999;
+}
+
+.skin-scores {
+    margin-bottom: 20px;
+}
+
+.skin-scores h4 {
+    font-size: 0.95rem;
+    color: var(--secondary-pink);
+    margin-bottom: 12px;
+}
+
+.skin-score-row {
+    margin-bottom: 10px;
+}
+
+.skin-score-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+}
+
+.skin-score-kr {
+    color: #999;
+    font-size: 0.75rem;
+}
+
+.skin-score-value {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.skin-bar-track {
+    width: 100%;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skin-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.skin-bar-high { background: linear-gradient(90deg, #ff6b6b, #d32f2f); }
+.skin-bar-med { background: linear-gradient(90deg, #ffd93d, #f0a500); }
+.skin-bar-low { background: linear-gradient(90deg, #6bcb77, #389e0d); }
+
+.skin-recommendations {
+    margin-bottom: 16px;
+}
+
+.skin-recommendations h4 {
+    font-size: 0.95rem;
+    color: var(--secondary-pink);
+    margin-bottom: 12px;
+}
+
+.skin-rec-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.skin-rec-header {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.skin-rec-desc {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.skin-rec-tips {
+    font-size: 0.82rem;
+    margin-bottom: 10px;
+}
+
+.skin-rec-tips strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.skin-rec-tips ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.skin-rec-tips li {
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.skin-tip-kr {
+    color: #999;
+    font-size: 0.75rem;
+}
+
+.skin-rec-ingredients {
+    font-size: 0.82rem;
+}
+
+.skin-rec-ingredients strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.skin-ingredient-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skin-ing-tag, .skin-ing-tag-found {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+.skin-ing-tag {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.skin-ing-tag-found {
+    background: var(--light-pink);
+    color: var(--secondary-pink);
+    border: 1px solid #f0d0dd;
 }
