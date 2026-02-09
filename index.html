@@ -19,7 +19,7 @@
         })(window, document, "clarity", "script", "vd74xl3h1g");
     </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glowmi — Glow starts with me | K-Beauty Skin Quiz, Personal Color Test & Clinic Finder</title>
     <meta name="description" content="Glowmi is your personal K-Beauty companion. Take our skin type quiz, discover your personal color season, browse Korean dermatology clinics in Gangnam, and learn about popular aesthetic procedures like Botox, filler, and laser treatments.">
     <meta name="keywords" content="Glowmi, K-Beauty, Korean skincare, skin type quiz, personal color test, Gangnam clinics, Korean dermatology, Botox Korea, filler Korea, laser toning, skin booster, K-Beauty guide for beginners">
@@ -2473,7 +2473,7 @@ function renderProcedures() {
         for (var j = 0; j < p.tags.length; j++) {
             tagsHtml += '<span class="tag">' + p.tags[j] + '</span>';
         }
-        html += '<div class="procedure-card" onclick="toggleProcedure(this)">' +
+        html += '<div class="procedure-card' + (i === 0 ? ' procedure-card-top' : '') + '" onclick="toggleProcedure(this)">' +
                 '<div class="procedure-header"><div><div class="procedure-title">' + p.english + '</div>' +
                 '<div class="procedure-title-korean">' + p.korean + '</div></div>' +
                 '<div class="procedure-header-right"><span class="procedure-rank">' + p.rank + '</span>' +

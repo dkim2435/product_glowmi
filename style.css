@@ -463,6 +463,47 @@ body {
     box-shadow: 0 8px 30px rgba(196, 69, 105, 0.18);
 }
 
+.procedure-card-top {
+    background: linear-gradient(135deg, #fffbf0 0%, #fff5f8 50%, #fff 100%);
+    border-left: 4px solid #d4a843;
+    box-shadow: 0 4px 20px rgba(180, 142, 58, 0.15), 0 0 0 1px rgba(212, 168, 67, 0.18);
+    position: relative;
+}
+
+.procedure-card-top::before {
+    content: '👑';
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 1px 2px rgba(180, 142, 58, 0.4));
+}
+
+.procedure-card-top .procedure-rank {
+    background: linear-gradient(135deg, #d4a843 0%, #f0c860 40%, #b8912a 100%);
+    padding: 5px 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(180, 142, 58, 0.35);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+
+.procedure-card-top .procedure-title {
+    font-size: 1.2rem;
+    color: #8b6914;
+}
+
+.procedure-card-top .procedure-tags .tag:first-child {
+    background: linear-gradient(135deg, #fdf6e3, #fef9ed);
+    color: #a07d1c;
+    border: 1px solid #e8d48b;
+}
+
+.procedure-card-top:hover {
+    box-shadow: 0 10px 35px rgba(180, 142, 58, 0.22), 0 0 0 1px rgba(212, 168, 67, 0.25);
+}
+
 .procedure-card .procedure-body {
     max-height: 0;
     overflow: hidden;
@@ -3161,4 +3202,305 @@ body {
     background: var(--light-pink);
     color: var(--secondary-pink);
     border: 1px solid #f0d0dd;
+}
+
+/* ========== Responsive Layout — Tablet (768px+) ========== */
+@media (min-width: 768px) {
+
+    /* --- Container --- */
+    .app-container {
+        max-width: 768px;
+    }
+
+    /* --- Header --- */
+    .header {
+        padding: 30px 28px;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    /* --- Tab Navigation --- */
+    .tab-btn {
+        font-size: 0.85rem;
+        padding: 14px 8px;
+    }
+
+    /* --- Tab Content --- */
+    .tab-content {
+        padding: 24px 28px;
+    }
+
+    /* --- Section Titles --- */
+    .section-title {
+        font-size: 1.45rem;
+    }
+
+    /* --- Sub-tabs --- */
+    .sub-tab-btn {
+        font-size: 0.85rem;
+    }
+
+    /* --- Multi-column Grids (2-col) --- */
+    .clinics-grid,
+    .step-list,
+    .ingredient-grid,
+    .face-shape-grid,
+    .mistake-list,
+    .skintype-routine-grid,
+    .makeup-guide,
+    .food-guide,
+    .tip-list,
+    .skin-recommendations,
+    .compat-conflicts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    /* Procedures grid stays single-column (accordion cards need full width) */
+    .procedures-grid {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* --- Existing Grids --- */
+    .procedure-details {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .color-palette {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* --- Card Max-width Limits --- */
+    .quiz-intro-card {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .result-card {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .question-container {
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page-modal-content {
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .pc-start-card {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .coming-soon-card {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* --- Camera / Scan Sections --- */
+    .fs-camera-card,
+    .pc-camera-card {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .draping-card {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .ia-scan-area {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .routine-flow {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* --- Compatibility Checker Horizontal --- */
+    .compat-inputs {
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 12px;
+    }
+
+    .compat-input-group {
+        flex: 1;
+    }
+
+    .compat-vs {
+        padding-bottom: 10px;
+        flex-shrink: 0;
+    }
+
+    /* --- Draping Options --- */
+    .draping-option {
+        max-width: 200px;
+    }
+
+    /* --- Filter / Season Buttons --- */
+    .filter-btn,
+    .season-btn {
+        padding: 8px 18px;
+        font-size: 0.85rem;
+    }
+
+    /* --- Footer --- */
+    footer, .app-footer {
+        padding: 20px 28px;
+    }
+}
+
+/* ========== Responsive Layout — Desktop (1024px+) ========== */
+@media (min-width: 1024px) {
+
+    /* --- Container --- */
+    .app-container {
+        max-width: 1100px;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    /* --- Header --- */
+    .header {
+        padding: 35px 36px;
+        border-radius: 0 0 16px 16px;
+    }
+
+    .header h1 {
+        font-size: 2.2rem;
+    }
+
+    .subtitle {
+        font-size: 1.05rem;
+    }
+
+    /* --- Tab Navigation --- */
+    .tab-nav {
+        border-radius: 12px;
+        margin: 0 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tab-btn {
+        font-size: 0.9rem;
+        padding: 15px 10px;
+        flex: none;
+        min-width: 120px;
+    }
+
+    /* --- Tab Content --- */
+    .tab-content {
+        padding: 28px 36px;
+    }
+
+    /* --- Section Titles --- */
+    .section-title {
+        font-size: 1.55rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    /* --- Sub-tabs --- */
+    .sub-tab-btn {
+        font-size: 0.9rem;
+    }
+
+    /* --- Multi-column Grids (2-3 col) --- */
+    .clinics-grid,
+    .ingredient-grid,
+    .face-shape-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .procedures-grid {
+        max-width: 800px;
+    }
+
+    .step-list,
+    .mistake-list,
+    .skintype-routine-grid,
+    .makeup-guide,
+    .food-guide,
+    .tip-list,
+    .skin-recommendations,
+    .compat-conflicts {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* --- Existing Grids --- */
+    .procedure-details {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .color-palette {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    /* --- Card Max-width Limits --- */
+    .quiz-intro-card {
+        max-width: 650px;
+    }
+
+    .result-card {
+        max-width: 800px;
+    }
+
+    .question-container {
+        max-width: 650px;
+    }
+
+    .page-modal-content {
+        max-width: 750px;
+    }
+
+    .pc-start-card {
+        max-width: 650px;
+    }
+
+    /* --- Draping Options --- */
+    .draping-option {
+        max-width: 220px;
+    }
+
+    /* --- Filter / Season Buttons --- */
+    .filter-btn,
+    .season-btn {
+        padding: 9px 20px;
+        font-size: 0.88rem;
+    }
+
+    /* --- Footer --- */
+    footer, .app-footer {
+        padding: 24px 36px;
+    }
 }
