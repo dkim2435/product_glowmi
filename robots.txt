@@ -1,0 +1,21 @@
+# Glowmi - K-Beauty Companion
+# https://glowmi.kr
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemaps
+Sitemap: https://glowmi.kr/sitemap.xml
+
+# Crawl-delay for polite crawling
+User-agent: Yeti
+Allow: /
+Crawl-delay: 2
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
