@@ -179,10 +179,10 @@
         "@type": "BreadcrumbList",
         "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://glowmi.org/" },
-            { "@type": "ListItem", "position": 2, "name": "Skin Quiz", "item": "https://glowmi.org/#quiz" },
-            { "@type": "ListItem", "position": 3, "name": "K-Beauty Skincare", "item": "https://glowmi.org/#products" },
-            { "@type": "ListItem", "position": 4, "name": "Treatments & Clinics", "item": "https://glowmi.org/#procedures" },
-            { "@type": "ListItem", "position": 5, "name": "AI Beauty Analysis", "item": "https://glowmi.org/#ai" },
+            { "@type": "ListItem", "position": 2, "name": "AI Beauty Analysis", "item": "https://glowmi.org/#ai" },
+            { "@type": "ListItem", "position": 3, "name": "Skin Quiz", "item": "https://glowmi.org/#quiz" },
+            { "@type": "ListItem", "position": 4, "name": "K-Beauty Skincare", "item": "https://glowmi.org/#products" },
+            { "@type": "ListItem", "position": 5, "name": "Treatments & Clinics", "item": "https://glowmi.org/#procedures" },
             { "@type": "ListItem", "position": 6, "name": "Wellness", "item": "https://glowmi.org/#wellness" }
         ]
     }
@@ -201,23 +201,23 @@
     <div class="app-container">
         <!-- Header -->
         <header class="header">
-            <h1><a href="#" onclick="switchToQuiz(); return false;" style="text-decoration:none;color:inherit;">✨ Glowmi</a></h1>
+            <h1><a href="#" onclick="switchToHome(); return false;" style="text-decoration:none;color:inherit;">✨ Glowmi</a></h1>
             <p class="subtitle">Glow starts with me | 나만의 K-뷰티 가이드</p>
         </header>
 
         <!-- Tab Navigation -->
         <nav class="tab-nav" aria-label="Main navigation">
-            <button class="tab-btn active" data-tab="quiz" role="tab" aria-selected="true" aria-controls="quiz">Quiz</button>
+            <button class="tab-btn active" data-tab="ai" role="tab" aria-selected="true" aria-controls="ai">AI Beauty</button>
+            <button class="tab-btn" data-tab="quiz" role="tab" aria-selected="false" aria-controls="quiz">Quiz</button>
             <button class="tab-btn" data-tab="products" role="tab" aria-selected="false" aria-controls="products">Skincare</button>
             <button class="tab-btn" data-tab="procedures" role="tab" aria-selected="false" aria-controls="procedures">Treatments</button>
-            <button class="tab-btn" data-tab="ai" role="tab" aria-selected="false" aria-controls="ai">AI Beauty</button>
             <button class="tab-btn" data-tab="wellness" role="tab" aria-selected="false" aria-controls="wellness">Wellness</button>
         </nav>
 
         <!-- Tab Contents -->
         <main class="tab-content" role="main">
             <!-- Skin Quiz Tab -->
-            <section id="quiz" class="tab-panel active" role="tabpanel" aria-label="Skin Type Quiz">
+            <section id="quiz" class="tab-panel hidden" role="tabpanel" aria-label="Skin Type Quiz">
                 <!-- Quiz Season Select Screen -->
                 <div id="quiz-season-select" class="quiz-screen">
                     <div class="quiz-intro-card">
@@ -639,7 +639,7 @@
             </div>
 
             <!-- AI Beauty Tab -->
-            <section id="ai" class="tab-panel hidden" role="tabpanel" aria-label="AI Beauty Analysis Tools">
+            <section id="ai" class="tab-panel active" role="tabpanel" aria-label="AI Beauty Analysis Tools">
                 <h2 class="section-title">AI Beauty Analysis</h2>
                 <p class="section-subtitle">AI 뷰티 분석</p>
 
@@ -3136,7 +3136,7 @@ function toggleContent(card) {
     }
 }
 
-function switchToQuiz() {
+function switchToHome() {
     var btns = document.querySelectorAll('.tab-btn');
     var panels = document.querySelectorAll('.tab-panel');
     for (var i = 0; i < btns.length; i++) {
@@ -3144,12 +3144,12 @@ function switchToQuiz() {
         btns[i].setAttribute('aria-selected', 'false');
     }
     for (var j = 0; j < panels.length; j++) panels[j].classList.add('hidden');
-    var quizBtn = document.querySelector('.tab-btn[data-tab="quiz"]');
-    if (quizBtn) {
-        quizBtn.classList.add('active');
-        quizBtn.setAttribute('aria-selected', 'true');
+    var aiBtn = document.querySelector('.tab-btn[data-tab="ai"]');
+    if (aiBtn) {
+        aiBtn.classList.add('active');
+        aiBtn.setAttribute('aria-selected', 'true');
     }
-    document.getElementById('quiz').classList.remove('hidden');
+    document.getElementById('ai').classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
