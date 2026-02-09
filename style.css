@@ -3578,3 +3578,87 @@ body {
         padding: 24px 36px;
     }
 }
+
+/* ========== SNS Share Buttons ========== */
+.share-section {
+    border-top: 1px solid #eee;
+    margin-top: 24px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.share-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.share-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.share-btn:active {
+    transform: scale(0.95);
+}
+
+.share-btn-x {
+    background: #000;
+}
+
+.share-btn-fb {
+    background: #1877F2;
+}
+
+.share-btn-copy {
+    background: #6c757d;
+}
+
+.share-btn-native {
+    background: var(--primary-pink);
+}
+
+/* Share Toast */
+.share-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.share-toast-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}

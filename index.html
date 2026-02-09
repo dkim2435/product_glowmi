@@ -3005,6 +3005,7 @@ function showPCResult() {
         celebsHtml +
         '</div>' +
         allTypesHtml +
+        buildShareButtons(r.emoji, r.english, r.korean) +
         '<button class="secondary-btn" onclick="retakePersonalColor()">Retake Test 다시하기</button>';
 
     document.getElementById('pc-result-content').classList.add('animated');
@@ -3017,6 +3018,86 @@ function retakePersonalColor() {
     pcFaceCropData = null;
     pcAnalysisResult = null;
     showPcScreen('pc-start');
+}
+
+// ========== SNS Share Functions ==========
+function shareToTwitter(text) {
+    var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+    window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function shareToFacebook() {
+    var url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('https://glowmi.org/');
+    window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function copyShareLink(text) {
+    var copyText = text + '\n\nhttps://glowmi.org/';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(copyText).then(function() {
+            showShareToast('Link copied! 링크가 복사되었습니다!');
+        });
+    } else {
+        var ta = document.createElement('textarea');
+        ta.value = copyText;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showShareToast('Link copied! 링크가 복사되었습니다!');
+    }
+}
+
+function shareNative(title, text) {
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: text,
+            url: 'https://glowmi.org/'
+        });
+    }
+}
+
+function showShareToast(msg) {
+    var existing = document.querySelector('.share-toast');
+    if (existing) existing.remove();
+    var toast = document.createElement('div');
+    toast.className = 'share-toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.classList.add('share-toast-visible'); }, 10);
+    setTimeout(function() {
+        toast.classList.remove('share-toast-visible');
+        setTimeout(function() { toast.remove(); }, 300);
+    }, 2500);
+}
+
+function buildShareButtons(emoji, english, korean) {
+    var shareText = emoji + ' My result: ' + english + '\n' + korean + '\n\nTry free at glowmi.org!';
+    var escapedText = shareText.replace(/'/g, "\\'").replace(/\n/g, '\\n');
+    var html = '<div class="share-section">' +
+        '<p class="share-label">Share Your Result 결과 공유하기</p>' +
+        '<div class="share-buttons">' +
+        '<button class="share-btn share-btn-x" onclick="shareToTwitter(\'' + escapedText + '\')" title="Share on X">' +
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
+        '</button>' +
+        '<button class="share-btn share-btn-fb" onclick="shareToFacebook()" title="Share on Facebook">' +
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>' +
+        '</button>' +
+        '<button class="share-btn share-btn-copy" onclick="copyShareLink(\'' + escapedText + '\')" title="Copy Link 링크 복사">' +
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+        '</button>';
+
+    if (navigator.share) {
+        html += '<button class="share-btn share-btn-native" onclick="shareNative(\'Glowmi\', \'' + escapedText + '\')" title="Share 공유">' +
+            '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' +
+            '</button>';
+    }
+
+    html += '</div></div>';
+    return html;
 }
 
 // App State
@@ -3852,6 +3933,7 @@ function showFsResult(result) {
         '<div class="result-description"><h4>About Your Face Shape</h4><p>' + data.description + '</p>' +
         '<h4>Styling Tips 스타일링 팁</h4><ul>' + tipsHtml + '</ul></div>' +
         '<div class="fs-ref-section"><h4>All Face Shapes 전체 얼굴형 가이드</h4>' + shapesRefHtml + '</div>' +
+        buildShareButtons(data.emoji, data.name, data.korean) +
         '<div class="fs-result-buttons">' +
         '<button class="primary-btn" onclick="retryFaceShape()">🔄 Try Again 다시하기</button>' +
         '</div>';
@@ -4494,6 +4576,10 @@ function showSkinResult(scores) {
         html += '</div>';
     }
     html += '</div>';
+
+    // Share buttons
+    var skinShareSummary = 'Skin Score ' + overallScore + '/100 (' + grade + ')';
+    html += buildShareButtons('🔬', skinShareSummary, 'AI 피부 분석 결과');
 
     // Retry button
     html += '<div class="fs-result-buttons">';

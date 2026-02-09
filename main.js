@@ -464,6 +464,7 @@ function showResult() {
             '<h4>🛒 Recommended Products (Olive Young)</h4>' +
             productsHTML +
         '</div>' +
+        buildShareButtons(result.emoji, result.english, result.korean) +
         '<button class="secondary-btn" onclick="retakeQuiz()">Retake Quiz 다시하기</button>';
 
     // Add animation class
