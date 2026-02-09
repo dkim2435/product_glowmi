@@ -201,7 +201,7 @@
     <div class="app-container">
         <!-- Header -->
         <header class="header">
-            <h1>✨ Glowmi</h1>
+            <h1><a href="#" onclick="switchToQuiz(); return false;" style="text-decoration:none;color:inherit;">✨ Glowmi</a></h1>
             <p class="subtitle">Glow starts with me | 나만의 K-뷰티 가이드</p>
         </header>
 
@@ -3134,6 +3134,23 @@ function toggleContent(card) {
     if (!isOpen) {
         card.classList.add('open');
     }
+}
+
+function switchToQuiz() {
+    var btns = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('active');
+        btns[i].setAttribute('aria-selected', 'false');
+    }
+    for (var j = 0; j < panels.length; j++) panels[j].classList.add('hidden');
+    var quizBtn = document.querySelector('.tab-btn[data-tab="quiz"]');
+    if (quizBtn) {
+        quizBtn.classList.add('active');
+        quizBtn.setAttribute('aria-selected', 'true');
+    }
+    document.getElementById('quiz').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function setupTabs() {
