@@ -2,39 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>https://glowmi.kr/</loc>
+        <loc>https://glowmi.org/</loc>
         <lastmod>2026-02-09</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://glowmi.kr/" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://glowmi.kr/" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://glowmi.org/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://glowmi.org/" />
     </url>
     <url>
-        <loc>https://glowmi.kr/#quiz</loc>
+        <loc>https://glowmi.org/#quiz</loc>
         <lastmod>2026-02-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://glowmi.kr/#products</loc>
+        <loc>https://glowmi.org/#products</loc>
         <lastmod>2026-02-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://glowmi.kr/#procedures</loc>
+        <loc>https://glowmi.org/#procedures</loc>
         <lastmod>2026-02-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://glowmi.kr/#ai</loc>
+        <loc>https://glowmi.org/#ai</loc>
         <lastmod>2026-02-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://glowmi.kr/#wellness</loc>
+        <loc>https://glowmi.org/#wellness</loc>
         <lastmod>2026-02-09</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
