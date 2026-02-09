@@ -1,0 +1,2 @@
+# URL canonicalization: redirect pages.dev to primary domain
+https://evan-productbuilder.pages.dev/* https://glowmi.org/:splat 301
