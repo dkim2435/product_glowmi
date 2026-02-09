@@ -537,16 +537,16 @@
                     </div>
                 </div>
 
-                <!-- Personal Color Test — AI Color Draping -->
+                <!-- Personal Color Test — AI Personal Color Analysis -->
                 <div id="pc-section">
                     <!-- Screen 1: Start -->
                     <div id="pc-start" class="pc-screen">
                         <div class="pc-start-card">
                             <div class="quiz-icon">🎨</div>
-                            <h2>AI Color Draping</h2>
-                            <h3>AI 컬러 드레이핑 진단</h3>
-                            <p>Take a selfie and compare colors side-by-side — just like a real draping session! 5 quick rounds to find your season.</p>
-                            <p class="korean">셀카를 찍고 실제 드레이핑처럼 색상을 비교해보세요! 5라운드로 퍼스널컬러를 찾아드려요.</p>
+                            <h2>AI Personal Color Analysis</h2>
+                            <h3>AI 퍼스널컬러 진단</h3>
+                            <p>Take one photo and AI will automatically analyze your skin tone to find your personal color type among 10 categories.</p>
+                            <p class="korean">사진 한 장으로 10가지 퍼스널컬러 타입을 자동 분석합니다.</p>
                             <div class="pc-btn-group">
                                 <button class="primary-btn" onclick="startPCCamera()">📸 Take Photo 촬영</button>
                                 <button class="secondary-btn" onclick="triggerPCUpload()">🖼️ Upload Image 업로드</button>
@@ -572,34 +572,22 @@
                             </div>
                             <div id="pc-preview-controls" class="pc-controls hidden">
                                 <button class="secondary-btn" onclick="retakePCPhoto()">↩️ Retake 다시</button>
-                                <button class="primary-btn" onclick="startDraping()">🎨 Start Draping 드레이핑 시작</button>
+                                <button class="primary-btn" onclick="startColorAnalysis()">🎨 Analyze Colors 컬러 분석</button>
                             </div>
                             <p id="pc-cam-error" class="fs-error hidden"></p>
                         </div>
                     </div>
 
-                    <!-- Screen 3: Draping Comparison -->
-                    <div id="pc-draping" class="pc-screen hidden">
-                        <div class="draping-card">
-                            <div class="draping-header">
-                                <div class="draping-round-label" id="draping-round-label">Round 1 / 5</div>
-                                <div class="progress-bar"><div id="draping-progress-fill" class="progress-fill" style="width:20%"></div></div>
-                                <p class="draping-instruction">Which color makes the face look brighter?<br><span class="korean">어느 쪽이 더 화사해 보이나요?</span></p>
-                            </div>
-                            <div class="draping-comparison" id="draping-comparison"></div>
-                        </div>
-                    </div>
-
-                    <!-- Screen 4: Analyzing -->
+                    <!-- Screen 3: Analyzing -->
                     <div id="pc-analyzing" class="pc-screen hidden">
                         <div class="pc-analyzing-card">
                             <div class="pc-analyzing-spinner"></div>
-                            <h3>Analyzing your colors...</h3>
-                            <p class="korean">컬러를 분석하고 있어요...</p>
+                            <h3>Analyzing your skin tone...</h3>
+                            <p class="korean">피부 톤을 분석하고 있어요...</p>
                         </div>
                     </div>
 
-                    <!-- Screen 5: Result -->
+                    <!-- Screen 4: Result -->
                     <div id="pc-result" class="pc-screen hidden">
                         <div id="pc-result-content" class="result-card"></div>
                     </div>
@@ -1823,141 +1811,321 @@ var proceduresData = [
     { english: "Aqua Peel", korean: "아쿠아필", description: "Water-based exfoliation for deep pore cleansing and skin hydration. Great entry-level treatment.", priceKRW: "₩50,000 - ₩150,000", priceUSD: "$40 - $115", duration: "30-45 min", downtime: "None", lasts: "2-4 weeks", rank: "#10 Popular", tags: ["Pores", "Hydration", "Beginner-Friendly"] }
 ];
 
-// Personal Color Draping Data — 5 rounds of side-by-side color comparison
-var drapingRounds = [
-    {
-        left:  { color: '#FFD700', label: 'Gold', korean: '골드' },
-        right: { color: '#C0C0C0', label: 'Silver', korean: '실버' },
-        leftScores:  { spring: 3, summer: 0, fall: 3, winter: 0 },
-        rightScores: { spring: 0, summer: 3, fall: 0, winter: 3 }
-    },
-    {
-        left:  { color: '#FF7F50', label: 'Coral', korean: '코랄' },
-        right: { color: '#FFB6C1', label: 'Rose Pink', korean: '로즈핑크' },
-        leftScores:  { spring: 3, summer: 0, fall: 1, winter: 0 },
-        rightScores: { spring: 0, summer: 3, fall: 0, winter: 1 }
-    },
-    {
-        left:  { color: '#FFDB58', label: 'Mustard', korean: '머스타드' },
-        right: { color: '#E6E6FA', label: 'Lavender', korean: '라벤더' },
-        leftScores:  { spring: 1, summer: 0, fall: 3, winter: 0 },
-        rightScores: { spring: 0, summer: 1, fall: 0, winter: 3 }
-    },
-    {
-        left:  { color: '#FFFFF0', label: 'Ivory', korean: '아이보리' },
-        right: { color: '#FFFFFF', label: 'Pure White', korean: '퓨어화이트' },
-        leftScores:  { spring: 2, summer: 0, fall: 1, winter: 0 },
-        rightScores: { spring: 0, summer: 1, fall: 0, winter: 2 }
-    },
-    {
-        left:  { color: '#800020', label: 'Burgundy', korean: '버건디' },
-        right: { color: '#4169E1', label: 'Royal Blue', korean: '로열블루' },
-        leftScores:  { spring: 1, summer: 0, fall: 3, winter: 0 },
-        rightScores: { spring: 0, summer: 1, fall: 0, winter: 3 }
-    }
-];
-
+// Personal Color Results — 10 types
 var personalColorResults = {
-    spring: {
+    springBright: {
         emoji: "🌸",
-        english: "Spring Warm",
-        korean: "봄 웜톤",
-        subtitle: "Warm & Bright",
-        description: "You radiate warmth and brightness! Your skin glows with warm undertones and you look best in fresh, vibrant colors that reflect sunlight.",
+        season: "Spring",
+        english: "Spring Bright",
+        korean: "봄 브라이트",
+        subtitle: "Warm & Vivid",
+        subtitleKr: "따뜻하고 선명한",
+        description: "You radiate warmth and clarity! Your skin glows with warm undertones and you look best in vivid, saturated warm colors that pop.",
+        descriptionKr: "따뜻하고 선명한 에너지를 가진 타입입니다. 채도가 높은 따뜻한 컬러가 얼굴을 화사하게 밝혀줍니다.",
         bestColors: [
-            { name: "Coral", hex: "#FF7F50" },
-            { name: "Peach", hex: "#FFDAB9" },
+            { name: "Coral Red", hex: "#FF6B6B" },
+            { name: "Tangerine", hex: "#FF9F43" },
             { name: "Warm Yellow", hex: "#FFD700" },
-            { name: "Light Green", hex: "#90EE90" },
+            { name: "Spring Green", hex: "#2ED573" },
+            { name: "Turquoise", hex: "#1ABC9C" },
+            { name: "Bright Coral", hex: "#FF7F50" }
+        ],
+        worstColors: [
+            { name: "Charcoal", hex: "#333333" },
+            { name: "Dusty Mauve", hex: "#B5838D" },
+            { name: "Dark Navy", hex: "#1B1464" }
+        ],
+        tips: [
+            "Choose vivid warm colors for maximum impact",
+            "선명하고 따뜻한 컬러를 선택하세요",
+            "Gold jewelry and bright accessories suit you",
+            "골드 주얼리와 밝은 액세서리가 잘 어울려요",
+            "Avoid muted or dusty tones that dull your glow"
+        ],
+        celebs: ["Yoona (SNSD)", "Joy (Red Velvet)"],
+        celebsKr: ["윤아 (소녀시대)", "조이 (레드벨벳)"],
+        makeup: { foundation: "Warm beige", lip: "Bright coral, orange-red", blush: "Vivid peach", eye: "Warm gold, copper shimmer" }
+    },
+    springLight: {
+        emoji: "🌷",
+        season: "Spring",
+        english: "Spring Light",
+        korean: "봄 라이트",
+        subtitle: "Warm & Soft",
+        subtitleKr: "따뜻하고 부드러운",
+        description: "You have a gentle, luminous warmth. Light and soft warm colors bring out your delicate, fresh complexion beautifully.",
+        descriptionKr: "밝고 부드러운 따뜻함을 지닌 타입입니다. 연하고 맑은 웜톤 컬러가 얼굴을 환하게 만들어줍니다.",
+        bestColors: [
+            { name: "Peach", hex: "#FFDAB9" },
+            { name: "Light Coral", hex: "#F08080" },
+            { name: "Cream Yellow", hex: "#FFFDD0" },
+            { name: "Mint", hex: "#98FB98" },
             { name: "Salmon Pink", hex: "#FA8072" },
             { name: "Ivory", hex: "#FFFFF0" }
         ],
         worstColors: [
             { name: "Black", hex: "#000000" },
-            { name: "Dark Gray", hex: "#444444" },
-            { name: "Burgundy", hex: "#800020" }
+            { name: "Dark Burgundy", hex: "#800020" },
+            { name: "Deep Brown", hex: "#3E2723" }
         ],
         tips: [
-            "Choose warm, clear colors over muted tones",
-            "Gold jewelry enhances your natural glow",
-            "Peach and coral blush suits you perfectly",
-            "Avoid heavy, dark makeup — keep it fresh",
-            "Warm brown and caramel hair tones are ideal"
+            "Soft pastels with warm bases are your best friends",
+            "부드러운 웜 파스텔 톤이 가장 잘 어울려요",
+            "Rose gold and light gold jewelry complement you",
+            "로즈골드와 라이트골드 주얼리가 잘 어울려요",
+            "Avoid heavy dark colors that overpower your lightness"
         ],
-        celebs: ["Yoona (SNSD)", "Suzy (Miss A)"],
-        makeup: { foundation: "Warm beige", lip: "Coral, peach", blush: "Apricot", eye: "Warm brown, gold shimmer" }
+        celebs: ["Suzy", "Park Boyoung"],
+        celebsKr: ["수지", "박보영"],
+        makeup: { foundation: "Light warm beige", lip: "Peach, light coral", blush: "Soft apricot", eye: "Warm brown, champagne" }
     },
-    summer: {
+    summerBright: {
+        emoji: "💎",
+        season: "Summer",
+        english: "Summer Bright",
+        korean: "여름 브라이트",
+        subtitle: "Cool & Vivid",
+        subtitleKr: "시원하고 선명한",
+        description: "You have a cool, clear brilliance. Bright cool-toned colors make you look radiant and fresh.",
+        descriptionKr: "차갑고 선명한 빛을 지닌 타입입니다. 채도 높은 쿨톤 컬러가 얼굴을 빛나게 합니다.",
+        bestColors: [
+            { name: "Hot Pink", hex: "#FF69B4" },
+            { name: "Bright Lavender", hex: "#BF5FFF" },
+            { name: "Sky Blue", hex: "#5B9BD5" },
+            { name: "Berry", hex: "#C04070" },
+            { name: "Mint Blue", hex: "#00CED1" },
+            { name: "Fuchsia", hex: "#FF00FF" }
+        ],
+        worstColors: [
+            { name: "Mustard", hex: "#FFDB58" },
+            { name: "Olive", hex: "#808000" },
+            { name: "Warm Orange", hex: "#FF8C00" }
+        ],
+        tips: [
+            "Go for vivid cool hues that add sparkle",
+            "선명한 쿨톤 컬러로 화사함을 더하세요",
+            "Silver and white gold jewelry work perfectly",
+            "실버와 화이트골드 주얼리가 잘 어울려요",
+            "Stay away from warm, earthy tones"
+        ],
+        celebs: ["IU", "Taeyeon (SNSD)"],
+        celebsKr: ["아이유", "태연 (소녀시대)"],
+        makeup: { foundation: "Cool pink beige", lip: "Bright pink, berry", blush: "Vivid rose", eye: "Silver, blue shimmer" }
+    },
+    summerLight: {
         emoji: "🌊",
-        english: "Summer Cool",
-        korean: "여름 쿨톤",
-        subtitle: "Cool & Soft",
-        description: "You have a soft, elegant aura with cool undertones. Muted, powdery colors complement your gentle complexion beautifully.",
+        season: "Summer",
+        english: "Summer Light",
+        korean: "여름 라이트",
+        subtitle: "Cool & Gentle",
+        subtitleKr: "시원하고 연한",
+        description: "You have a soft, elegant aura with cool undertones. Light pastel cool colors complement your delicate complexion.",
+        descriptionKr: "부드럽고 우아한 쿨톤 타입입니다. 연한 파스텔 쿨톤 컬러가 섬세한 피부와 조화를 이룹니다.",
         bestColors: [
             { name: "Lavender", hex: "#E6E6FA" },
             { name: "Powder Blue", hex: "#B0E0E6" },
             { name: "Rose Pink", hex: "#FFB6C1" },
             { name: "Mauve", hex: "#E0B0FF" },
             { name: "Soft Gray", hex: "#C0C0C0" },
-            { name: "Dusty Rose", hex: "#DCAE96" }
+            { name: "Baby Blue", hex: "#89CFF0" }
         ],
         worstColors: [
             { name: "Orange", hex: "#FF8C00" },
-            { name: "Mustard", hex: "#FFDB58" },
-            { name: "Olive Green", hex: "#808000" }
+            { name: "Camel", hex: "#C19A6B" },
+            { name: "Warm Brown", hex: "#A0522D" }
         ],
         tips: [
-            "Soft, muted tones look better than bold ones",
-            "Silver and rose gold jewelry suit you best",
-            "Pink-toned blush and lip colors are your go-to",
-            "Ash or cool brown hair tones are flattering",
-            "Avoid overly warm or earthy makeup shades"
+            "Soft cool pastels make you glow effortlessly",
+            "부드러운 쿨 파스텔이 자연스러운 화사함을 줘요",
+            "Rose gold and silver jewelry suit your elegance",
+            "로즈골드와 실버 주얼리가 우아함을 더해줘요",
+            "Avoid overly warm or saturated earth tones"
         ],
-        celebs: ["IU", "Kim Taehee"],
-        makeup: { foundation: "Pink beige", lip: "Rose pink, mauve", blush: "Soft pink", eye: "Taupe, lavender" }
+        celebs: ["Kim Taehee", "Bae Suzy"],
+        celebsKr: ["김태희", "배수지"],
+        makeup: { foundation: "Light pink beige", lip: "Rose pink, soft mauve", blush: "Soft pink", eye: "Taupe, lavender" }
     },
-    fall: {
-        emoji: "🍂",
-        english: "Fall Warm",
-        korean: "가을 웜톤",
-        subtitle: "Warm & Deep",
-        description: "You have a rich, earthy warmth. Deep, muted warm tones bring out your natural depth and make you look stunning.",
+    summerMute: {
+        emoji: "🌿",
+        season: "Summer",
+        english: "Summer Mute",
+        korean: "여름 뮤트",
+        subtitle: "Cool & Soft",
+        subtitleKr: "시원하고 차분한",
+        description: "You have a calm, understated cool beauty. Muted, dusty cool tones bring out your sophisticated, gentle charm.",
+        descriptionKr: "차분하고 세련된 쿨톤 타입입니다. 부드럽고 탁한 쿨톤 컬러가 은은한 매력을 이끌어냅니다.",
         bestColors: [
-            { name: "Terracotta", hex: "#E2725B" },
-            { name: "Olive", hex: "#808000" },
-            { name: "Mustard", hex: "#FFDB58" },
-            { name: "Burgundy", hex: "#800020" },
+            { name: "Dusty Rose", hex: "#DCAE96" },
+            { name: "Sage", hex: "#B2BEB5" },
+            { name: "Muted Lilac", hex: "#C8A2C8" },
+            { name: "Ash Blue", hex: "#7393B3" },
+            { name: "Cocoa", hex: "#D2691E" },
+            { name: "Grayish Pink", hex: "#C4A4A4" }
+        ],
+        worstColors: [
+            { name: "Bright Orange", hex: "#FF6600" },
+            { name: "Vivid Yellow", hex: "#FFD700" },
+            { name: "Neon Green", hex: "#39FF14" }
+        ],
+        tips: [
+            "Muted, dusty tones create harmony with your skin",
+            "탁하고 은은한 톤이 피부와 조화를 이뤄요",
+            "Avoid overly bright or saturated colors",
+            "너무 선명하거나 채도 높은 색은 피하세요",
+            "Layering soft neutrals creates your best look"
+        ],
+        celebs: ["Son Yejin", "Shin Minah"],
+        celebsKr: ["손예진", "신민아"],
+        makeup: { foundation: "Neutral pink beige", lip: "MLBB rose, dusty pink", blush: "Muted rose", eye: "Taupe, muted plum" }
+    },
+    fallMute: {
+        emoji: "🍂",
+        season: "Fall",
+        english: "Fall Mute",
+        korean: "가을 뮤트",
+        subtitle: "Warm & Soft",
+        subtitleKr: "따뜻하고 차분한",
+        description: "You have a warm, muted elegance. Soft earthy warm tones bring out your naturally understated and sophisticated beauty.",
+        descriptionKr: "따뜻하면서 차분한 우아함을 지닌 타입입니다. 부드러운 어스톤이 자연스러운 세련미를 이끌어냅니다.",
+        bestColors: [
             { name: "Camel", hex: "#C19A6B" },
-            { name: "Chocolate", hex: "#7B3F00" }
+            { name: "Warm Beige", hex: "#D2B48C" },
+            { name: "Olive", hex: "#808000" },
+            { name: "Dusty Coral", hex: "#CD8C8C" },
+            { name: "Warm Gray", hex: "#A89F91" },
+            { name: "Muted Gold", hex: "#BDB76B" }
+        ],
+        worstColors: [
+            { name: "Bright Fuchsia", hex: "#FF00FF" },
+            { name: "Royal Blue", hex: "#4169E1" },
+            { name: "Neon Pink", hex: "#FF6EC7" }
+        ],
+        tips: [
+            "Earth tones and muted warm colors are your signature",
+            "어스톤과 차분한 웜컬러가 시그니처예요",
+            "Antique gold jewelry adds warmth naturally",
+            "앤틱 골드 주얼리가 자연스러운 따뜻함을 더해요",
+            "Avoid vivid cool-toned or neon colors"
+        ],
+        celebs: ["Song Hyekyo", "Han Sohee"],
+        celebsKr: ["송혜교", "한소희"],
+        makeup: { foundation: "Warm beige", lip: "MLBB brown, warm nude", blush: "Peach brown", eye: "Warm brown, khaki" }
+    },
+    fallDeep: {
+        emoji: "🌰",
+        season: "Fall",
+        english: "Fall Deep",
+        korean: "가을 딥",
+        subtitle: "Warm & Rich",
+        subtitleKr: "따뜻하고 깊은",
+        description: "You have a rich, deep warmth. Bold warm earth tones and deep jewel-warm colors bring out your strong, luxurious appeal.",
+        descriptionKr: "깊고 풍부한 따뜻함을 지닌 타입입니다. 진한 어스톤과 깊은 웜 컬러가 고급스러운 매력을 강조합니다.",
+        bestColors: [
+            { name: "Chocolate", hex: "#7B3F00" },
+            { name: "Burgundy", hex: "#800020" },
+            { name: "Forest Green", hex: "#228B22" },
+            { name: "Terracotta", hex: "#E2725B" },
+            { name: "Mustard", hex: "#FFDB58" },
+            { name: "Rust", hex: "#B7410E" }
         ],
         worstColors: [
             { name: "Pastel Pink", hex: "#FFB6C1" },
-            { name: "Bright Blue", hex: "#0000FF" },
-            { name: "Neon Colors", hex: "#39FF14" }
+            { name: "Baby Blue", hex: "#89CFF0" },
+            { name: "Lavender", hex: "#E6E6FA" }
         ],
         tips: [
-            "Rich, earthy tones are your signature look",
-            "Antique gold and bronze jewelry look amazing",
-            "Warm brown and terracotta lip colors are ideal",
-            "Deep auburn or chestnut hair tones suit you",
-            "Layer warm neutrals for a polished look"
+            "Deep warm tones create a striking, luxurious look",
+            "깊은 웜톤이 고급스럽고 강렬한 인상을 만들어요",
+            "Bronze and antique gold accessories are ideal",
+            "브론즈와 앤틱 골드 액세서리가 이상적이에요",
+            "Avoid light pastels that wash you out"
         ],
-        celebs: ["Jennie (BLACKPINK)", "Song Hyekyo"],
-        makeup: { foundation: "Golden beige", lip: "Brick red, terracotta", blush: "Peach brown", eye: "Copper, olive" }
+        celebs: ["Jennie (BLACKPINK)", "HyunA"],
+        celebsKr: ["제니 (블랙핑크)", "현아"],
+        makeup: { foundation: "Golden beige", lip: "Brick red, burgundy", blush: "Deep peach", eye: "Copper, bronze" }
     },
-    winter: {
+    fallStrong: {
+        emoji: "🔥",
+        season: "Fall",
+        english: "Fall Strong",
+        korean: "가을 스트롱",
+        subtitle: "Warm & Bold",
+        subtitleKr: "따뜻하고 강렬한",
+        description: "You have a powerful warm intensity. Highly saturated warm colors make you look confident and vibrant.",
+        descriptionKr: "강렬한 따뜻함을 지닌 타입입니다. 채도가 높은 웜톤이 당당하고 생기 있는 인상을 만듭니다.",
+        bestColors: [
+            { name: "Pumpkin", hex: "#FF7518" },
+            { name: "Burnt Orange", hex: "#CC5500" },
+            { name: "Bright Olive", hex: "#6B8E23" },
+            { name: "Tomato Red", hex: "#FF6347" },
+            { name: "Deep Gold", hex: "#DAA520" },
+            { name: "Warm Magenta", hex: "#C71585" }
+        ],
+        worstColors: [
+            { name: "Icy Blue", hex: "#A5F2F3" },
+            { name: "Pale Gray", hex: "#D3D3D3" },
+            { name: "Cool Pink", hex: "#FF69B4" }
+        ],
+        tips: [
+            "Bold saturated warm colors are your power palette",
+            "채도 높은 따뜻한 컬러가 파워 팔레트예요",
+            "Statement gold jewelry matches your intensity",
+            "임팩트 있는 골드 주얼리가 강렬함과 어울려요",
+            "Avoid pale or washed-out cool tones"
+        ],
+        celebs: ["CL (2NE1)", "Hwasa (Mamamoo)"],
+        celebsKr: ["씨엘 (2NE1)", "화사 (마마무)"],
+        makeup: { foundation: "Deep warm beige", lip: "Orange-red, warm berry", blush: "Burnt sienna", eye: "Gold, warm olive" }
+    },
+    winterDeep: {
+        emoji: "🌑",
+        season: "Winter",
+        english: "Winter Deep",
+        korean: "겨울 딥",
+        subtitle: "Cool & Deep",
+        subtitleKr: "시원하고 깊은",
+        description: "You have a cool, deep intensity. Rich dark cool-toned colors bring out your dramatic, powerful elegance.",
+        descriptionKr: "차갑고 깊은 강렬함을 지닌 타입입니다. 진하고 어두운 쿨톤이 드라마틱한 우아함을 완성합니다.",
+        bestColors: [
+            { name: "Black", hex: "#000000" },
+            { name: "Dark Navy", hex: "#1B1464" },
+            { name: "Deep Plum", hex: "#673147" },
+            { name: "Emerald", hex: "#006400" },
+            { name: "Wine", hex: "#722F37" },
+            { name: "Charcoal", hex: "#36454F" }
+        ],
+        worstColors: [
+            { name: "Warm Beige", hex: "#D2B48C" },
+            { name: "Camel", hex: "#C19A6B" },
+            { name: "Peach", hex: "#FFDAB9" }
+        ],
+        tips: [
+            "Deep, dark cool tones create dramatic impact",
+            "깊고 어두운 쿨톤이 드라마틱한 인상을 줘요",
+            "Platinum and dark silver jewelry suit you",
+            "플래티넘과 다크 실버 주얼리가 어울려요",
+            "Avoid warm, muted earth tones"
+        ],
+        celebs: ["Jun Jihyun", "Kim Soohyun"],
+        celebsKr: ["전지현", "김수현"],
+        makeup: { foundation: "Cool neutral beige", lip: "Deep berry, wine", blush: "Cool mauve", eye: "Charcoal, deep plum" }
+    },
+    winterBright: {
         emoji: "❄️",
-        english: "Winter Cool",
-        korean: "겨울 쿨톤",
+        season: "Winter",
+        english: "Winter Bright",
+        korean: "겨울 브라이트",
         subtitle: "Cool & Vivid",
-        description: "You have a striking, high-contrast appearance. Bold, vivid colors and sharp contrasts make you look powerful and chic.",
+        subtitleKr: "시원하고 선명한",
+        description: "You have a striking, high-contrast appearance. Bold vivid cool colors and sharp contrasts make you look powerful and chic.",
+        descriptionKr: "선명하고 대비가 강한 외모를 지닌 타입입니다. 강렬한 쿨톤 컬러와 대비가 세련된 매력을 극대화합니다.",
         bestColors: [
             { name: "Pure White", hex: "#FFFFFF" },
             { name: "True Red", hex: "#FF0000" },
             { name: "Royal Blue", hex: "#4169E1" },
             { name: "Emerald", hex: "#50C878" },
             { name: "Fuchsia", hex: "#FF00FF" },
-            { name: "Black", hex: "#000000" }
+            { name: "Jet Black", hex: "#000000" }
         ],
         worstColors: [
             { name: "Beige", hex: "#F5F5DC" },
@@ -1965,24 +2133,24 @@ var personalColorResults = {
             { name: "Muted Brown", hex: "#A0522D" }
         ],
         tips: [
-            "Bold, high-contrast outfits look stunning on you",
+            "Bold high-contrast outfits look stunning on you",
+            "대비가 강한 과감한 스타일이 잘 어울려요",
             "Platinum and silver jewelry enhance your features",
-            "Berry and wine lip colors are your power shades",
-            "Cool black or blue-black hair is most flattering",
+            "플래티넘과 실버 주얼리가 이목구비를 살려줘요",
             "Don't be afraid of pure white and jet black"
         ],
-        celebs: ["Jisoo (BLACKPINK)", "Jun Jihyun"],
-        makeup: { foundation: "Neutral to cool", lip: "Berry, wine, true red", blush: "Cool pink", eye: "Charcoal, plum" }
+        celebs: ["Jisoo (BLACKPINK)", "Cha Eunwoo"],
+        celebsKr: ["지수 (블랙핑크)", "차은우"],
+        makeup: { foundation: "Neutral to cool", lip: "True red, bright berry", blush: "Cool pink", eye: "Silver, icy blue" }
     }
 };
 
-// Personal Color Draping State
+// Personal Color Analysis State
 var pcStream = null;
 var pcIsMirrored = false;
 var pcCapturedImageData = null;
 var pcFaceCropData = null;
-var pcCurrentRound = 0;
-var pcScores = { spring: 0, summer: 0, fall: 0, winter: 0 };
+var pcAnalysisResult = null;
 
 function showPcScreen(screenId) {
     var screens = document.querySelectorAll('#pc-section .pc-screen');
@@ -2167,92 +2335,302 @@ async function cropFaceFromPhoto(imageDataUrl) {
     }
 }
 
-// Start draping after photo is captured
-async function startDraping() {
-    document.getElementById('pc-preview-controls').classList.add('hidden');
-    // Show brief loading while cropping face
-    var loadEl = document.createElement('div');
-    loadEl.className = 'fs-loading';
-    loadEl.innerHTML = '<div class="fs-spinner"></div><p>Preparing draping... 드레이핑 준비 중...</p>';
-    document.querySelector('.pc-camera-card').appendChild(loadEl);
+// --- Skin Tone Analysis Functions ---
 
-    pcFaceCropData = await cropFaceFromPhoto(pcCapturedImageData);
-    loadEl.remove();
-
-    pcCurrentRound = 0;
-    pcScores = { spring: 0, summer: 0, fall: 0, winter: 0 };
-    renderDrapingRound();
-    showPcScreen('pc-draping');
+function sampleSkinRegion(ctx, landmark, imgW, imgH) {
+    var px = Math.round(landmark.x * imgW);
+    var py = Math.round(landmark.y * imgH);
+    var half = 3; // 7x7 region
+    var x0 = Math.max(0, px - half);
+    var y0 = Math.max(0, py - half);
+    var x1 = Math.min(imgW - 1, px + half);
+    var y1 = Math.min(imgH - 1, py + half);
+    var w = x1 - x0 + 1;
+    var h = y1 - y0 + 1;
+    if (w < 1 || h < 1) return null;
+    var data = ctx.getImageData(x0, y0, w, h).data;
+    var totalR = 0, totalG = 0, totalB = 0, count = 0;
+    for (var i = 0; i < data.length; i += 4) {
+        totalR += data[i];
+        totalG += data[i + 1];
+        totalB += data[i + 2];
+        count++;
+    }
+    if (count === 0) return null;
+    return { r: totalR / count, g: totalG / count, b: totalB / count };
 }
 
-function renderDrapingRound() {
-    var round = drapingRounds[pcCurrentRound];
-    var progress = ((pcCurrentRound + 1) / drapingRounds.length) * 100;
-    document.getElementById('draping-progress-fill').style.width = progress + '%';
-    document.getElementById('draping-round-label').textContent = 'Round ' + (pcCurrentRound + 1) + ' / ' + drapingRounds.length;
-
-    var html =
-        '<button class="draping-option" onclick="selectDrapingOption(\'left\')">' +
-            '<div class="draping-bg" style="background:' + round.left.color + ';' + (round.left.color === '#FFFFF0' || round.left.color === '#FFFFFF' ? 'border:1px solid #ddd;' : '') + '">' +
-                '<div class="draping-face"><img src="' + pcFaceCropData + '" alt="Your face"></div>' +
-            '</div>' +
-            '<div class="draping-label">' + round.left.label + '<br><span class="korean">' + round.left.korean + '</span></div>' +
-        '</button>' +
-        '<div class="draping-vs">VS</div>' +
-        '<button class="draping-option" onclick="selectDrapingOption(\'right\')">' +
-            '<div class="draping-bg" style="background:' + round.right.color + ';' + (round.right.color === '#FFFFF0' || round.right.color === '#FFFFFF' ? 'border:1px solid #ddd;' : '') + '">' +
-                '<div class="draping-face"><img src="' + pcFaceCropData + '" alt="Your face"></div>' +
-            '</div>' +
-            '<div class="draping-label">' + round.right.label + '<br><span class="korean">' + round.right.korean + '</span></div>' +
-        '</button>';
-
-    document.getElementById('draping-comparison').innerHTML = html;
-}
-
-function selectDrapingOption(side) {
-    var round = drapingRounds[pcCurrentRound];
-    var scores = side === 'left' ? round.leftScores : round.rightScores;
-    pcScores.spring += scores.spring;
-    pcScores.summer += scores.summer;
-    pcScores.fall += scores.fall;
-    pcScores.winter += scores.winter;
-
-    // Animate the selected option
-    var options = document.querySelectorAll('.draping-option');
-    var selectedIdx = side === 'left' ? 0 : 1;
-    options[selectedIdx].classList.add('draping-picked');
-
-    setTimeout(function() {
-        pcCurrentRound++;
-        if (pcCurrentRound < drapingRounds.length) {
-            renderDrapingRound();
-        } else {
-            showPcAnalyzing();
+function getMedianSkinColor(ctx, landmarks, imgW, imgH) {
+    // 11 landmark indices: forehead, cheeks, nose, chin, jawline
+    var indices = [10, 67, 297, 116, 345, 234, 454, 6, 152, 172, 397];
+    var samples = [];
+    for (var i = 0; i < indices.length; i++) {
+        var lm = landmarks[indices[i]];
+        if (lm) {
+            var s = sampleSkinRegion(ctx, lm, imgW, imgH);
+            if (s) samples.push(s);
         }
-    }, 500);
+    }
+    if (samples.length === 0) return null;
+    // Sort by brightness
+    samples.sort(function(a, b) {
+        return (a.r + a.g + a.b) - (b.r + b.g + b.b);
+    });
+    // Trim top/bottom 20%
+    var trimCount = Math.floor(samples.length * 0.2);
+    var trimmed = samples.slice(trimCount, samples.length - trimCount);
+    if (trimmed.length === 0) trimmed = samples;
+    // Average
+    var avgR = 0, avgG = 0, avgB = 0;
+    for (var j = 0; j < trimmed.length; j++) {
+        avgR += trimmed[j].r;
+        avgG += trimmed[j].g;
+        avgB += trimmed[j].b;
+    }
+    return {
+        r: Math.round(avgR / trimmed.length),
+        g: Math.round(avgG / trimmed.length),
+        b: Math.round(avgB / trimmed.length)
+    };
 }
 
-function showPcAnalyzing() {
+function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h = 0, s = 0, l = (max + min) / 2;
+    if (max !== min) {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+        else if (max === g) h = ((b - r) / d + 2) / 6;
+        else h = ((r - g) / d + 4) / 6;
+    }
+    return { h: h * 360, s: s * 100, l: l * 100 };
+}
+
+function normalizeWhiteBalance(rgb) {
+    var avg = (rgb.r + rgb.g + rgb.b) / 3;
+    if (avg < 30 || avg > 240) return rgb;
+    var factor = 128 / avg;
+    // Gentle correction: blend 30% toward normalized
+    var blendFactor = 0.3;
+    return {
+        r: Math.round(rgb.r + (rgb.r * factor - rgb.r) * blendFactor),
+        g: Math.round(rgb.g + (rgb.g * factor - rgb.g) * blendFactor),
+        b: Math.round(rgb.b + (rgb.b * factor - rgb.b) * blendFactor)
+    };
+}
+
+function classifyUndertone(rgb, hsl) {
+    // Positive = warm, Negative = cool, range -100 to +100
+    var yellowIndex = (rgb.r - rgb.b) / 255;
+    var pinkIndex = (rgb.r - rgb.g) / 255;
+    var warmth = 0;
+    // Yellow dominance indicates warmth
+    warmth += yellowIndex * 120;
+    // Pink dominance indicates coolness
+    warmth -= pinkIndex * 40;
+    // Hue analysis
+    if (hsl.h >= 15 && hsl.h <= 45) warmth += 20;
+    else if (hsl.h >= 0 && hsl.h < 15) warmth -= 15;
+    else if (hsl.h > 340) warmth -= 10;
+    // Clamp
+    warmth = Math.max(-100, Math.min(100, warmth));
+    return warmth;
+}
+
+function classifyDepth(hsl) {
+    // Returns 0~100, higher = lighter
+    return hsl.l;
+}
+
+function classifyClarity(hsl, rgb) {
+    // Returns 0~100
+    var chroma = (Math.max(rgb.r, rgb.g, rgb.b) - Math.min(rgb.r, rgb.g, rgb.b)) / 255 * 100;
+    return hsl.s * 0.6 + chroma * 0.4;
+}
+
+function classifyPersonalColor(warmth, depth, clarity) {
+    // Scoring for each of 10 types
+    var types = {
+        springBright:  { undertone: 'warm', depthRange: [45, 70], clarityRange: [50, 100] },
+        springLight:   { undertone: 'warm', depthRange: [60, 85], clarityRange: [25, 60] },
+        summerBright:  { undertone: 'cool', depthRange: [45, 70], clarityRange: [50, 100] },
+        summerLight:   { undertone: 'cool', depthRange: [60, 85], clarityRange: [25, 60] },
+        summerMute:    { undertone: 'cool', depthRange: [35, 60], clarityRange: [0, 40] },
+        fallMute:      { undertone: 'warm', depthRange: [35, 60], clarityRange: [0, 40] },
+        fallDeep:      { undertone: 'warm', depthRange: [15, 45], clarityRange: [25, 60] },
+        fallStrong:    { undertone: 'warm', depthRange: [25, 55], clarityRange: [50, 100] },
+        winterDeep:    { undertone: 'cool', depthRange: [15, 45], clarityRange: [35, 70] },
+        winterBright:  { undertone: 'cool', depthRange: [30, 60], clarityRange: [50, 100] }
+    };
+
+    var scores = {};
+    var keys = Object.keys(types);
+    var totalScore = 0;
+
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        var t = types[key];
+        var score = 0;
+
+        // Undertone axis (0~40 pts)
+        if (t.undertone === 'warm') {
+            score += Math.max(0, warmth) * 0.4; // 0~40
+        } else {
+            score += Math.max(0, -warmth) * 0.4; // 0~40
+        }
+
+        // Depth axis (0~30 pts)
+        var depthMid = (t.depthRange[0] + t.depthRange[1]) / 2;
+        var depthSpan = (t.depthRange[1] - t.depthRange[0]) / 2;
+        var depthDist = Math.abs(depth - depthMid);
+        score += Math.max(0, 30 - (depthDist / depthSpan) * 30);
+
+        // Clarity axis (0~30 pts)
+        var clarityMid = (t.clarityRange[0] + t.clarityRange[1]) / 2;
+        var claritySpan = (t.clarityRange[1] - t.clarityRange[0]) / 2;
+        var clarityDist = Math.abs(clarity - clarityMid);
+        score += Math.max(0, 30 - (clarityDist / claritySpan) * 30);
+
+        scores[key] = score;
+        totalScore += score;
+    }
+
+    // Find max
+    var maxKey = keys[0];
+    var maxScore = 0;
+    for (var j = 0; j < keys.length; j++) {
+        if (scores[keys[j]] > maxScore) {
+            maxScore = scores[keys[j]];
+            maxKey = keys[j];
+        }
+    }
+
+    var confidence = totalScore > 0 ? Math.round((maxScore / totalScore) * 100 * 1.8) : 50;
+    confidence = Math.min(confidence, 95);
+    confidence = Math.max(confidence, 50);
+
+    return { type: maxKey, confidence: confidence, scores: scores, warmth: warmth, depth: depth, clarity: clarity };
+}
+
+function analyzeSkinTone(ctx, landmarks, imgW, imgH) {
+    var rawRgb = getMedianSkinColor(ctx, landmarks, imgW, imgH);
+    if (!rawRgb) return null;
+    var rgb = normalizeWhiteBalance(rawRgb);
+    var hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+    var warmth = classifyUndertone(rgb, hsl);
+    var depth = classifyDepth(hsl);
+    var clarity = classifyClarity(hsl, rgb);
+    var result = classifyPersonalColor(warmth, depth, clarity);
+    result.skinRgb = rawRgb;
+    return result;
+}
+
+// Start AI color analysis after photo is captured
+async function startColorAnalysis() {
+    document.getElementById('pc-preview-controls').classList.add('hidden');
     showPcScreen('pc-analyzing');
-    setTimeout(function() {
-        showPCResult();
-    }, 1500);
+
+    try {
+        // Load image
+        var img = new Image();
+        img.src = pcCapturedImageData;
+        await new Promise(function(resolve, reject) {
+            img.onload = resolve;
+            img.onerror = reject;
+        });
+
+        // Init face landmarker
+        var landmarker = await initFaceLandmarker();
+        var result = landmarker.detect(img);
+
+        if (!result.faceLandmarks || result.faceLandmarks.length === 0) {
+            showPcScreen('pc-camera');
+            document.getElementById('pc-preview-controls').classList.remove('hidden');
+            showPcError('No face detected. Please try again with a clearer photo. 얼굴이 감지되지 않았습니다. 더 선명한 사진으로 다시 시도해주세요.');
+            return;
+        }
+
+        var landmarks = result.faceLandmarks[0];
+
+        // Draw to canvas for pixel access
+        var canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        // Analyze skin tone
+        var analysis = analyzeSkinTone(ctx, landmarks, canvas.width, canvas.height);
+        if (!analysis) {
+            showPcScreen('pc-camera');
+            document.getElementById('pc-preview-controls').classList.remove('hidden');
+            showPcError('Could not analyze skin tone. Please try another photo. 피부톤 분석에 실패했습니다. 다른 사진으로 시도해주세요.');
+            return;
+        }
+
+        // Crop face for result display
+        pcFaceCropData = await cropFaceFromPhoto(pcCapturedImageData);
+        pcAnalysisResult = analysis;
+
+        // Brief delay for UX
+        setTimeout(function() {
+            showPCResult();
+        }, 1500);
+
+    } catch (e) {
+        console.error('Color analysis failed:', e);
+        showPcScreen('pc-camera');
+        document.getElementById('pc-preview-controls').classList.remove('hidden');
+        showPcError('Analysis failed. Please try again. 분석에 실패했습니다. 다시 시도해주세요.');
+    }
 }
 
 function showPCResult() {
     showPcScreen('pc-result');
 
-    var maxSeason = 'spring';
-    var maxScore = 0;
-    for (var season in pcScores) {
-        if (pcScores[season] > maxScore) {
-            maxScore = pcScores[season];
-            maxSeason = season;
-        }
-    }
+    var analysis = pcAnalysisResult;
+    var typeKey = analysis.type;
+    var r = personalColorResults[typeKey];
 
-    var r = personalColorResults[maxSeason];
+    var seasonColors = {
+        Spring: '#FF7F50', Summer: '#B0E0E6', Fall: '#E2725B', Winter: '#4169E1'
+    };
+    var badgeColor = seasonColors[r.season] || '#888';
 
+    // Confidence
+    var confidenceHtml = '<div class="fs-confidence">Confidence ' + analysis.confidence + '%</div>';
+
+    // Detected skin swatch
+    var skinRgb = analysis.skinRgb;
+    var skinHex = '#' +
+        ('0' + skinRgb.r.toString(16)).slice(-2) +
+        ('0' + skinRgb.g.toString(16)).slice(-2) +
+        ('0' + skinRgb.b.toString(16)).slice(-2);
+    var skinSwatchHtml = '<div class="pc-skin-swatch">' +
+        '<div class="pc-skin-circle" style="background:' + skinHex + ';"></div>' +
+        '<span>Detected Skin Tone &#47; 감지된 피부톤</span>' +
+        '</div>';
+
+    // 3 axis bars
+    var warmthPct = (analysis.warmth + 100) / 200 * 100; // -100~100 → 0~100%
+    var depthPct = analysis.depth; // 0~100 (higher=lighter)
+    var clarityPct = analysis.clarity; // 0~100 (higher=brighter)
+
+    var axisHtml = '<div class="pc-axis-section">' +
+        '<div class="pc-axis-row"><span class="pc-axis-label">Cool</span>' +
+        '<div class="pc-axis-bar"><div class="pc-axis-fill" style="width:' + warmthPct + '%;background:linear-gradient(90deg,#5B9BD5,#FF7F50);"></div></div>' +
+        '<span class="pc-axis-label">Warm</span></div>' +
+        '<div class="pc-axis-row"><span class="pc-axis-label">Deep</span>' +
+        '<div class="pc-axis-bar"><div class="pc-axis-fill" style="width:' + depthPct + '%;background:linear-gradient(90deg,#4A4A4A,#FFEAA7);"></div></div>' +
+        '<span class="pc-axis-label">Light</span></div>' +
+        '<div class="pc-axis-row"><span class="pc-axis-label">Mute</span>' +
+        '<div class="pc-axis-bar"><div class="pc-axis-fill" style="width:' + clarityPct + '%;background:linear-gradient(90deg,#B2BEB5,#FF69B4);"></div></div>' +
+        '<span class="pc-axis-label">Bright</span></div>' +
+        '</div>';
+
+    // Best Colors
     var bestColorsHtml = '<div class="color-palette">';
     for (var i = 0; i < r.bestColors.length; i++) {
         var c = r.bestColors[i];
@@ -2262,6 +2640,7 @@ function showPCResult() {
     }
     bestColorsHtml += '</div>';
 
+    // Worst Colors
     var worstColorsHtml = '<div class="worst-colors"><h4>Colors to Avoid 피해야 할 컬러</h4><div class="color-palette">';
     for (var j = 0; j < r.worstColors.length; j++) {
         var w = r.worstColors[j];
@@ -2271,17 +2650,13 @@ function showPCResult() {
     }
     worstColorsHtml += '</div></div>';
 
+    // Tips
     var tipsHtml = '';
     for (var k = 0; k < r.tips.length; k++) {
         tipsHtml += '<li>' + r.tips[k] + '</li>';
     }
 
-    var celebsHtml = '<div class="celeb-section"><h4>Celebrity References 참고 셀럽</h4>';
-    for (var m = 0; m < r.celebs.length; m++) {
-        celebsHtml += '<span class="celeb-item">' + r.celebs[m] + '</span>';
-    }
-    celebsHtml += '</div>';
-
+    // Makeup
     var makeupHtml = '<div class="makeup-guide"><h4>Makeup Guide 메이크업 가이드</h4>' +
         '<div class="makeup-season"><strong>Foundation 파운데이션</strong><p>' + r.makeup.foundation + '</p></div>' +
         '<div class="makeup-season"><strong>Lip 립</strong><p>' + r.makeup.lip + '</p></div>' +
@@ -2289,20 +2664,51 @@ function showPCResult() {
         '<div class="makeup-season"><strong>Eye Shadow 아이섀도</strong><p>' + r.makeup.eye + '</p></div>' +
         '</div>';
 
-    var seasonColors = { spring: '#FF7F50', summer: '#B0E0E6', fall: '#E2725B', winter: '#4169E1' };
+    // Celebs
+    var celebsHtml = '<div class="celeb-section"><h4>Celebrity References 참고 셀럽</h4>';
+    for (var m = 0; m < r.celebs.length; m++) {
+        celebsHtml += '<span class="celeb-item">' + r.celebs[m] + '</span>';
+    }
+    if (r.celebsKr) {
+        for (var n = 0; n < r.celebsKr.length; n++) {
+            celebsHtml += '<span class="celeb-item">' + r.celebsKr[n] + '</span>';
+        }
+    }
+    celebsHtml += '</div>';
+
+    // All 10 types reference grid
+    var allTypesHtml = '<div class="pc-all-types"><h4>All 10 Types 전체 10가지 타입</h4><div class="fs-ref-grid">';
+    var typeKeys = Object.keys(personalColorResults);
+    for (var t = 0; t < typeKeys.length; t++) {
+        var tk = typeKeys[t];
+        var td = personalColorResults[tk];
+        var isActive = tk === typeKey ? ' fs-ref-active' : '';
+        allTypesHtml += '<div class="fs-ref-item' + isActive + '">' +
+            '<span class="face-shape-icon">' + td.emoji + '</span>' +
+            '<div><strong>' + td.english + ' ' + td.korean + '</strong>' +
+            '<p>' + td.subtitle + ' / ' + td.subtitleKr + '</p></div></div>';
+    }
+    allTypesHtml += '</div></div>';
 
     document.getElementById('pc-result-content').innerHTML =
         '<div class="result-emoji">' + r.emoji + '</div>' +
         '<h2 class="result-type">' + r.english + '</h2>' +
         '<p class="result-type-korean">' + r.korean + '</p>' +
-        '<div class="season-result-badge" style="background:' + seasonColors[maxSeason] + ';">' + r.subtitle + '</div>' +
-        '<div class="result-description"><h4>About Your Colors</h4><p>' + r.description + '</p>' +
+        '<div class="season-result-badge" style="background:' + badgeColor + ';">' + r.season + ' ' + r.subtitle + '</div>' +
+        confidenceHtml +
+        skinSwatchHtml +
+        axisHtml +
+        '<div class="result-description">' +
+        '<h4>About Your Colors</h4>' +
+        '<p>' + r.description + '</p>' +
+        '<p class="korean">' + r.descriptionKr + '</p>' +
         '<h4>Best Colors 베스트 컬러</h4>' + bestColorsHtml +
         worstColorsHtml +
-        '<h4>Styling Tips</h4><ul>' + tipsHtml + '</ul>' +
+        '<h4>Styling Tips 스타일링 팁</h4><ul>' + tipsHtml + '</ul>' +
         makeupHtml +
         celebsHtml +
         '</div>' +
+        allTypesHtml +
         '<button class="secondary-btn" onclick="retakePersonalColor()">Retake Test 다시하기</button>';
 
     document.getElementById('pc-result-content').classList.add('animated');
@@ -2313,6 +2719,7 @@ function retakePersonalColor() {
     document.getElementById('pc-result-content').classList.remove('animated');
     pcCapturedImageData = null;
     pcFaceCropData = null;
+    pcAnalysisResult = null;
     showPcScreen('pc-start');
 }
 
