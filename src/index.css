@@ -6931,7 +6931,7 @@ body {
 .ai-report-encouragement { font-size: 0.88rem; color: #ff6b9d; font-weight: 500; margin: 0.5rem 0 0; text-align: center; }
 
 /* ===== AI Skincare Chat ===== */
-.skin-chat { display: flex; flex-direction: column; height: 480px; max-height: 65vh; background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #eee; }
+.skin-chat { display: flex; flex-direction: column; height: 480px; max-height: 65dvh; background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #eee; }
 .chat-header { padding: 0.8rem 1rem; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 0.5rem; justify-content: space-between; }
 .chat-header h4 { margin: 0; font-size: 0.95rem; }
 .chat-context-badge { font-size: 0.7rem; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; }

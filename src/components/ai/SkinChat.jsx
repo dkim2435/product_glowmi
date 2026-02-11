@@ -20,6 +20,7 @@ export default function SkinChat({ showToast }) {
   const [userContext, setUserContext] = useState(null)
   const chatEndRef = useRef(null)
   const inputRef = useRef(null)
+  const chatRef = useRef(null)
 
   useEffect(() => {
     if (user) {
@@ -40,7 +41,9 @@ export default function SkinChat({ showToast }) {
   }, [user])
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    // Scroll inside chat-messages only, not the whole page
+    const el = chatEndRef.current
+    if (el) el.parentElement.scrollTop = el.parentElement.scrollHeight
   }, [messages])
 
   async function sendMessage(text) {
@@ -60,7 +63,15 @@ export default function SkinChat({ showToast }) {
       setMessages(prev => [...prev, { role: 'model', parts: [{ text: t('Sorry, I had trouble responding. Please try again.', '죄송합니다, 응답에 문제가 있었습니다. 다시 시도해주세요.') }], isError: true }])
     }
     setLoading(false)
-    inputRef.current?.focus()
+  }
+
+  function handleInputFocus() {
+    // Prevent mobile keyboard from scrolling the whole page
+    setTimeout(() => {
+      if (chatRef.current) {
+        chatRef.current.scrollIntoView({ block: 'end', behavior: 'instant' })
+      }
+    }, 300)
   }
 
   function handleKeyDown(e) {
@@ -83,7 +94,7 @@ export default function SkinChat({ showToast }) {
   }
 
   return (
-    <div className="skin-chat">
+    <div className="skin-chat" ref={chatRef}>
       <div className="chat-header">
         <h4>{'💬 ' + t('AI Skincare Chat', 'AI 스킨케어 상담')}</h4>
         {userContext && userContext !== 'No skin data available yet.' && (
@@ -130,6 +141,7 @@ export default function SkinChat({ showToast }) {
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={handleInputFocus}
           disabled={loading}
         />
         <button className="chat-send-btn" onClick={() => sendMessage(input)} disabled={loading || !input.trim()}>
