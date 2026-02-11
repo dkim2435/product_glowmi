@@ -12,13 +12,13 @@ export default function ProductsTab({ showToast }) {
     <section className="tab-panel" id="products">
       <div className="ai-tool-tabs">
         <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
-          {'📖 ' + t('Skincare Guide', '스킨케어 가이드')}
+          {'📖 ' + t('Guide', '스킨케어 가이드')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'analyzer' ? ' active' : '')} onClick={() => setActiveSub('analyzer')}>
-          {'🧪 ' + t('Ingredient Analyzer', '성분 분석기')}
+          {'🧪 ' + t('Analyzer', '성분 분석기')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'compatibility' ? ' active' : '')} onClick={() => setActiveSub('compatibility')}>
-          {'⚡ ' + t('Compatibility', '호환성')}
+          {'⚡ ' + t('Compat', '호환성')}
         </button>
       </div>
 
