@@ -90,7 +90,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     const reader = new FileReader()
     reader.onload = async (ev) => {
       try {
-        const thumb = await resizePhoto(ev.target.result, 400, { mirror: true })
+        const thumb = await resizePhoto(ev.target.result, 400)
         const today = new Date().toISOString().split('T')[0]
 
         await saveSkinProgressDB(userId, {
@@ -263,10 +263,11 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
           🔬 {t('Quick Skin Scan', '피부 스캔')}
         </button>
         <button className="secondary-btn" onClick={() => fileInputRef.current?.click()}>
-          📸 {t('Add Progress Photo', '사진 추가')}
+          📁 {t('Upload Photo', '사진 업로드')}
         </button>
         <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handlePhotoUpload} />
       </div>
+      <p className="progress-save-hint">{t('Skin scan results save 1 photo per day. Upload adds photos manually.', '피부 스캔 결과는 하루 1회 자동 저장됩니다. 업로드로 직접 사진을 추가할 수도 있어요.')}</p>
 
       {/* View toggle */}
       {(allScores.length > 0 || photos.length > 0) && (

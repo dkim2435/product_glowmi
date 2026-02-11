@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveSkinResult, saveSkinProgressDB } from '../../lib/db'
+import { resizePhoto } from '../../lib/storage'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
 import { analyzeSkinAI } from '../../lib/gemini'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
@@ -103,12 +104,17 @@ export default function SkinAnalyzer({ showToast }) {
     if (!user || !scores) return
     try {
       await saveSkinResult(user.id, scores, overallScore)
+      let photoThumb = null
+      if (camera.capturedImage) {
+        photoThumb = await resizePhoto(camera.capturedImage, 400)
+      }
       await saveSkinProgressDB(user.id, {
         date: new Date().toISOString().split('T')[0],
         overallScore,
-        scores
+        scores,
+        photoThumb
       })
-      showToast(t('Saved! Score tracked in My Page > Skin Progress (1/day)', '저장 완료! 피부현황에 기록됩니다 (하루 1회)'))
+      showToast(t('Saved! Score & photo tracked in Skin Progress (1/day)', '저장 완료! 점수와 사진이 피부현황에 기록됩니다 (하루 1회)'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }

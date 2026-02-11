@@ -4892,6 +4892,13 @@ body {
   border-color: var(--secondary-pink);
 }
 
+.progress-save-hint {
+  font-size: 0.75rem;
+  color: #999;
+  text-align: center;
+  margin: 4px 0 12px;
+}
+
 .progress-view-toggle {
   display: flex;
   gap: 4px;
