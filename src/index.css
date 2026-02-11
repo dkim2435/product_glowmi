@@ -4793,9 +4793,18 @@ body {
   margin: 16px 0;
 }
 
-.progress-scan-btn {
+.progress-actions .primary-btn,
+.progress-actions .secondary-btn {
   flex: 1;
-  min-width: 150px;
+  min-width: 0;
+  padding: 14px 12px;
+  font-size: 0.88rem;
+  border-radius: 30px;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+}
+.progress-actions .secondary-btn {
+  border-color: var(--secondary-pink);
 }
 
 .progress-view-toggle {
@@ -5759,6 +5768,11 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
+  border-radius: 30px;
+  border: 2px solid transparent;
+}
+.shelf-btn-row .shelf-browse-btn {
+  border-color: var(--secondary-pink);
 }
 
 .browse-overlay {
@@ -6224,7 +6238,9 @@ body {
   color: #e0e0e8;
 }
 
-[data-theme="dark"] .content-card { border-color: #35354a; }
+[data-theme="dark"] .content-card,
+[data-theme="dark"] .ingredient-analyzer,
+[data-theme="dark"] .compatibility-checker { border-color: #35354a; }
 
 /* Text colors */
 [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5 {
@@ -6364,6 +6380,10 @@ body {
 [data-theme="dark"] .onboard-title-kr { color: #b0b0c0; }
 [data-theme="dark"] .onboard-desc { color: #c0c0d0; }
 [data-theme="dark"] .onboard-desc-kr { color: #909098; }
+[data-theme="dark"] .onboard-tip-row,
+[data-theme="dark"] .onboard-step-row { background: #2a2a40; }
+[data-theme="dark"] .onboard-tip-label,
+[data-theme="dark"] .onboard-step-label { color: #e0e0e8; }
 [data-theme="dark"] .onboard-prev { background: #2a2a40; color: #c0c0d0; }
 [data-theme="dark"] .onboard-where { background: #2a2a40; color: #a0a0b8; }
 
