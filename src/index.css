@@ -86,11 +86,16 @@ body {
   display: flex;
   flex: 1;
   min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.tab-buttons::-webkit-scrollbar { display: none; }
 
 .tab-btn {
-  flex: 1;
-  padding: 12px 5px;
+  flex: 1 0 auto;
+  min-width: 52px;
+  padding: 12px 8px;
   border: none;
   background: transparent;
   font-size: 0.75rem;
@@ -1761,26 +1766,31 @@ body {
 /* ========== Sub Tab Navigation ========== */
 .sub-tab-nav, .ai-tool-tabs {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   margin-bottom: 20px;
   background: #f8f9fa;
   padding: 5px;
   border-radius: 12px;
   max-width: 420px;
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.sub-tab-nav::-webkit-scrollbar, .ai-tool-tabs::-webkit-scrollbar { display: none; }
 
 .sub-tab-btn {
-  flex: 1;
-  padding: 12px 15px;
+  flex: 1 0 auto;
+  padding: 10px 14px;
   border: none;
   background: transparent;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #888;
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .sub-tab-btn.active {
@@ -3317,16 +3327,13 @@ body {
 /* ========== My Page ========== */
 .mypage-nav {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   margin-bottom: 15px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-bottom: 4px;
-  position: relative;
-  mask-image: linear-gradient(to right, black 90%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
-  scrollbar-width: none;
+  padding: 2px 2px 4px;
+  width: 100%;
 }
 
 .mypage-nav::-webkit-scrollbar { display: none; }
