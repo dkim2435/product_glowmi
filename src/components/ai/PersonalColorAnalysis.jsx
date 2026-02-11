@@ -13,7 +13,7 @@ import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
 export default function PersonalColorAnalysis({ showToast }) {
-  const { user } = useAuth()
+  const { user, loginWithGoogle } = useAuth()
   const camera = useCamera()
   const [screen, setScreen] = useState('start') // start | camera | analyzing | result
   const [result, setResult] = useState(null)
@@ -178,7 +178,35 @@ export default function PersonalColorAnalysis({ showToast }) {
         </div>
       </div>
 
-      <div className="result-description">
+      {/* 1) All 10 Types — visible to everyone */}
+      <div className="pc-all-types">
+        <h4>All 10 Types 전체 10가지 타입</h4>
+        <div className="fs-ref-grid">
+          {Object.entries(personalColorResults).map(([key, td]) => (
+            <div key={key} className={'fs-ref-item' + (key === result.type ? ' fs-ref-active' : '')}>
+              <span className="face-shape-icon">{td.emoji}</span>
+              <div>
+                <strong>{td.english} {td.korean}</strong>
+                <p>{td.subtitle} / {td.subtitleKr}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 2) About Your Colors — blurred for non-members */}
+      <div className={'result-description' + (!user ? ' gated-blur' : '')}>
+        {!user && (
+          <div className="gated-overlay">
+            <div className="gated-overlay-content">
+              <span className="gated-lock">🔒</span>
+              <p className="gated-title">Sign up to unlock your full color analysis</p>
+              <p className="gated-title-kr">가입하면 나만의 컬러 분석을 볼 수 있어요</p>
+              <p className="gated-free">100% Free 완전 무료</p>
+              <button className="gated-login-btn" onClick={loginWithGoogle}>Free Sign Up 무료 가입</button>
+            </div>
+          </div>
+        )}
         <h4>About Your Colors</h4>
         <p>{r.description}</p>
         <p className="korean">{r.descriptionKr}</p>
@@ -223,22 +251,19 @@ export default function PersonalColorAnalysis({ showToast }) {
         </div>
       </div>
 
-      <div className="pc-all-types">
-        <h4>All 10 Types 전체 10가지 타입</h4>
-        <div className="fs-ref-grid">
-          {Object.entries(personalColorResults).map(([key, td]) => (
-            <div key={key} className={'fs-ref-item' + (key === result.type ? ' fs-ref-active' : '')}>
-              <span className="face-shape-icon">{td.emoji}</span>
-              <div>
-                <strong>{td.english} {td.korean}</strong>
-                <p>{td.subtitle} / {td.subtitleKr}</p>
-              </div>
+      {/* 3) Skincare Recommendations — blurred for non-members */}
+      <div className={'pc-skincare-recs' + (!user ? ' gated-blur' : '')}>
+        {!user && (
+          <div className="gated-overlay">
+            <div className="gated-overlay-content">
+              <span className="gated-lock">🔒</span>
+              <p className="gated-title">Save your result to see skincare picks</p>
+              <p className="gated-title-kr">결과를 저장하면 스킨케어 추천을 볼 수 있어요</p>
+              <p className="gated-free">100% Free 완전 무료</p>
+              <button className="gated-login-btn" onClick={loginWithGoogle}>Free Sign Up 무료 가입</button>
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="pc-skincare-recs">
+          </div>
+        )}
         <h4>🧴 Recommended Skincare 스킨케어 추천</h4>
         <div className="product-card-list">
           {getRecommendations({

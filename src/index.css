@@ -5842,3 +5842,125 @@ body {
   color: #333;
   font-size: 0.95rem;
 }
+
+/* ========== Gated Blur (Login Wall) ========== */
+.gated-blur {
+  position: relative;
+  overflow: hidden;
+}
+
+.gated-blur > *:not(.gated-overlay) {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.gated-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  border-radius: 14px;
+}
+
+.gated-overlay-content {
+  text-align: center;
+  background: white;
+  padding: 24px 28px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  max-width: 280px;
+}
+
+.gated-lock {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.gated-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+  line-height: 1.4;
+}
+
+.gated-title-kr {
+  font-size: 0.78rem;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.gated-free {
+  font-size: 0.75rem;
+  color: #27ae60;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.gated-login-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--gradient);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 3px 12px rgba(255, 107, 157, 0.3);
+}
+
+.gated-login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(255, 107, 157, 0.4);
+}
+
+/* ========== Save Login Prompt ========== */
+.save-login-prompt {
+  text-align: center;
+  background: linear-gradient(135deg, #fff5f9, #fef0ff);
+  border: 2px dashed #f5c2d4;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.save-login-text {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.save-login-text-kr {
+  font-size: 0.78rem;
+  color: #999;
+  margin-bottom: 12px;
+}
+
+.save-login-btn {
+  padding: 12px 24px;
+  background: var(--gradient);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 3px 12px rgba(255, 107, 157, 0.3);
+}
+
+.save-login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(255, 107, 157, 0.4);
+}
