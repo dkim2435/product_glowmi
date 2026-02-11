@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 
 export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight = 480 } = {}) {
   const videoRef = useRef(null)
@@ -8,6 +8,13 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
   const [capturedImage, setCapturedImage] = useState(null)
   const [cameraError, setCameraError] = useState(null)
   const [cameraActive, setCameraActive] = useState(false)
+
+  // Attach stream to video element whenever both are available
+  useEffect(() => {
+    if (cameraActive && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current
+    }
+  }, [cameraActive])
 
   const startCamera = useCallback(async () => {
     setCameraError(null)
@@ -19,9 +26,11 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
         video: { facingMode, width: { ideal: idealWidth }, height: { ideal: idealHeight } }
       })
       streamRef.current = stream
+      // Set srcObject immediately if video element exists
       if (videoRef.current) {
         videoRef.current.srcObject = stream
       }
+      // Setting cameraActive will trigger useEffect above as fallback
       setCameraActive(true)
     } catch (e) {
       setCameraError('Camera not available. Please use image upload. 카메라를 사용할 수 없습니다. 이미지 업로드를 이용해주세요.')
@@ -33,6 +42,9 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop())
       streamRef.current = null
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null
     }
     setCameraActive(false)
   }, [])

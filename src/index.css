@@ -787,6 +787,25 @@ body {
   display: block;
 }
 
+.camera-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.camera-placeholder-icon {
+  font-size: 2.5rem;
+}
+
+.camera-placeholder-text {
+  font-size: 0.85rem;
+}
+
 .face-guide {
   position: absolute;
   inset: 0;

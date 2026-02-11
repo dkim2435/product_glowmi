@@ -26,21 +26,27 @@ export default function CameraView({
   return (
     <div className="camera-view">
       <div className="camera-preview-area">
-        {cameraActive && !capturedImage && (
-          <>
-            <video
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-              className="camera-video"
-              style={{ transform: 'scaleX(-1)' }}
-            />
-            {showFaceGuide && <div className="face-guide" />}
-          </>
-        )}
+        {/* Always render video so videoRef is available when stream arrives */}
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          muted
+          className="camera-video"
+          style={{
+            transform: 'scaleX(-1)',
+            display: (cameraActive && !capturedImage) ? 'block' : 'none'
+          }}
+        />
+        {cameraActive && !capturedImage && showFaceGuide && <div className="face-guide" />}
         {capturedImage && (
           <img src={capturedImage} alt="Preview" className="camera-preview-img" />
+        )}
+        {!cameraActive && !capturedImage && (
+          <div className="camera-placeholder">
+            <span className="camera-placeholder-icon">📷</span>
+            <span className="camera-placeholder-text">Camera Preview</span>
+          </div>
         )}
         <canvas ref={canvasRef} style={{ display: 'none' }} />
       </div>
