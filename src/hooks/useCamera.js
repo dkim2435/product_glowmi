@@ -55,6 +55,9 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
     canvas.height = video.videoHeight
     const ctx = canvas.getContext('2d')
 
+    // Mirror canvas to match CSS scaleX(-1) on video preview
+    ctx.translate(canvas.width, 0)
+    ctx.scale(-1, 1)
     ctx.drawImage(video, 0, 0)
 
     stopCamera()
