@@ -5,16 +5,43 @@ const SLIDES = [
     emoji: '✨',
     title: 'Welcome to Glowmi!',
     titleKr: 'Glowmi에 오신 걸 환영합니다!',
-    desc: 'Your all-in-one K-Beauty companion. Here\'s a quick tour of what you can do.',
-    descKr: '나만의 K-뷰티 올인원 가이드입니다. 주요 기능을 소개해드릴게요.',
+    desc: 'Your free, all-in-one K-Beauty companion powered by AI. Discover your best skincare routine today.',
+    descKr: 'AI 기반 무료 K-뷰티 올인원 가이드. 나에게 딱 맞는 스킨케어 루틴을 찾아보세요.',
     visual: [
-      { emoji: '🎨', label: 'AI Beauty' },
-      { emoji: '📝', label: 'Skin Quiz' },
-      { emoji: '🧴', label: 'K-Beauty' },
-      { emoji: '💉', label: 'Treatments' },
-      { emoji: '🧘', label: 'Wellness' },
+      { emoji: '🆓', label: '100% Free 완전 무료' },
+      { emoji: '🤖', label: 'AI-Powered 분석' },
+      { emoji: '🇰🇷', label: 'K-Beauty 전문' },
+      { emoji: '🌏', label: 'English + 한국어' },
     ],
     visualType: 'icons'
+  },
+  {
+    emoji: '🎨',
+    title: 'AI Beauty Analysis',
+    titleKr: 'AI 뷰티 분석',
+    desc: 'Upload a selfie and get instant AI analysis — Personal Color, Face Shape, and Skin Score all in seconds.',
+    descKr: '셀카 한 장으로 퍼스널컬러, 얼굴형, 피부 점수를 몇 초 만에 분석받으세요.',
+    visual: [
+      { emoji: '🎨', label: 'Personal Color', sub: '퍼스널컬러 진단' },
+      { emoji: '💎', label: 'Face Shape', sub: '얼굴형 분석' },
+      { emoji: '✨', label: 'Skin Score', sub: 'AI 피부 점수 측정' },
+    ],
+    visualType: 'steps',
+    where: 'AI Beauty tab'
+  },
+  {
+    emoji: '🧴',
+    title: 'K-Beauty Guide',
+    titleKr: 'K-뷰티 가이드',
+    desc: 'Explore trending ingredients TOP 10, the famous 10-step Korean routine, and our ingredient analyzer for any product.',
+    descKr: '트렌딩 성분 TOP 10, 10단계 한국 스킨케어 루틴, 제품 성분 분석기를 만나보세요.',
+    visual: [
+      { emoji: '🔥', label: 'Trending Ingredients', sub: 'TOP 10 인기 성분' },
+      { emoji: '🧖', label: '10-Step Routine', sub: '10단계 스킨케어' },
+      { emoji: '🔬', label: 'Ingredient Analyzer', sub: '성분 분석기' },
+    ],
+    visualType: 'steps',
+    where: 'K-Beauty tab'
   },
   {
     emoji: '🌤️',
@@ -31,53 +58,31 @@ const SLIDES = [
     where: 'AI Beauty tab, top of page'
   },
   {
-    emoji: '📈',
-    title: 'Skin Progress Tracker',
-    titleKr: '피부 변화 추적',
-    desc: 'Track your skin score over time. Take regular scans to see your improvement journey with a beautiful trend chart.',
-    descKr: '시간에 따른 피부 점수 변화를 추적하세요. 정기적으로 스캔하여 개선 과정을 확인할 수 있어요.',
-    visual: null,
-    visualType: 'chart',
-    where: 'My Page → Progress tab'
-  },
-  {
-    emoji: '📸',
-    title: 'Before & After Gallery',
-    titleKr: '비포 & 애프터 갤러리',
-    desc: 'Upload progress photos and compare them side by side. See how far your skin has come!',
-    descKr: '진행 사진을 업로드하고 나란히 비교해보세요. 피부가 얼마나 좋아졌는지 확인할 수 있어요!',
+    emoji: '🙋',
+    title: 'My Page — Your Beauty Hub',
+    titleKr: '마이페이지 — 나만의 뷰티 허브',
+    desc: 'Log in to unlock all personal features: save results, track progress, manage products, write a diary, and build your routine.',
+    descKr: '로그인하고 모든 기능을 이용하세요: 결과 저장, 변화 추적, 제품 관리, 피부 일지, 루틴 관리.',
     visual: [
-      { emoji: '📷', label: 'Upload photos weekly', sub: '매주 사진 업로드' },
-      { emoji: '🔄', label: 'Compare Before vs After', sub: '비포 vs 애프터 비교' },
-      { emoji: '📊', label: 'Track score changes', sub: '점수 변화 확인' },
+      { emoji: '🏆', label: 'Results 결과', sub: 'AI 분석 결과 모아보기' },
+      { emoji: '📈', label: 'Progress 변화추적', sub: '점수 그래프 + 사진 비교' },
+      { emoji: '💄', label: 'Shelf 화장대', sub: '제품 등록 & 성분 충돌' },
+      { emoji: '📝', label: 'Diary 일지', sub: '피부 상태 매일 기록' },
+      { emoji: '🧴', label: 'Routine 루틴', sub: 'AM/PM 루틴 관리' },
     ],
     visualType: 'steps',
-    where: 'My Page → Progress → Compare tab'
-  },
-  {
-    emoji: '💄',
-    title: 'My Product Shelf',
-    titleKr: '내 화장대',
-    desc: 'Save your skincare products, track expiry dates, and auto-detect ingredient conflicts between products.',
-    descKr: '스킨케어 제품을 저장하고, 유통기한을 관리하며, 제품 간 성분 충돌을 자동으로 감지합니다.',
-    visual: [
-      { emoji: '🧴', label: 'Save products', sub: '제품 등록' },
-      { emoji: '⏰', label: 'Expiry alerts', sub: '유통기한 알림' },
-      { emoji: '⚠️', label: 'Conflict detection', sub: '성분 충돌 감지' },
-    ],
-    visualType: 'steps',
-    where: 'My Page → My Shelf tab'
+    where: 'My Page (login required)'
   },
   {
     emoji: '🚀',
     title: 'Ready to Glow!',
-    titleKr: '이제 시작해볼까요!',
-    desc: 'Log in with Google to unlock My Page features: Progress Tracking, Product Shelf, Skin Diary, and Routine Manager.',
-    descKr: 'Google 로그인으로 마이페이지 기능을 이용하세요: 피부 변화 추적, 화장대, 피부 일지, 루틴 관리.',
+    titleKr: '이제 빛나는 피부를 만들어볼까요!',
+    desc: 'Start your glow-up journey right now — try the AI Skin Analyzer for free. Sign up to save your progress!',
+    descKr: '지금 바로 AI 피부 분석을 시작하세요 — 완전 무료! 가입하면 모든 기록이 저장됩니다.',
     visual: [
       { emoji: '1️⃣', label: 'Allow location for weather tips', sub: '위치 허용으로 날씨 팁 받기' },
-      { emoji: '2️⃣', label: 'Try AI Skin Analyzer', sub: 'AI 피부 분석 해보기' },
-      { emoji: '3️⃣', label: 'Login & track your progress', sub: '로그인 후 변화 추적하기' },
+      { emoji: '2️⃣', label: 'Try AI Skin Analyzer — Free!', sub: 'AI 피부 분석 무료 체험' },
+      { emoji: '3️⃣', label: 'Sign up & track your glow-up', sub: '무료 가입 후 변화 추적하기' },
     ],
     visualType: 'steps',
     where: null
@@ -235,7 +240,7 @@ export default function OnboardingModal({ onClose }) {
               </button>
             )}
             <button className="onboard-btn onboard-next" onClick={goNext}>
-              {isLast ? 'Get Started! 시작하기 🎉' : 'Next 다음 →'}
+              {isLast ? 'Start Glowing! 시작하기 🎉' : 'Next 다음 →'}
             </button>
           </div>
         </div>

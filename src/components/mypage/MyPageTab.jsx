@@ -6,10 +6,12 @@ import SkinProgress from './SkinProgress'
 import ProductShelf from './ProductShelf'
 import SkinDiary from './SkinDiary'
 import MyRoutine from './MyRoutine'
+import MyPageWelcome, { shouldShowMyPageWelcome } from './MyPageWelcome'
 
 export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
   const { user, logout } = useAuth()
   const [section, setSection] = useState('results') // results | progress | shelf | diary | routine
+  const [showWelcome, setShowWelcome] = useState(() => shouldShowMyPageWelcome())
 
   if (!user) {
     return (
@@ -64,6 +66,8 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
           🗑️ Delete All My Data 모든 데이터 삭제
         </button>
       </div>
+
+      {showWelcome && <MyPageWelcome onClose={() => setShowWelcome(false)} />}
     </section>
   )
 }

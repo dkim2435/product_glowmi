@@ -5,6 +5,7 @@ import TabNav from './components/layout/TabNav'
 import Footer from './components/layout/Footer'
 import Toast from './components/common/Toast'
 import OnboardingModal, { shouldShowOnboarding } from './components/common/OnboardingModal'
+import ReleaseNotesModal, { shouldShowReleaseNotes, seedVersionForNewUser } from './components/common/ReleaseNotesModal'
 import AiBeautyTab from './components/ai/AiBeautyTab'
 import QuizTab from './components/quiz/QuizTab'
 import ProductsTab from './components/products/ProductsTab'
@@ -16,10 +17,16 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('ai')
   const [toast, setToast] = useState(null)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [showReleaseNotes, setShowReleaseNotes] = useState(false)
 
   useEffect(() => {
     if (shouldShowOnboarding()) {
+      // First-time visitor: show onboarding, seed version so release notes won't fire next load
       setShowOnboarding(true)
+      seedVersionForNewUser()
+    } else if (shouldShowReleaseNotes()) {
+      // Returning visitor with new version: show release notes
+      setShowReleaseNotes(true)
     }
   }, [])
 
@@ -59,6 +66,7 @@ export default function App() {
 
         {toast && <Toast message={toast} />}
         {showOnboarding && <OnboardingModal onClose={() => setShowOnboarding(false)} />}
+        {showReleaseNotes && <ReleaseNotesModal onClose={() => setShowReleaseNotes(false)} />}
       </div>
     </AuthProvider>
   )
