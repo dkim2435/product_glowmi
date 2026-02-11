@@ -23,6 +23,7 @@ export default function SkinAnalyzer({ showToast }) {
   const [scores, setScores] = useState(null)
   const [overallScore, setOverallScore] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
+  const [usedGemini, setUsedGemini] = useState(false)
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -53,9 +54,10 @@ export default function SkinAnalyzer({ showToast }) {
       // Try Gemini AI first
       try {
         skinScores = await analyzeSkinAI(camera.capturedImage)
-        console.log('Gemini skin result:', skinScores)
+        setUsedGemini(true)
       } catch (geminiErr) {
         console.warn('Gemini failed, falling back to local analysis:', geminiErr)
+        setUsedGemini(false)
       }
 
       // Fallback to local MediaPipe analysis
@@ -182,6 +184,9 @@ export default function SkinAnalyzer({ showToast }) {
         </div>
         <div className={'skin-grade ' + gradeClass}>{grade}</div>
         <p className="skin-overall-desc">{t('Your overall skin health score based on AI pixel analysis.', 'AI 픽셀 분석 기반 전체 피부 건강 점수입니다.')}</p>
+        <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
+          {usedGemini ? '🤖 Gemini AI' : '📱 Local Analysis'}
+        </div>
       </div>
 
       <div className="skin-scores">

@@ -19,6 +19,7 @@ export default function FaceShapeDetector({ showToast }) {
   const [screen, setScreen] = useState('start')
   const [result, setResult] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
+  const [usedGemini, setUsedGemini] = useState(false)
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -48,9 +49,10 @@ export default function FaceShapeDetector({ showToast }) {
       // Try Gemini AI first
       try {
         shape = await analyzeFaceShapeAI(camera.capturedImage)
-        console.log('Gemini face shape result:', shape)
+        setUsedGemini(true)
       } catch (geminiErr) {
         console.warn('Gemini failed, falling back to local analysis:', geminiErr)
+        setUsedGemini(false)
       }
 
       // Fallback to local MediaPipe analysis
@@ -156,6 +158,9 @@ export default function FaceShapeDetector({ showToast }) {
       <div className="result-emoji">{data.emoji}</div>
       <h2 className="result-type">{t(data.name + ' Face', data.korean)}</h2>
       <div className="fs-confidence">{t('Confidence', '신뢰도')}: {result.confidence}%</div>
+      <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
+        {usedGemini ? '🤖 Gemini AI' : '📱 Local Analysis'}
+      </div>
 
       {/* 1) All Face Shapes — visible to everyone */}
       <div className="fs-ref-section">
