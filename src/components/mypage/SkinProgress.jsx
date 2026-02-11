@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { resizePhoto } from '../../lib/storage'
 import { loadDiaryEntries, loadAnalysisResults, saveSkinProgressDB, loadSkinProgressDB, deleteSkinProgressDB } from '../../lib/db'
+import { generateProgressReportAI } from '../../lib/gemini'
 
 export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) {
   const { t } = useLang()
@@ -12,6 +13,8 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
   const [viewMode, setViewMode] = useState('chart') // chart | photos | compare
   const [compareA, setCompareA] = useState(null)
   const [compareB, setCompareB] = useState(null)
+  const [aiReport, setAiReport] = useState(null)
+  const [aiReportLoading, setAiReportLoading] = useState(false)
   const chartRef = useRef(null)
   const fileInputRef = useRef(null)
 
@@ -118,6 +121,43 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     } catch {
       showToast(t('Failed to delete.', '삭제에 실패했습니다.'))
     }
+  }
+
+  async function handleAiReport() {
+    const photosWithScores = entries.filter(e => e.photoThumb)
+    if (photosWithScores.length < 2) return
+
+    // Rate limit: once per day
+    const lastReport = localStorage.getItem('glowmi_last_ai_report')
+    if (lastReport) {
+      const lastDate = new Date(lastReport).toISOString().split('T')[0]
+      const today = new Date().toISOString().split('T')[0]
+      if (lastDate === today) {
+        showToast(t('AI report is available once per day.', 'AI 리포트는 하루 1회 가능합니다.'))
+        return
+      }
+    }
+
+    setAiReportLoading(true)
+    try {
+      const oldest = photosWithScores[0]
+      const newest = photosWithScores[photosWithScores.length - 1]
+      const daysBetween = Math.round((new Date(newest.date) - new Date(oldest.date)) / (1000 * 60 * 60 * 24))
+
+      const report = await generateProgressReportAI(
+        oldest.photoThumb,
+        newest.photoThumb,
+        oldest.scores,
+        newest.scores,
+        daysBetween
+      )
+      setAiReport(report)
+      localStorage.setItem('glowmi_last_ai_report', new Date().toISOString())
+    } catch (e) {
+      console.error('AI report error:', e)
+      showToast(t('Failed to generate AI report.', 'AI 리포트 생성에 실패했습니다.'))
+    }
+    setAiReportLoading(false)
   }
 
   function drawChart() {
@@ -388,6 +428,62 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
               </div>
             )
           })()}
+
+          {/* AI Report button in compare view */}
+          {photos.length >= 2 && (
+            <div className="ai-report-section">
+              <button className="primary-btn ai-report-btn" onClick={handleAiReport} disabled={aiReportLoading}>
+                {aiReportLoading ? t('Generating AI Report...', 'AI 리포트 생성 중...') : t('Generate AI Report', 'AI 리포트 생성')}
+              </button>
+            </div>
+          )}
+
+          {aiReport && (
+            <div className={'ai-report-card progress-' + aiReport.overallProgress}>
+              <div className="ai-report-header">
+                <span className="ai-report-emoji">{aiReport.overallProgress === 'improved' ? '📈' : aiReport.overallProgress === 'stable' ? '➡️' : '📉'}</span>
+                <h4>{aiReport.overallProgress === 'improved' ? t('Improved!', '개선됨!') : aiReport.overallProgress === 'stable' ? t('Stable', '유지 중') : t('Needs attention', '관리 필요')}</h4>
+              </div>
+              <p className="ai-report-summary">{t(aiReport.overallSummary, aiReport.overallSummaryKr)}</p>
+
+              {aiReport.improvements && aiReport.improvements.length > 0 && (
+                <div className="ai-report-list">
+                  <strong>{t('Improvements', '개선 사항')}</strong>
+                  {aiReport.improvements.map((item, i) => (
+                    <div key={i} className="ai-report-item good">
+                      <span className="ai-report-area">{item.area}</span>
+                      <span>{t(item.detail, item.detailKr)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {aiReport.concerns && aiReport.concerns.length > 0 && (
+                <div className="ai-report-list">
+                  <strong>{t('Areas of concern', '주의 사항')}</strong>
+                  {aiReport.concerns.map((item, i) => (
+                    <div key={i} className="ai-report-item concern">
+                      <span className="ai-report-area">{item.area}</span>
+                      <span>{t(item.detail, item.detailKr)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {aiReport.recommendations && aiReport.recommendations.length > 0 && (
+                <div className="ai-report-recs">
+                  <strong>{t('Recommendations', '추천')}</strong>
+                  <ul>
+                    {aiReport.recommendations.map((rec, i) => (
+                      <li key={i}>{t(rec, aiReport.recommendationsKr?.[i] || rec)}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <p className="ai-report-encouragement">{t(aiReport.encouragement, aiReport.encouragementKr)}</p>
+            </div>
+          )}
 
           {/* Quick compare shortcuts */}
           {photos.length >= 2 && (

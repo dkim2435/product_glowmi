@@ -3,10 +3,10 @@ import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
-import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday } from '../../lib/db'
+import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday, saveRoutine } from '../../lib/db'
 import { resizePhoto } from '../../lib/storage'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
-import { analyzeSkinAI } from '../../lib/gemini'
+import { analyzeSkinAI, generateRoutineAI } from '../../lib/gemini'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
 import { lookupIngredient } from '../products/ingredientLogic'
 import { getRecommendations } from '../../data/products'
@@ -26,6 +26,9 @@ export default function SkinAnalyzer({ showToast }) {
   const [showConfetti, setShowConfetti] = useState(false)
   const [usedGemini, setUsedGemini] = useState(false)
   const [dailyLimitModal, setDailyLimitModal] = useState(null)
+  const [routineLoading, setRoutineLoading] = useState(false)
+  const [routineResult, setRoutineResult] = useState(null)
+  const [showRoutineModal, setShowRoutineModal] = useState(false)
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -139,10 +142,39 @@ export default function SkinAnalyzer({ showToast }) {
     }
   }
 
+  async function handleGenerateRoutine() {
+    if (!scores) return
+    setRoutineLoading(true)
+    try {
+      const result = await generateRoutineAI(scores)
+      setRoutineResult(result)
+      setShowRoutineModal(true)
+    } catch (e) {
+      console.error('AI routine error:', e)
+      showToast(t('Failed to generate routine. Please try again.', '루틴 생성에 실패했습니다. 다시 시도해주세요.'))
+    }
+    setRoutineLoading(false)
+  }
+
+  async function handleApplyRoutine() {
+    if (!user || !routineResult) return
+    if (!window.confirm(t('This will replace your current routine. Continue?', '기존 루틴이 덮어씌워집니다. 계속하시겠습니까?'))) return
+    try {
+      if (routineResult.am) await saveRoutine(user.id, 'am', routineResult.am)
+      if (routineResult.pm) await saveRoutine(user.id, 'pm', routineResult.pm)
+      showToast(t('Routine applied! Check My Routine.', '루틴이 적용되었습니다! 내 루틴에서 확인하세요.'))
+      setShowRoutineModal(false)
+    } catch {
+      showToast(t('Failed to save routine.', '루틴 저장에 실패했습니다.'))
+    }
+  }
+
   function handleRetake() {
     camera.reset()
     setScores(null)
     setOverallScore(null)
+    setRoutineResult(null)
+    setShowRoutineModal(false)
     setScreen('start')
   }
 
@@ -286,6 +318,68 @@ export default function SkinAnalyzer({ showToast }) {
           }).slice(0, 4).map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       </div>
+
+      <div className="ai-routine-section">
+        <h4>{t('AI Routine Recommendation', 'AI 루틴 추천')}</h4>
+        <p className="ai-routine-desc">{t('Get a personalized AM/PM routine based on your skin analysis.', '피부 분석 결과를 바탕으로 맞춤 AM/PM 루틴을 추천받으세요.')}</p>
+        <button className="primary-btn ai-routine-btn" onClick={handleGenerateRoutine} disabled={routineLoading}>
+          {routineLoading ? t('Generating...', '생성 중...') : t('Generate AI Routine', 'AI 루틴 추천받기')}
+        </button>
+      </div>
+
+      {showRoutineModal && routineResult && (
+        <div className="routine-modal-overlay" onClick={() => setShowRoutineModal(false)}>
+          <div className="routine-modal" onClick={e => e.stopPropagation()}>
+            <button className="routine-modal-close" onClick={() => setShowRoutineModal(false)}>&times;</button>
+            <h3>{t('Your AI Routine', 'AI 맞춤 루틴')}</h3>
+            <p className="routine-modal-summary">{t(routineResult.summary, routineResult.summaryKr)}</p>
+
+            <div className="routine-modal-section">
+              <h4>{'☀️ ' + t('Morning (AM)', '아침 (AM)')}</h4>
+              {(routineResult.am || []).map((step, i) => (
+                <div key={i} className="routine-modal-step">
+                  <span className="routine-modal-num">{i + 1}</span>
+                  <span className="routine-modal-name">{step.name}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="routine-modal-section">
+              <h4>{'🌙 ' + t('Evening (PM)', '저녁 (PM)')}</h4>
+              {(routineResult.pm || []).map((step, i) => (
+                <div key={i} className="routine-modal-step">
+                  <span className="routine-modal-num">{i + 1}</span>
+                  <span className="routine-modal-name">{step.name}</span>
+                </div>
+              ))}
+            </div>
+
+            {routineResult.weeklyTips && routineResult.weeklyTips.length > 0 && (
+              <div className="routine-modal-section">
+                <h4>{t('Weekly Tips', '주간 팁')}</h4>
+                <ul className="routine-modal-tips">
+                  {routineResult.weeklyTips.map((tip, i) => <li key={i}>{tip}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <div className="routine-modal-actions">
+              {user ? (
+                <button className="primary-btn" onClick={handleApplyRoutine}>
+                  {t('Apply to My Routine', '내 루틴에 적용')}
+                </button>
+              ) : (
+                <button className="primary-btn" onClick={loginAndKeepResult}>
+                  {t('Sign up to save routine', '가입하고 루틴 저장하기')}
+                </button>
+              )}
+              <button className="secondary-btn" onClick={() => setShowRoutineModal(false)}>
+                {t('Close', '닫기')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji="🔬" english={`Skin Score ${overallScore}/100 (${grade})`} korean="AI 피부 분석 결과" showToast={showToast} />

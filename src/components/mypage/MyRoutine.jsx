@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { saveRoutine, loadRoutines } from '../../lib/db'
+import { saveRoutine, loadRoutines, loadAnalysisResults } from '../../lib/db'
 import { useLang } from '../../context/LanguageContext'
+import { generateRoutineAI } from '../../lib/gemini'
 
 const ROUTINE_CATEGORIES = [
   { key: 'oil_cleanser', label: 'Oil Cleanser', labelKr: '오일 클렌저', emoji: '🫒' },
@@ -27,6 +28,9 @@ export default function MyRoutine({ userId, showToast }) {
   const [activeType, setActiveType] = useState('am')
   const [loading, setLoading] = useState(true)
   const [newStep, setNewStep] = useState({ category: 'oil_cleanser', name: '', brand: '' })
+  const [aiLoading, setAiLoading] = useState(false)
+  const [aiRoutine, setAiRoutine] = useState(null)
+  const [showAiModal, setShowAiModal] = useState(false)
 
   useEffect(() => { refresh() }, [userId])
 
@@ -70,6 +74,47 @@ export default function MyRoutine({ userId, showToast }) {
     } catch { /* ignore */ }
   }
 
+  async function handleAiRoutine() {
+    setAiLoading(true)
+    try {
+      const analysis = await loadAnalysisResults(userId)
+      if (!analysis || !analysis.skin_redness) {
+        showToast(t('Please complete a skin analysis first.', '먼저 피부 분석을 완료해주세요.'))
+        setAiLoading(false)
+        return
+      }
+      const skinScores = {
+        redness: analysis.skin_redness,
+        oiliness: analysis.skin_oiliness,
+        dryness: analysis.skin_dryness,
+        darkSpots: analysis.skin_dark_spots,
+        texture: analysis.skin_texture
+      }
+      const result = await generateRoutineAI(skinScores)
+      setAiRoutine(result)
+      setShowAiModal(true)
+    } catch (e) {
+      console.error('AI routine error:', e)
+      showToast(t('Failed to generate routine.', '루틴 생성에 실패했습니다.'))
+    }
+    setAiLoading(false)
+  }
+
+  async function applyAiRoutine() {
+    if (!aiRoutine) return
+    const hasExisting = routineData.am.length > 0 || routineData.pm.length > 0
+    if (hasExisting && !window.confirm(t('This will replace your current routine. Continue?', '기존 루틴이 덮어씌워집니다. 계속하시겠습니까?'))) return
+    try {
+      if (aiRoutine.am) await saveRoutine(userId, 'am', aiRoutine.am)
+      if (aiRoutine.pm) await saveRoutine(userId, 'pm', aiRoutine.pm)
+      await refresh()
+      setShowAiModal(false)
+      showToast(t('AI routine applied!', 'AI 루틴이 적용되었습니다!'))
+    } catch {
+      showToast(t('Failed to save routine.', '루틴 저장에 실패했습니다.'))
+    }
+  }
+
   async function moveStep(index, direction) {
     const steps = [...routineData[activeType]]
     const newIndex = index + direction
@@ -109,6 +154,9 @@ export default function MyRoutine({ userId, showToast }) {
             <p style={{ fontSize: '0.75rem', color: '#bbb', marginTop: 2 }}>
               {t('Example: Cleanser → Toner → Serum → Moisturizer → Sunscreen', '예시: 클렌저 → 토너 → 세럼 → 보습제 → 선크림')}
             </p>
+            <button className="primary-btn ai-routine-btn" onClick={handleAiRoutine} disabled={aiLoading} style={{ marginTop: 12 }}>
+              {aiLoading ? t('Generating...', '생성 중...') : t('Generate AI Routine', 'AI 루틴 추천받기')}
+            </button>
           </div>
         ) : (
           steps.map((step, i) => {
@@ -132,6 +180,54 @@ export default function MyRoutine({ userId, showToast }) {
           })
         )}
       </div>
+
+      {steps.length > 0 && (
+        <div className="routine-ai-section">
+          <button className="secondary-btn ai-routine-btn" onClick={handleAiRoutine} disabled={aiLoading}>
+            {aiLoading ? t('Generating...', '생성 중...') : t('Regenerate AI Routine', 'AI 루틴 다시 추천받기')}
+          </button>
+        </div>
+      )}
+
+      {showAiModal && aiRoutine && (
+        <div className="routine-modal-overlay" onClick={() => setShowAiModal(false)}>
+          <div className="routine-modal" onClick={e => e.stopPropagation()}>
+            <button className="routine-modal-close" onClick={() => setShowAiModal(false)}>&times;</button>
+            <h3>{t('Your AI Routine', 'AI 맞춤 루틴')}</h3>
+            <p className="routine-modal-summary">{t(aiRoutine.summary, aiRoutine.summaryKr)}</p>
+            <div className="routine-modal-section">
+              <h4>{'☀️ ' + t('Morning (AM)', '아침 (AM)')}</h4>
+              {(aiRoutine.am || []).map((step, i) => (
+                <div key={i} className="routine-modal-step">
+                  <span className="routine-modal-num">{i + 1}</span>
+                  <span className="routine-modal-name">{step.name}</span>
+                </div>
+              ))}
+            </div>
+            <div className="routine-modal-section">
+              <h4>{'🌙 ' + t('Evening (PM)', '저녁 (PM)')}</h4>
+              {(aiRoutine.pm || []).map((step, i) => (
+                <div key={i} className="routine-modal-step">
+                  <span className="routine-modal-num">{i + 1}</span>
+                  <span className="routine-modal-name">{step.name}</span>
+                </div>
+              ))}
+            </div>
+            {aiRoutine.weeklyTips && aiRoutine.weeklyTips.length > 0 && (
+              <div className="routine-modal-section">
+                <h4>{t('Weekly Tips', '주간 팁')}</h4>
+                <ul className="routine-modal-tips">
+                  {aiRoutine.weeklyTips.map((tip, i) => <li key={i}>{tip}</li>)}
+                </ul>
+              </div>
+            )}
+            <div className="routine-modal-actions">
+              <button className="primary-btn" onClick={applyAiRoutine}>{t('Apply to My Routine', '내 루틴에 적용')}</button>
+              <button className="secondary-btn" onClick={() => setShowAiModal(false)}>{t('Close', '닫기')}</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="routine-add-section">
         <h4>{t('Add Step', '단계 추가')}</h4>
