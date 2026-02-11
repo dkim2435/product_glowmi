@@ -23,6 +23,7 @@ export default function PersonalColorAnalysis({ showToast }) {
   const [faceCrop, setFaceCrop] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
   const [usedGemini, setUsedGemini] = useState(false)
+  const [geminiError, setGeminiError] = useState('')
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -53,9 +54,11 @@ export default function PersonalColorAnalysis({ showToast }) {
       try {
         analysis = await analyzePersonalColorAI(camera.capturedImage)
         setUsedGemini(true)
+        setGeminiError('')
       } catch (geminiErr) {
         console.warn('Gemini failed, falling back to local analysis:', geminiErr)
         setUsedGemini(false)
+        setGeminiError(geminiErr.message || String(geminiErr))
       }
 
       // Fallback to local MediaPipe analysis
@@ -201,6 +204,7 @@ export default function PersonalColorAnalysis({ showToast }) {
       <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
         {usedGemini ? '🤖 Gemini AI' : '📱 Local Analysis'}
       </div>
+      {geminiError && <p style={{ fontSize: '0.65rem', color: '#e74c3c', margin: '0 0 12px', wordBreak: 'break-all' }}>Gemini error: {geminiError}</p>}
 
       <div className="pc-skin-swatch">
         <div className="pc-skin-circle" style={{ background: skinHex }} />
