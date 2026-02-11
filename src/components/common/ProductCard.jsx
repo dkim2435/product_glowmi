@@ -1,30 +1,34 @@
 import { PRODUCT_CATEGORIES } from '../../data/products'
 
+const PRICE_LABELS = { budget: '$', mid: '$$', premium: '$$$' }
+
 export default function ProductCard({ product, compact = false, onAdd = null }) {
-  const cat = PRODUCT_CATEGORIES[product.category] || { icon: '✨', name: product.category }
-  const priceIcons = { budget: '💰', mid: '💰💰', premium: '💰💰💰' }
+  const cat = PRODUCT_CATEGORIES[product.category] || { icon: '✨', name: product.category, nameKr: '' }
 
   return (
-    <div className={'product-card' + (compact ? ' product-card-compact' : '')}>
-      <div className="product-card-icon">{cat.icon}</div>
-      <div className="product-card-body">
-        <div className="product-card-brand">{product.brand}</div>
-        <div className="product-card-name">{product.name}</div>
-        {product.nameKr && <div className="product-card-name-kr">{product.nameKr}</div>}
-        <div className="product-card-meta">
-          {product.rating && <span className="product-card-rating">⭐ {product.rating}</span>}
-          {product.priceRange && <span className="product-card-price">{priceIcons[product.priceRange] || '💰'}</span>}
+    <div className={'pcard' + (compact ? ' pcard-compact' : '')}>
+      <div className="pcard-left">
+        <span className="pcard-cat-icon">{cat.icon}</span>
+        <span className="pcard-cat-label">{cat.name}</span>
+      </div>
+      <div className="pcard-main">
+        <div className="pcard-brand">{product.brand}</div>
+        <div className="pcard-name">{product.name}</div>
+        {!compact && product.nameKr && <div className="pcard-name-kr">{product.nameKr}</div>}
+        <div className="pcard-row">
+          {product.rating && <span className="pcard-rating">⭐ {product.rating}</span>}
+          {product.priceRange && <span className="pcard-price">{PRICE_LABELS[product.priceRange] || '$'}</span>}
         </div>
         {!compact && product.keyIngredients && product.keyIngredients.length > 0 && (
-          <div className="product-card-ingredients">
+          <div className="pcard-tags">
             {product.keyIngredients.slice(0, 3).map((ing, i) => (
-              <span key={i} className="product-card-ing-tag">{ing}</span>
+              <span key={i} className="pcard-tag">{ing}</span>
             ))}
           </div>
         )}
       </div>
       {onAdd && (
-        <button className="product-card-add-btn" onClick={() => onAdd(product)} title="Add to shelf">+</button>
+        <button className="pcard-add" onClick={() => onAdd(product)} title="Add to shelf">+</button>
       )}
     </div>
   )
