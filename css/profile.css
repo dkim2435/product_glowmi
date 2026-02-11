@@ -1,70 +1,43 @@
 /* css/profile.css — Login, My Page, Diary, Routine styles */
 
-/* Generic hidden class for auth/profile elements */
-.header-user-menu.hidden,
-.user-dropdown.hidden,
-#tab-mypage.hidden,
-.save-result-btn.hidden {
-    display: none;
-}
+/* ===== Nav Auth UI (inside tab-nav) ===== */
 
-/* ===== Header Auth UI ===== */
-
-.header-auth {
+.tab-nav-auth {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 6px;
+    padding: 0 10px;
+    flex-shrink: 0;
 }
 
-.header-login-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 16px;
+.nav-login-btn {
+    padding: 6px 14px;
     border: 1.5px solid #ddd;
-    border-radius: 20px;
+    border-radius: 16px;
     background: #fff;
-    font-size: 0.82rem;
-    color: #555;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #888;
     cursor: pointer;
     transition: all 0.2s;
+    white-space: nowrap;
 }
 
-.header-login-btn:hover {
+.nav-login-btn:hover {
     border-color: #ff6b9d;
     color: #ff6b9d;
 }
 
-.header-login-btn svg {
-    width: 16px;
-    height: 16px;
-}
-
-.header-user-menu {
+.nav-user-menu {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
 }
 
-.header-user-avatar {
-    width: 28px;
-    height: 28px;
+.nav-user-avatar {
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     border: 2px solid #ff6b9d;
     object-fit: cover;
-}
-
-.header-user-name {
-    font-size: 0.82rem;
-    color: #555;
-    max-width: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    cursor: pointer;
 }
 
 .user-dropdown {
@@ -75,20 +48,20 @@
     background: #fff;
     border: 1px solid #eee;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    min-width: 160px;
-    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    min-width: 170px;
+    z-index: 200;
     overflow: hidden;
 }
 
 .user-dropdown-item {
     display: block;
     width: 100%;
-    padding: 10px 16px;
+    padding: 11px 16px;
     border: none;
     background: none;
     text-align: left;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: #555;
     cursor: pointer;
     transition: background 0.15s;
@@ -107,14 +80,29 @@
     background: #fff0f0;
 }
 
-/* ===== My Page Tab (hidden by default) ===== */
+/* ===== Save Result Button ===== */
 
-#tab-mypage {
-    display: none;
+.save-result-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: 2px solid #ff6b9d;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fff0f5, #fff);
+    color: #ff6b9d;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    justify-content: center;
 }
 
-#tab-mypage:not(.hidden) {
-    display: inline-flex;
+.save-result-btn:hover {
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
+    color: #fff;
 }
 
 /* ===== My Page Navigation ===== */
@@ -213,31 +201,6 @@
     padding: 30px;
     color: #aaa;
     font-size: 0.85rem;
-}
-
-/* ===== Save Result Button ===== */
-
-.save-result-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 20px;
-    margin: 8px 0;
-    border: 2px solid #ff6b9d;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #fff0f5, #fff);
-    color: #ff6b9d;
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    width: 100%;
-    justify-content: center;
-}
-
-.save-result-btn:hover {
-    background: linear-gradient(135deg, #ff6b9d, #c44569);
-    color: #fff;
 }
 
 /* ===== Skin Diary ===== */

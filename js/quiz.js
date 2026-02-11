@@ -116,7 +116,7 @@ function showResult() {
         '<div class="season-tip">' + seasonTip + '</div>' +
         '<h4>Care Tips</h4><ul>' + tipsHtml + '</ul></div>' +
         '<div class="recommended-products"><h4>🛒 Recommended Products</h4>' + productsHtml + '</div>' +
-        '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="saveQuizResultClick()">💾 Save My Result 결과 저장하기</button>' +
+        '<button class="save-result-btn"' + (currentUser ? '' : ' style="display:none"') + ' onclick="saveQuizResultClick()">💾 Save My Result 결과 저장하기</button>' +
         '<button class="secondary-btn" onclick="retakeQuiz()">Retake Quiz 다시하기</button>';
 
     document.getElementById('result-content').classList.add('animated');

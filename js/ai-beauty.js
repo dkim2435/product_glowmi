@@ -630,7 +630,7 @@ function showPCResult() {
         celebsHtml +
         '</div>' +
         allTypesHtml +
-        '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="savePersonalColorResult(pcAnalysisResult)">💾 Save My Result 결과 저장하기</button>' +
+        '<button class="save-result-btn"' + (currentUser ? '' : ' style="display:none"') + ' onclick="savePersonalColorResult(pcAnalysisResult)">💾 Save My Result 결과 저장하기</button>' +
         buildShareButtons(r.emoji, r.english, r.korean) +
         '<button class="secondary-btn" onclick="retakePersonalColor()">Retake Test 다시하기</button>';
 
@@ -962,7 +962,7 @@ function showFsResult(result) {
         '<div class="result-description"><h4>About Your Face Shape</h4><p>' + data.description + '</p>' +
         '<h4>Styling Tips 스타일링 팁</h4><ul>' + tipsHtml + '</ul></div>' +
         '<div class="fs-ref-section"><h4>All Face Shapes 전체 얼굴형 가이드</h4>' + shapesRefHtml + '</div>' +
-        '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="saveFsResultClick()">💾 Save My Result 결과 저장하기</button>' +
+        '<button class="save-result-btn"' + (currentUser ? '' : ' style="display:none"') + ' onclick="saveFsResultClick()">💾 Save My Result 결과 저장하기</button>' +
         buildShareButtons(data.emoji, data.name, data.korean) +
         '<div class="fs-result-buttons">' +
         '<button class="primary-btn" onclick="retryFaceShape()">🔄 Try Again 다시하기</button>' +
@@ -1363,7 +1363,7 @@ function showSkinResult(scores) {
     html += '</div>';
 
     // Save button
-    html += '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="saveSkinResultClick()">💾 Save My Result 결과 저장하기</button>';
+    html += '<button class="save-result-btn"' + (currentUser ? '' : ' style="display:none"') + ' onclick="saveSkinResultClick()">💾 Save My Result 결과 저장하기</button>';
 
     // Share buttons
     var skinShareSummary = 'Skin Score ' + overallScore + '/100 (' + grade + ')';
