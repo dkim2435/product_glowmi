@@ -19,7 +19,7 @@ const SLIDES = [
   {
     emoji: '📈',
     title: 'Progress',
-    titleKr: '피부 진행현황',
+    titleKr: '피부현황',
     desc: 'Track your skin score over time and compare before & after photos to see your glow-up journey.',
     descKr: '피부 점수 변화를 추적하고 비포/애프터 사진을 비교하여 변화를 확인하세요.',
     visual: null,

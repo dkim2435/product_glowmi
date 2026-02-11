@@ -741,7 +741,11 @@ body {
 .result-content .result-description,
 .result-content .recommended-products,
 .result-content .save-result-btn,
-.result-content .share-buttons {
+.result-content .share-buttons,
+.result-content .skin-overall,
+.result-content .skin-scores,
+.result-content .skin-recommendations,
+.result-content .skin-product-recs {
   width: 100%;
 }
 

@@ -29,7 +29,7 @@ export default function MyPageTab({ showToast, onNavigate }) {
       <div className="mypage-nav">
         {[
           { id: 'results', emoji: '🏆', label: t('Results', '결과') },
-          { id: 'progress', emoji: '📈', label: t('Progress', '진행현황') },
+          { id: 'progress', emoji: '📈', label: t('Skin Progress', '피부현황') },
           { id: 'shelf', emoji: '💄', label: t('My Shelf', '화장대') },
           { id: 'diary', emoji: '📝', label: t('Diary', '일지') },
           { id: 'routine', emoji: '🧴', label: t('Routine', '루틴') },

@@ -271,7 +271,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {(allScores.length > 0 || photos.length > 0) && (
         <div className="progress-view-toggle">
           <button className={'progress-toggle-btn' + (viewMode === 'chart' ? ' active' : '')} onClick={() => setViewMode('chart')}>
-            📈 {t('Score Trend', '점수 추이')}
+            📈 {t('Score Chart', '점수차트')}
           </button>
           <button className={'progress-toggle-btn' + (viewMode === 'photos' ? ' active' : '')} onClick={() => setViewMode('photos')}>
             📷 {t('Photo Timeline', '사진 타임라인')}
@@ -287,7 +287,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {/* Chart view */}
       {viewMode === 'chart' && allScores.length >= 2 && (
         <div className="progress-chart-section">
-          <h4>{t('Skin Score Trend', '피부 점수 추이')}</h4>
+          <h4>{t('Skin Score Chart', '피부 점수차트')}</h4>
           <canvas ref={chartRef} width="600" height="220" />
           <p className="progress-chart-hint">
             {allScores.some(s => s.hasPhoto) && t('● Larger dots = has photo', '● 큰 점 = 사진 있음')}
@@ -298,7 +298,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
         <div className="progress-chart-empty">
           <p className="progress-empty">{allScores.length === 0
             ? t('No skin scores yet.', '아직 피부 점수가 없습니다.')
-            : t('1 score recorded. Need one more to show the trend!', '1개 점수 기록됨. 1번 더 스캔하면 추이 차트가 나타나요!')
+            : t('1 score recorded. Save one more scan to see the chart!', '1개 점수 기록됨. 1번더 스캔 후 저장하면 차트가 나타나요!')
           }</p>
           <p className="progress-empty-hint">{t('Use "Quick Skin Scan" to track your skin over time.', '"피부 스캔"을 사용해서 피부 변화를 추적해보세요.')}</p>
         </div>
