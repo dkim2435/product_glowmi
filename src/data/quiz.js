@@ -160,6 +160,69 @@ export const winterQuizQuestions = [
     }
 ];
 
+// Combined Quiz Questions — season-agnostic, covers what camera can't detect
+export const combinedQuizQuestions = [
+    {
+        english: "How does your skin react to new skincare products?",
+        korean: "새로운 스킨케어 제품에 피부가 어떻게 반응하나요?",
+        options: [
+            { english: "Often stings, turns red, or breaks out", korean: "자주 따끔거리거나 빨갛게 되거나 트러블 발생", scores: { dry: 0, oily: 0, combination: 0, sensitive: 3, normal: 0 } },
+            { english: "Usually fine, rarely any issues", korean: "대체로 괜찮고, 문제가 거의 없음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 3 } },
+            { english: "Rich creams feel too heavy", korean: "진한 크림은 너무 무겁게 느껴짐", scores: { dry: 0, oily: 2, combination: 1, sensitive: 0, normal: 0 } },
+            { english: "Lightweight products don't feel like enough", korean: "가벼운 제품은 충분하지 않게 느껴짐", scores: { dry: 3, oily: 0, combination: 0, sensitive: 0, normal: 0 } }
+        ]
+    },
+    {
+        english: "How does the change of seasons affect your skin?",
+        korean: "계절이 바뀌면 피부에 어떤 변화가 있나요?",
+        options: [
+            { english: "Barely notice any change", korean: "거의 변화를 느끼지 못함", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 3 } },
+            { english: "Gets much drier in winter", korean: "겨울에 훨씬 건조해짐", scores: { dry: 3, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Gets oilier in summer, drier in winter", korean: "여름엔 기름지고, 겨울엔 건조해짐", scores: { dry: 0, oily: 0, combination: 3, sensitive: 0, normal: 0 } },
+            { english: "Becomes irritated and reactive", korean: "예민해지고 반응이 심해짐", scores: { dry: 0, oily: 0, combination: 0, sensitive: 3, normal: 0 } }
+        ]
+    },
+    {
+        english: "What is your biggest skin concern right now?",
+        korean: "현재 가장 큰 피부 고민은 무엇인가요?",
+        options: [
+            { english: "Dullness and dehydration", korean: "칙칙함과 수분 부족", scores: { dry: 3, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Excess oil and breakouts", korean: "과도한 유분과 트러블", scores: { dry: 0, oily: 3, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Redness and irritation", korean: "홍조와 자극", scores: { dry: 0, oily: 0, combination: 0, sensitive: 3, normal: 0 } },
+            { english: "Keeping skin balanced and healthy", korean: "피부 균형과 건강 유지", scores: { dry: 0, oily: 0, combination: 1, sensitive: 0, normal: 2 } }
+        ]
+    },
+    {
+        english: "How does your skin feel by mid-afternoon?",
+        korean: "오후 중반쯤 피부가 어떻게 느껴지나요?",
+        options: [
+            { english: "Tight and dry, needs moisture", korean: "당기고 건조해서 수분이 필요함", scores: { dry: 3, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Oily and shiny all over", korean: "전체적으로 기름지고 번들거림", scores: { dry: 0, oily: 3, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "T-zone shiny, cheeks comfortable", korean: "T존은 번들, 볼은 편안함", scores: { dry: 0, oily: 0, combination: 3, sensitive: 0, normal: 0 } },
+            { english: "Still comfortable, no major changes", korean: "여전히 편안하고 큰 변화 없음", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 3 } }
+        ]
+    },
+    {
+        english: "How does your skin respond to stress or lack of sleep?",
+        korean: "스트레스나 수면 부족 시 피부가 어떻게 반응하나요?",
+        options: [
+            { english: "Breakouts and excess oil", korean: "트러블과 과도한 유분", scores: { dry: 0, oily: 3, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Becomes dry and flaky", korean: "건조해지고 각질이 일어남", scores: { dry: 3, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Redness, itching, or rash", korean: "홍조, 가려움, 또는 발진", scores: { dry: 0, oily: 0, combination: 0, sensitive: 3, normal: 0 } },
+            { english: "Looks a bit tired but recovers quickly", korean: "좀 피곤해 보이지만 금방 회복됨", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 3 } }
+        ]
+    }
+];
+
+/**
+ * Auto-detect season based on current month.
+ * May-October = summer, November-April = winter.
+ */
+export function detectSeason() {
+    const month = new Date().getMonth() + 1;
+    return (month >= 5 && month <= 10) ? 'summer' : 'winter';
+}
+
 // Skin Type Results Data
 export const skinTypeResults = {
     dry: {

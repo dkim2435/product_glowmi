@@ -3,11 +3,12 @@ import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
-import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday, saveRoutine } from '../../lib/db'
+import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday, saveRoutine, saveQuizResult } from '../../lib/db'
 import { resizePhoto } from '../../lib/storage'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
-import { analyzeSkinAI, generateRoutineAI } from '../../lib/gemini'
+import { analyzeSkinAI, generateRoutineAI, analyzeSkinCombinedAI } from '../../lib/gemini'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
+import { combinedQuizQuestions, detectSeason } from '../../data/quiz'
 import { lookupIngredient } from '../products/ingredientLogic'
 import { getRecommendations } from '../../data/products'
 import ProductCard from '../common/ProductCard'
@@ -29,6 +30,13 @@ export default function SkinAnalyzer({ showToast }) {
   const [routineLoading, setRoutineLoading] = useState(false)
   const [routineResult, setRoutineResult] = useState(null)
   const [showRoutineModal, setShowRoutineModal] = useState(false)
+
+  // Quiz integration state
+  const [quizPhase, setQuizPhase] = useState(null) // null | 'questions' | 'analyzing' | 'done'
+  const [quizQ, setQuizQ] = useState(0)
+  const [quizScores, setQuizScores] = useState({ dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 })
+  const [quizAnswers, setQuizAnswers] = useState([])
+  const [combinedResult, setCombinedResult] = useState(null)
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -104,6 +112,59 @@ export default function SkinAnalyzer({ showToast }) {
     }
   }
 
+  // Quiz handlers
+  function handleStartQuiz() {
+    setQuizPhase('questions')
+    setQuizQ(0)
+    setQuizScores({ dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 })
+    setQuizAnswers([])
+    setCombinedResult(null)
+  }
+
+  async function handleQuizAnswer(option) {
+    const newScores = { ...quizScores }
+    for (const [key, val] of Object.entries(option.scores)) {
+      newScores[key] += val
+    }
+    setQuizScores(newScores)
+
+    const answerText = t(option.english, option.korean)
+    const newAnswers = [...quizAnswers, answerText]
+    setQuizAnswers(newAnswers)
+
+    if (quizQ + 1 < combinedQuizQuestions.length) {
+      setQuizQ(quizQ + 1)
+    } else {
+      // All questions answered — run combined analysis
+      setQuizPhase('analyzing')
+      try {
+        const season = detectSeason()
+        const result = await analyzeSkinCombinedAI(scores, newAnswers, season)
+        setCombinedResult(result)
+        setQuizPhase('done')
+
+        // Auto-save quiz result if logged in
+        if (user) {
+          const simpleType = Object.entries(newScores).sort((a, b) => b[1] - a[1])[0][0]
+          try {
+            await saveQuizResult(user.id, simpleType, season, {
+              ...newScores,
+              combinedType: result.skinType,
+              combinedLabel: result.skinTypeLabel,
+              combinedLabelKr: result.skinTypeLabelKr
+            })
+          } catch (saveErr) {
+            console.warn('Failed to save quiz result:', saveErr)
+          }
+        }
+      } catch (err) {
+        console.error('Combined analysis error:', err)
+        setQuizPhase(null)
+        showToast(t('Combined analysis failed. Your photo results are still valid.', '종합 분석에 실패했습니다. 사진 분석 결과는 유효합니다.'))
+      }
+    }
+  }
+
   async function handleSave() {
     if (!user || !scores) return
     try {
@@ -175,6 +236,11 @@ export default function SkinAnalyzer({ showToast }) {
     setOverallScore(null)
     setRoutineResult(null)
     setShowRoutineModal(false)
+    setQuizPhase(null)
+    setQuizQ(0)
+    setQuizScores({ dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 })
+    setQuizAnswers([])
+    setCombinedResult(null)
     setScreen('start')
   }
 
@@ -230,6 +296,46 @@ export default function SkinAnalyzer({ showToast }) {
     )
   }
 
+  // === Quiz phase: questions ===
+  if (quizPhase === 'questions') {
+    const q = combinedQuizQuestions[quizQ]
+    const progress = ((quizQ) / combinedQuizQuestions.length) * 100
+    return (
+      <div className="result-content animated">
+        <div className="combined-quiz-container">
+          <div className="combined-quiz-header">
+            <h4>{t('Skin Type Quiz', '피부타입 퀴즈')}</h4>
+            <span className="combined-quiz-count">{quizQ + 1} / {combinedQuizQuestions.length}</span>
+          </div>
+          <div className="combined-quiz-progress">
+            <div className="combined-quiz-progress-fill" style={{ width: progress + '%' }} />
+          </div>
+          <p className="combined-quiz-question">{t(q.english, q.korean)}</p>
+          <div className="combined-quiz-options">
+            {q.options.map((opt, i) => (
+              <button key={i} className="combined-quiz-option" onClick={() => handleQuizAnswer(opt)}>
+                {t(opt.english, opt.korean)}
+              </button>
+            ))}
+          </div>
+          <button className="combined-quiz-skip" onClick={() => setQuizPhase(null)}>
+            {t('Cancel quiz', '퀴즈 취소')}
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // === Quiz phase: analyzing ===
+  if (quizPhase === 'analyzing') {
+    return (
+      <div className="analyzing-screen">
+        <div className="analyzing-spinner" />
+        <p>{t('Running comprehensive skin analysis...', '종합 피부 분석 중...')}</p>
+      </div>
+    )
+  }
+
   // Result screen
   let grade, gradeClass
   if (overallScore >= 80) { grade = t('Excellent', '우수'); gradeClass = 'skin-grade-excellent' }
@@ -243,6 +349,68 @@ export default function SkinAnalyzer({ showToast }) {
   return (
     <div className="result-content animated">
       {showConfetti && <Confetti />}
+
+      {/* Combined result (quiz done) */}
+      {quizPhase === 'done' && combinedResult && (
+        <div className="combined-result-card">
+          <div className="combined-result-type">
+            <span className="combined-result-emoji">{combinedResult.skinTypeEmoji}</span>
+            <div>
+              <div className="combined-result-label">{combinedResult.skinTypeLabel}</div>
+              <div className="combined-result-label-kr">{combinedResult.skinTypeLabelKr}</div>
+            </div>
+          </div>
+          <p className="combined-result-desc">{t(combinedResult.description, combinedResult.descriptionKr)}</p>
+
+          <div className="combined-result-section">
+            <h4>{t('Key Ingredients', '추천 성분')}</h4>
+            <div className="combined-result-tags">
+              {(combinedResult.keyIngredients || []).map((ing, i) => (
+                <span key={i} className="combined-tag combined-tag-good">{ing}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="combined-result-section">
+            <h4>{t('Ingredients to Avoid', '피할 성분')}</h4>
+            <div className="combined-result-tags">
+              {(combinedResult.avoidIngredients || []).map((ing, i) => (
+                <span key={i} className="combined-tag combined-tag-bad">{ing}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="combined-result-section">
+            <h4>{t('Care Tips', '관리 팁')}</h4>
+            <ul className="combined-result-tips">
+              {(combinedResult.tips || []).map((tip, i) => (
+                <li key={i}>{t(tip, combinedResult.tipsKr?.[i] || tip)}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="combined-result-badge">
+            {'🧬 ' + t('Photo + Quiz Combined Analysis', '사진 + 퀴즈 종합 분석')}
+          </div>
+        </div>
+      )}
+
+      {/* Quiz prompt card (only if quiz not started yet) */}
+      {!quizPhase && (
+        <div className="quiz-prompt-card">
+          <div className="quiz-prompt-icon">📝</div>
+          <h4>{t('Want a more accurate skin type?', '더 정확한 피부타입을 알고 싶다면?')}</h4>
+          <p>{t('Answer 5 quick questions to combine with your photo analysis for a comprehensive skin type diagnosis.', '5개 질문에 답하면 사진 분석과 합쳐서 종합 피부타입을 진단해 드려요.')}</p>
+          <div className="quiz-prompt-actions">
+            <button className="primary-btn" onClick={handleStartQuiz}>
+              {t('Start Quiz', '퀴즈 시작')}
+            </button>
+            <button className="quiz-prompt-skip" onClick={() => setQuizPhase('skipped')}>
+              {t('Skip', '건너뛰기')}
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="skin-overall">
         <div className="skin-score-circle">

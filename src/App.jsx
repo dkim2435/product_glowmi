@@ -9,7 +9,6 @@ import Toast from './components/common/Toast'
 import OnboardingModal, { shouldShowOnboarding } from './components/common/OnboardingModal'
 import ReleaseNotesModal, { shouldShowReleaseNotes, seedVersionForNewUser } from './components/common/ReleaseNotesModal'
 import AiBeautyTab from './components/ai/AiBeautyTab'
-import QuizTab from './components/quiz/QuizTab'
 import ProductsTab from './components/products/ProductsTab'
 import ProceduresTab from './components/procedures/ProceduresTab'
 import WellnessTab from './components/wellness/WellnessTab'
@@ -54,7 +53,6 @@ export default function App() {
 
             <main className="main-content">
               {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
-              {activeTab === 'quiz' && <QuizTab showToast={showToast} />}
               {activeTab === 'products' && <ProductsTab showToast={showToast} />}
               {activeTab === 'procedures' && <ProceduresTab />}
               {activeTab === 'wellness' && <WellnessTab />}

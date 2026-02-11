@@ -30,7 +30,7 @@ export default function MyResults({ userId, onNavigate }) {
           <button className="mypage-empty-link" onClick={() => onNavigate('ai', 'personalColor')}>🎨 {t('Personal Color', '퍼스널컬러')}</button>
           <button className="mypage-empty-link" onClick={() => onNavigate('ai', 'faceShape')}>💎 {t('Face Shape', '얼굴형')}</button>
           <button className="mypage-empty-link" onClick={() => onNavigate('ai', 'skinAnalyzer')}>🔬 {t('Skin Analyzer', '피부 분석')}</button>
-          <button className="mypage-empty-link" onClick={() => onNavigate('quiz')}>📝 {t('Skin Quiz', '피부 퀴즈')}</button>
+          <button className="mypage-empty-link" onClick={() => onNavigate('ai', 'skinAnalyzer')}>📝 {t('Skin Type Quiz', '피부타입 퀴즈')}</button>
         </div>
       </div>
     )
@@ -204,22 +204,29 @@ export default function MyResults({ userId, onNavigate }) {
         )
       })()}
 
-      {/* Skin Type (Quiz) */}
-      {data.quiz_type && skinTypeResults[data.quiz_type] && (() => {
+      {/* Skin Type (Quiz) — supports both combined and legacy results */}
+      {data.quiz_type && (() => {
+        const hasCombined = data.quiz_scores?.combinedLabel
         const q = skinTypeResults[data.quiz_type]
+        if (!hasCombined && !q) return null
         const isOpen = expanded === 'quiz'
+        const displayLabel = hasCombined
+          ? t(data.quiz_scores.combinedLabel, data.quiz_scores.combinedLabelKr || data.quiz_scores.combinedLabel)
+          : t(q.english, q.korean)
+        const displayEmoji = hasCombined ? '🧬' : q?.emoji
         return (
           <div className={'mypage-result-card' + (isOpen ? ' expanded' : '')} onClick={() => toggle('quiz')}>
-            <div className="mypage-card-icon">{q.emoji}</div>
+            <div className="mypage-card-icon">{displayEmoji}</div>
             <div className="mypage-card-title">{t('Skin Type', '피부타입')}</div>
-            <div className="mypage-card-value">{t(q.english, q.korean)}</div>
-            {data.quiz_season && <div className="mypage-card-meta">{data.quiz_season === 'summer' ? '☀️ Summer' : '❄️ Winter'}</div>}
+            <div className="mypage-card-value">{displayLabel}</div>
+            {hasCombined && <div className="mypage-card-meta">{t('Photo + Quiz Combined', '사진+퀴즈 종합')}</div>}
+            {!hasCombined && data.quiz_season && <div className="mypage-card-meta">{data.quiz_season === 'summer' ? '☀️ Summer' : '❄️ Winter'}</div>}
             {!isOpen && <div className="mypage-card-expand-hint">{t('Tap for details ▾', '탭하여 상세보기 ▾')}</div>}
             {isOpen && (
               <div className="mypage-card-details" onClick={e => e.stopPropagation()}>
-                <div className="mypage-card-desc">{q.description}</div>
+                {q && <div className="mypage-card-desc">{q.description}</div>}
 
-                {q.tips && q.tips.length > 0 && (
+                {q?.tips && q.tips.length > 0 && (
                   <>
                     <div className="mypage-card-section-title">{t('Care Tips', '관리 팁')}</div>
                     <ul className="mypage-card-tips">

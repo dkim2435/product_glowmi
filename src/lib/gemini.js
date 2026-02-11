@@ -290,6 +290,49 @@ Rules:
 }
 
 /**
+ * Combined skin analysis — merges AI photo scores + quiz answers for comprehensive skin type.
+ */
+export async function analyzeSkinCombinedAI(skinScores, quizAnswers, season) {
+  const prompt = `You are an expert dermatologist and skin type analyst. Based on the AI photo analysis scores AND the user's self-reported quiz answers, determine their comprehensive skin type.
+
+AI Photo Analysis Scores (5=minimal concern, 95=severe):
+- Redness: ${skinScores.redness}
+- Oiliness: ${skinScores.oiliness}
+- Dryness: ${skinScores.dryness}
+- Dark Spots: ${skinScores.darkSpots}
+- Texture: ${skinScores.texture}
+
+User's Quiz Answers:
+1. Product reaction (sensitivity): ${quizAnswers[0]}
+2. Seasonal skin changes (adaptability): ${quizAnswers[1]}
+3. Biggest skin concern (subjective priority): ${quizAnswers[2]}
+4. Afternoon skin feel (oil-moisture balance): ${quizAnswers[3]}
+5. Stress/sleep skin response: ${quizAnswers[4]}
+
+Current season: ${season}
+
+You are NOT limited to 5 basic types. Use compound types when appropriate (e.g. dehydrated_oily, sensitive_combination, etc.).
+
+Respond with ONLY a JSON object:
+{
+  "skinType": "dehydrated_oily",
+  "skinTypeLabel": "Dehydrated Oily",
+  "skinTypeLabelKr": "수분부족 지성",
+  "skinTypeEmoji": "💧",
+  "description": "English description of the skin type and why this was determined",
+  "descriptionKr": "한국어 피부타입 설명",
+  "tips": ["Tip 1", "Tip 2", "Tip 3"],
+  "tipsKr": ["팁 1", "팁 2", "팁 3"],
+  "keyIngredients": ["Hyaluronic Acid", "Niacinamide"],
+  "avoidIngredients": ["Alcohol", "Fragrance"]
+}
+
+Be specific and personalized. The description should explain WHY this type was determined based on both photo data and quiz responses. Provide 3-5 tips and 3-5 key/avoid ingredients each.`
+
+  return await callGeminiText(prompt)
+}
+
+/**
  * Analyze personal color type using Gemini AI.
  * Returns: { type, confidence, warmth, depth, clarity, skinRgb, scores }
  */

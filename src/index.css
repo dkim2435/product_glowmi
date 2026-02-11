@@ -1532,6 +1532,248 @@ body {
   border: 1px solid #f0d0dd;
 }
 
+/* ========== Quiz Prompt Card (Skin Analyzer) ========== */
+.quiz-prompt-card {
+  background: linear-gradient(135deg, #fff8fa 0%, #fff0f5 100%);
+  border: 2px dashed var(--primary-pink);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.quiz-prompt-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.quiz-prompt-card h4 {
+  font-size: 1rem;
+  color: var(--secondary-pink);
+  margin-bottom: 6px;
+}
+
+.quiz-prompt-card p {
+  font-size: 0.82rem;
+  color: #666;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.quiz-prompt-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-prompt-skip {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.quiz-prompt-skip:hover {
+  color: #666;
+}
+
+/* ========== Combined Quiz (in SkinAnalyzer) ========== */
+.combined-quiz-container {
+  padding: 10px 0;
+}
+
+.combined-quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.combined-quiz-header h4 {
+  font-size: 1rem;
+  color: var(--secondary-pink);
+}
+
+.combined-quiz-count {
+  font-size: 0.82rem;
+  color: #999;
+  font-weight: 600;
+}
+
+.combined-quiz-progress {
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.combined-quiz-progress-fill {
+  height: 100%;
+  background: var(--gradient);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.combined-quiz-question {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.combined-quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.combined-quiz-option {
+  background: white;
+  border: 2px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.combined-quiz-option:hover {
+  border-color: var(--primary-pink);
+  background: #fff8fa;
+}
+
+.combined-quiz-option:active {
+  transform: scale(0.98);
+}
+
+.combined-quiz-skip {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  padding: 8px 16px;
+}
+
+/* ========== Combined Result Card ========== */
+.combined-result-card {
+  background: linear-gradient(135deg, #fff8fa 0%, #fff0f5 100%);
+  border: 1px solid #f0d0dd;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.combined-result-type {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.combined-result-emoji {
+  font-size: 2.5rem;
+}
+
+.combined-result-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--secondary-pink);
+}
+
+.combined-result-label-kr {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+.combined-result-desc {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.combined-result-section {
+  margin-bottom: 14px;
+}
+
+.combined-result-section h4 {
+  font-size: 0.88rem;
+  color: var(--secondary-pink);
+  margin-bottom: 8px;
+}
+
+.combined-result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.combined-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.combined-tag-good {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.combined-tag-bad {
+  background: #fce4ec;
+  color: #c62828;
+  border: 1px solid #f8bbd0;
+}
+
+.combined-result-tips {
+  list-style: none;
+  padding: 0;
+}
+
+.combined-result-tips li {
+  font-size: 0.85rem;
+  color: #555;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0e0e8;
+  line-height: 1.5;
+}
+
+.combined-result-tips li:last-child {
+  border-bottom: none;
+}
+
+.combined-result-tips li::before {
+  content: '✓ ';
+  color: var(--primary-pink);
+  font-weight: 700;
+}
+
+.combined-result-badge {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--primary-pink);
+  font-weight: 600;
+  padding-top: 10px;
+  border-top: 1px solid #f0d0dd;
+  margin-top: 4px;
+}
+
 /* ========== Quiz Styles ========== */
 .quiz-intro-card {
   background: white;
@@ -6571,6 +6813,24 @@ body {
 [data-theme="dark"] .skin-grade-good { background: #1a2535; color: #5eadff; }
 [data-theme="dark"] .skin-grade-fair { background: #2e2a1a; color: #dda630; }
 [data-theme="dark"] .skin-grade-care { background: #2e1a1a; color: #ff6b6b; }
+
+/* Quiz prompt & combined quiz/result */
+[data-theme="dark"] .quiz-prompt-card { background: #252538; border-color: rgba(255,107,157,0.3); }
+[data-theme="dark"] .quiz-prompt-card h4 { color: #ff8ab5; }
+[data-theme="dark"] .quiz-prompt-card p { color: #a0a0b8; }
+[data-theme="dark"] .combined-quiz-question { color: #e0e0e8; }
+[data-theme="dark"] .combined-quiz-option { background: #2a2a40; border-color: #3a3a50; color: #e0e0e8; }
+[data-theme="dark"] .combined-quiz-option:hover { border-color: var(--primary-pink); background: rgba(255,107,157,0.1); }
+[data-theme="dark"] .combined-quiz-progress { background: #2a2a40; }
+[data-theme="dark"] .combined-result-card { background: #252538; border-color: #35354a; }
+[data-theme="dark"] .combined-result-label { color: #ff8ab5; }
+[data-theme="dark"] .combined-result-label-kr { color: #909098; }
+[data-theme="dark"] .combined-result-desc { color: #c0c0d0; }
+[data-theme="dark"] .combined-result-section h4 { color: #ff8ab5; }
+[data-theme="dark"] .combined-tag-good { background: #1a2e1a; color: #5fd35f; border-color: #2e5a2e; }
+[data-theme="dark"] .combined-tag-bad { background: #2e1a1a; color: #ff6b6b; border-color: #5a2e2e; }
+[data-theme="dark"] .combined-result-tips li { color: #c0c0d0; border-color: #35354a; }
+[data-theme="dark"] .combined-result-badge { color: #ff8ab5; border-color: #35354a; }
 
 /* Product card */
 [data-theme="dark"] .product-card { background: #2a2a40; border-color: #35354a; }
