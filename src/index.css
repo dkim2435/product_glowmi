@@ -5758,6 +5758,7 @@ body {
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 
 .browse-overlay {
@@ -6297,7 +6298,10 @@ body {
   border-color: #3a3a50;
 }
 
+[data-theme="dark"] .sub-tab-nav,
+[data-theme="dark"] .ai-tool-tabs { background: #252538; }
 [data-theme="dark"] .sub-tab-btn.active {
+  background: #1e1e2e;
   color: var(--primary-pink);
   border-color: var(--primary-pink);
 }
@@ -6314,7 +6318,7 @@ body {
 
 /* MyPage nav */
 [data-theme="dark"] .mypage-nav { background: #252538; }
-[data-theme="dark"] .mypage-nav-btn { color: #aaa; background: #2a2a40; }
+[data-theme="dark"] .mypage-nav-btn { color: #aaa; background: #2a2a40; border-color: #3a3a50; }
 [data-theme="dark"] .mypage-nav-btn.active { color: white; }
 
 /* Diary & routine pills */
@@ -6331,13 +6335,15 @@ body {
   background: rgba(255,107,157,0.15);
 }
 
-[data-theme="dark"] .routine-step-item { border-color: #35354a; }
-[data-theme="dark"] .routine-toggle-btn { background: #2a2a40; color: #aaa; }
+[data-theme="dark"] .routine-step-item { background: #2a2a40; border-color: #35354a; }
+[data-theme="dark"] .routine-toggle-btn { background: #2a2a40; color: #aaa; border-color: #3a3a50; }
 [data-theme="dark"] .routine-toggle-btn.active { background: var(--primary-pink); color: white; }
 
 /* Progress */
-[data-theme="dark"] .progress-toggle-btn { background: #2a2a40; color: #aaa; }
+[data-theme="dark"] .progress-view-toggle { background: #252538; }
+[data-theme="dark"] .progress-toggle-btn { background: transparent; color: #aaa; }
 [data-theme="dark"] .progress-toggle-btn.active { background: var(--primary-pink); color: white; }
+[data-theme="dark"] .progress-chart-section h4 { color: #e0e0e8; }
 [data-theme="dark"] .progress-photo-card { background: #2a2a40; border-color: #35354a; }
 
 /* Alerts */
@@ -6395,6 +6401,8 @@ body {
 /* Season cards */
 [data-theme="dark"] .season-card { background: #2a2a40; border-color: #35354a; color: #e0e0e8; }
 [data-theme="dark"] .season-card:hover { border-color: var(--primary-pink); }
+[data-theme="dark"] .season-name { color: #e0e0e8; }
+[data-theme="dark"] .season-korean { color: #909098; }
 
 /* Procedure cards */
 [data-theme="dark"] .proc-details { background: #2a2a40; }
@@ -6427,6 +6435,29 @@ body {
 
 /* Privacy note */
 [data-theme="dark"] .privacy-note { color: #888; }
+
+/* Routine extras */
+[data-theme="dark"] .routine-step-name { color: #e0e0e8; }
+[data-theme="dark"] .routine-action-btn { background: #2a2a40; border-color: #3a3a50; color: #e0e0e8; }
+[data-theme="dark"] .routine-action-btn:hover { background: #35354a; }
+[data-theme="dark"] .routine-add-section { background: #252538; border-color: rgba(255,107,157,0.3); }
+
+/* Diary dark text */
+[data-theme="dark"] .diary-btn-label { color: #b0b0c0; }
+[data-theme="dark"] .diary-tag { background: #2a2a40; color: #c0c0d0; }
+[data-theme="dark"] .diary-card-notes { color: #b0b0c0; }
+[data-theme="dark"] .diary-saved-notes { color: #909098; }
+[data-theme="dark"] .diary-card { background: #2a2a40; }
+
+/* Weather dark text */
+[data-theme="dark"] .weather-temp { color: #e0e0e8; }
+[data-theme="dark"] .weather-stat { color: #b0b0c0; }
+[data-theme="dark"] .weather-tip-title { color: #e0e0e8; }
+[data-theme="dark"] .weather-error-msg { color: #909098; }
+
+/* Shelf buttons box-sizing */
+[data-theme="dark"] .shelf-btn-row .shelf-add-btn,
+[data-theme="dark"] .shelf-btn-row .shelf-browse-btn { box-sizing: border-box; }
 
 /* Scrollbar dark */
 [data-theme="dark"] ::-webkit-scrollbar-track { background: #1e1e2e; }

@@ -1,25 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.2.3'
+const APP_VERSION = '1.2.4'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🎉',
+    emoji: '🛠️',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트 소식`,
-    desc: 'Glowmi just got a major upgrade! Here are the latest features to enhance your K-Beauty journey.',
-    descKr: 'Glowmi가 대폭 업그레이드되었어요! K-뷰티 여정을 더 편하게 만들어줄 새 기능들을 소개합니다.',
+    desc: 'Bug fixes and dark mode improvements for a smoother experience.',
+    descKr: '버그 수정 및 다크 모드 개선으로 더 부드러운 사용 경험을 제공합니다.',
     items: [
-      { emoji: '🌙', label: 'Dark Mode', labelKr: '다크 모드', desc: 'Easy on the eyes — toggle dark/light theme anytime.', descKr: '눈이 편한 다크 모드를 언제든 전환할 수 있어요.' },
-      { emoji: '🌏', label: 'EN / 한국어 Switch', labelKr: '영어/한국어 전환', desc: 'One tap to switch the entire app language.', descKr: '한 번의 탭으로 앱 전체 언어를 전환하세요.' },
-      { emoji: '🔥', label: 'Trending Ingredients', labelKr: '트렌딩 성분 TOP 10', desc: 'Discover the hottest K-Beauty ingredients with product picks.', descKr: '인기 K-뷰티 성분과 추천 제품을 확인하세요.' },
-      { emoji: '🏠', label: 'MyPage Tour', labelKr: '마이페이지 가이드', desc: 'A guided welcome tour for first-time MyPage visitors.', descKr: '마이페이지 첫 방문 시 기능 안내 투어.' },
-      { emoji: '🧖', label: '10-Step Routine Guide', labelKr: '10단계 루틴 가이드', desc: 'Step-by-step Korean skincare routine with numbered steps.', descKr: '단계별 번호가 매겨진 10단계 스킨케어 루틴.' },
-      { emoji: '✨', label: 'Better Onboarding', labelKr: '온보딩 강화', desc: 'Revamped welcome slides with AI Beauty & K-Beauty guides.', descKr: 'AI 뷰티 & K-뷰티 가이드가 포함된 새로운 온보딩.' },
+      { emoji: '📸', label: 'Camera Fix', labelKr: '카메라 수정', desc: 'Progress photos are no longer flipped when using the front camera.', descKr: '전면 카메라 사용 시 진행 사진이 더 이상 뒤집히지 않습니다.' },
+      { emoji: '🌙', label: 'Dark Mode Polish', labelKr: '다크 모드 개선', desc: 'Fixed white gaps, borders, and invisible text across all pages.', descKr: '모든 페이지에서 흰색 간격, 테두리, 보이지 않는 텍스트를 수정했습니다.' },
+      { emoji: '🎨', label: 'Button Consistency', labelKr: '버튼 일관성', desc: 'Tabs, toggles, and shelf buttons now have consistent sizing and styling.', descKr: '탭, 토글, 선반 버튼의 크기와 스타일이 일관되게 변경되었습니다.' },
     ],
   },
 ]

@@ -58,12 +58,7 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
     canvas.height = video.videoHeight
     const ctx = canvas.getContext('2d')
 
-    if (isMirrored) {
-      ctx.translate(canvas.width, 0)
-      ctx.scale(-1, 1)
-    }
     ctx.drawImage(video, 0, 0)
-    ctx.setTransform(1, 0, 0, 1, 0, 0)
 
     stopCamera()
     const dataUrl = canvas.toDataURL('image/jpeg', 0.9)
