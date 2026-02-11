@@ -136,9 +136,51 @@ export async function loadRoutines(userId) {
   return data || []
 }
 
+// ===== Skin Progress =====
+
+export async function saveSkinProgressDB(userId, entry) {
+  const data = {
+    user_id: userId,
+    entry_date: entry.date,
+    photo_thumb: entry.photoThumb || null,
+    overall_score: entry.overallScore || null,
+    scores: entry.scores || null,
+    updated_at: new Date().toISOString()
+  }
+  const { error } = await supabase.from('skin_progress')
+    .upsert(data, { onConflict: 'user_id,entry_date' })
+  if (error) throw error
+}
+
+export async function loadSkinProgressDB(userId) {
+  const { data, error } = await supabase.from('skin_progress')
+    .select('*')
+    .eq('user_id', userId)
+    .order('entry_date', { ascending: true })
+    .limit(90)
+  if (error) throw error
+  return (data || []).map(row => ({
+    id: row.id,
+    date: row.entry_date,
+    photoThumb: row.photo_thumb,
+    overallScore: row.overall_score,
+    scores: row.scores,
+    createdAt: row.created_at
+  }))
+}
+
+export async function deleteSkinProgressDB(userId, entryId) {
+  const { error } = await supabase.from('skin_progress')
+    .delete()
+    .eq('id', entryId)
+    .eq('user_id', userId)
+  if (error) throw error
+}
+
 // ===== Account =====
 
 export async function deleteAllUserData(userId) {
+  await supabase.from('skin_progress').delete().eq('user_id', userId)
   await supabase.from('skin_diary').delete().eq('user_id', userId)
   await supabase.from('routines').delete().eq('user_id', userId)
   await supabase.from('analysis_results').delete().eq('id', userId)

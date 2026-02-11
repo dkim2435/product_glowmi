@@ -78,12 +78,26 @@ CREATE TABLE routines (
     UNIQUE(user_id, routine_type)
 );
 
+-- skin_progress — Progress photos + scores (one per day per user)
+CREATE TABLE skin_progress (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    entry_date DATE NOT NULL,
+    photo_thumb TEXT,
+    overall_score INTEGER,
+    scores JSONB,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(user_id, entry_date)
+);
+
 -- ===== Row Level Security =====
 
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE analysis_results ENABLE ROW LEVEL SECURITY;
 ALTER TABLE skin_diary ENABLE ROW LEVEL SECURITY;
 ALTER TABLE routines ENABLE ROW LEVEL SECURITY;
+ALTER TABLE skin_progress ENABLE ROW LEVEL SECURITY;
 
 -- profiles policies
 CREATE POLICY "Users can view own profile"
@@ -151,6 +165,23 @@ CREATE POLICY "Users can update own routines"
 
 CREATE POLICY "Users can delete own routines"
     ON routines FOR DELETE
+    USING (auth.uid() = user_id);
+
+-- skin_progress policies
+CREATE POLICY "Users can view own progress"
+    ON skin_progress FOR SELECT
+    USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert own progress"
+    ON skin_progress FOR INSERT
+    WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own progress"
+    ON skin_progress FOR UPDATE
+    USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own progress"
+    ON skin_progress FOR DELETE
     USING (auth.uid() = user_id);
 
 -- ===== Trigger: Auto-create profile + analysis_results on signup =====

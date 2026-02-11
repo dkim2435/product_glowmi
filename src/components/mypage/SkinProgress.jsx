@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useLang } from '../../context/LanguageContext'
-import { loadSkinProgress, saveSkinProgress, deleteSkinProgress, resizePhoto } from '../../lib/storage'
-import { loadDiaryEntries, loadAnalysisResults } from '../../lib/db'
+import { resizePhoto } from '../../lib/storage'
+import { loadDiaryEntries, loadAnalysisResults, saveSkinProgressDB, loadSkinProgressDB, deleteSkinProgressDB } from '../../lib/db'
 
 export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) {
   const { t } = useLang()
@@ -20,7 +20,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
   async function refresh() {
     setLoading(true)
     try {
-      const progressData = loadSkinProgress()
+      const progressData = userId ? await loadSkinProgressDB(userId) : []
       setEntries(progressData)
 
       // Also load diary entries that have AI scores
@@ -93,13 +93,14 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
         const thumb = await resizePhoto(ev.target.result, 400)
         const today = new Date().toISOString().split('T')[0]
 
-        const updated = saveSkinProgress({
+        await saveSkinProgressDB(userId, {
           date: today,
           photoThumb: thumb,
           overallScore: null,
           scores: null
         })
-        setEntries(updated.sort((a, b) => a.date.localeCompare(b.date)))
+        const updated = await loadSkinProgressDB(userId)
+        setEntries(updated)
         showToast(t('Progress photo saved!', '진행 사진이 저장되었습니다!'))
       } catch {
         showToast(t('Failed to save photo.', '사진 저장에 실패했습니다.'))
@@ -108,10 +109,15 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     reader.readAsDataURL(file)
   }
 
-  function handleDeleteEntry(id) {
+  async function handleDeleteEntry(id) {
     if (!window.confirm(t('Delete this entry?', '이 기록을 삭제하시겠습니까?'))) return
-    const updated = deleteSkinProgress(id)
-    setEntries(updated.sort((a, b) => a.date.localeCompare(b.date)))
+    try {
+      await deleteSkinProgressDB(userId, id)
+      const updated = await loadSkinProgressDB(userId)
+      setEntries(updated)
+    } catch {
+      showToast(t('Failed to delete.', '삭제에 실패했습니다.'))
+    }
   }
 
   function drawChart() {

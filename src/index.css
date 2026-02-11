@@ -6456,29 +6456,219 @@ body {
 /* Privacy note */
 [data-theme="dark"] .privacy-note { color: #888; }
 
-/* Routine extras */
+/* ===== Routine ===== */
 [data-theme="dark"] .routine-step-name { color: #e0e0e8; }
+[data-theme="dark"] .routine-step-brand { color: #909098; }
 [data-theme="dark"] .routine-action-btn { background: #2a2a40; border-color: #3a3a50; color: #e0e0e8; }
 [data-theme="dark"] .routine-action-btn:hover { background: #35354a; }
+[data-theme="dark"] .routine-delete:hover { background: #3a1a1a; color: #ff6b6b; border-color: #ff6b6b; }
 [data-theme="dark"] .routine-add-section { background: #252538; border-color: rgba(255,107,157,0.3); }
 
-/* Diary dark text */
+/* ===== Diary ===== */
 [data-theme="dark"] .diary-btn-label { color: #b0b0c0; }
 [data-theme="dark"] .diary-tag { background: #2a2a40; color: #c0c0d0; }
+[data-theme="dark"] .diary-card { background: #2a2a40; }
+[data-theme="dark"] .diary-card-date { color: #909098; }
 [data-theme="dark"] .diary-card-notes { color: #b0b0c0; }
 [data-theme="dark"] .diary-saved-notes { color: #909098; }
-[data-theme="dark"] .diary-card { background: #2a2a40; }
 
-/* Weather dark text */
+/* ===== Weather ===== */
 [data-theme="dark"] .weather-temp { color: #e0e0e8; }
 [data-theme="dark"] .weather-stat { color: #b0b0c0; }
 [data-theme="dark"] .weather-tip-title { color: #e0e0e8; }
+[data-theme="dark"] .weather-tip-text { color: #c0c0d0; }
+[data-theme="dark"] .weather-tip-kr-detail { color: #909098; }
 [data-theme="dark"] .weather-error-msg { color: #909098; }
+[data-theme="dark"] .weather-products-label { color: #b0b0c0; }
+[data-theme="dark"] .weather-extra-tip { color: #c0c0d0; }
+[data-theme="dark"] .weather-retry-btn { background: #2a2a40; border-color: var(--primary-pink); color: var(--primary-pink); }
+[data-theme="dark"] .weather-product-tag { background: #2a2a40; border-color: #3a3a50; }
 
-/* Shelf buttons box-sizing */
-[data-theme="dark"] .shelf-btn-row .shelf-add-btn,
-[data-theme="dark"] .shelf-btn-row .shelf-browse-btn { box-sizing: border-box; }
+/* ===== Product Cards (pcard) ===== */
+[data-theme="dark"] .pcard { background: #2a2a40; border-color: #35354a; }
+[data-theme="dark"] .pcard-name { color: #e0e0e8; }
+[data-theme="dark"] .pcard-name-kr { color: #909098; }
+[data-theme="dark"] .pcard-price { background: #1a2e1a; color: #5fd35f; }
+[data-theme="dark"] .pcard-tag { background: #1a2e1a; color: #5fd35f; }
 
-/* Scrollbar dark */
+/* ===== Key Ingredients Guide ===== */
+[data-theme="dark"] .ingredients-guide p { background: #2a2a40; color: #c0c0d0; }
+
+/* ===== Trending Ingredients ===== */
+[data-theme="dark"] .trending-ing-item.open { background: #2a2a40; }
+[data-theme="dark"] .trending-ing-names strong { color: #e0e0e8; }
+[data-theme="dark"] .trending-ing-desc { color: #c0c0d0; }
+[data-theme="dark"] .trending-ing-desc-kr { color: #909098; }
+[data-theme="dark"] .trending-ing-why { background: #2e2a1a; color: #c0c0d0; }
+[data-theme="dark"] .trending-ing-why strong { color: #dda630; }
+[data-theme="dark"] .trending-ing-products { background: #1a2520; color: #c0c0d0; }
+[data-theme="dark"] .trending-ing-products strong { color: #5fd35f; }
+
+/* ===== Procedures ===== */
+[data-theme="dark"] .proc-tag { background: #2a2a40; color: #c0c0d0; }
+[data-theme="dark"] .proc-desc { color: #c0c0d0; }
+[data-theme="dark"] .proc-desc-kr { color: #909098; }
+[data-theme="dark"] .proc-info-val { color: #e0e0e8; }
+[data-theme="dark"] .proc-info-sub { color: #909098; }
+[data-theme="dark"] .proc-info-item { background: #2a2a40; }
+[data-theme="dark"] .proc-details { border-color: #35354a; }
+[data-theme="dark"] .proc-close-btn { background: #2a2a40; border-color: #3a3a50; color: #aaa; }
+[data-theme="dark"] .proc-close-btn:hover { background: #35354a; color: #e0e0e8; }
+[data-theme="dark"] .procedures-guide-subtitle { color: #909098; }
+[data-theme="dark"] .section-subtitle { color: #909098; }
+
+/* ===== Clinics ===== */
+[data-theme="dark"] .clinic-title { color: #e0e0e8; }
+[data-theme="dark"] .clinic-sub { color: #909098; }
+[data-theme="dark"] .clinic-meta-line { color: #909098; }
+[data-theme="dark"] .clinic-details { border-color: #35354a; }
+
+/* ===== User Dropdown ===== */
+[data-theme="dark"] .user-dropdown-name { color: #e0e0e8; border-color: #3a3a50; }
+[data-theme="dark"] .user-dropdown-item.danger:hover,
+[data-theme="dark"] .user-dropdown-logout:hover { background: #3a1a1a; }
+
+/* ===== Analyzer ===== */
+[data-theme="dark"] .analyzer-stat { background: #2a2a40; }
+[data-theme="dark"] .analyzer-stat-label { color: #909098; }
+[data-theme="dark"] .analyzer-section-title { color: #c0c0d0; border-color: #3a3a50; }
+[data-theme="dark"] .analyzer-row-active { background: rgba(80,200,120,0.1); }
+[data-theme="dark"] .analyzer-row-warn { background: rgba(255,152,0,0.1); }
+[data-theme="dark"] .analyzer-row-name { color: #e0e0e8; }
+[data-theme="dark"] .analyzer-row-meta { color: #909098; }
+[data-theme="dark"] .analyzer-row-desc { color: #b0b0c0; }
+[data-theme="dark"] .analyzer-scan-btn { background: rgba(255,107,157,0.15); }
+[data-theme="dark"] .analyzer-scan-btn:hover { background: rgba(255,107,157,0.25); }
+[data-theme="dark"] .sub-accordion { background: #2a2a40; }
+[data-theme="dark"] .sub-accordion-header { color: #c0c0d0; }
+
+/* ===== Compatibility ===== */
+[data-theme="dark"] .compat-summary-kr { color: #909098; }
+[data-theme="dark"] .compat-note { background: #2a2a40; color: #b0b0c0; }
+[data-theme="dark"] .compat-tip-box { background: #2e2a1a; color: #c0c0d0; }
+[data-theme="dark"] .compat-stat-high { background: #2e1a1a; }
+[data-theme="dark"] .compat-stat-med { background: #2e2a1a; }
+[data-theme="dark"] .compat-stat-low { background: #1a2e1a; }
+[data-theme="dark"] .compat-card-high { background: #2e1a1a; border-color: #5a2e2e; }
+[data-theme="dark"] .compat-card-medium { background: #2e2a1a; border-color: #5a4e2e; }
+[data-theme="dark"] .compat-card-low { background: #1a2e1a; border-color: #2e5a2e; }
+[data-theme="dark"] .compat-conflict-type { color: #e0e0e8; }
+[data-theme="dark"] .compat-conflict-desc { color: #909098; }
+[data-theme="dark"] .compat-conflict-ing { background: rgba(255,255,255,0.08); color: #c0c0d0; }
+[data-theme="dark"] .compat-card-name { color: #b0b0c0; }
+[data-theme="dark"] .compat-card-meta { color: #909098; }
+
+/* ===== Shelf ===== */
+[data-theme="dark"] .shelf-section-title { color: #909098; }
+[data-theme="dark"] .shelf-item { background: #2a2a40; border-color: #3a3a50; color: #c0c0d0; }
+[data-theme="dark"] .shelf-item-title { background: #35354a; color: #c0c0d0; }
+[data-theme="dark"] .shelf-item-top { border-color: #3a3a50; }
+[data-theme="dark"] .shelf-item-meta { color: #909098; }
+[data-theme="dark"] .shelf-item-brand { color: #c0c0d0; }
+[data-theme="dark"] .shelf-btn-label { color: #c0c0d0; }
+[data-theme="dark"] .shelf-grid-card { background: #2a2a40; border-color: #3a3a50; }
+[data-theme="dark"] .shelf-browse-card { border-color: #3a3a50; }
+
+/* ===== Progress ===== */
+[data-theme="dark"] .progress-latest-date { color: #909098; }
+[data-theme="dark"] .progress-diff.positive { background: #1a2e1a; color: #5fd35f; }
+[data-theme="dark"] .progress-diff.negative { background: #2e1a1a; color: #ff6b6b; }
+[data-theme="dark"] .progress-empty { color: #909098; }
+[data-theme="dark"] .progress-empty-hint { color: #666680; }
+[data-theme="dark"] .progress-photo-img-box { background: #2a2a40; }
+[data-theme="dark"] .progress-photo-meta { color: #909098; }
+
+/* ===== Compare ===== */
+[data-theme="dark"] .compare-view { background: #2a2a40; border-color: #3a3a50; }
+[data-theme="dark"] .compare-view-date { color: #b0b0c0; }
+[data-theme="dark"] .compare-entry-date { color: #909098; }
+[data-theme="dark"] .compare-diff.positive { background: #1a2e1a; color: #5fd35f; }
+[data-theme="dark"] .compare-diff.negative { background: #2e1a1a; color: #ff6b6b; }
+[data-theme="dark"] .compare-alert-empty { background: #2e1a1a; color: #ff9090; }
+[data-theme="dark"] .compare-alert-warning { background: #2e2a1a; color: #dda630; }
+[data-theme="dark"] .compare-alert-info { background: #2e2a1a; color: #dda630; }
+[data-theme="dark"] .compare-alert-text { color: #909098; }
+
+/* ===== Personal Color / Face Shape / Draping ===== */
+[data-theme="dark"] .draping-card { background: #2a2a40; }
+[data-theme="dark"] .draping-instruction { color: #c0c0d0; }
+[data-theme="dark"] .draping-instruction .korean { color: #909098; }
+[data-theme="dark"] .draping-label { color: #e0e0e8; }
+[data-theme="dark"] .draping-label-kr { color: #909098; }
+[data-theme="dark"] .pc-result-card { background: #2a2a40; }
+[data-theme="dark"] .pc-confidence-sub { color: #909098; }
+[data-theme="dark"] .pc-verdict { color: #909098; }
+[data-theme="dark"] .pc-axis-bar { background: #3a3a50; }
+[data-theme="dark"] .pc-axis-label { color: #909098; }
+[data-theme="dark"] .swatch-name { color: #c0c0d0; }
+[data-theme="dark"] .worst-colors h4 { color: #909098; }
+[data-theme="dark"] .celeb-item { color: #c0c0d0; }
+[data-theme="dark"] .fs-ref-item { background: #2a2a40; }
+[data-theme="dark"] .fs-ref-text { color: #e0e0e8; }
+[data-theme="dark"] .fs-ref-detail { color: #b0b0c0; }
+
+/* ===== Skin Analysis ===== */
+[data-theme="dark"] .skin-metric-title { color: #b0b0c0; }
+[data-theme="dark"] .skin-metric-kr { color: #909098; }
+[data-theme="dark"] .skin-score-kr { color: #909098; }
+[data-theme="dark"] .skin-score-value { color: #c0c0d0; }
+[data-theme="dark"] .skin-rec-desc { color: #b0b0c0; }
+[data-theme="dark"] .skin-tip-kr { color: #909098; }
+[data-theme="dark"] .skin-ing-tag { background: #2a2a40; color: #b0b0c0; }
+
+/* ===== Quiz & Results ===== */
+[data-theme="dark"] .quiz-intro-card h3 { color: #909098; }
+[data-theme="dark"] .quiz-intro-card p { color: #b0b0c0; }
+[data-theme="dark"] .quiz-season-select > p { color: #b0b0c0; }
+[data-theme="dark"] .quiz-start-subtitle { color: #909098; }
+[data-theme="dark"] .quiz-start-card > p { color: #b0b0c0; }
+[data-theme="dark"] .question-title-kr { color: #909098; }
+[data-theme="dark"] .question-name { color: #e0e0e8; }
+[data-theme="dark"] .question-desc { color: #909098; }
+[data-theme="dark"] .skintype-result-name { color: #e0e0e8; }
+[data-theme="dark"] .skintype-result-kr { color: #909098; }
+[data-theme="dark"] .skintype-desc { color: #b0b0c0; }
+[data-theme="dark"] .skintype-routine-card p { color: #c0c0d0; }
+[data-theme="dark"] .routine-key-principle .principle-text-kr { color: #909098; }
+
+/* ===== Food & Makeup ===== */
+[data-theme="dark"] .tip-item strong { color: #e0e0e8; }
+[data-theme="dark"] .tip-desc { color: #e0e0e8; }
+[data-theme="dark"] .tip-desc-kr { color: #b0b0c0; }
+[data-theme="dark"] .skintype-tip-text { color: #c0c0d0; }
+[data-theme="dark"] .food-good { background: #1a2e1a; }
+[data-theme="dark"] .food-bad { background: #2e1a1a; }
+[data-theme="dark"] .food-item { background: #2a2a40; }
+[data-theme="dark"] .food-item-name { color: #909098; }
+[data-theme="dark"] .food-card { background: #2a2a40; }
+[data-theme="dark"] .food-card-name { color: #c0c0d0; }
+[data-theme="dark"] .food-card-kr { color: #909098; }
+[data-theme="dark"] .food-card-benefits { color: #b0b0c0; }
+[data-theme="dark"] .makeup-rec-kr { color: #c0c0d0; }
+[data-theme="dark"] .makeup-product-title { color: #c0c0d0; }
+[data-theme="dark"] .makeup-benefit-tag { background: #2e2a1a; color: #dda630; }
+[data-theme="dark"] .routine-steps-guide li { color: #c0c0d0; }
+[data-theme="dark"] .tips-list li { color: #c0c0d0; }
+
+/* ===== MyPage ===== */
+[data-theme="dark"] .mypage-col-title { color: #909098; }
+[data-theme="dark"] .mypage-col-data { color: #909098; }
+[data-theme="dark"] .mypage-card-title { color: #909098; }
+[data-theme="dark"] .mypage-card-sub { color: #909098; }
+[data-theme="dark"] .mypage-card-subtitle { color: #c0c0d0; }
+[data-theme="dark"] .mypage-card-detail { color: #b0b0c0; }
+
+/* ===== Browse Modal ===== */
+[data-theme="dark"] .browse-header h4 { color: #e0e0e8; }
+[data-theme="dark"] .browse-close { background: #2a2a40; color: #c0c0d0; }
+[data-theme="dark"] .browse-close:hover { background: #35354a; color: #e0e0e8; }
+
+/* ===== Gated / Login ===== */
+[data-theme="dark"] .gated-login-card { background: #2a2a40; border-color: #3a3a50; }
+[data-theme="dark"] .gated-login-title { color: #b0b0c0; }
+[data-theme="dark"] .summary-card-title { color: #e0e0e8; }
+[data-theme="dark"] .summary-card-subtitle { color: #909098; }
+
+/* ===== Scrollbar ===== */
 [data-theme="dark"] ::-webkit-scrollbar-track { background: #1e1e2e; }
 [data-theme="dark"] ::-webkit-scrollbar-thumb { background: #3a3a50; }
