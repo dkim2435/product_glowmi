@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.2.4'
+const APP_VERSION = '1.2.5'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
@@ -11,12 +11,12 @@ const RELEASE_NOTES = [
     emoji: '🛠️',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트 소식`,
-    desc: 'Bug fixes and dark mode improvements for a smoother experience.',
-    descKr: '버그 수정 및 다크 모드 개선으로 더 부드러운 사용 경험을 제공합니다.',
+    desc: 'Dark mode polish and UI consistency improvements.',
+    descKr: '다크 모드 개선 및 UI 일관성 향상.',
     items: [
       { emoji: '📸', label: 'Camera Fix', labelKr: '카메라 수정', desc: 'Progress photos are no longer flipped when using the front camera.', descKr: '전면 카메라 사용 시 진행 사진이 더 이상 뒤집히지 않습니다.' },
-      { emoji: '🌙', label: 'Dark Mode Polish', labelKr: '다크 모드 개선', desc: 'Fixed white gaps, borders, and invisible text across all pages.', descKr: '모든 페이지에서 흰색 간격, 테두리, 보이지 않는 텍스트를 수정했습니다.' },
-      { emoji: '🎨', label: 'Button Consistency', labelKr: '버튼 일관성', desc: 'Tabs, toggles, and shelf buttons now have consistent sizing and styling.', descKr: '탭, 토글, 선반 버튼의 크기와 스타일이 일관되게 변경되었습니다.' },
+      { emoji: '🌙', label: 'Dark Mode Polish', labelKr: '다크 모드 개선', desc: 'Fixed card backgrounds, borders, and invisible text in dark mode.', descKr: '다크 모드에서 카드 배경, 테두리, 보이지 않는 텍스트를 수정했습니다.' },
+      { emoji: '🎨', label: 'Button Consistency', labelKr: '버튼 통일', desc: 'All action buttons now share the same size and style.', descKr: '모든 액션 버튼의 크기와 스타일을 통일했습니다.' },
     ],
   },
 ]
