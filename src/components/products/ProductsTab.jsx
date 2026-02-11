@@ -36,16 +36,16 @@ function SkincareGuide() {
       titleKr: '한국식 10단계 스킨케어',
       content: (
         <ol className="routine-steps-guide">
-          <li><strong>Oil Cleanser</strong> — Removes makeup & sunscreen</li>
-          <li><strong>Water Cleanser</strong> — Deep cleanse pores</li>
-          <li><strong>Exfoliator</strong> — 1-2x per week</li>
-          <li><strong>Toner</strong> — Balance pH & prep skin</li>
-          <li><strong>Essence</strong> — Hydration boost</li>
-          <li><strong>Serum/Ampoule</strong> — Targeted treatment</li>
-          <li><strong>Sheet Mask</strong> — 1-2x per week for extra hydration</li>
-          <li><strong>Eye Cream</strong> — Delicate eye area care</li>
-          <li><strong>Moisturizer</strong> — Lock in hydration</li>
-          <li><strong>Sunscreen</strong> — SPF 50+ PA++++ (AM only)</li>
+          <li><strong>1. Oil Cleanser</strong> — Removes makeup & sunscreen</li>
+          <li><strong>2. Water Cleanser</strong> — Deep cleanse pores</li>
+          <li><strong>3. Exfoliator</strong> — 1-2x per week</li>
+          <li><strong>4. Toner</strong> — Balance pH & prep skin</li>
+          <li><strong>5. Essence</strong> — Hydration boost</li>
+          <li><strong>6. Serum/Ampoule</strong> — Targeted treatment</li>
+          <li><strong>7. Sheet Mask</strong> — 1-2x per week for extra hydration</li>
+          <li><strong>8. Eye Cream</strong> — Delicate eye area care</li>
+          <li><strong>9. Moisturizer</strong> — Lock in hydration</li>
+          <li><strong>10. Sunscreen</strong> — SPF 50+ PA++++ (AM only)</li>
         </ol>
       )
     },
