@@ -165,10 +165,14 @@ export default function PersonalColorAnalysis({ showToast }) {
   }
 
   if (screen === 'analyzing') {
+    const hasKey = !!import.meta.env.VITE_GEMINI_API_KEY
     return (
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
         <p>{t('Analyzing your skin tone...', '피부톤을 분석하고 있습니다...')}</p>
+        <p style={{ fontSize: '0.7rem', color: '#999', marginTop: 8 }}>
+          Gemini: {hasKey ? '🟢 Key loaded' : '🔴 No key'}
+        </p>
       </div>
     )
   }
