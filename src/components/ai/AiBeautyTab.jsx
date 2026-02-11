@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLang } from '../../context/LanguageContext'
 import PersonalColorAnalysis from './PersonalColorAnalysis'
 import FaceShapeDetector from './FaceShapeDetector'
 import SkinAnalyzer from './SkinAnalyzer'
@@ -11,6 +12,7 @@ const AI_TOOLS = [
 ]
 
 export default function AiBeautyTab({ showToast }) {
+  const { t } = useLang()
   const [activeTool, setActiveTool] = useState('personalColor')
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function AiBeautyTab({ showToast }) {
             className={'sub-tab-btn' + (activeTool === tool.id ? ' active' : '')}
             onClick={() => setActiveTool(tool.id)}
           >
-            <span>{tool.emoji}</span> {tool.label}
+            <span>{tool.emoji}</span> {t(tool.label, tool.labelKr)}
           </button>
         ))}
       </div>

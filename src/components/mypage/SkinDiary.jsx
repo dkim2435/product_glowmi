@@ -1,24 +1,26 @@
 import { useState, useEffect, useRef } from 'react'
+import { useLang } from '../../context/LanguageContext'
 import { saveDiaryEntry, loadDiaryEntries, deleteDiaryEntry } from '../../lib/db'
 
 const CONDITIONS = [
-  { value: 'good', emoji: '😊', label: 'Good 좋음' },
-  { value: 'normal', emoji: '😐', label: 'Normal 보통' },
-  { value: 'bad', emoji: '😫', label: 'Bad 나쁨' }
+  { value: 'good', emoji: '😊', label: 'Good', labelKr: '좋음' },
+  { value: 'normal', emoji: '😐', label: 'Normal', labelKr: '보통' },
+  { value: 'bad', emoji: '😫', label: 'Bad', labelKr: '나쁨' }
 ]
 const SLEEP_OPTS = ['<4h', '5-6h', '7-8h', '9h+']
 const STRESS_OPTS = [
-  { value: 'low', emoji: '😊', label: 'Low 낮음' },
-  { value: 'medium', emoji: '😐', label: 'Medium 보통' },
-  { value: 'high', emoji: '😫', label: 'High 높음' }
+  { value: 'low', emoji: '😊', label: 'Low', labelKr: '낮음' },
+  { value: 'medium', emoji: '😐', label: 'Medium', labelKr: '보통' },
+  { value: 'high', emoji: '😫', label: 'High', labelKr: '높음' }
 ]
 const WATER_OPTS = [
-  { value: 'low', label: 'Low 적음' },
-  { value: 'normal', label: 'Normal 보통' },
-  { value: 'high', label: 'High 많음' }
+  { value: 'low', label: 'Low', labelKr: '적음' },
+  { value: 'normal', label: 'Normal', labelKr: '보통' },
+  { value: 'high', label: 'High', labelKr: '많음' }
 ]
 
 export default function SkinDiary({ userId, showToast }) {
+  const { t } = useLang()
   const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({ overall_condition: '', sleep_hours: '', stress_level: '', water_intake: '', notes: '' })
@@ -58,22 +60,22 @@ export default function SkinDiary({ userId, showToast }) {
   async function handleSave() {
     try {
       await saveDiaryEntry(userId, { entry_date: today, ...form })
-      showToast('Diary entry saved! 일지가 저장되었습니다!')
+      showToast(t('Diary entry saved!', '일지가 저장되었습니다!'))
       setTodaySaved(true)
       refresh()
     } catch {
-      showToast('Failed to save diary. 일지 저장에 실패했습니다.')
+      showToast(t('Failed to save diary.', '일지 저장에 실패했습니다.'))
     }
   }
 
   async function handleDelete(entryId) {
-    if (!window.confirm('Delete this entry? 이 일지를 삭제하시겠습니까?')) return
+    if (!window.confirm(t('Delete this entry?', '이 일지를 삭제하시겠습니까?'))) return
     try {
       await deleteDiaryEntry(userId, entryId)
-      showToast('Entry deleted. 일지가 삭제되었습니다.')
+      showToast(t('Entry deleted.', '일지가 삭제되었습니다.'))
       refresh()
     } catch {
-      showToast('Failed to delete. 삭제에 실패했습니다.')
+      showToast(t('Failed to delete.', '삭제에 실패했습니다.'))
     }
   }
 
@@ -142,7 +144,7 @@ export default function SkinDiary({ userId, showToast }) {
     }
   }
 
-  if (loading) return <p className="mypage-loading">Loading... 불러오는 중...</p>
+  if (loading) return <p className="mypage-loading">{t('Loading...', '불러오는 중...')}</p>
 
   const condEmoji = { good: '😊', normal: '😐', bad: '😫' }
   const stressEmoji = { low: '😊', medium: '😐', high: '😫' }
@@ -151,26 +153,26 @@ export default function SkinDiary({ userId, showToast }) {
     <div className="mypage-diary-content">
       {/* Today's form */}
       <div className="diary-form">
-        <h4>Today's Entry 오늘의 기록</h4>
+        <h4>{t("Today's Entry", '오늘의 기록')}</h4>
         <p className="diary-form-date">{today}</p>
 
         {todaySaved && !form._editing ? (
           <div className="diary-saved-state">
             <div className="diary-saved-icon">✅</div>
-            <p className="diary-saved-msg">Today's entry saved! 오늘의 기록이 저장되었습니다!</p>
+            <p className="diary-saved-msg">{t("Today's entry saved!", '오늘의 기록이 저장되었습니다!')}</p>
             <div className="diary-saved-summary">
               {form.overall_condition && <span className="diary-tag">{condEmoji[form.overall_condition]} {form.overall_condition}</span>}
               {form.sleep_hours && <span className="diary-tag">💤 {form.sleep_hours}</span>}
-              {form.stress_level && <span className="diary-tag">{stressEmoji[form.stress_level]} stress</span>}
+              {form.stress_level && <span className="diary-tag">{stressEmoji[form.stress_level]} {t('stress', '스트레스')}</span>}
               {form.water_intake && <span className="diary-tag">💧 {form.water_intake}</span>}
             </div>
             {form.notes && <p className="diary-saved-notes">{form.notes}</p>}
-            <button className="secondary-btn" onClick={() => setForm({ ...form, _editing: true })}>Edit 수정하기</button>
+            <button className="secondary-btn" onClick={() => setForm({ ...form, _editing: true })}>{t('Edit', '수정하기')}</button>
           </div>
         ) : (
           <>
             <div className="diary-field">
-              <label>Overall Condition 전체 컨디션</label>
+              <label>{t('Overall Condition', '전체 컨디션')}</label>
               <div className="diary-emoji-btns">
                 {CONDITIONS.map(c => (
                   <button
@@ -179,14 +181,14 @@ export default function SkinDiary({ userId, showToast }) {
                     onClick={() => setForm({ ...form, overall_condition: c.value })}
                   >
                     <span className="diary-emoji">{c.emoji}</span>
-                    <span className="diary-btn-label">{c.label}</span>
+                    <span className="diary-btn-label">{t(c.label, c.labelKr)}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="diary-field">
-              <label>Sleep 수면 시간</label>
+              <label>{t('Sleep', '수면 시간')}</label>
               <div className="diary-pill-btns">
                 {SLEEP_OPTS.map(s => (
                   <button
@@ -199,7 +201,7 @@ export default function SkinDiary({ userId, showToast }) {
             </div>
 
             <div className="diary-field">
-              <label>Stress 스트레스</label>
+              <label>{t('Stress', '스트레스')}</label>
               <div className="diary-emoji-btns">
                 {STRESS_OPTS.map(st => (
                   <button
@@ -208,30 +210,30 @@ export default function SkinDiary({ userId, showToast }) {
                     onClick={() => setForm({ ...form, stress_level: st.value })}
                   >
                     <span className="diary-emoji">{st.emoji}</span>
-                    <span className="diary-btn-label">{st.label}</span>
+                    <span className="diary-btn-label">{t(st.label, st.labelKr)}</span>
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="diary-field">
-              <label>Water Intake 수분 섭취</label>
+              <label>{t('Water Intake', '수분 섭취')}</label>
               <div className="diary-pill-btns">
                 {WATER_OPTS.map(w => (
                   <button
                     key={w.value}
                     className={'diary-pill-btn' + (form.water_intake === w.value ? ' diary-pill-selected' : '')}
                     onClick={() => setForm({ ...form, water_intake: w.value })}
-                  >{w.label}</button>
+                  >{t(w.label, w.labelKr)}</button>
                 ))}
               </div>
             </div>
 
             <div className="diary-field">
-              <label>Notes 메모</label>
+              <label>{t('Notes', '메모')}</label>
               <textarea
                 className="diary-textarea"
-                placeholder="How is your skin today? 오늘 피부 상태는 어떤가요?"
+                placeholder={t('How is your skin today?', '오늘 피부 상태는 어떤가요?')}
                 rows={3}
                 value={form.notes}
                 onChange={e => setForm({ ...form, notes: e.target.value })}
@@ -239,7 +241,7 @@ export default function SkinDiary({ userId, showToast }) {
             </div>
 
             <button className="primary-btn diary-save-btn" onClick={handleSave}>
-              {todaySaved ? 'Update Entry 수정하기' : 'Save Entry 저장하기'}
+              {todaySaved ? t('Update Entry', '수정하기') : t('Save Entry', '저장하기')}
             </button>
           </>
         )}
@@ -247,9 +249,9 @@ export default function SkinDiary({ userId, showToast }) {
 
       {/* Timeline */}
       <div className="diary-timeline-section">
-        <h4>Recent Entries 최근 일지</h4>
+        <h4>{t('Recent Entries', '최근 일지')}</h4>
         {entries.length === 0 ? (
-          <p className="mypage-empty-hint">No entries yet. Start tracking today! 아직 일지가 없습니다. 오늘부터 시작해보세요!</p>
+          <p className="mypage-empty-hint">{t('No entries yet. Start tracking today!', '아직 일지가 없습니다. 오늘부터 시작해보세요!')}</p>
         ) : (
           <div className="diary-timeline">
             {entries.map(entry => (
@@ -258,12 +260,12 @@ export default function SkinDiary({ userId, showToast }) {
                 <div className="diary-card-row">
                   {entry.overall_condition && <span className="diary-tag">{condEmoji[entry.overall_condition] || ''} {entry.overall_condition}</span>}
                   {entry.sleep_hours && <span className="diary-tag">💤 {entry.sleep_hours}</span>}
-                  {entry.stress_level && <span className="diary-tag">{stressEmoji[entry.stress_level] || ''} stress</span>}
+                  {entry.stress_level && <span className="diary-tag">{stressEmoji[entry.stress_level] || ''} {t('stress', '스트레스')}</span>}
                   {entry.water_intake && <span className="diary-tag">💧 {entry.water_intake}</span>}
                 </div>
-                {entry.ai_overall_score && <div className="diary-card-ai">AI Score: {entry.ai_overall_score}/100</div>}
+                {entry.ai_overall_score && <div className="diary-card-ai">{t('AI Score', 'AI 점수')}: {entry.ai_overall_score}/100</div>}
                 {entry.notes && <div className="diary-card-notes">{entry.notes}</div>}
-                <button className="diary-delete-btn" onClick={() => handleDelete(entry.id)} title="Delete 삭제">&times;</button>
+                <button className="diary-delete-btn" onClick={() => handleDelete(entry.id)} title={t('Delete', '삭제')}>&times;</button>
               </div>
             ))}
           </div>
@@ -271,7 +273,7 @@ export default function SkinDiary({ userId, showToast }) {
 
         {entries.length >= 2 && (
           <div className="diary-chart-section">
-            <h4>Trend 트렌드</h4>
+            <h4>{t('Trend', '트렌드')}</h4>
             <canvas ref={chartRef} width="600" height="200" />
           </div>
         )}

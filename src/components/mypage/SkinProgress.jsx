@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
+import { useLang } from '../../context/LanguageContext'
 import { loadSkinProgress, saveSkinProgress, deleteSkinProgress, resizePhoto } from '../../lib/storage'
 import { loadDiaryEntries, loadAnalysisResults } from '../../lib/db'
 
 export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) {
+  const { t } = useLang()
   const [entries, setEntries] = useState([])
   const [diaryEntries, setDiaryEntries] = useState([])
   const [analysisResult, setAnalysisResult] = useState(null)
@@ -98,16 +100,16 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
           scores: null
         })
         setEntries(updated.sort((a, b) => a.date.localeCompare(b.date)))
-        showToast('Progress photo saved! 진행 사진이 저장되었습니다!')
+        showToast(t('Progress photo saved!', '진행 사진이 저장되었습니다!'))
       } catch {
-        showToast('Failed to save photo. 사진 저장에 실패했습니다.')
+        showToast(t('Failed to save photo.', '사진 저장에 실패했습니다.'))
       }
     }
     reader.readAsDataURL(file)
   }
 
   function handleDeleteEntry(id) {
-    if (!window.confirm('Delete this entry? 이 기록을 삭제하시겠습니까?')) return
+    if (!window.confirm(t('Delete this entry?', '이 기록을 삭제하시겠습니까?'))) return
     const updated = deleteSkinProgress(id)
     setEntries(updated.sort((a, b) => a.date.localeCompare(b.date)))
   }
@@ -211,7 +213,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     }
   }
 
-  if (loading) return <p className="mypage-loading">Loading... 불러오는 중...</p>
+  if (loading) return <p className="mypage-loading">{t('Loading...', '불러오는 중...')}</p>
 
   const allScores = getAllScores()
   const photos = getPhotos()
@@ -230,20 +232,20 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
               <span className="progress-score-label">/100</span>
             </div>
             <div className="progress-score-meta">
-              <span className="progress-latest-date">Latest: {latestScore.date}</span>
+              <span className="progress-latest-date">{t('Latest', '최근')}: {latestScore.date}</span>
               {allScores.length > 1 && (
                 <span className={'progress-diff' + (scoreDiff >= 0 ? ' positive' : ' negative')}>
                   {scoreDiff >= 0 ? '↑' : '↓'} {Math.abs(scoreDiff)} pts
-                  {scoreDiff >= 0 ? ' improvement' : ' decline'}
+                  {scoreDiff >= 0 ? t(' improvement', ' 향상') : t(' decline', ' 하락')}
                 </span>
               )}
-              <span className="progress-count">{allScores.length} records</span>
+              <span className="progress-count">{allScores.length} {t('records', '기록')}</span>
             </div>
           </>
         ) : (
           <div className="progress-empty">
-            <p>No skin scores yet. 아직 피부 점수가 없습니다.</p>
-            <p className="progress-empty-hint">Use Skin Analyzer to get your first score! 피부 분석기를 사용해보세요!</p>
+            <p>{t('No skin scores yet.', '아직 피부 점수가 없습니다.')}</p>
+            <p className="progress-empty-hint">{t('Use Skin Analyzer to get your first score!', '피부 분석기를 사용해보세요!')}</p>
           </div>
         )}
       </div>
@@ -251,10 +253,10 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {/* Action buttons */}
       <div className="progress-actions">
         <button className="primary-btn progress-scan-btn" onClick={onGoToSkinAnalyzer}>
-          🔬 Quick Skin Scan 피부 스캔
+          🔬 {t('Quick Skin Scan', '피부 스캔')}
         </button>
         <button className="secondary-btn" onClick={() => fileInputRef.current?.click()}>
-          📸 Add Progress Photo 사진 추가
+          📸 {t('Add Progress Photo', '사진 추가')}
         </button>
         <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handlePhotoUpload} />
       </div>
@@ -263,14 +265,14 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {(allScores.length > 0 || photos.length > 0) && (
         <div className="progress-view-toggle">
           <button className={'progress-toggle-btn' + (viewMode === 'chart' ? ' active' : '')} onClick={() => setViewMode('chart')}>
-            📈 Score Trend
+            📈 {t('Score Trend', '점수 추이')}
           </button>
           <button className={'progress-toggle-btn' + (viewMode === 'photos' ? ' active' : '')} onClick={() => setViewMode('photos')}>
-            📷 Photo Timeline
+            📷 {t('Photo Timeline', '사진 타임라인')}
           </button>
           {photos.length >= 2 && (
             <button className={'progress-toggle-btn' + (viewMode === 'compare' ? ' active' : '')} onClick={() => setViewMode('compare')}>
-              🔄 Compare
+              🔄 {t('Compare', '비교')}
             </button>
           )}
         </div>
@@ -279,10 +281,10 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {/* Chart view */}
       {viewMode === 'chart' && allScores.length >= 2 && (
         <div className="progress-chart-section">
-          <h4>Skin Score Trend 피부 점수 추이</h4>
+          <h4>{t('Skin Score Trend', '피부 점수 추이')}</h4>
           <canvas ref={chartRef} width="600" height="220" />
           <p className="progress-chart-hint">
-            {allScores.some(s => s.hasPhoto) && '● Larger dots = has photo 큰 점 = 사진 있음'}
+            {allScores.some(s => s.hasPhoto) && t('● Larger dots = has photo', '● 큰 점 = 사진 있음')}
           </p>
         </div>
       )}
@@ -290,9 +292,9 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {/* Photos timeline */}
       {viewMode === 'photos' && (
         <div className="progress-photos-section">
-          <h4>Progress Photos 진행 사진</h4>
+          <h4>{t('Progress Photos', '진행 사진')}</h4>
           {photos.length === 0 ? (
-            <p className="mypage-empty-hint">No photos yet. Add your first progress photo! 아직 사진이 없습니다.</p>
+            <p className="mypage-empty-hint">{t('No photos yet. Add your first progress photo!', '아직 사진이 없습니다.')}</p>
           ) : (
             <div className="progress-photo-grid">
               {photos.map(entry => (
@@ -300,9 +302,9 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
                   <img src={entry.photoThumb} alt={entry.date} className="progress-photo-img" />
                   <div className="progress-photo-info">
                     <span className="progress-photo-date">{entry.date}</span>
-                    {entry.overallScore && <span className="progress-photo-score">Score: {entry.overallScore}</span>}
+                    {entry.overallScore && <span className="progress-photo-score">{t('Score', '점수')}: {entry.overallScore}</span>}
                   </div>
-                  <button className="progress-photo-delete" onClick={() => handleDeleteEntry(entry.id)} title="Delete 삭제">&times;</button>
+                  <button className="progress-photo-delete" onClick={() => handleDeleteEntry(entry.id)} title={t('Delete', '삭제')}>&times;</button>
                 </div>
               ))}
             </div>
@@ -313,29 +315,29 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {/* Compare view */}
       {viewMode === 'compare' && photos.length >= 2 && (
         <div className="progress-compare-section">
-          <h4>Before & After 비포 & 애프터</h4>
+          <h4>{t('Before & After', '비포 & 애프터')}</h4>
           <div className="compare-selectors">
             <div className="compare-select-group">
-              <label>Before 이전</label>
+              <label>{t('Before', '이전')}</label>
               <select
                 className="compare-select"
                 value={compareA || ''}
                 onChange={e => setCompareA(e.target.value)}
               >
-                <option value="">Select... 선택</option>
+                <option value="">{t('Select...', '선택')}</option>
                 {photos.map(p => (
                   <option key={p.id} value={p.id}>{p.date} {p.overallScore ? `(${p.overallScore}pts)` : ''}</option>
                 ))}
               </select>
             </div>
             <div className="compare-select-group">
-              <label>After 이후</label>
+              <label>{t('After', '이후')}</label>
               <select
                 className="compare-select"
                 value={compareB || ''}
                 onChange={e => setCompareB(e.target.value)}
               >
-                <option value="">Select... 선택</option>
+                <option value="">{t('Select...', '선택')}</option>
                 {photos.map(p => (
                   <option key={p.id} value={p.id}>{p.date} {p.overallScore ? `(${p.overallScore}pts)` : ''}</option>
                 ))}
@@ -353,19 +355,19 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
                 <div className="compare-photo-pair">
                   <div className="compare-photo-box">
                     <img src={photoA.photoThumb} alt="Before" className="compare-photo" />
-                    <span className="compare-label">Before {photoA.date}</span>
+                    <span className="compare-label">{t('Before', '이전')} {photoA.date}</span>
                     {photoA.overallScore && <span className="compare-score">{photoA.overallScore}/100</span>}
                   </div>
                   <div className="compare-arrow">→</div>
                   <div className="compare-photo-box">
                     <img src={photoB.photoThumb} alt="After" className="compare-photo" />
-                    <span className="compare-label">After {photoB.date}</span>
+                    <span className="compare-label">{t('After', '이후')} {photoB.date}</span>
                     {photoB.overallScore && <span className="compare-score">{photoB.overallScore}/100</span>}
                   </div>
                 </div>
                 {photoA.overallScore && photoB.overallScore && (
                   <div className={'compare-diff' + (diff >= 0 ? ' positive' : ' negative')}>
-                    {diff >= 0 ? '📈' : '📉'} {diff >= 0 ? '+' : ''}{diff} points
+                    {diff >= 0 ? '📈' : '📉'} {diff >= 0 ? '+' : ''}{diff} {t('points', '포인트')}
                   </div>
                 )}
               </div>
@@ -379,14 +381,14 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
                 className="compare-shortcut-btn"
                 onClick={() => { setCompareA(photos[0].id); setCompareB(photos[photos.length - 1].id) }}
               >
-                First vs Latest 처음 vs 최근
+                {t('First vs Latest', '처음 vs 최근')}
               </button>
               {photos.length >= 5 && (
                 <button
                   className="compare-shortcut-btn"
                   onClick={() => { setCompareA(photos[photos.length - 5].id); setCompareB(photos[photos.length - 1].id) }}
                 >
-                  Recent 5 최근 5개 비교
+                  {t('Recent 5', '최근 5개 비교')}
                 </button>
               )}
             </div>

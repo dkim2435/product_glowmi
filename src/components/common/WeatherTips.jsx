@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getWeatherCache, setWeatherCache } from '../../lib/storage'
 import { getRecommendations } from '../../data/products'
+import { useLang } from '../../context/LanguageContext'
 import ProductCard from './ProductCard'
 
 const TIPS = {
@@ -80,6 +81,7 @@ function getSkincareAdvice(temp, humidity, uvIndex) {
 }
 
 export default function WeatherTips() {
+  const { t } = useLang()
   const [weather, setWeather] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -143,7 +145,7 @@ export default function WeatherTips() {
     return (
       <div className="weather-card weather-loading">
         <span className="weather-loading-icon">🌤️</span>
-        <span>Loading weather tips... 날씨 정보 불러오는 중...</span>
+        <span>{t('Loading weather tips...', '날씨 정보 불러오는 중...')}</span>
       </div>
     )
   }
@@ -155,16 +157,11 @@ export default function WeatherTips() {
         <div>
           <p className="weather-error-msg">
             {error === 'location'
-              ? 'Enable location for personalized skincare tips based on today\'s weather.'
-              : 'Could not load weather data.'}
-          </p>
-          <p className="weather-error-msg-kr">
-            {error === 'location'
-              ? '위치를 허용하면 오늘 날씨에 맞는 스킨케어 팁을 받을 수 있어요.'
-              : '날씨 데이터를 불러올 수 없습니다.'}
+              ? t('Enable location for personalized skincare tips based on today\'s weather.', '위치를 허용하면 오늘 날씨에 맞는 스킨케어 팁을 받을 수 있어요.')
+              : t('Could not load weather data.', '날씨 데이터를 불러올 수 없습니다.')}
           </p>
           {error === 'location' && (
-            <button className="weather-retry-btn" onClick={fetchWeather}>📍 Enable Location 위치 허용</button>
+            <button className="weather-retry-btn" onClick={fetchWeather}>📍 {t('Enable Location', '위치 허용')}</button>
           )}
         </div>
       </div>
@@ -202,22 +199,21 @@ export default function WeatherTips() {
         <div className="weather-main-tip">
           <span className="weather-tip-emoji">{mainAdvice.emoji}</span>
           <div>
-            <div className="weather-tip-title">{mainAdvice.title} <span className="weather-tip-kr">{mainAdvice.titleKr}</span></div>
-            <div className="weather-tip-text">{mainAdvice.tip}</div>
+            <div className="weather-tip-title">{t(mainAdvice.title, mainAdvice.titleKr)}</div>
+            <div className="weather-tip-text">{t(mainAdvice.tip, mainAdvice.tipKr)}</div>
           </div>
         </div>
         <span className={'weather-expand-icon' + (expanded ? ' expanded' : '')}>▾</span>
       </div>
       {!expanded && (
-        <div className="weather-tap-hint" onClick={() => setExpanded(true)}>Tap for product recommendations 탭하여 추천 제품 보기</div>
+        <div className="weather-tap-hint" onClick={() => setExpanded(true)}>{t('Tap for product recommendations', '탭하여 추천 제품 보기')}</div>
       )}
 
       {expanded && (
         <div className="weather-details">
-          <div className="weather-tip-kr-detail">{mainAdvice.tipKr}</div>
           {mainAdvice.productQuery && (
             <div className="weather-products">
-              <span className="weather-products-label">Recommended Products 추천 제품:</span>
+              <span className="weather-products-label">{t('Recommended Products', '추천 제품')}:</span>
               <div className="product-card-list">
                 {getRecommendations({
                   concerns: mainAdvice.productQuery.concerns || [],
@@ -232,8 +228,7 @@ export default function WeatherTips() {
             <div key={i} className="weather-extra-tip">
               <span>{a.emoji}</span>
               <div>
-                <strong>{a.title}</strong> — {a.tip}
-                <div className="weather-tip-kr-detail">{a.tipKr}</div>
+                <strong>{t(a.title, a.titleKr)}</strong> — {t(a.tip, a.tipKr)}
               </div>
             </div>
           ))}

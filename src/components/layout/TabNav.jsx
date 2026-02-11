@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../context/LanguageContext'
 
 const TABS = [
   { id: 'ai', label: 'AI Beauty', labelKr: 'AI 뷰티', emoji: '✨' },
@@ -11,6 +12,7 @@ const TABS = [
 
 export default function TabNav({ activeTab, onTabChange }) {
   const { user, loginWithGoogle, logout, loading } = useAuth()
+  const { t } = useLang()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -49,7 +51,7 @@ export default function TabNav({ activeTab, onTabChange }) {
               onClick={() => onTabChange(tab.id)}
             >
               <span className="tab-emoji">{tab.emoji}</span>
-              <span className="tab-label">{tab.label}</span>
+              <span className="tab-label">{t(tab.label, tab.labelKr)}</span>
             </button>
           ))}
         </div>
@@ -61,7 +63,7 @@ export default function TabNav({ activeTab, onTabChange }) {
                 <circle cx="12" cy="8" r="3.5" opacity="0.85" />
                 <path d="M12 13c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" opacity="0.65" />
               </svg>
-              <span className="nav-login-label">Login / Signup</span>
+              <span className="nav-login-label">{t('Login / Signup', '로그인 / 가입')}</span>
             </button>
           )}
           {!loading && user && (
@@ -77,10 +79,10 @@ export default function TabNav({ activeTab, onTabChange }) {
                 <div className="user-dropdown">
                   <div className="user-dropdown-name">{user.user_metadata?.full_name || 'User'}</div>
                   <button className="user-dropdown-item" onClick={() => { onTabChange('mypage'); setDropdownOpen(false) }}>
-                    My Page 마이페이지
+                    {t('My Page', '마이페이지')}
                   </button>
                   <button className="user-dropdown-item user-dropdown-logout" onClick={logout}>
-                    Logout 로그아웃
+                    {t('Logout', '로그아웃')}
                   </button>
                 </div>
               )}

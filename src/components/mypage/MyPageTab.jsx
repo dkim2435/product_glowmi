@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../context/LanguageContext'
 import { deleteAllUserData } from '../../lib/db'
 import MyResults from './MyResults'
 import SkinProgress from './SkinProgress'
@@ -10,6 +11,7 @@ import MyPageWelcome, { shouldShowMyPageWelcome } from './MyPageWelcome'
 
 export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
   const { user, logout } = useAuth()
+  const { t } = useLang()
   const [section, setSection] = useState('results') // results | progress | shelf | diary | routine
   const [showWelcome, setShowWelcome] = useState(() => shouldShowMyPageWelcome())
 
@@ -17,20 +19,23 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
     return (
       <section className="tab-panel" id="mypage">
         <div className="mypage-empty">
-          <p>Please login to access My Page. 로그인 후 이용해주세요.</p>
+          <p>{t('Please login to access My Page.', '로그인 후 이용해주세요.')}</p>
         </div>
       </section>
     )
   }
 
   async function handleDeleteAll() {
-    if (window.confirm('Are you sure you want to delete ALL your data? This cannot be undone.\n\n정말로 모든 데이터를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+    if (window.confirm(t(
+      'Are you sure you want to delete ALL your data? This cannot be undone.',
+      '정말로 모든 데이터를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.'
+    ))) {
       try {
         await deleteAllUserData(user.id)
-        showToast('All data deleted. 모든 데이터가 삭제되었습니다.')
+        showToast(t('All data deleted.', '모든 데이터가 삭제되었습니다.'))
         await logout()
       } catch {
-        showToast('Failed to delete data. 데이터 삭제에 실패했습니다.')
+        showToast(t('Failed to delete data.', '데이터 삭제에 실패했습니다.'))
       }
     }
   }
@@ -39,11 +44,11 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
     <section className="tab-panel" id="mypage">
       <div className="mypage-nav">
         {[
-          { id: 'results', emoji: '🏆', label: 'Results' },
-          { id: 'progress', emoji: '📈', label: 'Progress' },
-          { id: 'shelf', emoji: '💄', label: 'My Shelf' },
-          { id: 'diary', emoji: '📝', label: 'Diary' },
-          { id: 'routine', emoji: '🧴', label: 'Routine' },
+          { id: 'results', emoji: '🏆', label: t('Results', '결과') },
+          { id: 'progress', emoji: '📈', label: t('Progress', '진행현황') },
+          { id: 'shelf', emoji: '💄', label: t('My Shelf', '화장대') },
+          { id: 'diary', emoji: '📝', label: t('Diary', '일지') },
+          { id: 'routine', emoji: '🧴', label: t('Routine', '루틴') },
         ].map(s => (
           <button
             key={s.id}
@@ -63,7 +68,7 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
 
       <div className="mypage-danger-zone">
         <button className="danger-btn" onClick={handleDeleteAll}>
-          🗑️ Delete All My Data 모든 데이터 삭제
+          🗑️ {t('Delete All My Data', '모든 데이터 삭제')}
         </button>
       </div>
 

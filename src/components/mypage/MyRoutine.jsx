@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { saveRoutine, loadRoutines } from '../../lib/db'
+import { useLang } from '../../context/LanguageContext'
 
 const ROUTINE_CATEGORIES = [
   { key: 'oil_cleanser', label: 'Oil Cleanser', labelKr: '오일 클렌저', emoji: '🫒' },
@@ -21,6 +22,7 @@ function getCategoryByKey(key) {
 }
 
 export default function MyRoutine({ userId, showToast }) {
+  const { t } = useLang()
   const [routineData, setRoutineData] = useState({ am: [], pm: [] })
   const [activeType, setActiveType] = useState('am')
   const [loading, setLoading] = useState(true)
@@ -44,7 +46,7 @@ export default function MyRoutine({ userId, showToast }) {
 
   async function addStep() {
     if (!newStep.name.trim()) {
-      showToast('Please enter a product name. 제품명을 입력해주세요.')
+      showToast(t('Please enter a product name.', '제품명을 입력해주세요.'))
       return
     }
     const updated = { ...routineData }
@@ -53,9 +55,9 @@ export default function MyRoutine({ userId, showToast }) {
     setNewStep({ category: 'oil_cleanser', name: '', brand: '' })
     try {
       await saveRoutine(userId, activeType, updated[activeType])
-      showToast('Routine saved! 루틴이 저장되었습니다!')
+      showToast(t('Routine saved!', '루틴이 저장되었습니다!'))
     } catch {
-      showToast('Failed to save routine. 루틴 저장에 실패했습니다.')
+      showToast(t('Failed to save routine.', '루틴 저장에 실패했습니다.'))
     }
   }
 
@@ -82,7 +84,7 @@ export default function MyRoutine({ userId, showToast }) {
     } catch { /* ignore */ }
   }
 
-  if (loading) return <p className="mypage-loading">Loading... 불러오는 중...</p>
+  if (loading) return <p className="mypage-loading">{t('Loading...', '불러오는 중...')}</p>
 
   const steps = routineData[activeType] || []
 
@@ -90,16 +92,16 @@ export default function MyRoutine({ userId, showToast }) {
     <div className="mypage-routine-content">
       <div className="routine-type-toggle">
         <button className={'routine-toggle-btn' + (activeType === 'am' ? ' active' : '')} onClick={() => setActiveType('am')}>
-          ☀️ Morning AM
+          {'☀️ ' + t('Morning AM', '아침 AM')}
         </button>
         <button className={'routine-toggle-btn' + (activeType === 'pm' ? ' active' : '')} onClick={() => setActiveType('pm')}>
-          🌙 Evening PM
+          {'🌙 ' + t('Evening PM', '저녁 PM')}
         </button>
       </div>
 
       <div className="routine-steps">
         {steps.length === 0 ? (
-          <div className="mypage-empty-hint">No steps added yet. 아직 추가된 단계가 없습니다.</div>
+          <div className="mypage-empty-hint">{t('No steps added yet.', '아직 추가된 단계가 없습니다.')}</div>
         ) : (
           steps.map((step, i) => {
             const cat = getCategoryByKey(step.category)
@@ -110,12 +112,12 @@ export default function MyRoutine({ userId, showToast }) {
                 <div className="routine-step-info">
                   <span className="routine-step-name">{step.name || ''}</span>
                   {step.brand && <span className="routine-step-brand">{step.brand}</span>}
-                  <span className="routine-step-cat">{cat ? cat.label : step.category}</span>
+                  <span className="routine-step-cat">{cat ? t(cat.label, cat.labelKr) : step.category}</span>
                 </div>
                 <div className="routine-step-actions">
-                  {i > 0 && <button className="routine-action-btn" onClick={() => moveStep(i, -1)} title="Move up">↑</button>}
-                  {i < steps.length - 1 && <button className="routine-action-btn" onClick={() => moveStep(i, 1)} title="Move down">↓</button>}
-                  <button className="routine-action-btn routine-delete" onClick={() => removeStep(i)} title="Delete 삭제">&times;</button>
+                  {i > 0 && <button className="routine-action-btn" onClick={() => moveStep(i, -1)} title={t('Move up', '위로')}>&uarr;</button>}
+                  {i < steps.length - 1 && <button className="routine-action-btn" onClick={() => moveStep(i, 1)} title={t('Move down', '아래로')}>&darr;</button>}
+                  <button className="routine-action-btn routine-delete" onClick={() => removeStep(i)} title={t('Delete', '삭제')}>&times;</button>
                 </div>
               </div>
             )
@@ -124,28 +126,28 @@ export default function MyRoutine({ userId, showToast }) {
       </div>
 
       <div className="routine-add-section">
-        <h4>Add Step 단계 추가</h4>
+        <h4>{t('Add Step', '단계 추가')}</h4>
         <div className="routine-add-form">
           <select className="routine-select" value={newStep.category} onChange={e => setNewStep({ ...newStep, category: e.target.value })}>
             {ROUTINE_CATEGORIES.map(cat => (
-              <option key={cat.key} value={cat.key}>{cat.emoji} {cat.label} {cat.labelKr}</option>
+              <option key={cat.key} value={cat.key}>{cat.emoji} {t(cat.label, cat.labelKr)}</option>
             ))}
           </select>
           <input
             type="text"
             className="routine-input"
-            placeholder="Product name 제품명"
+            placeholder={t('Product name', '제품명')}
             value={newStep.name}
             onChange={e => setNewStep({ ...newStep, name: e.target.value })}
           />
           <input
             type="text"
             className="routine-input"
-            placeholder="Brand 브랜드 (optional)"
+            placeholder={t('Brand (optional)', '브랜드 (선택)')}
             value={newStep.brand}
             onChange={e => setNewStep({ ...newStep, brand: e.target.value })}
           />
-          <button className="primary-btn routine-add-btn" onClick={addStep}>Add 추가</button>
+          <button className="primary-btn routine-add-btn" onClick={addStep}>{t('Add', '추가')}</button>
         </div>
       </div>
     </div>

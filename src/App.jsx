@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AuthProvider } from './context/AuthContext'
+import { ThemeProvider } from './context/ThemeContext'
+import { LanguageProvider } from './context/LanguageContext'
 import Header from './components/layout/Header'
 import TabNav from './components/layout/TabNav'
 import Footer from './components/layout/Footer'
@@ -21,11 +23,9 @@ export default function App() {
 
   useEffect(() => {
     if (shouldShowOnboarding()) {
-      // First-time visitor: show onboarding, seed version so release notes won't fire next load
       setShowOnboarding(true)
       seedVersionForNewUser()
     } else if (shouldShowReleaseNotes()) {
-      // Returning visitor with new version: show release notes
       setShowReleaseNotes(true)
     }
   }, [])
@@ -43,31 +43,35 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <div className="app-container">
-        <Header onLogoClick={() => setActiveTab('ai')} />
-        <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
+    <ThemeProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <div className="app-container">
+            <Header onLogoClick={() => setActiveTab('ai')} />
+            <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
 
-        <main className="main-content">
-          {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
-          {activeTab === 'quiz' && <QuizTab showToast={showToast} />}
-          {activeTab === 'products' && <ProductsTab showToast={showToast} />}
-          {activeTab === 'procedures' && <ProceduresTab />}
-          {activeTab === 'wellness' && <WellnessTab />}
-          {activeTab === 'mypage' && <MyPageTab showToast={showToast} onGoToSkinAnalyzer={goToSkinAnalyzer} />}
-        </main>
+            <main className="main-content">
+              {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
+              {activeTab === 'quiz' && <QuizTab showToast={showToast} />}
+              {activeTab === 'products' && <ProductsTab showToast={showToast} />}
+              {activeTab === 'procedures' && <ProceduresTab />}
+              {activeTab === 'wellness' && <WellnessTab />}
+              {activeTab === 'mypage' && <MyPageTab showToast={showToast} onGoToSkinAnalyzer={goToSkinAnalyzer} />}
+            </main>
 
-        <Footer />
+            <Footer />
 
-        {/* Help / Tutorial button */}
-        <button className="help-fab" onClick={() => setShowOnboarding(true)} title="Tutorial 튜토리얼">
-          ?
-        </button>
+            {/* Help / Tutorial button */}
+            <button className="help-fab" onClick={() => setShowOnboarding(true)} title="Tutorial">
+              ?
+            </button>
 
-        {toast && <Toast message={toast} />}
-        {showOnboarding && <OnboardingModal onClose={() => setShowOnboarding(false)} />}
-        {showReleaseNotes && <ReleaseNotesModal onClose={() => setShowReleaseNotes(false)} />}
-      </div>
-    </AuthProvider>
+            {toast && <Toast message={toast} />}
+            {showOnboarding && <OnboardingModal onClose={() => setShowOnboarding(false)} />}
+            {showReleaseNotes && <ReleaseNotesModal onClose={() => setShowReleaseNotes(false)} />}
+          </div>
+        </AuthProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   )
 }

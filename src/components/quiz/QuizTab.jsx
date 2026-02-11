@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../context/LanguageContext'
 import { saveQuizResult } from '../../lib/db'
 import { summerQuizQuestions, winterQuizQuestions, skinTypeResults } from '../../data/quiz'
 import { getRecommendations } from '../../data/products'
@@ -10,6 +11,7 @@ import Confetti from '../common/Confetti'
 
 export default function QuizTab({ showToast }) {
   const { user } = useAuth()
+  const { t } = useLang()
   const [screen, setScreen] = useState('seasonSelect') // seasonSelect | start | questions | result
   const [season, setSeason] = useState(null)
   const [currentQ, setCurrentQ] = useState(0)
@@ -65,9 +67,9 @@ export default function QuizTab({ showToast }) {
     if (!user || !resultType) return
     try {
       await saveQuizResult(user.id, resultType, season, scores)
-      showToast('Quiz result saved! 퀴즈 결과가 저장되었습니다!')
+      showToast(t('Quiz result saved!', '퀴즈 결과가 저장되었습니다!'))
     } catch {
-      showToast('Failed to save. Please try again. 저장에 실패했습니다.')
+      showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }
   }
 
@@ -82,16 +84,19 @@ export default function QuizTab({ showToast }) {
     return (
       <section className="tab-panel" id="quiz">
         <div className="quiz-season-select">
-          <h3>Choose Your Season 계절을 선택하세요</h3>
-          <p>Your skin behaves differently in summer and winter. Choose a season for tailored questions!</p>
+          <h3>{t('Choose Your Season', '계절을 선택하세요')}</h3>
+          <p>{t(
+            'Your skin behaves differently in summer and winter. Choose a season for tailored questions!',
+            '여름과 겨울에 피부가 다르게 반응합니다. 맞춤 질문을 위해 계절을 선택하세요!'
+          )}</p>
           <div className="season-cards">
             <button className="season-card" onClick={() => selectSeason('summer')}>
               <span className="season-icon">☀️</span>
-              <span className="season-name">Summer 여름</span>
+              <span className="season-name">{t('Summer', '여름')}</span>
             </button>
             <button className="season-card" onClick={() => selectSeason('winter')}>
               <span className="season-icon">❄️</span>
-              <span className="season-name">Winter 겨울</span>
+              <span className="season-name">{t('Winter', '겨울')}</span>
             </button>
           </div>
         </div>
@@ -102,18 +107,21 @@ export default function QuizTab({ showToast }) {
   // Quiz Start
   if (screen === 'start') {
     const icon = season === 'summer' ? '☀️' : '❄️'
-    const title = season === 'summer' ? 'Summer Skin Quiz' : 'Winter Skin Quiz'
-    const subtitle = season === 'summer' ? '여름 피부 퀴즈' : '겨울 피부 퀴즈'
+    const title = season === 'summer'
+      ? t('Summer Skin Quiz', '여름 피부 퀴즈')
+      : t('Winter Skin Quiz', '겨울 피부 퀴즈')
 
     return (
       <section className="tab-panel" id="quiz">
         <div className="quiz-start-card">
           <span className="quiz-start-icon">{icon}</span>
           <h3>{title}</h3>
-          <p className="quiz-start-subtitle">{subtitle}</p>
-          <p>Answer {questions.length} questions to discover your skin type with personalized K-Beauty recommendations.</p>
-          <button className="primary-btn" onClick={startQuiz}>Start Quiz 시작하기</button>
-          <button className="secondary-btn" onClick={() => setScreen('seasonSelect')}>← Back 뒤로</button>
+          <p>{t(
+            `Answer ${questions.length} questions to discover your skin type with personalized K-Beauty recommendations.`,
+            `${questions.length}개의 질문에 답하고 맞춤 K-뷰티 추천과 함께 피부 타입을 알아보세요.`
+          )}</p>
+          <button className="primary-btn" onClick={startQuiz}>{t('Start Quiz', '시작하기')}</button>
+          <button className="secondary-btn" onClick={() => setScreen('seasonSelect')}>{t('← Back', '← 뒤로')}</button>
         </div>
       </section>
     )
@@ -133,13 +141,11 @@ export default function QuizTab({ showToast }) {
           <span className="progress-text">{currentQ + 1} / {questions.length}</span>
         </div>
         <div className="question-container">
-          <p className="question-text">{q.english}</p>
-          <p className="question-text-korean">{q.korean}</p>
+          <p className="question-text">{t(q.english, q.korean)}</p>
           <div className="options-list">
             {q.options.map((opt, i) => (
               <button key={i} className="option-btn" onClick={() => selectOption(i)}>
-                <span className="english">{opt.english}</span>
-                <span className="korean">{opt.korean}</span>
+                <span>{t(opt.english, opt.korean)}</span>
               </button>
             ))}
           </div>
@@ -152,30 +158,31 @@ export default function QuizTab({ showToast }) {
   const r = skinTypeResults[resultType]
   if (!r) return null
 
-  const seasonBadge = season === 'summer' ? '☀️ Summer Result' : '❄️ Winter Result'
+  const seasonBadge = season === 'summer'
+    ? t('☀️ Summer Result', '☀️ 여름 결과')
+    : t('❄️ Winter Result', '❄️ 겨울 결과')
   const seasonTip = season === 'summer'
-    ? '☀️ Summer tip: Use lightweight products and reapply sunscreen!'
-    : '❄️ Winter tip: Layer hydrating products and use occlusive creams!'
+    ? t('☀️ Summer tip: Use lightweight products and reapply sunscreen!', '☀️ 여름 팁: 가벼운 제품을 사용하고 자외선 차단제를 덧발라주세요!')
+    : t('❄️ Winter tip: Layer hydrating products and use occlusive creams!', '❄️ 겨울 팁: 수분 제품을 겹겹이 바르고 밀폐 크림을 사용하세요!')
 
   return (
     <section className="tab-panel" id="quiz">
       {showConfetti && <Confetti />}
       <div className="result-content animated">
         <div className="result-emoji">{r.emoji}</div>
-        <h2 className="result-type">{r.english}</h2>
-        <p className="result-type-korean">{r.korean}</p>
+        <h2 className="result-type">{t(r.english, r.korean)}</h2>
         <div className="season-badge">{seasonBadge}</div>
 
         <div className="result-description">
-          <h4>About Your Skin</h4>
+          <h4>{t('About Your Skin', '피부 타입 소개')}</h4>
           <p>{r.description}</p>
           <div className="season-tip">{seasonTip}</div>
-          <h4>Care Tips</h4>
+          <h4>{t('Care Tips', '관리 팁')}</h4>
           <ul>{r.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
         </div>
 
         <div className="recommended-products">
-          <h4>🛒 Recommended K-Beauty Products</h4>
+          <h4>{t('🛒 Recommended K-Beauty Products', '🛒 추천 K-뷰티 제품')}</h4>
           <div className="product-card-list">
             {getRecommendations({
               skinType: resultType,
@@ -188,7 +195,7 @@ export default function QuizTab({ showToast }) {
         </div>
 
         <SaveResultBtn onSave={handleSave} />
-        <button className="secondary-btn" onClick={retakeQuiz}>Retake Quiz 다시하기</button>
+        <button className="secondary-btn" onClick={retakeQuiz}>{t('Retake Quiz', '다시하기')}</button>
       </div>
     </section>
   )

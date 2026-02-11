@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useLang } from '../../context/LanguageContext'
 
 export default function CameraView({
   videoRef,
@@ -16,6 +17,7 @@ export default function CameraView({
   showFaceGuide = true
 }) {
   const fileInputRef = useRef(null)
+  const { t } = useLang()
 
   function handleFileChange(e) {
     const file = e.target.files[0]
@@ -26,7 +28,6 @@ export default function CameraView({
   return (
     <div className="camera-view">
       <div className="camera-preview-area">
-        {/* Always render video so videoRef is available when stream arrives */}
         <video
           ref={videoRef}
           autoPlay
@@ -45,7 +46,7 @@ export default function CameraView({
         {!cameraActive && !capturedImage && (
           <div className="camera-placeholder">
             <span className="camera-placeholder-icon">📷</span>
-            <span className="camera-placeholder-text">Camera Preview</span>
+            <span className="camera-placeholder-text">{t('Camera Preview', '카메라 미리보기')}</span>
           </div>
         )}
         <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -57,10 +58,10 @@ export default function CameraView({
         {!cameraActive && !capturedImage && (
           <>
             <button className="primary-btn" onClick={onStartCamera}>
-              📷 Start Camera 카메라 시작
+              📷 {t('Start Camera', '카메라 시작')}
             </button>
             <button className="secondary-btn" onClick={() => fileInputRef.current?.click()}>
-              📁 Upload Photo 사진 업로드
+              📁 {t('Upload Photo', '사진 업로드')}
             </button>
           </>
         )}
@@ -68,10 +69,10 @@ export default function CameraView({
         {cameraActive && !capturedImage && (
           <>
             <button className="primary-btn" onClick={onCapture}>
-              📸 Capture 촬영
+              📸 {t('Capture', '촬영')}
             </button>
             <button className="secondary-btn" onClick={onCancel}>
-              Cancel 취소
+              {t('Cancel', '취소')}
             </button>
           </>
         )}
@@ -82,7 +83,7 @@ export default function CameraView({
               {analyzeLabel}
             </button>
             <button className="secondary-btn" onClick={onRetake}>
-              Retake 다시찍기
+              {t('Retake', '다시찍기')}
             </button>
           </>
         )}

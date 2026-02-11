@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { savePersonalColorResult } from '../../lib/db'
 import { analyzeSkinTone, cropFaceFromPhoto } from './analysis/personalColorLogic'
@@ -14,6 +15,7 @@ import Confetti from '../common/Confetti'
 
 export default function PersonalColorAnalysis({ showToast }) {
   const { user, loginWithGoogle } = useAuth()
+  const { t } = useLang()
   const camera = useCamera()
   const [screen, setScreen] = useState('start') // start | camera | analyzing | result
   const [result, setResult] = useState(null)
@@ -52,7 +54,7 @@ export default function PersonalColorAnalysis({ showToast }) {
 
       if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
         setScreen('camera')
-        showToast('No face detected. Please try again. 얼굴이 감지되지 않았습니다.')
+        showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
         return
       }
 
@@ -66,7 +68,7 @@ export default function PersonalColorAnalysis({ showToast }) {
       const analysis = analyzeSkinTone(ctx, landmarks, canvas.width, canvas.height)
       if (!analysis) {
         setScreen('camera')
-        showToast('Could not analyze skin tone. Please try another photo. 피부톤 분석에 실패했습니다.')
+        showToast(t('Could not analyze skin tone. Please try another photo.', '피부톤 분석에 실패했습니다.'))
         return
       }
 
@@ -82,7 +84,7 @@ export default function PersonalColorAnalysis({ showToast }) {
     } catch (e) {
       console.error('Color analysis failed:', e)
       setScreen('camera')
-      showToast('Analysis failed. Please try again. 분석에 실패했습니다.')
+      showToast(t('Analysis failed. Please try again.', '분석에 실패했습니다.'))
     }
   }
 
@@ -90,9 +92,9 @@ export default function PersonalColorAnalysis({ showToast }) {
     if (!user || !result) return
     try {
       await savePersonalColorResult(user.id, result)
-      showToast('Personal color result saved! 퍼스널컬러 결과가 저장되었습니다!')
+      showToast(t('Personal color result saved!', '퍼스널컬러 결과가 저장되었습니다!'))
     } catch {
-      showToast('Failed to save. Please try again. 저장에 실패했습니다.')
+      showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }
   }
 
@@ -109,15 +111,14 @@ export default function PersonalColorAnalysis({ showToast }) {
         <div className="tool-intro">
           <span className="tool-icon">🎨</span>
           <h3>AI Personal Color Analysis</h3>
-          <p className="tool-desc">Discover your personal color type from a selfie. AI analyzes your skin tone to classify you into one of 10 types.</p>
-          <p className="tool-desc-kr">셀카 한 장으로 퍼스널컬러를 알아보세요. AI가 피부톤을 분석하여 10가지 타입 중 하나로 분류합니다.</p>
+          <p className="tool-desc">{t('Discover your personal color type from a selfie. AI analyzes your skin tone to classify you into one of 10 types.', '셀카 한 장으로 퍼스널컬러를 알아보세요. AI가 피부톤을 분석하여 10가지 타입 중 하나로 분류합니다.')}</p>
           <p className="privacy-note">🔒 All processing happens on your device. Photos are never uploaded.</p>
         </div>
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
-          Start Analysis 분석 시작
+          {t('Start Analysis', '분석 시작')}
         </button>
         <button className="secondary-btn" onClick={() => setScreen('camera')}>
-          📁 Upload Photo 사진 업로드
+          📁 {t('Upload Photo', '사진 업로드')}
         </button>
       </div>
     )
@@ -137,7 +138,7 @@ export default function PersonalColorAnalysis({ showToast }) {
         onAnalyze={handleAnalyze}
         onRetake={handleRetake}
         onCancel={handleRetake}
-        analyzeLabel="🎨 Analyze Color 컬러 분석"
+        analyzeLabel={'🎨 ' + t('Analyze Color', '컬러 분석')}
       />
     )
   }
@@ -146,8 +147,7 @@ export default function PersonalColorAnalysis({ showToast }) {
     return (
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
-        <p>Analyzing your skin tone...</p>
-        <p className="analyzing-kr">피부톤을 분석하고 있습니다...</p>
+        <p>{t('Analyzing your skin tone...', '피부톤을 분석하고 있습니다...')}</p>
       </div>
     )
   }
@@ -170,14 +170,13 @@ export default function PersonalColorAnalysis({ showToast }) {
     <div className="result-content animated">
       {showConfetti && <Confetti />}
       <div className="result-emoji">{r.emoji}</div>
-      <h2 className="result-type">{r.english}</h2>
-      <p className="result-type-korean">{r.korean}</p>
-      <div className="season-result-badge" style={{ background: badgeColor }}>{r.season} {r.subtitle}</div>
-      <div className="fs-confidence">Confidence {result.confidence}%</div>
+      <h2 className="result-type">{t(r.english, r.korean)}</h2>
+      <div className="season-result-badge" style={{ background: badgeColor }}>{r.season} {t(r.subtitle, r.subtitleKr)}</div>
+      <div className="fs-confidence">{t('Confidence', '신뢰도')} {result.confidence}%</div>
 
       <div className="pc-skin-swatch">
         <div className="pc-skin-circle" style={{ background: skinHex }} />
-        <span>Detected Skin Tone / 감지된 피부톤</span>
+        <span>{t('Detected Skin Tone', '감지된 피부톤')}</span>
       </div>
 
       <div className="pc-axis-section">
@@ -200,14 +199,14 @@ export default function PersonalColorAnalysis({ showToast }) {
 
       {/* 1) All 10 Types — visible to everyone */}
       <div className="pc-all-types">
-        <h4>All 10 Types 전체 10가지 타입</h4>
+        <h4>{t('All 10 Types', '전체 10가지 타입')}</h4>
         <div className="fs-ref-grid">
           {Object.entries(personalColorResults).map(([key, td]) => (
             <div key={key} className={'fs-ref-item' + (key === result.type ? ' fs-ref-active' : '')}>
               <span className="face-shape-icon">{td.emoji}</span>
               <div>
-                <strong>{td.english} {td.korean}</strong>
-                <p>{td.subtitle} / {td.subtitleKr}</p>
+                <strong>{t(td.english, td.korean)}</strong>
+                <p>{t(td.subtitle, td.subtitleKr)}</p>
               </div>
             </div>
           ))}
@@ -220,18 +219,16 @@ export default function PersonalColorAnalysis({ showToast }) {
           <div className="gated-overlay">
             <div className="gated-overlay-content">
               <span className="gated-lock">🔒</span>
-              <p className="gated-title">Sign up to unlock your full color analysis</p>
-              <p className="gated-title-kr">가입하면 나만의 컬러 분석을 볼 수 있어요</p>
-              <p className="gated-free">100% Free 완전 무료</p>
-              <button className="gated-login-btn" onClick={loginAndKeepResult}>Free Sign Up 무료 가입</button>
+              <p className="gated-title">{t('Sign up to unlock your full color analysis', '가입하면 나만의 컬러 분석을 볼 수 있어요')}</p>
+              <p className="gated-free">{t('100% Free', '완전 무료')}</p>
+              <button className="gated-login-btn" onClick={loginAndKeepResult}>{t('Free Sign Up', '무료 가입')}</button>
             </div>
           </div>
         )}
-        <h4>About Your Colors</h4>
-        <p>{r.description}</p>
-        <p className="korean">{r.descriptionKr}</p>
+        <h4>{t('About Your Colors', '나의 컬러 분석')}</h4>
+        <p>{t(r.description, r.descriptionKr)}</p>
 
-        <h4>Best Colors 베스트 컬러</h4>
+        <h4>{t('Best Colors', '베스트 컬러')}</h4>
         <div className="color-palette">
           {r.bestColors.map((c, i) => (
             <div key={i} className="color-swatch">
@@ -242,7 +239,7 @@ export default function PersonalColorAnalysis({ showToast }) {
         </div>
 
         <div className="worst-colors">
-          <h4>Colors to Avoid 피해야 할 컬러</h4>
+          <h4>{t('Colors to Avoid', '피해야 할 컬러')}</h4>
           <div className="color-palette">
             {r.worstColors.map((c, i) => (
               <div key={i} className="color-swatch">
@@ -253,21 +250,23 @@ export default function PersonalColorAnalysis({ showToast }) {
           </div>
         </div>
 
-        <h4>Styling Tips 스타일링 팁</h4>
+        <h4>{t('Styling Tips', '스타일링 팁')}</h4>
         <ul>{r.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
 
         <div className="makeup-guide">
-          <h4>Makeup Guide 메이크업 가이드</h4>
-          <div className="makeup-season"><strong>Foundation 파운데이션</strong><p>{r.makeup.foundation}</p></div>
-          <div className="makeup-season"><strong>Lip 립</strong><p>{r.makeup.lip}</p></div>
-          <div className="makeup-season"><strong>Blush 블러셔</strong><p>{r.makeup.blush}</p></div>
-          <div className="makeup-season"><strong>Eye Shadow 아이섀도</strong><p>{r.makeup.eye}</p></div>
+          <h4>{t('Makeup Guide', '메이크업 가이드')}</h4>
+          <div className="makeup-season"><strong>{t('Foundation', '파운데이션')}</strong><p>{r.makeup.foundation}</p></div>
+          <div className="makeup-season"><strong>{t('Lip', '립')}</strong><p>{r.makeup.lip}</p></div>
+          <div className="makeup-season"><strong>{t('Blush', '블러셔')}</strong><p>{r.makeup.blush}</p></div>
+          <div className="makeup-season"><strong>{t('Eye Shadow', '아이섀도')}</strong><p>{r.makeup.eye}</p></div>
         </div>
 
         <div className="celeb-section">
-          <h4>Celebrity References 참고 셀럽</h4>
-          {r.celebs.map((c, i) => <span key={i} className="celeb-item">{c}</span>)}
-          {r.celebsKr?.map((c, i) => <span key={'kr' + i} className="celeb-item">{c}</span>)}
+          <h4>{t('Celebrity References', '참고 셀럽')}</h4>
+          {t(
+            r.celebs.map((c, i) => <span key={i} className="celeb-item">{c}</span>),
+            (r.celebsKr || r.celebs).map((c, i) => <span key={i} className="celeb-item">{c}</span>)
+          )}
         </div>
       </div>
 
@@ -277,14 +276,13 @@ export default function PersonalColorAnalysis({ showToast }) {
           <div className="gated-overlay">
             <div className="gated-overlay-content">
               <span className="gated-lock">🔒</span>
-              <p className="gated-title">Save your result to see skincare picks</p>
-              <p className="gated-title-kr">결과를 저장하면 스킨케어 추천을 볼 수 있어요</p>
-              <p className="gated-free">100% Free 완전 무료</p>
-              <button className="gated-login-btn" onClick={loginAndKeepResult}>Free Sign Up 무료 가입</button>
+              <p className="gated-title">{t('Save your result to see skincare picks', '결과를 저장하면 스킨케어 추천을 볼 수 있어요')}</p>
+              <p className="gated-free">{t('100% Free', '완전 무료')}</p>
+              <button className="gated-login-btn" onClick={loginAndKeepResult}>{t('Free Sign Up', '무료 가입')}</button>
             </div>
           </div>
         )}
-        <h4>🧴 Recommended Skincare 스킨케어 추천</h4>
+        <h4>🧴 {t('Recommended Skincare', '스킨케어 추천')}</h4>
         <div className="product-card-list">
           {getRecommendations({
             concerns: (r.season === 'Spring' || r.season === 'Fall')
@@ -300,7 +298,7 @@ export default function PersonalColorAnalysis({ showToast }) {
 
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji={r.emoji} english={r.english} korean={r.korean} showToast={showToast} />
-      <button className="secondary-btn" onClick={handleRetake}>Retake Test 다시하기</button>
+      <button className="secondary-btn" onClick={handleRetake}>{t('Retake Test', '다시하기')}</button>
     </div>
   )
 }

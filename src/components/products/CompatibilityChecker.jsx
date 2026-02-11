@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { parseIngredientList, findConflicts, countStrongActives } from './ingredientLogic'
+import { useLang } from '../../context/LanguageContext'
 
 export default function CompatibilityChecker() {
+  const { t } = useLang()
   const [inputA, setInputA] = useState('')
   const [inputB, setInputB] = useState('')
   const [results, setResults] = useState(null)
@@ -43,25 +45,25 @@ export default function CompatibilityChecker() {
     <div className="compatibility-checker">
       <div className="compat-inputs">
         <div className="compat-input-group">
-          <label>Product A 제품 A</label>
+          <label>{t('Product A', '제품 A')}</label>
           <textarea className="compat-input" placeholder="Paste ingredients..." value={inputA} onChange={e => setInputA(e.target.value)} rows={3} />
         </div>
         <div className="compat-input-group">
-          <label>Product B 제품 B</label>
+          <label>{t('Product B', '제품 B')}</label>
           <textarea className="compat-input" placeholder="Paste ingredients..." value={inputB} onChange={e => setInputB(e.target.value)} rows={3} />
         </div>
       </div>
 
       <div className="compat-btn-row">
-        <button className="primary-btn" onClick={check}>⚡ Check Compatibility 호환성 확인</button>
-        <button className="secondary-btn" onClick={clear}>Clear 초기화</button>
+        <button className="primary-btn" onClick={check}>{'⚡ ' + t('Check Compatibility', '호환성 확인')}</button>
+        <button className="secondary-btn" onClick={clear}>{t('Clear', '초기화')}</button>
       </div>
 
       {results && (
         <div className="compat-results">
           <div className={'compat-summary ' + overallClass}>
             <span className="compat-summary-emoji">{overallEmoji}</span>
-            <div><strong>{overallText}</strong><br /><span className="compat-summary-kr">{overallTextKr}</span></div>
+            <div><strong>{t(overallText, overallTextKr)}</strong></div>
           </div>
 
           <div className="compat-stats">
@@ -74,9 +76,11 @@ export default function CompatibilityChecker() {
 
           {results.actives.count >= 3 && (
             <div className="compat-active-warning">
-              <strong>⚠️ Active Stacking Warning 활성 성분 과다 경고</strong>
-              <p>{results.actives.count} strong actives detected: <em>{results.actives.names.join(', ')}</em>. Using too many actives at once can compromise your skin barrier.</p>
-              <p className="compat-summary-kr">두 제품에 {results.actives.count}개의 강력한 활성 성분이 포함되어 있습니다.</p>
+              <strong>{t('⚠️ Active Stacking Warning', '⚠️ 활성 성분 과다 경고')}</strong>
+              <p>{t(
+                `${results.actives.count} strong actives detected: `,
+                `두 제품에 ${results.actives.count}개의 강력한 활성 성분이 포함되어 있습니다: `
+              )}<em>{results.actives.names.join(', ')}</em>{t('. Using too many actives at once can compromise your skin barrier.', '.')}</p>
             </div>
           )}
 
@@ -90,8 +94,7 @@ export default function CompatibilityChecker() {
                       <span className="compat-severity">{severityLabel}</span>
                       <strong>{c.rule.nameA} + {c.rule.nameB}</strong>
                     </div>
-                    <p className="compat-card-msg">{c.rule.message}</p>
-                    <p className="compat-card-msg-kr">{c.rule.messageKr}</p>
+                    <p className="compat-card-msg">{t(c.rule.message, c.rule.messageKr)}</p>
                     <p className="compat-card-tip">💡 <strong>Tip:</strong> {c.rule.tip}</p>
                   </div>
                 )

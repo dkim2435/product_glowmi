@@ -2,21 +2,23 @@ import { useState } from 'react'
 import { TRENDING_INGREDIENTS } from '../../data/trendingIngredients'
 import IngredientAnalyzer from './IngredientAnalyzer'
 import CompatibilityChecker from './CompatibilityChecker'
+import { useLang } from '../../context/LanguageContext'
 
 export default function ProductsTab({ showToast }) {
   const [activeSub, setActiveSub] = useState('guide')
+  const { t } = useLang()
 
   return (
     <section className="tab-panel" id="products">
       <div className="ai-tool-tabs">
         <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
-          📖 Skincare Guide
+          {'📖 ' + t('Skincare Guide', '스킨케어 가이드')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'analyzer' ? ' active' : '')} onClick={() => setActiveSub('analyzer')}>
-          🧪 Ingredient Analyzer
+          {'🧪 ' + t('Ingredient Analyzer', '성분 분석기')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'compatibility' ? ' active' : '')} onClick={() => setActiveSub('compatibility')}>
-          ⚡ Compatibility
+          {'⚡ ' + t('Compatibility', '호환성')}
         </button>
       </div>
 
@@ -29,12 +31,13 @@ export default function ProductsTab({ showToast }) {
 
 function SkincareGuide() {
   const [openCard, setOpenCard] = useState(null)
+  const { t } = useLang()
 
   const cards = [
     {
       id: 'routine',
       title: '🧴 Korean 10-Step Routine',
-      titleKr: '한국식 10단계 스킨케어',
+      titleKr: '🧴 한국식 10단계 스킨케어',
       content: (
         <ol className="routine-steps-guide">
           <li><strong>Step 1. Oil Cleanser</strong> — Removes makeup & sunscreen</li>
@@ -53,7 +56,7 @@ function SkincareGuide() {
     {
       id: 'ingredients',
       title: '🔬 Key Ingredients Guide',
-      titleKr: '주요 성분 가이드',
+      titleKr: '🔬 주요 성분 가이드',
       content: (
         <div className="ingredients-guide">
           <p><strong>Hyaluronic Acid</strong> — Holds 1000x its weight in water. Great for all skin types.</p>
@@ -68,13 +71,13 @@ function SkincareGuide() {
     {
       id: 'trending',
       title: '🔥 2025/2026 Trending Ingredients',
-      titleKr: '올해 한국에서 제일 핫한 성분 TOP 10',
+      titleKr: '🔥 올해 한국에서 제일 핫한 성분 TOP 10',
       content: <TrendingIngredients />
     },
     {
       id: 'tips',
       title: '💡 Beginner Tips',
-      titleKr: '초보자 팁',
+      titleKr: '💡 초보자 팁',
       content: (
         <ul className="tips-list">
           <li>Start with 5 basics: cleanser, toner, moisturizer, sunscreen, and one serum</li>
@@ -97,7 +100,7 @@ function SkincareGuide() {
           onClick={() => setOpenCard(openCard === card.id ? null : card.id)}
         >
           <div className="content-card-header">
-            <h4>{card.title}</h4>
+            <h4>{t(card.title, card.titleKr)}</h4>
             <span className="content-card-chevron">{openCard === card.id ? '▲' : '▼'}</span>
           </div>
           {openCard === card.id && (
@@ -113,6 +116,7 @@ function SkincareGuide() {
 
 function TrendingIngredients() {
   const [openIdx, setOpenIdx] = useState(null)
+  const { t } = useLang()
 
   return (
     <div className="trending-ing-list">
@@ -124,21 +128,19 @@ function TrendingIngredients() {
             <div className="trending-ing-header">
               <span className="trending-ing-rank">#{i + 1}</span>
               <div className="trending-ing-names">
-                <strong>{ing.name}</strong>
-                <span className="trending-ing-kr">{ing.nameKr}</span>
+                <strong>{t(ing.name, ing.nameKr)}</strong>
               </div>
               <span className="trending-ing-chevron">{isOpen ? '▲' : '▼'}</span>
             </div>
             {isOpen && (
               <div className="trending-ing-body" onClick={e => e.stopPropagation()}>
-                <p className="trending-ing-desc">{ing.desc}</p>
-                <p className="trending-ing-desc-kr">{ing.descKr}</p>
+                <p className="trending-ing-desc">{t(ing.desc, ing.descKr)}</p>
                 <div className="trending-ing-why">
-                  <strong>Why trending 왜 핫한가</strong>
+                  <strong>{t('Why trending', '왜 핫한가')}</strong>
                   <p>{ing.why}</p>
                 </div>
                 <div className="trending-ing-products">
-                  <strong>Popular Products 인기 제품</strong>
+                  <strong>{t('Popular Products', '인기 제품')}</strong>
                   <ul>
                     {ing.products.map((p, j) => <li key={j}>{p}</li>)}
                   </ul>

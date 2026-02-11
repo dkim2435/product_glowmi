@@ -1,7 +1,9 @@
 import { useState, useRef } from 'react'
 import { parseIngredientList, analyzeIngredientList, parseOCRText } from './ingredientLogic'
+import { useLang } from '../../context/LanguageContext'
 
 export default function IngredientAnalyzer({ showToast }) {
+  const { t } = useLang()
   const [input, setInput] = useState('')
   const [results, setResults] = useState(null)
   const [scanning, setScanning] = useState(false)
@@ -35,7 +37,7 @@ export default function IngredientAnalyzer({ showToast }) {
       setScanning(false)
       const ocrText = result.data.text
       if (!ocrText || ocrText.trim().length < 5) {
-        showToast('Could not read text. Try a clearer photo. 텍스트를 읽을 수 없습니다.')
+        showToast(t('Could not read text. Try a clearer photo.', '텍스트를 읽을 수 없습니다.'))
         return
       }
       const ingredientNames = parseOCRText(ocrText)
@@ -45,7 +47,7 @@ export default function IngredientAnalyzer({ showToast }) {
       setResults(analysis)
     } catch (err) {
       setScanning(false)
-      showToast('Scan failed: ' + err.message)
+      showToast(t('Scan failed: ', '스캔 실패: ') + err.message)
     }
   }
 
@@ -63,15 +65,15 @@ export default function IngredientAnalyzer({ showToast }) {
       <div className="analyzer-input-area">
         <textarea
           className="analyzer-input"
-          placeholder="Paste ingredient list here... 성분 목록을 붙여넣으세요..."
+          placeholder={t('Paste ingredient list here...', '성분 목록을 붙여넣으세요...')}
           value={input}
           onChange={e => setInput(e.target.value)}
           rows={4}
         />
         <div className="analyzer-btn-row">
-          <button className="primary-btn" onClick={analyze}>🔍 Analyze 분석</button>
-          <button className="secondary-btn" onClick={() => fileInputRef.current?.click()}>📷 Scan Label 라벨 스캔</button>
-          <button className="secondary-btn" onClick={clear}>Clear 초기화</button>
+          <button className="primary-btn" onClick={analyze}>{'🔍 ' + t('Analyze', '분석')}</button>
+          <button className="secondary-btn" onClick={() => fileInputRef.current?.click()}>{'📷 ' + t('Scan Label', '라벨 스캔')}</button>
+          <button className="secondary-btn" onClick={clear}>{t('Clear', '초기화')}</button>
         </div>
       </div>
 
@@ -129,6 +131,7 @@ export default function IngredientAnalyzer({ showToast }) {
 }
 
 function IngredientRow({ data, extraClass = '' }) {
+  const { t } = useLang()
   const meta = []
   if (data.category) meta.push(data.category)
   if (data.comedogenic > 0) meta.push('comedogenic: ' + data.comedogenic + '/5')
@@ -139,8 +142,7 @@ function IngredientRow({ data, extraClass = '' }) {
       <span className={'analyzer-badge rating-' + data.rating}>{data.rating}</span>
       <div className="analyzer-row-info">
         <div className="analyzer-row-name">
-          {data.name}
-          {data.nameKr && <span className="analyzer-row-name-kr">{data.nameKr}</span>}
+          {t(data.name, data.nameKr || data.name)}
         </div>
         {meta.length > 0 && <div className="analyzer-row-meta">{meta.join(' · ')}</div>}
         <div className="analyzer-row-desc">{data.description}</div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveSkinResult } from '../../lib/db'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
@@ -15,6 +16,7 @@ import Confetti from '../common/Confetti'
 
 export default function SkinAnalyzer({ showToast }) {
   const { user, loginWithGoogle } = useAuth()
+  const { t } = useLang()
   const camera = useCamera()
   const [screen, setScreen] = useState('start')
   const [scores, setScores] = useState(null)
@@ -53,7 +55,7 @@ export default function SkinAnalyzer({ showToast }) {
       const detection = landmarker.detect(img)
       if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
         setScreen('camera')
-        showToast('No face detected. Please try again. 얼굴이 감지되지 않았습니다.')
+        showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
         return
       }
 
@@ -76,7 +78,7 @@ export default function SkinAnalyzer({ showToast }) {
     } catch (e) {
       console.error('Skin analysis error:', e)
       setScreen('camera')
-      showToast('Analysis failed. Please try again. 분석에 실패했습니다.')
+      showToast(t('Analysis failed. Please try again.', '분석에 실패했습니다.'))
     }
   }
 
@@ -84,9 +86,9 @@ export default function SkinAnalyzer({ showToast }) {
     if (!user || !scores) return
     try {
       await saveSkinResult(user.id, scores, overallScore)
-      showToast('Skin analysis saved! 피부 분석 결과가 저장되었습니다!')
+      showToast(t('Skin analysis saved!', '피부 분석 결과가 저장되었습니다!'))
     } catch {
-      showToast('Failed to save. Please try again. 저장에 실패했습니다.')
+      showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }
   }
 
@@ -103,15 +105,14 @@ export default function SkinAnalyzer({ showToast }) {
         <div className="tool-intro">
           <span className="tool-icon">🔬</span>
           <h3>AI Skin Condition Analyzer</h3>
-          <p className="tool-desc">AI analyzes your skin for redness, oiliness, dryness, dark spots, and texture to provide personalized recommendations.</p>
-          <p className="tool-desc-kr">AI가 홍조, 유분, 건조, 색소침착, 피부결을 분석하여 맞춤 추천을 제공합니다.</p>
+          <p className="tool-desc">{t('AI analyzes your skin for redness, oiliness, dryness, dark spots, and texture to provide personalized recommendations.', 'AI가 홍조, 유분, 건조, 색소침착, 피부결을 분석하여 맞춤 추천을 제공합니다.')}</p>
           <p className="privacy-note">🔒 All processing happens on your device. Photos are never uploaded.</p>
         </div>
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
-          Start Analysis 분석 시작
+          {t('Start Analysis', '분석 시작')}
         </button>
         <button className="secondary-btn" onClick={() => setScreen('camera')}>
-          📁 Upload Photo 사진 업로드
+          {'📁 ' + t('Upload Photo', '사진 업로드')}
         </button>
       </div>
     )
@@ -131,7 +132,7 @@ export default function SkinAnalyzer({ showToast }) {
         onAnalyze={handleAnalyze}
         onRetake={handleRetake}
         onCancel={handleRetake}
-        analyzeLabel="🔬 Analyze Skin 피부 분석"
+        analyzeLabel={'🔬 ' + t('Analyze Skin', '피부 분석')}
       />
     )
   }
@@ -140,18 +141,17 @@ export default function SkinAnalyzer({ showToast }) {
     return (
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
-        <p>Analyzing your skin condition...</p>
-        <p className="analyzing-kr">피부 상태를 분석하고 있습니다...</p>
+        <p>{t('Analyzing your skin condition...', '피부 상태를 분석하고 있습니다...')}</p>
       </div>
     )
   }
 
   // Result screen
   let grade, gradeClass
-  if (overallScore >= 80) { grade = 'Excellent 우수'; gradeClass = 'skin-grade-excellent' }
-  else if (overallScore >= 60) { grade = 'Good 양호'; gradeClass = 'skin-grade-good' }
-  else if (overallScore >= 40) { grade = 'Fair 보통'; gradeClass = 'skin-grade-fair' }
-  else { grade = 'Needs Care 관리필요'; gradeClass = 'skin-grade-care' }
+  if (overallScore >= 80) { grade = t('Excellent', '우수'); gradeClass = 'skin-grade-excellent' }
+  else if (overallScore >= 60) { grade = t('Good', '양호'); gradeClass = 'skin-grade-good' }
+  else if (overallScore >= 40) { grade = t('Fair', '보통'); gradeClass = 'skin-grade-fair' }
+  else { grade = t('Needs Care', '관리필요'); gradeClass = 'skin-grade-care' }
 
   const concernKeys = Object.keys(scores).sort((a, b) => scores[b] - scores[a])
   const topConcerns = concernKeys.slice(0, 2)
@@ -166,12 +166,11 @@ export default function SkinAnalyzer({ showToast }) {
           <span className="skin-score-label">/ 100</span>
         </div>
         <div className={'skin-grade ' + gradeClass}>{grade}</div>
-        <p className="skin-overall-desc">Your overall skin health score based on AI pixel analysis.</p>
-        <p className="skin-overall-desc-kr">AI 픽셀 분석 기반 전체 피부 건강 점수입니다.</p>
+        <p className="skin-overall-desc">{t('Your overall skin health score based on AI pixel analysis.', 'AI 픽셀 분석 기반 전체 피부 건강 점수입니다.')}</p>
       </div>
 
       <div className="skin-scores">
-        <h4>Skin Concern Scores 피부 고민 점수</h4>
+        <h4>{t('Skin Concern Scores', '피부 고민 점수')}</h4>
         {concernKeys.map(key => {
           const concern = SKIN_CONCERNS[key]
           if (!concern) return null
@@ -180,7 +179,7 @@ export default function SkinAnalyzer({ showToast }) {
           return (
             <div key={key} className="skin-score-row">
               <div className="skin-score-label-row">
-                <span>{concern.emoji} {concern.name} <span className="skin-score-kr">{concern.nameKr}</span></span>
+                <span>{concern.emoji} {t(concern.name, concern.nameKr)}</span>
                 <span className="skin-score-value">{score}</span>
               </div>
               <div className="skin-bar-track">
@@ -192,25 +191,25 @@ export default function SkinAnalyzer({ showToast }) {
       </div>
 
       <div className="skin-recommendations">
-        <h4>Personalized Recommendations 맞춤 추천</h4>
+        <h4>{t('Personalized Recommendations', '맞춤 추천')}</h4>
         {topConcerns.map(cKey => {
           const cData = SKIN_CONCERNS[cKey]
           const rec = SKIN_RECOMMENDATIONS[cKey]
           if (!cData || !rec) return null
           return (
             <div key={cKey} className="skin-rec-card">
-              <div className="skin-rec-header">{cData.emoji} <strong>{cData.name} {cData.nameKr}</strong> — Score: {scores[cKey]}</div>
+              <div className="skin-rec-header">{cData.emoji} <strong>{t(cData.name, cData.nameKr)}</strong> — Score: {scores[cKey]}</div>
               <p className="skin-rec-desc">{cData.description}</p>
               <div className="skin-rec-tips">
-                <strong>Tips 팁:</strong>
+                <strong>{t('Tips', '팁')}:</strong>
                 <ul>
                   {rec.tips.map((tip, i) => (
-                    <li key={i}>{tip}<br /><span className="skin-tip-kr">{rec.tipsKr[i]}</span></li>
+                    <li key={i}>{t(tip, rec.tipsKr[i])}</li>
                   ))}
                 </ul>
               </div>
               <div className="skin-rec-ingredients">
-                <strong>Key Ingredients 핵심 성분:</strong>
+                <strong>{t('Key Ingredients', '핵심 성분')}:</strong>
                 <div className="skin-ingredient-tags">
                   {rec.ingredients.map((ing, i) => {
                     const lookup = lookupIngredient(ing)
@@ -225,7 +224,7 @@ export default function SkinAnalyzer({ showToast }) {
       </div>
 
       <div className="skin-product-recs">
-        <h4>🛒 Recommended Products 추천 제품</h4>
+        <h4>{'🛒 ' + t('Recommended Products', '추천 제품')}</h4>
         <div className="product-card-list">
           {getRecommendations({
             concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k)
@@ -236,7 +235,7 @@ export default function SkinAnalyzer({ showToast }) {
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji="🔬" english={`Skin Score ${overallScore}/100 (${grade})`} korean="AI 피부 분석 결과" showToast={showToast} />
       <div className="fs-result-buttons">
-        <button className="primary-btn" onClick={handleRetake}>🔄 Try Again 다시하기</button>
+        <button className="primary-btn" onClick={handleRetake}>{'🔄 ' + t('Try Again', '다시하기')}</button>
       </div>
     </div>
   )

@@ -1,22 +1,30 @@
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../context/LanguageContext'
 
-export default function SaveResultBtn({ onSave, onLogin, label = 'Save My Result 결과 저장하기' }) {
+export default function SaveResultBtn({ onSave, onLogin, label }) {
   const { user, loginWithGoogle } = useAuth()
+  const { t } = useLang()
+
+  const btnLabel = label || t('Save My Result', '결과 저장하기')
 
   if (user) {
     return (
       <button className="save-result-btn" onClick={onSave}>
-        💾 {label}
+        💾 {btnLabel}
       </button>
     )
   }
 
   return (
     <div className="save-login-prompt">
-      <p className="save-login-text">Save your result and view it anytime — it's <strong>100% free!</strong></p>
-      <p className="save-login-text-kr">결과를 저장하고 언제든 다시 보세요 — <strong>완전 무료!</strong></p>
+      <p className="save-login-text">
+        {t(
+          <>Save your result and view it anytime — it's <strong>100% free!</strong></>,
+          <>결과를 저장하고 언제든 다시 보세요 — <strong>완전 무료!</strong></>
+        )}
+      </p>
       <button className="save-login-btn" onClick={onLogin || loginWithGoogle}>
-        🔐 Free Sign Up & Save 무료 가입 후 저장
+        🔐 {t('Free Sign Up & Save', '무료 가입 후 저장')}
       </button>
     </div>
   )

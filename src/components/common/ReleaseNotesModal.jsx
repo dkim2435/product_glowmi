@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.1.5'
+const APP_VERSION = '1.2.0'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
@@ -13,22 +14,17 @@ const RELEASE_NOTES = [
     desc: 'Glowmi just got better! Here\'s what we\'ve added to make your K-Beauty journey even smoother.',
     descKr: 'Glowmi가 더 좋아졌어요! K-뷰티 여정을 더 편하게 만들어줄 새 기능들을 소개합니다.',
     items: [
-      { emoji: '🏠', label: 'MyPage Welcome Tour', labelKr: '마이페이지 웰컴 투어', desc: 'First time on My Page? A quick slideshow introduces every tab.' },
-      { emoji: '✨', label: 'Enhanced Onboarding', labelKr: '온보딩 강화', desc: 'New AI Beauty & K-Beauty Guide slides in the welcome tutorial.' },
-      { emoji: '📋', label: 'Release Notes', labelKr: '릴리즈 노트', desc: 'You\'ll now see what\'s new after every update — like this!' },
+      { emoji: '🌙', label: 'Dark Mode', labelKr: '다크 모드', desc: 'Toggle between light and dark themes.', descKr: '라이트/다크 테마를 전환할 수 있어요.' },
+      { emoji: '🌏', label: 'Language Toggle', labelKr: '언어 전환', desc: 'Switch between English and Korean.', descKr: '영어와 한국어를 전환할 수 있어요.' },
+      { emoji: '🏠', label: 'MyPage Welcome', labelKr: '마이페이지 웰컴', desc: 'A quick tour when you first visit My Page.', descKr: '마이페이지 첫 방문 시 가이드 투어.' },
+      { emoji: '✨', label: 'Better Onboarding', labelKr: '온보딩 강화', desc: 'New AI Beauty & K-Beauty Guide slides.', descKr: 'AI 뷰티 & K-뷰티 가이드 슬라이드 추가.' },
     ],
   },
 ]
 
-/**
- * Show release notes only when:
- * 1. User has seen onboarding before (not a first-time visitor)
- * 2. Stored version differs from current version (new update)
- */
 export function shouldShowReleaseNotes() {
   const hasSeenOnboarding = localStorage.getItem(ONBOARDING_KEY)
   if (!hasSeenOnboarding) return false
-
   const lastVersion = localStorage.getItem(STORAGE_KEY)
   return lastVersion !== APP_VERSION
 }
@@ -37,7 +33,6 @@ export function markReleaseNotesSeen() {
   localStorage.setItem(STORAGE_KEY, APP_VERSION)
 }
 
-/** Call on first visit to seed the version so they don't see release notes next time */
 export function seedVersionForNewUser() {
   if (!localStorage.getItem(STORAGE_KEY)) {
     localStorage.setItem(STORAGE_KEY, APP_VERSION)
@@ -46,6 +41,7 @@ export function seedVersionForNewUser() {
 
 export default function ReleaseNotesModal({ onClose }) {
   const [current, setCurrent] = useState(0)
+  const { t } = useLang()
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -58,29 +54,26 @@ export default function ReleaseNotesModal({ onClose }) {
   }
 
   const note = RELEASE_NOTES[current]
-  const isLast = current === RELEASE_NOTES.length - 1
 
   return (
     <div className="onboard-overlay" onClick={handleClose}>
       <div className="onboard-modal" onClick={e => e.stopPropagation()}>
         <button className="onboard-skip" onClick={handleClose}>
-          Close 닫기
+          {t('Close', '닫기')}
         </button>
 
         <div className="onboard-slide" key={current}>
           <div className="onboard-emoji">{note.emoji}</div>
-          <h2 className="onboard-title">{note.title}</h2>
-          <p className="onboard-title-kr">{note.titleKr}</p>
-          <p className="onboard-desc">{note.desc}</p>
-          <p className="onboard-desc-kr">{note.descKr}</p>
+          <h2 className="onboard-title">{t(note.title, note.titleKr)}</h2>
+          <p className="onboard-desc">{t(note.desc, note.descKr)}</p>
 
           <div className="onboard-steps">
             {note.items.map((item, i) => (
               <div key={i} className="onboard-step-row">
                 <span className="onboard-step-emoji">{item.emoji}</span>
                 <div>
-                  <div className="onboard-step-label">{item.label}</div>
-                  <div className="onboard-step-sub">{item.labelKr} — {item.desc}</div>
+                  <div className="onboard-step-label">{t(item.label, item.labelKr)}</div>
+                  <div className="onboard-step-sub">{t(item.desc, item.descKr)}</div>
                 </div>
               </div>
             ))}
@@ -88,20 +81,9 @@ export default function ReleaseNotesModal({ onClose }) {
         </div>
 
         <div className="onboard-nav">
-          {RELEASE_NOTES.length > 1 && (
-            <div className="onboard-dots">
-              {RELEASE_NOTES.map((_, i) => (
-                <span
-                  key={i}
-                  className={'onboard-dot' + (i === current ? ' active' : '')}
-                  onClick={() => setCurrent(i)}
-                />
-              ))}
-            </div>
-          )}
           <div className="onboard-btns">
             <button className="onboard-btn onboard-next" onClick={handleClose}>
-              Got it! 확인 👍
+              {t('Got it! 👍', '확인 👍')}
             </button>
           </div>
         </div>
