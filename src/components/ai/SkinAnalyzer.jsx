@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
@@ -14,12 +14,33 @@ import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
 export default function SkinAnalyzer({ showToast }) {
-  const { user } = useAuth()
+  const { user, loginWithGoogle } = useAuth()
   const camera = useCamera()
   const [screen, setScreen] = useState('start')
   const [scores, setScores] = useState(null)
   const [overallScore, setOverallScore] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
+
+  // Restore result after OAuth login redirect
+  useEffect(() => {
+    const saved = sessionStorage.getItem('skin_pending_result')
+    if (saved && user) {
+      try {
+        const parsed = JSON.parse(saved)
+        setScores(parsed.scores)
+        setOverallScore(parsed.overallScore)
+        setScreen('result')
+        sessionStorage.removeItem('skin_pending_result')
+      } catch { /* ignore */ }
+    }
+  }, [user])
+
+  function loginAndKeepResult() {
+    if (scores && overallScore) {
+      sessionStorage.setItem('skin_pending_result', JSON.stringify({ scores, overallScore }))
+    }
+    loginWithGoogle()
+  }
 
   async function handleAnalyze() {
     setScreen('analyzing')
@@ -212,7 +233,7 @@ export default function SkinAnalyzer({ showToast }) {
         </div>
       </div>
 
-      <SaveResultBtn onSave={handleSave} />
+      <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji="🔬" english={`Skin Score ${overallScore}/100 (${grade})`} korean="AI 피부 분석 결과" showToast={showToast} />
       <div className="fs-result-buttons">
         <button className="primary-btn" onClick={handleRetake}>🔄 Try Again 다시하기</button>

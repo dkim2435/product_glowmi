@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
@@ -16,6 +16,26 @@ export default function FaceShapeDetector({ showToast }) {
   const [screen, setScreen] = useState('start')
   const [result, setResult] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
+
+  // Restore result after OAuth login redirect
+  useEffect(() => {
+    const saved = sessionStorage.getItem('fs_pending_result')
+    if (saved && user) {
+      try {
+        const parsed = JSON.parse(saved)
+        setResult(parsed)
+        setScreen('result')
+        sessionStorage.removeItem('fs_pending_result')
+      } catch { /* ignore */ }
+    }
+  }, [user])
+
+  function loginAndKeepResult() {
+    if (result) {
+      sessionStorage.setItem('fs_pending_result', JSON.stringify(result))
+    }
+    loginWithGoogle()
+  }
 
   async function handleAnalyze() {
     setScreen('analyzing')
@@ -146,7 +166,7 @@ export default function FaceShapeDetector({ showToast }) {
               <p className="gated-title">Sign up to see your personalized styling tips</p>
               <p className="gated-title-kr">가입하면 나만의 스타일링 팁을 볼 수 있어요</p>
               <p className="gated-free">100% Free 완전 무료</p>
-              <button className="gated-login-btn" onClick={loginWithGoogle}>Free Sign Up 무료 가입</button>
+              <button className="gated-login-btn" onClick={loginAndKeepResult}>Free Sign Up 무료 가입</button>
             </div>
           </div>
         )}
@@ -156,7 +176,7 @@ export default function FaceShapeDetector({ showToast }) {
         <ul>{data.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
       </div>
 
-      <SaveResultBtn onSave={handleSave} />
+      <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji={data.emoji} english={data.name} korean={data.korean} showToast={showToast} />
       <div className="fs-result-buttons">
         <button className="primary-btn" onClick={handleRetake}>🔄 Try Again 다시하기</button>
