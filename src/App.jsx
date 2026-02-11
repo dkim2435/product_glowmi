@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AuthProvider } from './context/AuthContext'
 import Header from './components/layout/Header'
 import TabNav from './components/layout/TabNav'
 import Footer from './components/layout/Footer'
 import Toast from './components/common/Toast'
+import OnboardingModal, { shouldShowOnboarding } from './components/common/OnboardingModal'
 import AiBeautyTab from './components/ai/AiBeautyTab'
 import QuizTab from './components/quiz/QuizTab'
 import ProductsTab from './components/products/ProductsTab'
@@ -14,10 +15,24 @@ import MyPageTab from './components/mypage/MyPageTab'
 export default function App() {
   const [activeTab, setActiveTab] = useState('ai')
   const [toast, setToast] = useState(null)
+  const [showOnboarding, setShowOnboarding] = useState(false)
+
+  useEffect(() => {
+    if (shouldShowOnboarding()) {
+      setShowOnboarding(true)
+    }
+  }, [])
 
   function showToast(msg) {
     setToast(msg)
     setTimeout(() => setToast(null), 2500)
+  }
+
+  function goToSkinAnalyzer() {
+    setActiveTab('ai')
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('glowmi-select-tool', { detail: 'skinAnalyzer' }))
+    }, 100)
   }
 
   return (
@@ -32,11 +47,18 @@ export default function App() {
           {activeTab === 'products' && <ProductsTab showToast={showToast} />}
           {activeTab === 'procedures' && <ProceduresTab />}
           {activeTab === 'wellness' && <WellnessTab />}
-          {activeTab === 'mypage' && <MyPageTab showToast={showToast} />}
+          {activeTab === 'mypage' && <MyPageTab showToast={showToast} onGoToSkinAnalyzer={goToSkinAnalyzer} />}
         </main>
 
         <Footer />
+
+        {/* Help / Tutorial button */}
+        <button className="help-fab" onClick={() => setShowOnboarding(true)} title="Tutorial 튜토리얼">
+          ?
+        </button>
+
         {toast && <Toast message={toast} />}
+        {showOnboarding && <OnboardingModal onClose={() => setShowOnboarding(false)} />}
       </div>
     </AuthProvider>
   )

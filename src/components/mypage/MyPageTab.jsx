@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { deleteAllUserData } from '../../lib/db'
-import MyResults from './MyResults'
+import SkinProgress from './SkinProgress'
+import ProductShelf from './ProductShelf'
 import SkinDiary from './SkinDiary'
 import MyRoutine from './MyRoutine'
 
-export default function MyPageTab({ showToast }) {
+export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
   const { user, logout } = useAuth()
-  const [section, setSection] = useState('results') // results | diary | routine
+  const [section, setSection] = useState('progress') // progress | shelf | diary | routine
 
   if (!user) {
     return (
@@ -34,20 +35,24 @@ export default function MyPageTab({ showToast }) {
   return (
     <section className="tab-panel" id="mypage">
       <div className="mypage-nav">
-        {['results', 'diary', 'routine'].map(s => (
+        {[
+          { id: 'progress', emoji: '📈', label: 'Progress' },
+          { id: 'shelf', emoji: '💄', label: 'My Shelf' },
+          { id: 'diary', emoji: '📝', label: 'Diary' },
+          { id: 'routine', emoji: '🧴', label: 'Routine' },
+        ].map(s => (
           <button
-            key={s}
-            className={'mypage-nav-btn' + (section === s ? ' active' : '')}
-            onClick={() => setSection(s)}
+            key={s.id}
+            className={'mypage-nav-btn' + (section === s.id ? ' active' : '')}
+            onClick={() => setSection(s.id)}
           >
-            {s === 'results' && '📊 My Results'}
-            {s === 'diary' && '📝 Skin Diary'}
-            {s === 'routine' && '🧴 My Routine'}
+            {s.emoji} {s.label}
           </button>
         ))}
       </div>
 
-      {section === 'results' && <MyResults userId={user.id} showToast={showToast} />}
+      {section === 'progress' && <SkinProgress userId={user.id} showToast={showToast} onGoToSkinAnalyzer={onGoToSkinAnalyzer} />}
+      {section === 'shelf' && <ProductShelf showToast={showToast} />}
       {section === 'diary' && <SkinDiary userId={user.id} showToast={showToast} />}
       {section === 'routine' && <MyRoutine userId={user.id} showToast={showToast} />}
 

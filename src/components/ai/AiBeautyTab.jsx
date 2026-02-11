@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PersonalColorAnalysis from './PersonalColorAnalysis'
 import FaceShapeDetector from './FaceShapeDetector'
 import SkinAnalyzer from './SkinAnalyzer'
+import WeatherTips from '../common/WeatherTips'
 
 const AI_TOOLS = [
   { id: 'personalColor', label: 'Personal Color', labelKr: '퍼스널컬러', emoji: '🎨' },
@@ -12,8 +13,20 @@ const AI_TOOLS = [
 export default function AiBeautyTab({ showToast }) {
   const [activeTool, setActiveTool] = useState('personalColor')
 
+  useEffect(() => {
+    function handleToolSelect(e) {
+      if (e.detail && AI_TOOLS.find(t => t.id === e.detail)) {
+        setActiveTool(e.detail)
+      }
+    }
+    window.addEventListener('glowmi-select-tool', handleToolSelect)
+    return () => window.removeEventListener('glowmi-select-tool', handleToolSelect)
+  }, [])
+
   return (
     <section className="tab-panel" id="ai">
+      <WeatherTips />
+
       <div className="ai-tool-tabs">
         {AI_TOOLS.map(tool => (
           <button
