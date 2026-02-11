@@ -3,7 +3,7 @@ import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
-import { saveSkinResult } from '../../lib/db'
+import { saveSkinResult, saveSkinProgressDB } from '../../lib/db'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
 import { analyzeSkinAI } from '../../lib/gemini'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
@@ -103,6 +103,11 @@ export default function SkinAnalyzer({ showToast }) {
     if (!user || !scores) return
     try {
       await saveSkinResult(user.id, scores, overallScore)
+      await saveSkinProgressDB(user.id, {
+        date: new Date().toISOString().split('T')[0],
+        overallScore,
+        scores
+      })
       showToast(t('Skin analysis saved!', '피부 분석 결과가 저장되었습니다!'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
