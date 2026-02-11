@@ -138,6 +138,17 @@ export async function loadRoutines(userId) {
 
 // ===== Skin Progress =====
 
+export async function checkSkinProgressToday(userId) {
+  const today = new Date().toISOString().split('T')[0]
+  const { data, error } = await supabase.from('skin_progress')
+    .select('updated_at')
+    .eq('user_id', userId)
+    .eq('entry_date', today)
+    .maybeSingle()
+  if (error) throw error
+  return data ? data.updated_at : null
+}
+
 export async function saveSkinProgressDB(userId, entry) {
   const data = {
     user_id: userId,

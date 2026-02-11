@@ -3,7 +3,7 @@ import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
-import { saveSkinResult, saveSkinProgressDB } from '../../lib/db'
+import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday } from '../../lib/db'
 import { resizePhoto } from '../../lib/storage'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
 import { analyzeSkinAI } from '../../lib/gemini'
@@ -25,6 +25,7 @@ export default function SkinAnalyzer({ showToast }) {
   const [overallScore, setOverallScore] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
   const [usedGemini, setUsedGemini] = useState(false)
+  const [dailyLimitModal, setDailyLimitModal] = useState(null)
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -103,6 +104,24 @@ export default function SkinAnalyzer({ showToast }) {
   async function handleSave() {
     if (!user || !scores) return
     try {
+      // Check if already saved today
+      const existingTime = await checkSkinProgressToday(user.id)
+      if (existingTime) {
+        const savedAt = new Date(existingTime)
+        const tomorrow = new Date(savedAt)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        tomorrow.setHours(0, 0, 0, 0)
+        const now = new Date()
+        const diffMs = tomorrow - now
+        const diffH = Math.floor(diffMs / (1000 * 60 * 60))
+        const diffM = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60))
+        const timeMsg = diffH > 0
+          ? t(`${diffH}h ${diffM}m`, `${diffH}시간 ${diffM}분`)
+          : t(`${diffM}m`, `${diffM}분`)
+        setDailyLimitModal(timeMsg)
+        return
+      }
+
       await saveSkinResult(user.id, scores, overallScore)
       let photoThumb = null
       if (camera.capturedImage) {
@@ -114,7 +133,7 @@ export default function SkinAnalyzer({ showToast }) {
         scores,
         photoThumb
       })
-      showToast(t('Saved! Score & photo tracked in Skin Progress (1/day)', '저장 완료! 점수와 사진이 피부현황에 기록됩니다 (하루 1회)'))
+      showToast(t('Saved! Score & photo tracked in Skin Progress', '저장 완료! 점수와 사진이 피부현황에 기록됩니다'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }
@@ -273,6 +292,25 @@ export default function SkinAnalyzer({ showToast }) {
       <div className="fs-result-buttons">
         <button className="primary-btn" onClick={handleRetake}>{'🔄 ' + t('Try Again', '다시하기')}</button>
       </div>
+
+      {dailyLimitModal && (
+        <div className="daily-limit-overlay" onClick={() => setDailyLimitModal(null)}>
+          <div className="daily-limit-modal" onClick={e => e.stopPropagation()}>
+            <div className="daily-limit-icon">⏰</div>
+            <h3>{t("Today's save is done!", '오늘의 저장이 완료되었어요!')}</h3>
+            <p>{t(
+              'Skin progress saves once per day to track meaningful changes.',
+              '의미 있는 변화를 추적하기 위해 하루 1회 저장됩니다.'
+            )}</p>
+            <p className="daily-limit-time">
+              {t(`Next save available in ${dailyLimitModal}`, `${dailyLimitModal} 후에 다시 저장할 수 있어요`)}
+            </p>
+            <button className="primary-btn" onClick={() => setDailyLimitModal(null)}>
+              {t('Got it!', '확인')}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

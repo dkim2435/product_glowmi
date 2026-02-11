@@ -3505,6 +3505,35 @@ body {
   text-align: center;
 }
 
+.daily-limit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.daily-limit-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 24px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+}
+.daily-limit-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.daily-limit-modal h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.daily-limit-modal p { font-size: 0.9rem; color: #666; margin-bottom: 8px; }
+.daily-limit-time {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-pink);
+  margin-bottom: 18px;
+}
+.daily-limit-modal .primary-btn { width: 100%; }
+
 .mypage-empty-hint {
   color: #888;
   font-size: 0.85rem;
@@ -6473,6 +6502,8 @@ body {
 [data-theme="dark"] .signup-cta-desc { color: #aaa; }
 [data-theme="dark"] .signup-cta-feature { background: #2a2a40; color: #ccc; }
 [data-theme="dark"] .signup-cta-note { color: #777; }
+[data-theme="dark"] .daily-limit-modal { background: #1e1e30; }
+[data-theme="dark"] .daily-limit-modal p { color: #aaa; }
 
 /* Diary & routine pills */
 [data-theme="dark"] .diary-emoji-btn,
