@@ -5740,7 +5740,11 @@ body {
 .shelf-btn-row .shelf-add-btn,
 .shelf-btn-row .shelf-browse-btn {
   flex: 1;
+  min-width: 0;
+  padding: 14px 12px;
   font-size: 0.82rem;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .browse-overlay {
