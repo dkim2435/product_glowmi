@@ -265,7 +265,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
         <button className="secondary-btn" onClick={() => fileInputRef.current?.click()}>
           📸 {t('Add Progress Photo', '사진 추가')}
         </button>
-        <input ref={fileInputRef} type="file" accept="image/*" capture="user" style={{ display: 'none' }} onChange={handlePhotoUpload} />
+        <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handlePhotoUpload} />
       </div>
 
       {/* View toggle */}

@@ -10,7 +10,7 @@ export default function Header({ onLogoClick }) {
       <div className="header-inner">
         <h1 className="logo" onClick={onLogoClick} style={{ cursor: 'pointer' }}>
           Glowmi
-          <span className="logo-version">v1.3.7</span>
+          <span className="logo-version">v1.3.8</span>
         </h1>
         <p className="subtitle">{t('Your K-Beauty Companion', '나만의 K-뷰티 가이드')}</p>
       </div>
