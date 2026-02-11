@@ -159,7 +159,7 @@ export default function FaceShapeDetector({ showToast }) {
       <h2 className="result-type">{t(data.name + ' Face', data.korean)}</h2>
       <div className="fs-confidence">{t('Confidence', '신뢰도')}: {result.confidence}%</div>
       <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
-        {usedGemini ? '🤖 Gemini AI' : '📱 Local Analysis'}
+        {usedGemini ? '🤖 AI Powered' : '📱 Local Analysis'}
       </div>
 
       {/* 1) All Face Shapes — visible to everyone */}

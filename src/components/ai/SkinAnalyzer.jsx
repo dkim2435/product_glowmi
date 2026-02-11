@@ -185,7 +185,7 @@ export default function SkinAnalyzer({ showToast }) {
         <div className={'skin-grade ' + gradeClass}>{grade}</div>
         <p className="skin-overall-desc">{t('Your overall skin health score based on AI pixel analysis.', 'AI 픽셀 분석 기반 전체 피부 건강 점수입니다.')}</p>
         <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
-          {usedGemini ? '🤖 Gemini AI' : '📱 Local Analysis'}
+          {usedGemini ? '🤖 AI Powered' : '📱 Local Analysis'}
         </div>
       </div>
 

@@ -23,7 +23,6 @@ export default function PersonalColorAnalysis({ showToast }) {
   const [faceCrop, setFaceCrop] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
   const [usedGemini, setUsedGemini] = useState(false)
-  const [geminiError, setGeminiError] = useState('')
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -54,11 +53,9 @@ export default function PersonalColorAnalysis({ showToast }) {
       try {
         analysis = await analyzePersonalColorAI(camera.capturedImage)
         setUsedGemini(true)
-        setGeminiError('')
       } catch (geminiErr) {
         console.warn('Gemini failed, falling back to local analysis:', geminiErr)
         setUsedGemini(false)
-        setGeminiError(geminiErr.message || String(geminiErr))
       }
 
       // Fallback to local MediaPipe analysis
@@ -168,14 +165,10 @@ export default function PersonalColorAnalysis({ showToast }) {
   }
 
   if (screen === 'analyzing') {
-    const hasKey = !!import.meta.env.VITE_GEMINI_API_KEY
     return (
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
         <p>{t('Analyzing your skin tone...', '피부톤을 분석하고 있습니다...')}</p>
-        <p style={{ fontSize: '0.7rem', color: '#999', marginTop: 8 }}>
-          Gemini: {hasKey ? '🟢 Key loaded' : '🔴 No key'}
-        </p>
       </div>
     )
   }
@@ -202,9 +195,8 @@ export default function PersonalColorAnalysis({ showToast }) {
       <div className="season-result-badge" style={{ background: badgeColor }}>{r.season} {t(r.subtitle, r.subtitleKr)}</div>
       <div className="fs-confidence">{t('Confidence', '신뢰도')} {result.confidence}%</div>
       <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
-        {usedGemini ? '🤖 Gemini AI' : '📱 Local Analysis'}
+        {usedGemini ? '🤖 AI Powered' : '📱 Local Analysis'}
       </div>
-      {geminiError && <p style={{ fontSize: '0.65rem', color: '#e74c3c', margin: '0 0 12px', wordBreak: 'break-all' }}>Gemini error: {geminiError}</p>}
 
       <div className="pc-skin-swatch">
         <div className="pc-skin-circle" style={{ background: skinHex }} />
