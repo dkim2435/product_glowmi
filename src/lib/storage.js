@@ -94,7 +94,7 @@ export function setWeatherCache(data) {
 
 // ===== Photo Resize Utility =====
 
-export function resizePhoto(dataUrl, maxWidth = 300) {
+export function resizePhoto(dataUrl, maxWidth = 300, { mirror = false } = {}) {
   return new Promise((resolve) => {
     const img = new Image()
     img.onload = () => {
@@ -103,6 +103,10 @@ export function resizePhoto(dataUrl, maxWidth = 300) {
       canvas.width = img.width * scale
       canvas.height = img.height * scale
       const ctx = canvas.getContext('2d')
+      if (mirror) {
+        ctx.translate(canvas.width, 0)
+        ctx.scale(-1, 1)
+      }
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
       resolve(canvas.toDataURL('image/jpeg', 0.7))
     }

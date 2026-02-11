@@ -90,7 +90,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     const reader = new FileReader()
     reader.onload = async (ev) => {
       try {
-        const thumb = await resizePhoto(ev.target.result, 400)
+        const thumb = await resizePhoto(ev.target.result, 400, { mirror: true })
         const today = new Date().toISOString().split('T')[0]
 
         await saveSkinProgressDB(userId, {
@@ -265,7 +265,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
         <button className="secondary-btn" onClick={() => fileInputRef.current?.click()}>
           📸 {t('Add Progress Photo', '사진 추가')}
         </button>
-        <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handlePhotoUpload} />
+        <input ref={fileInputRef} type="file" accept="image/*" capture="user" style={{ display: 'none' }} onChange={handlePhotoUpload} />
       </div>
 
       {/* View toggle */}
