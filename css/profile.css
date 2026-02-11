@@ -1,5 +1,13 @@
 /* css/profile.css — Login, My Page, Diary, Routine styles */
 
+/* Generic hidden class for auth/profile elements */
+.header-user-menu.hidden,
+.user-dropdown.hidden,
+#tab-mypage.hidden,
+.save-result-btn.hidden {
+    display: none;
+}
+
 /* ===== Header Auth UI ===== */
 
 .header-auth {
