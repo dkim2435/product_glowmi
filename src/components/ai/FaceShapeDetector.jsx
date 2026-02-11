@@ -11,7 +11,7 @@ import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
 export default function FaceShapeDetector({ showToast }) {
-  const { user } = useAuth()
+  const { user, loginWithGoogle } = useAuth()
   const camera = useCamera()
   const [screen, setScreen] = useState('start')
   const [result, setResult] = useState(null)
@@ -123,13 +123,7 @@ export default function FaceShapeDetector({ showToast }) {
       <p className="result-type-korean">{data.korean}</p>
       <div className="fs-confidence">Confidence 신뢰도: {result.confidence}%</div>
 
-      <div className="result-description">
-        <h4>About Your Face Shape</h4>
-        <p>{data.description}</p>
-        <h4>Styling Tips 스타일링 팁</h4>
-        <ul>{data.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
-      </div>
-
+      {/* 1) All Face Shapes — visible to everyone */}
       <div className="fs-ref-section">
         <h4>All Face Shapes 전체 얼굴형 가이드</h4>
         <div className="fs-ref-grid">
@@ -141,6 +135,25 @@ export default function FaceShapeDetector({ showToast }) {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* 2) About Your Face Shape — blurred for non-members */}
+      <div className={'result-description' + (!user ? ' gated-blur' : '')}>
+        {!user && (
+          <div className="gated-overlay">
+            <div className="gated-overlay-content">
+              <span className="gated-lock">🔒</span>
+              <p className="gated-title">Sign up to see your personalized styling tips</p>
+              <p className="gated-title-kr">가입하면 나만의 스타일링 팁을 볼 수 있어요</p>
+              <p className="gated-free">100% Free 완전 무료</p>
+              <button className="gated-login-btn" onClick={loginWithGoogle}>Free Sign Up 무료 가입</button>
+            </div>
+          </div>
+        )}
+        <h4>About Your Face Shape</h4>
+        <p>{data.description}</p>
+        <h4>Styling Tips 스타일링 팁</h4>
+        <ul>{data.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
       </div>
 
       <SaveResultBtn onSave={handleSave} />
