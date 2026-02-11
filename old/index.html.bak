@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-48TH6Q1G8J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-48TH6Q1G8J');
+    </script>
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vd74xl3h1g");
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glowmi — K-Beauty Skin Quiz, AI Personal Color Test & Gangnam Clinic Finder</title>
+    <meta name="description" content="Free K-Beauty skin type quiz, AI personal color analysis (10 types), AI skin condition analyzer, Gangnam dermatology clinic finder, and Korean aesthetic procedure guide. Your all-in-one K-Beauty companion.">
+    <meta name="keywords" content="K-Beauty, Korean skincare, skin type quiz, personal color test, AI skin analysis, Gangnam clinics, Korean dermatology, Botox Korea, filler Korea, laser toning, skin booster, K-Beauty guide, 퍼스널컬러, 피부타입, 강남피부과">
+    <meta name="author" content="Glowmi">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://glowmi.org/">
+    <link rel="alternate" hreflang="ko" href="https://glowmi.org/">
+    <link rel="alternate" hreflang="en" href="https://glowmi.org/">
+    <link rel="alternate" hreflang="x-default" href="https://glowmi.org/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Glowmi — K-Beauty Skin Quiz, AI Personal Color & Clinic Finder">
+    <meta property="og:description" content="Free AI-powered K-Beauty tools: skin type quiz, personal color analysis, skin condition analyzer, and Gangnam clinic finder. 나만의 K-뷰티 가이드.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://glowmi.org/">
+    <meta property="og:site_name" content="Glowmi">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:image" content="https://glowmi.org/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Glowmi - K-Beauty Skin Quiz and AI Personal Color Analysis">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Glowmi — K-Beauty Skin Quiz & AI Personal Color Test">
+    <meta name="twitter:description" content="Free AI K-Beauty tools: skin quiz, personal color analysis, skin analyzer & Gangnam clinic finder.">
+    <meta name="twitter:image" content="https://glowmi.org/og-image.png">
+
+    <!-- Naver SEO -->
+    <meta name="naver-site-verification" content="glowmi_naver_verify">
+
+    <!-- Mobile & PWA -->
+    <meta name="theme-color" content="#FF6B9D">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Glowmi">
+    <meta name="application-name" content="Glowmi">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="google-adsense-account" content="ca-pub-7280155441452276">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="preload" href="css/base.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/base.css"></noscript>
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/ai-beauty.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/profile.css">
+
+    <!-- Structured Data: WebSite + SearchAction -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Glowmi",
+        "alternateName": "글로미",
+        "url": "https://glowmi.org/",
+        "description": "K-Beauty skin type quiz, AI personal color analysis, AI skin condition analyzer, and Gangnam clinic finder.",
+        "inLanguage": ["ko", "en"],
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://glowmi.org/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Glowmi",
+        "url": "https://glowmi.org/",
+        "logo": "https://glowmi.org/og-image.png",
+        "description": "Your personal K-Beauty companion. AI-powered beauty analysis tools and Korean skincare guide.",
+        "sameAs": []
+    }
+    </script>
+
+    <!-- Structured Data: WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Glowmi K-Beauty Tools",
+        "url": "https://glowmi.org/",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Skin Type Quiz",
+            "AI Personal Color Analysis (10 Types)",
+            "AI Face Shape Analysis",
+            "AI Skin Condition Analyzer",
+            "Gangnam Dermatology Clinic Finder",
+            "Korean Aesthetic Procedure Guide",
+            "K-Beauty Product Recommendations"
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQPage (GEO-optimized conversational Q&A) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is the best free AI personal color test online?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Glowmi offers a free AI personal color analysis that works with just one selfie — no app download or registration needed. It uses MediaPipe facial landmark detection to sample skin tone from 11 face points, then classifies you into one of 10 personal color types: Spring Bright, Spring Light, Summer Bright, Summer Light, Summer Mute, Fall Mute, Fall Deep, Fall Strong, Winter Deep, and Winter Bright. You get best/worst colors, makeup recommendations, and celebrity references. All processing happens on your device so your photo is never uploaded."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How can I find my personal color type without going to a salon?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can find your personal color at home using Glowmi's free AI tool at glowmi.org. Take a selfie in natural daylight, and the AI analyzes your skin's undertone (warm vs cool), depth (light vs deep), and clarity (mute vs bright) to determine your type. The analysis takes about 2-3 seconds and provides a confidence percentage. For best results, remove heavy makeup and use even lighting."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "퍼스널컬러 무료로 진단받을 수 있는 사이트 추천해주세요",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "글로미(glowmi.org)에서 무료로 AI 퍼스널컬러 진단을 받을 수 있습니다. 셀카 한 장만 찍으면 AI가 피부톤의 언더톤(웜/쿨), 밝기(라이트/딥), 채도(뮤트/브라이트)를 분석하여 10가지 타입 중 하나로 분류합니다. 앱 설치나 회원가입 없이 웹에서 바로 사용 가능하며, 사진은 서버에 업로드되지 않고 기기에서만 처리됩니다. 결과에 베스트 컬러 6가지, 피해야 할 컬러 3가지, 메이크업 가이드, 셀럽 레퍼런스가 포함됩니다."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the difference between the 4-season and 10-type personal color system?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The traditional 4-season system (Spring, Summer, Fall, Winter) only considers warm vs cool undertone. The 10-type system used by Glowmi adds depth (light to deep) and clarity (mute to bright) as additional axes, resulting in more specific subtypes: Spring Bright and Spring Light (warm), Summer Bright, Summer Light, and Summer Mute (cool), Fall Mute, Fall Deep, and Fall Strong (warm), Winter Deep and Winter Bright (cool). This gives more precise color recommendations because two people can both be 'Fall' but look very different in muted vs bright colors."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How much does Botox cost in Korea compared to the US?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Botox in Korea typically costs ₩50,000-₩200,000 (approximately $38-$150 USD) per area, which is 50-70% cheaper than US prices of $300-$600 per area. Gangnam in Seoul is known as the epicenter of Korean aesthetic treatments with hundreds of specialized clinics. Glowmi provides a clinic finder with pricing, reviews, and English-speaking staff information for Gangnam clinics."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "한국 강남에서 피부과 시술 가격이 얼마인가요?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "강남 피부과 인기 시술 가격대: 보톡스 5만-20만원, 필러 20만-80만원, 스킨부스터 15만-50만원, 레이저토닝 5만-15만원, 울쎄라 30만-150만원, 쉬링크 10만-50만원, 피코레이저 8만-30만원, 실리프팅 30만-150만원, 아쿠아필 5만-15만원입니다. 글로미에서 시술별 상세 정보(시술시간, 다운타임, 지속기간)와 강남 피부과 리뷰를 확인할 수 있습니다."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the best K-Beauty skincare routine for beginners?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A beginner K-Beauty routine has 5 essential steps: 1) Double cleanse (oil + water cleanser), 2) Toner for hydration, 3) Serum targeting your concern (vitamin C for brightness, niacinamide for pores, hyaluronic acid for hydration), 4) Moisturizer, and 5) Sunscreen (SPF 50+ PA++++). Glowmi's skin type quiz identifies whether you have dry, oily, combination, sensitive, or normal skin and recommends specific Korean products for each step."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "나에게 맞는 피부 타입을 어떻게 알 수 있나요?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "글로미의 피부 타입 퀴즈에서 7가지 간단한 질문에 답하면 건성, 지성, 복합성, 민감성, 중성 중 나의 피부 타입을 진단받을 수 있습니다. 여름/겨울 계절별로 다른 질문이 제공되어 더 정확한 결과를 얻을 수 있으며, 진단 결과에 맞춤 K-뷰티 스킨케어 루틴과 제품 추천이 포함됩니다. 회원가입 없이 무료로 이용 가능합니다."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is it safe to use AI face analysis tools? Will my photos be stored?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Glowmi's AI tools are completely privacy-safe. All photo analysis runs on-device using Google's MediaPipe technology — your photos never leave your phone or computer and are never uploaded to any server. No account creation is required, and no personal data is collected or stored. The AI models are loaded directly into your browser for local processing."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: HowTo (AI Personal Color Analysis) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Find Your Personal Color Type with AI",
+        "description": "Use Glowmi's free AI tool to discover your personal color type in under 30 seconds using just one selfie photo.",
+        "totalTime": "PT30S",
+        "tool": [
+            { "@type": "HowToTool", "name": "Smartphone or computer with camera" }
+        ],
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Open Glowmi",
+                "text": "Visit glowmi.org and go to the AI Beauty tab. The personal color analysis tool is at the top."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Take a selfie or upload a photo",
+                "text": "Take a selfie in natural daylight without heavy makeup, or upload an existing photo. Make sure your face is clearly visible."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Get your AI analysis result",
+                "text": "The AI analyzes your skin tone in 2-3 seconds using facial landmark detection. You'll receive your personal color type (one of 10 types), confidence percentage, best colors, worst colors, makeup guide, and celebrity references."
+            }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://glowmi.org/" },
+            { "@type": "ListItem", "position": 2, "name": "AI Beauty Analysis", "item": "https://glowmi.org/#ai" },
+            { "@type": "ListItem", "position": 3, "name": "Skin Quiz", "item": "https://glowmi.org/#quiz" },
+            { "@type": "ListItem", "position": 4, "name": "K-Beauty Skincare", "item": "https://glowmi.org/#products" },
+            { "@type": "ListItem", "position": 5, "name": "Treatments & Clinics", "item": "https://glowmi.org/#procedures" },
+            { "@type": "ListItem", "position": 6, "name": "Wellness", "item": "https://glowmi.org/#wellness" }
+        ]
+    }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7280155441452276"
+     crossorigin="anonymous"></script>
+    <script type="module">
+        import { FaceLandmarker, FilesetResolver } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+        window.FaceLandmarker = FaceLandmarker;
+        window.FilesetResolver = FilesetResolver;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1><a href="#" onclick="switchToHome(); return false;" style="text-decoration:none;color:inherit;">✨ Glowmi</a></h1>
+            <p class="subtitle">Glow starts with me | 나만의 K-뷰티 가이드</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav" aria-label="Main navigation">
+            <button class="tab-btn active" data-tab="ai" role="tab" aria-selected="true" aria-controls="ai">AI Beauty</button>
+            <button class="tab-btn" data-tab="quiz" role="tab" aria-selected="false" aria-controls="quiz">Quiz</button>
+            <button class="tab-btn" data-tab="products" role="tab" aria-selected="false" aria-controls="products">Skincare</button>
+            <button class="tab-btn" data-tab="procedures" role="tab" aria-selected="false" aria-controls="procedures">Treatments</button>
+            <button class="tab-btn" data-tab="wellness" role="tab" aria-selected="false" aria-controls="wellness">Wellness</button>
+            <button class="tab-btn" id="tab-mypage" data-tab="mypage" role="tab" aria-selected="false" aria-controls="mypage" style="display:none;">My Page</button>
+            <div class="tab-nav-auth">
+                <button id="nav-login-btn" class="nav-login-btn" onclick="loginWithGoogle()">Login</button>
+                <div id="nav-user-menu" class="nav-user-menu" style="display:none;">
+                    <img id="header-user-avatar" class="nav-user-avatar" src="" alt="" onclick="toggleUserDropdown()">
+                    <div id="user-dropdown" class="user-dropdown" style="display:none;">
+                        <button class="user-dropdown-item" onclick="switchToMyPage()">My Page 마이페이지</button>
+                        <button class="user-dropdown-item" onclick="logout()">Sign Out 로그아웃</button>
+                        <button class="user-dropdown-item danger" onclick="confirmDeleteAllData()">Delete All Data 삭제</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Tab Contents -->
+        <main class="tab-content" role="main">
+            <!-- Skin Quiz Tab -->
+            <section id="quiz" class="tab-panel hidden" role="tabpanel" aria-label="Skin Type Quiz">
+                <!-- Quiz Season Select Screen -->
+                <div id="quiz-season-select" class="quiz-screen">
+                    <div class="quiz-intro-card">
+                        <div class="quiz-icon">🔬</div>
+                        <h2>Find Your Skin Type</h2>
+                        <h3>나의 피부 타입 찾기</h3>
+                        <p>Choose your season to get accurate skincare recommendations!</p>
+                        <p class="korean">정확한 스킨케어 추천을 위해 계절을 선택하세요!</p>
+                        <div class="season-buttons">
+                            <button class="season-btn summer-btn" onclick="selectSeason('summer')">
+                                <span class="season-icon">☀️</span>
+                                <span class="season-name">Summer</span>
+                                <span class="season-korean">여름</span>
+                            </button>
+                            <button class="season-btn winter-btn" onclick="selectSeason('winter')">
+                                <span class="season-icon">❄️</span>
+                                <span class="season-name">Winter</span>
+                                <span class="season-korean">겨울</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Start Screen -->
+                <div id="quiz-start" class="quiz-screen hidden">
+                    <div class="quiz-intro-card">
+                        <div class="quiz-icon" id="season-quiz-icon">🔬</div>
+                        <h2 id="season-quiz-title">Find Your Skin Type</h2>
+                        <h3 id="season-quiz-subtitle">나의 피부 타입 찾기</h3>
+                        <p id="season-quiz-desc">Answer 7 simple questions to discover your skin type and get personalized K-Beauty recommendations!</p>
+                        <p class="korean" id="season-quiz-desc-kr">7가지 간단한 질문에 답하고 나만의 K-뷰티 추천을 받아보세요!</p>
+                        <button id="start-quiz-btn" class="primary-btn" onclick="startQuiz()">Start Quiz 시작하기</button>
+                        <button id="back-to-season-btn" class="secondary-btn back-btn" onclick="backToSeasonSelect()">← Back 뒤로</button>
+                    </div>
+                </div>
+
+                <!-- Quiz Questions Screen -->
+                <div id="quiz-questions" class="quiz-screen hidden">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <span id="progress-text" class="progress-text">1 / 7</span>
+                    </div>
+                    <div id="question-container" class="question-container"></div>
+                </div>
+
+                <!-- Quiz Result Screen -->
+                <div id="quiz-result" class="quiz-screen hidden">
+                    <div id="result-content" class="result-card"></div>
+                </div>
+            </section>
+
+            <!-- Products Tab -->
+            <section id="products" class="tab-panel hidden" role="tabpanel" aria-label="K-Beauty Skincare Products">
+                <h2 class="section-title">K-Beauty Product Guide</h2>
+                <p class="section-subtitle">K-뷰티 제품 가이드</p>
+
+                <!-- Ingredient Analyzer Tool -->
+                <div class="analyzer-tool">
+                    <div class="analyzer-icon">🔬</div>
+                    <h3 class="analyzer-title">Ingredient Analyzer</h3>
+                    <p class="analyzer-title-kr">성분 분석기</p>
+                    <p class="analyzer-desc">Paste an ingredient list or scan a product label with your camera.</p>
+                    <textarea id="analyzer-input" class="analyzer-textarea" placeholder="Paste ingredient list here… e.g. Water, Glycerin, Niacinamide, 나이아신아마이드, 레티놀, …" rows="4"></textarea>
+                    <div class="analyzer-buttons">
+                        <button class="primary-btn analyzer-btn" onclick="analyzeIngredients()">Analyze 분석하기</button>
+                        <button class="secondary-btn analyzer-scan-btn" onclick="openIACamera()">📸 Scan Label</button>
+                        <button class="secondary-btn analyzer-scan-btn" onclick="triggerIAUpload()">🖼️ Upload Label</button>
+                        <button class="secondary-btn analyzer-clear-btn" onclick="clearAnalyzer()">Clear</button>
+                        <input type="file" id="ia-file-input" accept="image/*" style="display:none" onchange="handleIAUpload(event)">
+                    </div>
+
+                    <!-- Inline Camera / Preview Area (hidden by default) -->
+                    <div id="ia-scan-area" class="ia-scan-area hidden">
+                        <div class="ia-camera-wrapper">
+                            <video id="ia-video" autoplay playsinline></video>
+                            <canvas id="ia-canvas" style="display:none"></canvas>
+                            <img id="ia-preview" style="display:none" alt="Preview">
+                            <div id="ia-scan-guide" class="ia-scan-guide">
+                                <div class="ia-scan-frame"></div>
+                                <p class="ia-scan-hint">Align ingredient list inside the frame<br>성분표를 프레임 안에 맞춰주세요</p>
+                            </div>
+                        </div>
+                        <div id="ia-camera-controls" class="pc-controls">
+                            <button class="secondary-btn" onclick="closeIACamera()">Cancel 취소</button>
+                            <button class="primary-btn" onclick="captureIAPhoto()">📸 Capture 촬영</button>
+                        </div>
+                        <div id="ia-preview-controls" class="pc-controls hidden">
+                            <button class="secondary-btn" onclick="retakeIAPhoto()">↩️ Retake 다시</button>
+                            <button class="primary-btn" onclick="scanIngredients()">🔍 Scan 스캔</button>
+                        </div>
+                        <p id="ia-cam-error" class="fs-error hidden"></p>
+                    </div>
+
+                    <!-- Inline scan progress -->
+                    <div id="ia-scan-progress" class="ia-scan-progress hidden">
+                        <div class="ia-progress-bar"><div id="ia-progress-fill" class="progress-fill" style="width:0%"></div></div>
+                        <p id="ia-scan-status" class="ia-scan-status-text">Scanning...</p>
+                    </div>
+
+                    <div id="analyzer-results" class="analyzer-results"></div>
+                </div>
+
+                <!-- Product Compatibility Checker -->
+                <div class="analyzer-tool">
+                    <div class="analyzer-icon">⚗️</div>
+                    <h3 class="analyzer-title">Product Compatibility Checker</h3>
+                    <p class="analyzer-title-kr">제품 궁합 체크</p>
+                    <p class="analyzer-desc">Paste two products' ingredient lists to check for conflicts.</p>
+                    <div class="compat-inputs">
+                        <div class="compat-input-group">
+                            <label class="compat-label">Product A 제품 A</label>
+                            <textarea id="compat-input-a" class="analyzer-textarea" placeholder="e.g. Water, Glycerin, Retinol, Tocopherol…" rows="3"></textarea>
+                        </div>
+                        <div class="compat-vs">VS</div>
+                        <div class="compat-input-group">
+                            <label class="compat-label">Product B 제품 B</label>
+                            <textarea id="compat-input-b" class="analyzer-textarea" placeholder="e.g. Water, Niacinamide, Glycolic Acid…" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="analyzer-buttons">
+                        <button class="primary-btn analyzer-btn" onclick="checkCompatibility()">Check 궁합 체크</button>
+                        <button class="secondary-btn analyzer-clear-btn" onclick="clearCompatibility()">Clear</button>
+                    </div>
+                    <div id="compat-results" class="analyzer-results"></div>
+                </div>
+
+                <!-- 10-Step Routine Guide -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>The Korean 10-Step Skincare Routine</h3><p class="content-subtitle">한국식 10단계 스킨케어 루틴</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <p class="content-text">The famous Korean skincare routine focuses on layering lightweight products for maximum hydration and protection. Here is the complete order and what each step does for your skin:</p>
+                        <div class="step-list">
+                            <div class="step-item"><span class="step-num">1</span><div class="step-info"><strong>Oil Cleanser</strong> <span class="step-kr">오일 클렌저</span><p>Removes makeup, sunscreen, and oil-based impurities. Massage onto dry skin, then rinse with water.</p></div></div>
+                            <div class="step-item"><span class="step-num">2</span><div class="step-info"><strong>Water Cleanser</strong> <span class="step-kr">폼 클렌저</span><p>Removes remaining water-based impurities like sweat and dirt. This double-cleanse method ensures a perfectly clean base.</p></div></div>
+                            <div class="step-item"><span class="step-num">3</span><div class="step-info"><strong>Exfoliator</strong> <span class="step-kr">각질 제거제</span><p>Use 1-2 times per week to remove dead skin cells. Choose between physical scrubs or chemical exfoliants (AHA/BHA).</p></div></div>
+                            <div class="step-item"><span class="step-num">4</span><div class="step-info"><strong>Toner</strong> <span class="step-kr">토너</span><p>Balances skin pH and preps skin to absorb the next products better. Pat gently into skin with hands.</p></div></div>
+                            <div class="step-item"><span class="step-num">5</span><div class="step-info"><strong>Essence</strong> <span class="step-kr">에센스</span><p>The heart of Korean skincare. A lightweight, hydrating layer that promotes cell turnover and radiance.</p></div></div>
+                            <div class="step-item"><span class="step-num">6</span><div class="step-info"><strong>Serum / Ampoule</strong> <span class="step-kr">세럼 / 앰플</span><p>Concentrated treatments targeting specific concerns like wrinkles, dark spots, or acne.</p></div></div>
+                            <div class="step-item"><span class="step-num">7</span><div class="step-info"><strong>Sheet Mask</strong> <span class="step-kr">시트 마스크</span><p>Use 1-3 times per week for an intense boost of hydration and nutrients. Leave on for 15-20 minutes.</p></div></div>
+                            <div class="step-item"><span class="step-num">8</span><div class="step-info"><strong>Eye Cream</strong> <span class="step-kr">아이크림</span><p>Delicate eye area needs special care. Gently pat around the orbital bone to prevent fine lines.</p></div></div>
+                            <div class="step-item"><span class="step-num">9</span><div class="step-info"><strong>Moisturizer</strong> <span class="step-kr">보습제</span><p>Seals in all previous layers. Choose gel for oily skin, cream for dry skin, or lotion for combination.</p></div></div>
+                            <div class="step-item"><span class="step-num">10</span><div class="step-info"><strong>Sunscreen</strong> <span class="step-kr">선크림</span><p>The most important step! Apply every morning, rain or shine. Korean sunscreens are known for their lightweight, non-greasy formulas.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skincare Routine Order Guide -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>Skincare Layering Guide</h3><p class="content-subtitle">스킨케어 바르는 순서 가이드</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body" onclick="event.stopPropagation()">
+
+                        <p class="content-text">Not sure what order to apply your skincare? The golden rule is simple: apply from the thinnest, most watery texture to the thickest, most oily texture.</p>
+                        <p class="content-text" style="color:#888; font-size:0.82rem;">스킨케어는 가장 묽은 제형(수분)에서 가장 꾸덕한 제형(유분) 순서로 바르는 것이 기본입니다.</p>
+
+                        <!-- Key Principle Visual -->
+                        <div class="routine-key-principle">
+                            <span class="principle-icon">💧 ➜ 🧴</span>
+                            <div class="principle-text">Thin & Watery → Thick & Oily</div>
+                            <div class="principle-text-kr">묽은 제형 (수분) → 꾸덕한 제형 (유분)</div>
+                        </div>
+
+                        <!-- Texture Gradient Bar -->
+                        <div class="texture-bar-bg">
+                            <div class="texture-bar-labels">
+                                <span class="texture-label texture-label-left">💧 Water<br>수분</span>
+                                <span class="texture-bar-arrow">→ → →</span>
+                                <span class="texture-label texture-label-right">🫧 Oil<br>유분</span>
+                            </div>
+                        </div>
+
+                        <!-- AM / PM Routine Tabs -->
+                        <div class="routine-tab-nav">
+                            <button class="routine-tab-btn active" onclick="switchRoutineTab('am', event)">☀️ Morning 아침</button>
+                            <button class="routine-tab-btn" onclick="switchRoutineTab('pm', event)">🌙 Evening 저녁</button>
+                        </div>
+
+                        <!-- Morning Routine Panel -->
+                        <div id="routine-am" class="routine-tab-panel">
+                            <p class="routine-tab-desc">Hydration + protection in 5 simple steps.<br><span style="color:#888;">수분 충전과 자외선 차단 중심의 5단계.</span></p>
+                            <div class="routine-flow">
+                                <div class="routine-flow-step routine-water">
+                                    <span class="routine-flow-icon">🫧</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Cleanser</strong> <span class="routine-kr">클렌저</span>
+                                        <p>Gentle water cleanser only. Skip if skin feels dry — just splash lukewarm water.</p>
+                                    </div>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-water">
+                                    <span class="routine-flow-icon">💦</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Toner</strong> <span class="routine-kr">토너</span>
+                                        <p>Balances pH, preps skin to absorb the next layers better.</p>
+                                    </div>
+                                    <span class="routine-flow-time">10-20s</span>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-water">
+                                    <span class="routine-flow-icon">💎</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Serum / Essence</strong> <span class="routine-kr">세럼 / 에센스</span>
+                                        <p>Vitamin C for brightening, niacinamide for pores, hyaluronic acid for hydration.</p>
+                                    </div>
+                                    <span class="routine-flow-time">30-60s</span>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-oil">
+                                    <span class="routine-flow-icon">🧴</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Moisturizer</strong> <span class="routine-kr">로션 / 크림</span>
+                                        <p>Locks in all layers. Gel for oily skin, cream for dry skin.</p>
+                                    </div>
+                                    <span class="routine-flow-time">1-2min</span>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-sun">
+                                    <span class="routine-flow-icon">☀️</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Sunscreen SPF 50+</strong> <span class="routine-kr">선크림</span>
+                                        <p>Always the LAST step. Apply generously. Reapply every 2-3 hours outdoors.</p>
+                                    </div>
+                                    <span class="routine-flow-time">LAST</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Evening Routine Panel -->
+                        <div id="routine-pm" class="routine-tab-panel hidden">
+                            <p class="routine-tab-desc">Deep cleansing + repair while you sleep.<br><span style="color:#888;">딥 클렌징과 수면 중 피부 재생을 위한 루틴.</span></p>
+                            <div class="routine-flow">
+                                <div class="routine-flow-step routine-oil">
+                                    <span class="routine-flow-icon">🫒</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Oil Cleanser</strong> <span class="routine-kr">오일 클렌저</span>
+                                        <p>Dissolves makeup & sunscreen. Massage on dry face, then emulsify with water.</p>
+                                    </div>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-water">
+                                    <span class="routine-flow-icon">🫧</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Water Cleanser</strong> <span class="routine-kr">폼 클렌저</span>
+                                        <p>Second cleanse to remove remaining impurities. This is the "double cleanse" method.</p>
+                                    </div>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-water">
+                                    <span class="routine-flow-icon">💦</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Toner</strong> <span class="routine-kr">토너</span>
+                                        <p>Restore pH after cleansing. Layer 2-3 times for extra hydration (7-skin method).</p>
+                                    </div>
+                                    <span class="routine-flow-time">10-20s</span>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-water">
+                                    <span class="routine-flow-icon">💎</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Serum / Ampoule</strong> <span class="routine-kr">세럼 / 앰플</span>
+                                        <p>Best time for actives: retinol, AHA/BHA, or peptides for anti-aging.</p>
+                                    </div>
+                                    <span class="routine-flow-time">30-60s</span>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-water">
+                                    <span class="routine-flow-icon">👁️</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Eye Cream</strong> <span class="routine-kr">아이크림</span>
+                                        <p>Gently pat around orbital bone with ring finger. Never pull or rub.</p>
+                                    </div>
+                                    <span class="routine-flow-time">30s</span>
+                                </div>
+                                <div class="routine-flow-arrow">▼</div>
+                                <div class="routine-flow-step routine-oil">
+                                    <span class="routine-flow-icon">🧴</span>
+                                    <div class="routine-flow-info">
+                                        <strong>Night Cream</strong> <span class="routine-kr">나이트 크림</span>
+                                        <p>Richer than daytime moisturizer. Seals in everything for overnight repair.</p>
+                                    </div>
+                                    <span class="routine-flow-time">LAST</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-accordions: extra info collapsed by default -->
+                        <div class="sub-accordion" onclick="toggleSubAccordion(this)">
+                            <div class="sub-accordion-header">
+                                <span>⏱ Wait Times Between Steps 단계별 흡수 시간</span>
+                                <span class="sub-accordion-icon">+</span>
+                            </div>
+                            <div class="sub-accordion-body">
+                                <div class="step-list">
+                                    <div class="step-item"><span class="step-num">⏱</span><div class="step-info"><strong>Toner → Serum</strong> <span class="step-kr">토너 → 세럼</span><p>10-20s — until slightly tacky, not fully dry.</p></div></div>
+                                    <div class="step-item"><span class="step-num">⏱</span><div class="step-info"><strong>Serum → Moisturizer</strong> <span class="step-kr">세럼 → 보습제</span><p>30-60s — pat gently to help absorption.</p></div></div>
+                                    <div class="step-item"><span class="step-num">⏱</span><div class="step-info"><strong>Moisturizer → Sunscreen</strong> <span class="step-kr">보습제 → 선크림</span><p>1-2 min — so sunscreen doesn't mix and lose UV protection.</p></div></div>
+                                    <div class="step-item"><span class="step-num">⏱</span><div class="step-info"><strong>Actives (Retinol, AHA/BHA)</strong> <span class="step-kr">활성 성분</span><p>2-3 min — actives need time to penetrate first.</p></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sub-accordion" onclick="toggleSubAccordion(this)">
+                            <div class="sub-accordion-header">
+                                <span>🧬 Adjust by Skin Type 피부 타입별 포인트</span>
+                                <span class="sub-accordion-icon">+</span>
+                            </div>
+                            <div class="sub-accordion-body">
+                                <div class="skintype-routine-grid">
+                                    <div class="skintype-routine-card"><strong>🏜️ Dry 건성</strong><p>Skip cleanser AM — lukewarm water only. Toner 2-3x. Cream + face oil at night.</p><p style="color:#888;font-size:0.76rem;margin-top:2px;">아침 세안은 미온수만. 토너 2-3회. 크림 + 저녁 오일.</p></div>
+                                    <div class="skintype-routine-card"><strong>💧 Oily 지성</strong><p>Gel/water-based only. Still moisturize — skipping increases oil. BHA serum PM.</p><p style="color:#888;font-size:0.76rem;margin-top:2px;">젤/수분 타입. 보습 필수. 저녁 BHA 세럼.</p></div>
+                                    <div class="skintype-routine-card"><strong>🔄 Combo 복합성</strong><p>Light on T-zone, rich on cheeks. Different moisturizers per zone is fine.</p><p style="color:#888;font-size:0.76rem;margin-top:2px;">T존 가볍게, 볼 리치하게.</p></div>
+                                    <div class="skintype-routine-card"><strong>🌿 Sensitive 민감성</strong><p>3-4 steps max. No fragrance/alcohol. CICA or ceramide. Patch test always.</p><p style="color:#888;font-size:0.76rem;margin-top:2px;">최소 단계. 시카/세라마이드. 패치 테스트 필수.</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sub-accordion" onclick="toggleSubAccordion(this)">
+                            <div class="sub-accordion-header">
+                                <span>⚠️ Common Mistakes 흔한 실수</span>
+                                <span class="sub-accordion-icon">+</span>
+                            </div>
+                            <div class="sub-accordion-body">
+                                <div class="mistake-list">
+                                    <div class="mistake-item"><span class="mistake-icon">❌</span><div><strong>Oily before watery 유분 먼저</strong><p>Oil blocks water absorption. Always thin → thick.</p></div></div>
+                                    <div class="mistake-item"><span class="mistake-icon">❌</span><div><strong>Skipping sunscreen 선크림 빼먹기</strong><p>#1 cause of aging & dark spots. Even on cloudy days.</p></div></div>
+                                    <div class="mistake-item"><span class="mistake-icon">❌</span><div><strong>Too many at once 한꺼번에 너무 많이</strong><p>Start with 3-4 products. Build up slowly.</p></div></div>
+                                    <div class="mistake-item"><span class="mistake-icon">❌</span><div><strong>No wait time 흡수 시간 없이</strong><p>Causes pilling and reduced absorption.</p></div></div>
+                                    <div class="mistake-item"><span class="mistake-icon">❌</span><div><strong>Bad combos 상극 성분 혼합</strong><p>Vitamin C + AHA/BHA or retinol + AHA/BHA — alternate AM/PM.</p></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Key Ingredients Guide -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>Popular K-Beauty Ingredients</h3><p class="content-subtitle">인기 K-뷰티 성분 가이드</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <p class="content-text">Understanding ingredients helps you choose the right products for your skin. Here are the most popular ingredients found in Korean skincare and what they do:</p>
+                        <div class="ingredient-grid">
+                            <div class="ingredient-item"><div class="ingredient-icon">🐌</div><div><strong>Snail Mucin</strong><p>Hydrates, repairs damaged skin, fades scars. Found in COSRX Snail Mucin Essence.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🌿</div><div><strong>Centella Asiatica (CICA)</strong><p>Calms inflammation, strengthens skin barrier. Best for sensitive and acne-prone skin.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">💧</div><div><strong>Hyaluronic Acid</strong><p>Holds 1000x its weight in water. Plumps skin and reduces fine lines instantly.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🍚</div><div><strong>Rice Extract</strong><p>Traditional Korean ingredient for brightening. Evens skin tone and adds natural glow.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🫖</div><div><strong>Green Tea</strong><p>Rich in antioxidants, controls oil production, and soothes irritated skin.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🧴</div><div><strong>Niacinamide (Vitamin B3)</strong><p>Minimizes pores, controls oil, brightens dark spots. Works for all skin types.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🌙</div><div><strong>Retinol</strong><p>Gold standard for anti-aging. Boosts collagen, reduces wrinkles. Start with low concentrations.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🧪</div><div><strong>BHA (Salicylic Acid)</strong><p>Oil-soluble acid that penetrates pores. Best for blackheads, acne, and oily skin.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Beginner Tips -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>K-Beauty Beginner Tips</h3><p class="content-subtitle">K-뷰티 초보자 팁</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <div class="tip-list">
+                            <div class="tip-item"><strong>Start simple.</strong> You do not need all 10 steps. Begin with cleanser, moisturizer, and sunscreen, then add one product at a time.</div>
+                            <div class="tip-item"><strong>Patch test everything.</strong> Apply new products on a small area of your jaw or behind your ear for 24 hours before full application.</div>
+                            <div class="tip-item"><strong>Give products time.</strong> Most skincare needs 4-6 weeks to show results. Do not switch products every few days.</div>
+                            <div class="tip-item"><strong>SPF is non-negotiable.</strong> Korean sunscreens are lightweight and cosmetically elegant. Apply generously every morning.</div>
+                            <div class="tip-item"><strong>Hydration over everything.</strong> Korean skincare philosophy prioritizes keeping skin hydrated as the foundation of all skin health.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Procedures/Clinics Tab -->
+            <section id="procedures" class="tab-panel hidden" role="tabpanel" aria-label="K-Beauty Treatments and Clinics">
+                <h2 class="section-title">K-Beauty Treatments</h2>
+                <p class="section-subtitle">한국 피부과 & 시술 정보</p>
+
+                <!-- Sub Tab Navigation -->
+                <div class="sub-tab-nav">
+                    <button class="sub-tab-btn active" data-subtab="procedures-info" onclick="switchSubTab('procedures-info', event)">💉 Procedures 시술</button>
+                    <button class="sub-tab-btn" data-subtab="clinic-finder" onclick="switchSubTab('clinic-finder', event)">🏥 Find Clinic 병원찾기</button>
+                </div>
+
+                <!-- Sub Tab: Procedures -->
+                <div id="procedures-info" class="sub-tab-panel">
+                    <div class="procedures-grid" id="procedures-grid"></div>
+                </div>
+
+                <!-- Sub Tab: Clinic Finder -->
+                <div id="clinic-finder" class="sub-tab-panel hidden">
+                    <div class="clinic-filter">
+                        <button class="filter-btn active" onclick="filterClinics('all', event)">All 전체</button>
+                        <button class="filter-btn" onclick="filterClinics('botox', event)">Botox</button>
+                        <button class="filter-btn" onclick="filterClinics('laser', event)">Laser</button>
+                        <button class="filter-btn" onclick="filterClinics('filler', event)">Filler</button>
+                        <button class="filter-btn" onclick="filterClinics('lifting', event)">Lifting</button>
+                        <button class="filter-btn" onclick="filterClinics('pico', event)">Pico</button>
+                        <button class="filter-btn" onclick="filterClinics('skinbooster', event)">Skin Booster</button>
+                        <button class="filter-btn" onclick="filterClinics('thread', event)">Thread</button>
+                        <button class="filter-btn" onclick="filterClinics('aquapeel', event)">Aqua Peel</button>
+                    </div>
+                    <div class="clinics-grid" id="clinics-grid"></div>
+                </div>
+
+            </section>
+
+            <!-- Procedures Guide Popup -->
+            <div id="procedures-guide-modal" class="page-modal hidden" onclick="if(event.target===this)closeProceduresGuide()">
+                <div class="page-modal-content procedures-guide-popup">
+                    <button class="page-modal-close" onclick="closeProceduresGuide()">&times;</button>
+                    <h2>Understanding K-Beauty Procedures</h2>
+                    <p class="procedures-guide-subtitle">K-뷰티 시술 이해하기</p>
+                    <p class="content-text">Korea is the global capital of aesthetic procedures. Here is what first-timers should know before visiting a clinic:</p>
+                    <div class="tip-list">
+                        <div class="tip-item"><strong>Consultation is always first.</strong> Every reputable clinic provides a free consultation. The doctor examines your skin and recommends the right treatment.</div>
+                        <div class="tip-item"><strong>Non-surgical is mainstream.</strong> Most popular treatments like Botox, fillers, and laser toning are non-surgical with little to no downtime.</div>
+                        <div class="tip-item"><strong>Prices are competitive.</strong> Korean clinics offer world-class treatments at a fraction of Western prices, which is why medical tourism is booming.</div>
+                        <div class="tip-item"><strong>Maintenance matters.</strong> Botox lasts 3-6 months, fillers 6-18 months, and laser results are cumulative. Plan for follow-up visits.</div>
+                        <div class="tip-item"><strong>Ask about English support.</strong> Many Gangnam clinics have English-speaking staff or translators. Look for the English-friendly badge on clinic cards.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Beauty Tab -->
+            <section id="ai" class="tab-panel active" role="tabpanel" aria-label="AI Beauty Analysis Tools">
+                <h2 class="section-title">AI Beauty Analysis</h2>
+                <p class="section-subtitle">AI 뷰티 분석</p>
+
+                <!-- Face Shape Detector -->
+                <div id="fs-section">
+                    <!-- Screen 1: Start -->
+                    <div id="fs-start" class="fs-screen">
+                        <div class="pc-start-card">
+                            <div class="quiz-icon">📐</div>
+                            <h2>AI Face Shape Detector</h2>
+                            <h3>AI 얼굴형 분석</h3>
+                            <p>Take a photo or upload an image to discover your face shape and get personalized styling tips!</p>
+                            <p class="korean">사진을 촬영하거나 이미지를 업로드하여 얼굴형을 분석하고 맞춤 스타일링 팁을 받아보세요!</p>
+                            <div class="fs-btn-group">
+                                <button class="primary-btn" onclick="startFaceCamera()">📸 Take Photo 촬영</button>
+                                <button class="secondary-btn" onclick="triggerFaceUpload()">🖼️ Upload Image 업로드</button>
+                                <input type="file" id="fs-file-input" accept="image/*" style="display:none" onchange="handleFaceUpload(event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Camera / Preview -->
+                    <div id="fs-camera" class="fs-screen hidden">
+                        <div class="fs-camera-card">
+                            <div class="fs-camera-wrapper">
+                                <video id="fs-video" autoplay playsinline></video>
+                                <canvas id="fs-canvas" style="display:none"></canvas>
+                                <img id="fs-preview" style="display:none" alt="Preview">
+                                <div id="fs-face-guide" class="fs-face-guide">
+                                    <div class="fs-face-oval"></div>
+                                </div>
+                            </div>
+                            <div id="fs-camera-controls" class="fs-controls">
+                                <button class="secondary-btn" onclick="cancelFaceDetection()">← Back 뒤로</button>
+                                <button class="primary-btn" id="fs-capture-btn" onclick="captureFacePhoto()">📸 Capture 촬영</button>
+                            </div>
+                            <div id="fs-preview-controls" class="fs-controls hidden">
+                                <button class="secondary-btn" onclick="retakeFacePhoto()">↩️ Retake 다시</button>
+                                <button class="primary-btn" onclick="analyzeFaceShape()">🔍 Analyze 분석</button>
+                            </div>
+                            <div id="fs-loading" class="fs-loading hidden">
+                                <div class="fs-spinner"></div>
+                                <p>Analyzing your face shape... 얼굴형 분석 중...</p>
+                            </div>
+                            <p id="fs-error" class="fs-error hidden"></p>
+                        </div>
+                    </div>
+
+                    <!-- Screen 3: Result -->
+                    <div id="fs-result" class="fs-screen hidden">
+                        <div id="fs-result-content" class="result-card"></div>
+                    </div>
+                </div>
+
+                <!-- Personal Color Test — AI Personal Color Analysis -->
+                <div id="pc-section">
+                    <!-- Screen 1: Start -->
+                    <div id="pc-start" class="pc-screen">
+                        <div class="pc-start-card">
+                            <div class="quiz-icon">🎨</div>
+                            <h2>AI Personal Color Analysis</h2>
+                            <h3>AI 퍼스널컬러 진단</h3>
+                            <p>Take one photo and AI will automatically analyze your skin tone to find your personal color type among 10 categories.</p>
+                            <p class="korean">사진 한 장으로 10가지 퍼스널컬러 타입을 자동 분석합니다.</p>
+                            <div class="pc-btn-group">
+                                <button class="primary-btn" onclick="startPCCamera()">📸 Take Photo 촬영</button>
+                                <button class="secondary-btn" onclick="triggerPCUpload()">🖼️ Upload Image 업로드</button>
+                                <input type="file" id="pc-file-input" accept="image/*" style="display:none" onchange="handlePCUpload(event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Camera / Preview -->
+                    <div id="pc-camera" class="pc-screen hidden">
+                        <div class="pc-camera-card">
+                            <div class="pc-camera-wrapper">
+                                <video id="pc-video" autoplay playsinline></video>
+                                <canvas id="pc-canvas" style="display:none"></canvas>
+                                <img id="pc-preview" style="display:none" alt="Preview">
+                                <div id="pc-face-guide" class="fs-face-guide">
+                                    <div class="fs-face-oval"></div>
+                                </div>
+                            </div>
+                            <div id="pc-camera-controls" class="pc-controls">
+                                <button class="secondary-btn" onclick="cancelPCCamera()">← Back 뒤로</button>
+                                <button class="primary-btn" id="pc-capture-btn" onclick="capturePCPhoto()">📸 Capture 촬영</button>
+                            </div>
+                            <div id="pc-preview-controls" class="pc-controls hidden">
+                                <button class="secondary-btn" onclick="retakePCPhoto()">↩️ Retake 다시</button>
+                                <button class="primary-btn" onclick="startColorAnalysis()">🎨 Analyze Colors 컬러 분석</button>
+                            </div>
+                            <p id="pc-cam-error" class="fs-error hidden"></p>
+                        </div>
+                    </div>
+
+                    <!-- Screen 3: Analyzing -->
+                    <div id="pc-analyzing" class="pc-screen hidden">
+                        <div class="pc-analyzing-card">
+                            <div class="pc-analyzing-spinner"></div>
+                            <h3>Analyzing your skin tone...</h3>
+                            <p class="korean">피부 톤을 분석하고 있어요...</p>
+                        </div>
+                    </div>
+
+                    <!-- Screen 4: Result -->
+                    <div id="pc-result" class="pc-screen hidden">
+                        <div id="pc-result-content" class="result-card"></div>
+                    </div>
+                </div>
+
+                <!-- AI Skin Condition Analyzer -->
+                <div id="skin-section">
+                    <!-- Screen 1: Start -->
+                    <div id="skin-start" class="skin-screen">
+                        <div class="pc-start-card">
+                            <div class="quiz-icon">🔬</div>
+                            <h2>AI Skin Condition Analyzer</h2>
+                            <h3>AI 피부 상태 진단</h3>
+                            <p>Take a photo or upload a selfie to analyze your skin condition and get personalized skincare recommendations!</p>
+                            <p class="korean">셀카를 촬영하거나 업로드하여 피부 상태를 분석하고 맞춤 스킨케어 추천을 받아보세요!</p>
+                            <div class="fs-btn-group">
+                                <button class="primary-btn" onclick="startSkinCamera()">📸 Take Photo 촬영</button>
+                                <button class="secondary-btn" onclick="triggerSkinUpload()">🖼️ Upload Image 업로드</button>
+                                <input type="file" id="skin-file-input" accept="image/*" style="display:none" onchange="handleSkinUpload(event)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Camera / Preview -->
+                    <div id="skin-camera" class="skin-screen hidden">
+                        <div class="fs-camera-card">
+                            <div class="fs-camera-wrapper">
+                                <video id="skin-video" autoplay playsinline></video>
+                                <canvas id="skin-canvas" style="display:none"></canvas>
+                                <img id="skin-preview" style="display:none" alt="Preview">
+                                <div id="skin-face-guide" class="fs-face-guide">
+                                    <div class="fs-face-oval"></div>
+                                </div>
+                            </div>
+                            <div id="skin-camera-controls" class="fs-controls">
+                                <button class="secondary-btn" onclick="cancelSkinCamera()">← Back 뒤로</button>
+                                <button class="primary-btn" id="skin-capture-btn" onclick="captureSkinPhoto()">📸 Capture 촬영</button>
+                            </div>
+                            <div id="skin-preview-controls" class="fs-controls hidden">
+                                <button class="secondary-btn" onclick="retakeSkinPhoto()">↩️ Retake 다시</button>
+                                <button class="primary-btn" onclick="analyzeSkinCondition()">🔍 Analyze 분석</button>
+                            </div>
+                            <div id="skin-loading" class="fs-loading hidden">
+                                <div class="fs-spinner"></div>
+                                <p>Analyzing your skin... 피부 분석 중...</p>
+                            </div>
+                            <p id="skin-error" class="fs-error hidden"></p>
+                        </div>
+                    </div>
+
+                    <!-- Screen 3: Result -->
+                    <div id="skin-result" class="skin-screen hidden">
+                        <div id="skin-result-content" class="result-card"></div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Wellness Tab -->
+            <section id="wellness" class="tab-panel hidden" role="tabpanel" aria-label="Wellness and Lifestyle">
+                <h2 class="section-title">Wellness & Lifestyle</h2>
+                <p class="section-subtitle">웰니스 & 라이프스타일</p>
+
+                <!-- Skin-Food Guide -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>Skin-Food Connection</h3><p class="content-subtitle">피부와 음식의 관계</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <p class="content-text">What you eat directly affects your skin. Korean beauty philosophy emphasizes inner health as the foundation of outer beauty. Here are the best and worst foods for common skin concerns:</p>
+                        <div class="food-guide">
+                            <div class="food-section">
+                                <h4>For Acne-Prone Skin 여드름 피부</h4>
+                                <p class="food-good">Eat: Fatty fish (salmon, mackerel), green vegetables, berries, green tea, probiotics (kimchi, yogurt)</p>
+                                <p class="food-bad">Avoid: Dairy products, refined sugar, white bread, greasy fried foods, alcohol</p>
+                            </div>
+                            <div class="food-section">
+                                <h4>For Dry Skin 건성 피부</h4>
+                                <p class="food-good">Eat: Avocado, nuts and seeds, olive oil, sweet potato, water-rich fruits (watermelon, cucumber)</p>
+                                <p class="food-bad">Avoid: Excessive caffeine, salty snacks, alcohol, processed foods</p>
+                            </div>
+                            <div class="food-section">
+                                <h4>For Anti-Aging 노화 방지</h4>
+                                <p class="food-good">Eat: Blueberries, dark chocolate, tomatoes, spinach, bone broth, collagen-rich foods</p>
+                                <p class="food-bad">Avoid: Excessive sugar, charred or heavily processed meats, trans fats</p>
+                            </div>
+                            <div class="food-section">
+                                <h4>For Brightening 피부 미백</h4>
+                                <p class="food-good">Eat: Citrus fruits (vitamin C), papaya, bell peppers, turmeric, tomatoes (lycopene)</p>
+                                <p class="food-bad">Avoid: Excessive alcohol, refined carbs, high-sodium foods</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Korean Superfoods -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>Korean Superfoods for Skin</h3><p class="content-subtitle">피부를 위한 한국 슈퍼푸드</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <p class="content-text">Korean cuisine is packed with skin-friendly ingredients that have been used for centuries. Incorporate these traditional foods into your diet for glowing skin:</p>
+                        <div class="ingredient-grid">
+                            <div class="ingredient-item"><div class="ingredient-icon">🥬</div><div><strong>Kimchi 김치</strong><p>Rich in probiotics and vitamins A, B, and C. Supports gut health, which directly improves skin clarity.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🫘</div><div><strong>Soybean Paste 된장</strong><p>Fermented soybeans contain isoflavones that boost collagen production and have antioxidant properties.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🍚</div><div><strong>Rice Water 쌀뜨물</strong><p>Used both as a drink and skin rinse. Contains vitamins B and E, minerals that brighten and soften skin.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🍵</div><div><strong>Barley Tea 보리차</strong><p>Caffeine-free hydration packed with antioxidants. Koreans drink this daily as a water substitute.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🥒</div><div><strong>Seaweed 미역</strong><p>Packed with omega-3, vitamins, and minerals. Seaweed soup is a Korean staple known for skin regeneration.</p></div></div>
+                            <div class="ingredient-item"><div class="ingredient-icon">🍯</div><div><strong>Honey 꿀</strong><p>Natural humectant with antibacterial properties. Korean traditional medicine uses it for wound healing and skin hydration.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sleep & Skin -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>Sleep, Stress & Skin</h3><p class="content-subtitle">수면, 스트레스 & 피부</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <p class="content-text">Your skin repairs and regenerates while you sleep. Poor sleep and chronic stress are among the biggest hidden causes of skin problems. Here is what the science says:</p>
+                        <div class="tip-list">
+                            <div class="tip-item"><strong>7-9 hours of sleep is essential.</strong> During deep sleep, your body increases blood flow to the skin, rebuilds collagen, and repairs UV damage. Less than 6 hours leads to dull skin, dark circles, and faster aging.</div>
+                            <div class="tip-item"><strong>Stress triggers cortisol.</strong> High cortisol levels increase oil production, leading to breakouts. It also breaks down collagen, causing premature wrinkles and saggy skin.</div>
+                            <div class="tip-item"><strong>Night skincare is crucial.</strong> Apply your heaviest treatments (retinol, sleeping masks, rich creams) at night when skin absorption is highest and there is no UV exposure.</div>
+                            <div class="tip-item"><strong>Sleep position matters.</strong> Sleeping face-down presses your skin against the pillow, causing wrinkles over time. Try sleeping on your back or use a silk pillowcase.</div>
+                            <div class="tip-item"><strong>Manage stress holistically.</strong> Korean wellness culture emphasizes balance: jjimjilbang (Korean sauna), forest bathing, tea ceremonies, and regular skincare routines all reduce stress while benefiting skin.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Habits -->
+                <div class="content-card" onclick="toggleContent(this)">
+                    <div class="content-card-header"><div><h3>Daily Habits for Better Skin</h3><p class="content-subtitle">좋은 피부를 위한 일상 습관</p></div><span class="content-chevron">&#9660;</span></div>
+                    <div class="content-card-body">
+                        <div class="tip-list">
+                            <div class="tip-item"><strong>Drink 2L of water daily.</strong> Hydration starts from within. Korean celebrities credit their glass skin to drinking plenty of water throughout the day.</div>
+                            <div class="tip-item"><strong>Never skip sunscreen.</strong> UV damage is the number one cause of premature aging. Apply SPF 50+ every morning, even on cloudy days and indoors near windows.</div>
+                            <div class="tip-item"><strong>Do not touch your face.</strong> Your hands carry bacteria that can cause breakouts. Avoid resting your chin on your hands or picking at blemishes.</div>
+                            <div class="tip-item"><strong>Change your pillowcase weekly.</strong> Oil, bacteria, and dead skin cells accumulate on pillowcases. Switch to silk or satin for less friction on your skin.</div>
+                            <div class="tip-item"><strong>Exercise regularly.</strong> Physical activity increases blood circulation, delivering oxygen and nutrients to skin cells. Even a 30-minute walk improves skin health.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- My Page Tab -->
+            <section id="mypage" class="tab-panel hidden" role="tabpanel" aria-label="My Page">
+                <h2 class="section-title">My Page</h2>
+                <p class="section-subtitle">마이페이지</p>
+
+                <div class="mypage-nav">
+                    <button class="mypage-nav-btn active" data-section="results" onclick="switchMyPageSection('results')">My Results 분석결과</button>
+                    <button class="mypage-nav-btn" data-section="diary" onclick="switchMyPageSection('diary')">Skin Diary 피부일지</button>
+                    <button class="mypage-nav-btn" data-section="routine" onclick="switchMyPageSection('routine')">My Routine 루틴</button>
+                </div>
+
+                <!-- My Results -->
+                <div id="mypage-results">
+                    <div id="mypage-results-content"></div>
+                </div>
+
+                <!-- Skin Diary -->
+                <div id="mypage-diary" class="hidden">
+                    <div id="mypage-diary-content"></div>
+                </div>
+
+                <!-- My Routine -->
+                <div id="mypage-routine" class="hidden">
+                    <div id="mypage-routine-content"></div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="mypage-danger-zone">
+                    <button class="delete-data-btn" onclick="confirmDeleteAllData()">Delete All My Data 모든 데이터 삭제</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer" role="contentinfo">
+            <p>Made with 💖 by Glowmi</p>
+            <nav class="footer-links" aria-label="Footer navigation">
+                <a href="#" onclick="openPage('about'); return false;">About</a>
+                <a href="#" onclick="openPage('contact'); return false;">Contact</a>
+                <a href="#" onclick="openPage('privacy'); return false;">Privacy Policy</a>
+            </nav>
+            <p class="footer-copy">&copy; 2026 Glowmi. All rights reserved.</p>
+        </footer>
+
+        <!-- GEO: Conversational, citable content for AI search engines and crawlers -->
+        <noscript>
+            <article>
+                <h2>Glowmi — Free AI K-Beauty Tools | 글로미 — 무료 AI K-뷰티 도구</h2>
+                <p>Glowmi is a free, no-login K-Beauty companion used by visitors from over 50 countries. All AI analysis runs on-device — your photos are never uploaded to any server.</p>
+                <p>글로미는 회원가입 없이 사용할 수 있는 무료 K-뷰티 가이드입니다. 모든 AI 분석은 기기에서 처리되어 사진이 서버에 업로드되지 않습니다.</p>
+
+                <section>
+                    <h3>AI Personal Color Analysis — Find Your Color Type in 30 Seconds</h3>
+                    <h4>퍼스널컬러 진단 — 30초 만에 나의 컬러 타입 찾기</h4>
+                    <p><strong>Who is this for?</strong> Anyone curious about which clothing colors, makeup shades, and hair tones suit them best — especially K-Beauty enthusiasts, fashion-conscious shoppers, and people preparing for important events like interviews or weddings.</p>
+                    <p><strong>누구를 위한 건가요?</strong> 어떤 옷 색깔, 메이크업 컬러, 헤어 톤이 가장 잘 어울리는지 궁금한 분. 특히 K-뷰티에 관심 있는 분, 패션에 민감한 분, 면접이나 결혼식 등 중요한 날을 준비하는 분에게 유용합니다.</p>
+                    <p><strong>How it works:</strong> Take one selfie in natural daylight. The AI uses MediaPipe facial landmark detection to sample skin tone from 11 face points (forehead, cheeks, nose, chin, jawline), then analyzes three axes — undertone (warm vs cool), depth (light vs deep), and clarity (mute vs bright) — to classify you into one of 10 types.</p>
+                    <p><strong>The 10 personal color types:</strong> Spring Bright (봄 브라이트), Spring Light (봄 라이트), Summer Bright (여름 브라이트), Summer Light (여름 라이트), Summer Mute (여름 뮤트), Fall Mute (가을 뮤트), Fall Deep (가을 딥), Fall Strong (가을 스트롱), Winter Deep (겨울 딥), Winter Bright (겨울 브라이트). Each result includes 6 best colors, 3 colors to avoid, makeup guide (foundation, lip, blush, eye shadow), and Korean celebrity references.</p>
+                    <p><strong>4계절 vs 10타입 차이:</strong> 기존 4계절 시스템은 웜/쿨만 구분하지만, 10타입 시스템은 밝기(라이트↔딥)와 채도(뮤트↔브라이트)를 추가로 분석하여 같은 가을이라도 가을 뮤트(부드러운 어스톤)와 가을 스트롱(강렬한 채도)을 구분합니다.</p>
+                </section>
+
+                <section>
+                    <h3>AI Face Shape Analysis — Discover Your Face Shape</h3>
+                    <h4>AI 얼굴형 분석</h4>
+                    <p>Upload a photo and AI analyzes 468 facial landmarks to determine your face shape. Identifies 6 types: oval (타원형), round (둥근형), square (각진형), diamond (다이아몬드형), heart (하트형), and long (긴형). Results include confidence percentage and personalized styling tips for hairstyles, glasses, and accessories that complement your face shape.</p>
+                </section>
+
+                <section>
+                    <h3>AI Skin Condition Analyzer</h3>
+                    <h4>AI 피부 상태 분석기</h4>
+                    <p><strong>Best for:</strong> People who want to understand their skin issues before choosing skincare products or visiting a dermatologist. Especially useful in changing seasons when skin conditions fluctuate.</p>
+                    <p>AI analyzes 5 skin metrics from your photo: redness, oiliness, dryness, dark spots, and texture. Each metric is scored 0-100 with visual indicators, and you receive a personalized skincare routine recommendation based on your specific concerns.</p>
+                </section>
+
+                <section>
+                    <h3>Skin Type Quiz — Find Your Skin Type in 7 Questions</h3>
+                    <h4>피부 타입 퀴즈 — 7문항으로 내 피부 타입 찾기</h4>
+                    <p>Answer 7 quick questions to discover if you have dry, oily, combination, sensitive, or normal skin. The quiz adapts to your current season (summer or winter) for more accurate results, since skin behavior changes significantly between seasons. Results include detailed K-Beauty product recommendations for cleansers, toners, serums, moisturizers, and sunscreens.</p>
+                    <p>7가지 간단한 질문에 답하면 건성, 지성, 복합성, 민감성, 중성 중 나의 피부 타입을 진단받을 수 있습니다. 여름/겨울 계절별 다른 질문이 제공되어 더 정확한 결과를 제공하며, 피부 타입에 맞는 K-뷰티 스킨케어 루틴과 제품을 추천합니다.</p>
+                </section>
+
+                <section>
+                    <h3>Korean Aesthetic Procedures Guide with Pricing</h3>
+                    <h4>한국 피부과 시술 가이드 (가격 포함)</h4>
+                    <p><strong>Who is this for?</strong> Medical tourists planning a trip to Korea for aesthetic treatments, expats living in Seoul, and anyone comparing Korean procedure prices with their home country.</p>
+                    <table>
+                        <tr><th>Procedure</th><th>Korean Name</th><th>Price (KRW)</th><th>Price (USD)</th><th>Duration</th><th>Downtime</th></tr>
+                        <tr><td>Botox</td><td>보톡스</td><td>₩50,000-₩200,000</td><td>$38-$150</td><td>10-20 min</td><td>None</td></tr>
+                        <tr><td>Dermal Filler</td><td>필러</td><td>₩200,000-₩800,000</td><td>$150-$600</td><td>15-30 min</td><td>1-3 days</td></tr>
+                        <tr><td>Skin Booster</td><td>스킨부스터</td><td>₩150,000-₩500,000</td><td>$115-$380</td><td>20-40 min</td><td>1-2 days</td></tr>
+                        <tr><td>Laser Toning</td><td>레이저토닝</td><td>₩50,000-₩150,000</td><td>$38-$115</td><td>15-30 min</td><td>None</td></tr>
+                        <tr><td>Ulthera (HIFU)</td><td>울쎄라</td><td>₩300,000-₩1,500,000</td><td>$230-$1,150</td><td>60-90 min</td><td>None</td></tr>
+                        <tr><td>Pico Laser</td><td>피코레이저</td><td>₩80,000-₩300,000</td><td>$60-$230</td><td>15-30 min</td><td>1-3 days</td></tr>
+                        <tr><td>Thread Lift</td><td>실리프팅</td><td>₩300,000-₩1,500,000</td><td>$230-$1,150</td><td>30-60 min</td><td>3-7 days</td></tr>
+                    </table>
+                    <p>Korean aesthetic procedure prices are typically 50-70% lower than US and European prices. Gangnam district in Seoul alone has over 500 dermatology and plastic surgery clinics.</p>
+                    <p>한국 피부과 시술 가격은 미국/유럽 대비 50~70% 저렴합니다. 서울 강남구에만 500개 이상의 피부과/성형외과가 있습니다.</p>
+                </section>
+
+                <section>
+                    <h3>Gangnam Clinic Finder — Find English-Friendly Clinics in Seoul</h3>
+                    <h4>강남 피부과 찾기</h4>
+                    <p>Browse top-rated dermatology and aesthetic clinics in Gangnam, Seoul. Filter by specialty (Botox, filler, laser, lifting). Each clinic listing includes Google ratings, patient reviews, English-speaking staff availability, specialties, price ranges, and direct links to Google Maps and Naver Maps for navigation.</p>
+                </section>
+
+                <section>
+                    <h3>K-Beauty Skincare Routine Guide</h3>
+                    <h4>K-뷰티 스킨케어 루틴 가이드</h4>
+                    <p><strong>Morning routine (5 steps):</strong> 1) Water or gentle cleanser, 2) Hydrating toner, 3) Serum (vitamin C for brightening), 4) Light moisturizer, 5) Sunscreen SPF 50+ PA++++.</p>
+                    <p><strong>Evening routine (6 steps):</strong> 1) Oil cleanser to remove makeup, 2) Water-based cleanser, 3) Exfoliating toner (2-3x/week), 4) Treatment serum (retinol, niacinamide), 5) Eye cream, 6) Rich moisturizer or sleeping mask.</p>
+                    <p>Product recommendations are personalized based on your skin type quiz results. Includes both affordable drugstore options and premium K-Beauty brands.</p>
+                </section>
+            </article>
+        </noscript>
+    </div>
+
+    <!-- Page Modals -->
+    <div id="page-modal" class="page-modal hidden">
+        <div class="page-modal-content">
+            <button class="page-modal-close" onclick="closePage()">&times;</button>
+            <div id="page-modal-body"></div>
+        </div>
+    </div>
+
+
+    <script src="js/data.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/quiz.js" defer></script>
+    <script src="js/ingredients.js" defer></script>
+    <script src="js/ai-beauty.js" defer></script>
+    <script src="js/supabase-config.js" defer></script>
+    <script src="js/auth.js" defer></script>
+    <script src="js/db.js" defer></script>
+    <script src="js/profile.js" defer></script>
+    <script src="js/app.js" defer></script>
+</body>
+</html>

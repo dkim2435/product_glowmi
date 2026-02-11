@@ -1,0 +1,105 @@
+import { useState } from 'react'
+import IngredientAnalyzer from './IngredientAnalyzer'
+import CompatibilityChecker from './CompatibilityChecker'
+
+export default function ProductsTab({ showToast }) {
+  const [activeSub, setActiveSub] = useState('analyzer')
+
+  return (
+    <section className="tab-panel" id="products">
+      <div className="ai-tool-tabs">
+        <button className={'sub-tab-btn' + (activeSub === 'analyzer' ? ' active' : '')} onClick={() => setActiveSub('analyzer')}>
+          🧪 Ingredient Analyzer
+        </button>
+        <button className={'sub-tab-btn' + (activeSub === 'compatibility' ? ' active' : '')} onClick={() => setActiveSub('compatibility')}>
+          ⚡ Compatibility
+        </button>
+        <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
+          📖 Skincare Guide
+        </button>
+      </div>
+
+      {activeSub === 'analyzer' && <IngredientAnalyzer showToast={showToast} />}
+      {activeSub === 'compatibility' && <CompatibilityChecker />}
+      {activeSub === 'guide' && <SkincareGuide />}
+    </section>
+  )
+}
+
+function SkincareGuide() {
+  const [openCard, setOpenCard] = useState(null)
+
+  const cards = [
+    {
+      id: 'routine',
+      title: '🧴 Korean 10-Step Routine',
+      titleKr: '한국식 10단계 스킨케어',
+      content: (
+        <ol className="routine-steps-guide">
+          <li><strong>Oil Cleanser</strong> — Removes makeup & sunscreen</li>
+          <li><strong>Water Cleanser</strong> — Deep cleanse pores</li>
+          <li><strong>Exfoliator</strong> — 1-2x per week</li>
+          <li><strong>Toner</strong> — Balance pH & prep skin</li>
+          <li><strong>Essence</strong> — Hydration boost</li>
+          <li><strong>Serum/Ampoule</strong> — Targeted treatment</li>
+          <li><strong>Sheet Mask</strong> — 1-2x per week for extra hydration</li>
+          <li><strong>Eye Cream</strong> — Delicate eye area care</li>
+          <li><strong>Moisturizer</strong> — Lock in hydration</li>
+          <li><strong>Sunscreen</strong> — SPF 50+ PA++++ (AM only)</li>
+        </ol>
+      )
+    },
+    {
+      id: 'ingredients',
+      title: '🔬 Key Ingredients Guide',
+      titleKr: '주요 성분 가이드',
+      content: (
+        <div className="ingredients-guide">
+          <p><strong>Hyaluronic Acid</strong> — Holds 1000x its weight in water. Great for all skin types.</p>
+          <p><strong>Niacinamide</strong> — Brightens, minimizes pores, controls oil. The K-Beauty hero.</p>
+          <p><strong>Centella Asiatica (CICA)</strong> — Soothes, heals, reduces redness. Essential for sensitive skin.</p>
+          <p><strong>Retinol</strong> — Anti-aging gold standard. Start low (0.025%), use at night, always use sunscreen.</p>
+          <p><strong>Vitamin C</strong> — Antioxidant, brightening. Use in AM under sunscreen.</p>
+          <p><strong>Snail Mucin</strong> — Hydrates, repairs, fades scars. Uniquely Korean.</p>
+        </div>
+      )
+    },
+    {
+      id: 'tips',
+      title: '💡 Beginner Tips',
+      titleKr: '초보자 팁',
+      content: (
+        <ul className="tips-list">
+          <li>Start with 5 basics: cleanser, toner, moisturizer, sunscreen, and one serum</li>
+          <li>Introduce new products one at a time, wait 2 weeks before adding another</li>
+          <li>Patch test new products on your inner arm or behind your ear</li>
+          <li>Apply products thinnest to thickest consistency</li>
+          <li>Sunscreen is non-negotiable — reapply every 2 hours outdoors</li>
+          <li>Consistency beats intensity — a simple routine done daily beats a complex one done rarely</li>
+        </ul>
+      )
+    }
+  ]
+
+  return (
+    <div className="skincare-guide-section">
+      {cards.map(card => (
+        <div
+          key={card.id}
+          className={'content-card' + (openCard === card.id ? ' open' : '')}
+          onClick={() => setOpenCard(openCard === card.id ? null : card.id)}
+        >
+          <div className="content-card-header">
+            <h4>{card.title}</h4>
+            <span className="content-card-chevron">{openCard === card.id ? '▲' : '▼'}</span>
+          </div>
+          {openCard === card.id && (
+            <div className="content-card-body" onClick={e => e.stopPropagation()}>
+              {card.content}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
