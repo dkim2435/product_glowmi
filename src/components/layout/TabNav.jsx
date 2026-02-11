@@ -25,7 +25,7 @@ export default function TabNav({ activeTab, onTabChange }) {
   }, [])
 
   const allTabs = user
-    ? [...TABS, { id: 'mypage', label: 'My Page', labelKr: '마이페이지', emoji: '👤' }]
+    ? [...TABS, { id: 'mypage', label: 'My Page', labelKr: '마이페이지', emoji: '🙋' }]
     : TABS
 
   async function handleLogin() {
@@ -57,9 +57,9 @@ export default function TabNav({ activeTab, onTabChange }) {
         <div className="tab-nav-auth">
           {!loading && !user && (
             <button className="nav-login-btn" onClick={handleLogin}>
-              <svg className="nav-login-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M20 21a8 8 0 1 0-16 0" />
+              <svg className="nav-login-icon" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="8" r="3.5" opacity="0.85" />
+                <path d="M12 13c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" opacity="0.65" />
               </svg>
               <span className="nav-login-label">Login / Signup</span>
             </button>

@@ -3265,6 +3265,43 @@ body {
 
 .diary-save-btn { width: 100%; margin-top: 5px; }
 
+.diary-saved-state {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.diary-saved-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.diary-saved-msg {
+  color: var(--secondary-pink);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 14px;
+}
+
+.diary-saved-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.diary-saved-notes {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.diary-saved-state .secondary-btn {
+  padding: 8px 20px;
+  font-size: 0.85rem;
+}
+
 .diary-timeline-section { margin-top: 10px; }
 
 .diary-timeline {
@@ -3383,11 +3420,18 @@ body {
 .routine-action-btn:hover { background: #f5f5f5; }
 .routine-delete:hover { background: #ffebee; color: #f44336; border-color: #f44336; }
 
-.routine-add-section { margin-top: 20px; }
+.routine-add-section {
+  margin-top: 20px;
+  background: #fef7f9;
+  border-radius: 16px;
+  padding: 18px 16px;
+  border: 1px dashed var(--primary-pink);
+}
 .routine-add-section h4 {
   color: var(--secondary-pink);
   font-size: 0.95rem;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .routine-add-form {

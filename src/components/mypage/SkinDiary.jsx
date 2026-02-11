@@ -22,6 +22,7 @@ export default function SkinDiary({ userId, showToast }) {
   const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({ overall_condition: '', sleep_hours: '', stress_level: '', water_intake: '', notes: '' })
+  const [todaySaved, setTodaySaved] = useState(false)
   const chartRef = useRef(null)
 
   const today = new Date().toISOString().split('T')[0]
@@ -33,9 +34,9 @@ export default function SkinDiary({ userId, showToast }) {
     try {
       const data = await loadDiaryEntries(userId, 14)
       setEntries(data)
-      // Pre-fill form if today's entry exists
       const todayEntry = data.find(e => e.entry_date === today)
       if (todayEntry) {
+        setTodaySaved(true)
         setForm({
           overall_condition: todayEntry.overall_condition || '',
           sleep_hours: todayEntry.sleep_hours || '',
@@ -43,6 +44,8 @@ export default function SkinDiary({ userId, showToast }) {
           water_intake: todayEntry.water_intake || '',
           notes: todayEntry.notes || ''
         })
+      } else {
+        setTodaySaved(false)
       }
     } catch { /* ignore */ }
     setLoading(false)
@@ -56,6 +59,7 @@ export default function SkinDiary({ userId, showToast }) {
     try {
       await saveDiaryEntry(userId, { entry_date: today, ...form })
       showToast('Diary entry saved! 일지가 저장되었습니다!')
+      setTodaySaved(true)
       refresh()
     } catch {
       showToast('Failed to save diary. 일지 저장에 실패했습니다.')
@@ -150,76 +154,95 @@ export default function SkinDiary({ userId, showToast }) {
         <h4>Today's Entry 오늘의 기록</h4>
         <p className="diary-form-date">{today}</p>
 
-        <div className="diary-field">
-          <label>Overall Condition 전체 컨디션</label>
-          <div className="diary-emoji-btns">
-            {CONDITIONS.map(c => (
-              <button
-                key={c.value}
-                className={'diary-emoji-btn' + (form.overall_condition === c.value ? ' diary-btn-selected' : '')}
-                onClick={() => setForm({ ...form, overall_condition: c.value })}
-              >
-                <span className="diary-emoji">{c.emoji}</span>
-                <span className="diary-btn-label">{c.label}</span>
-              </button>
-            ))}
+        {todaySaved && !form._editing ? (
+          <div className="diary-saved-state">
+            <div className="diary-saved-icon">✅</div>
+            <p className="diary-saved-msg">Today's entry saved! 오늘의 기록이 저장되었습니다!</p>
+            <div className="diary-saved-summary">
+              {form.overall_condition && <span className="diary-tag">{condEmoji[form.overall_condition]} {form.overall_condition}</span>}
+              {form.sleep_hours && <span className="diary-tag">💤 {form.sleep_hours}</span>}
+              {form.stress_level && <span className="diary-tag">{stressEmoji[form.stress_level]} stress</span>}
+              {form.water_intake && <span className="diary-tag">💧 {form.water_intake}</span>}
+            </div>
+            {form.notes && <p className="diary-saved-notes">{form.notes}</p>}
+            <button className="secondary-btn" onClick={() => setForm({ ...form, _editing: true })}>Edit 수정하기</button>
           </div>
-        </div>
+        ) : (
+          <>
+            <div className="diary-field">
+              <label>Overall Condition 전체 컨디션</label>
+              <div className="diary-emoji-btns">
+                {CONDITIONS.map(c => (
+                  <button
+                    key={c.value}
+                    className={'diary-emoji-btn' + (form.overall_condition === c.value ? ' diary-btn-selected' : '')}
+                    onClick={() => setForm({ ...form, overall_condition: c.value })}
+                  >
+                    <span className="diary-emoji">{c.emoji}</span>
+                    <span className="diary-btn-label">{c.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        <div className="diary-field">
-          <label>Sleep 수면 시간</label>
-          <div className="diary-pill-btns">
-            {SLEEP_OPTS.map(s => (
-              <button
-                key={s}
-                className={'diary-pill-btn' + (form.sleep_hours === s ? ' diary-pill-selected' : '')}
-                onClick={() => setForm({ ...form, sleep_hours: s })}
-              >{s}</button>
-            ))}
-          </div>
-        </div>
+            <div className="diary-field">
+              <label>Sleep 수면 시간</label>
+              <div className="diary-pill-btns">
+                {SLEEP_OPTS.map(s => (
+                  <button
+                    key={s}
+                    className={'diary-pill-btn' + (form.sleep_hours === s ? ' diary-pill-selected' : '')}
+                    onClick={() => setForm({ ...form, sleep_hours: s })}
+                  >{s}</button>
+                ))}
+              </div>
+            </div>
 
-        <div className="diary-field">
-          <label>Stress 스트레스</label>
-          <div className="diary-emoji-btns">
-            {STRESS_OPTS.map(st => (
-              <button
-                key={st.value}
-                className={'diary-emoji-btn' + (form.stress_level === st.value ? ' diary-btn-selected' : '')}
-                onClick={() => setForm({ ...form, stress_level: st.value })}
-              >
-                <span className="diary-emoji">{st.emoji}</span>
-                <span className="diary-btn-label">{st.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+            <div className="diary-field">
+              <label>Stress 스트레스</label>
+              <div className="diary-emoji-btns">
+                {STRESS_OPTS.map(st => (
+                  <button
+                    key={st.value}
+                    className={'diary-emoji-btn' + (form.stress_level === st.value ? ' diary-btn-selected' : '')}
+                    onClick={() => setForm({ ...form, stress_level: st.value })}
+                  >
+                    <span className="diary-emoji">{st.emoji}</span>
+                    <span className="diary-btn-label">{st.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        <div className="diary-field">
-          <label>Water Intake 수분 섭취</label>
-          <div className="diary-pill-btns">
-            {WATER_OPTS.map(w => (
-              <button
-                key={w.value}
-                className={'diary-pill-btn' + (form.water_intake === w.value ? ' diary-pill-selected' : '')}
-                onClick={() => setForm({ ...form, water_intake: w.value })}
-              >{w.label}</button>
-            ))}
-          </div>
-        </div>
+            <div className="diary-field">
+              <label>Water Intake 수분 섭취</label>
+              <div className="diary-pill-btns">
+                {WATER_OPTS.map(w => (
+                  <button
+                    key={w.value}
+                    className={'diary-pill-btn' + (form.water_intake === w.value ? ' diary-pill-selected' : '')}
+                    onClick={() => setForm({ ...form, water_intake: w.value })}
+                  >{w.label}</button>
+                ))}
+              </div>
+            </div>
 
-        <div className="diary-field">
-          <label>Notes 메모</label>
-          <textarea
-            className="diary-textarea"
-            placeholder="How is your skin today? 오늘 피부 상태는 어떤가요?"
-            rows={3}
-            value={form.notes}
-            onChange={e => setForm({ ...form, notes: e.target.value })}
-          />
-        </div>
+            <div className="diary-field">
+              <label>Notes 메모</label>
+              <textarea
+                className="diary-textarea"
+                placeholder="How is your skin today? 오늘 피부 상태는 어떤가요?"
+                rows={3}
+                value={form.notes}
+                onChange={e => setForm({ ...form, notes: e.target.value })}
+              />
+            </div>
 
-        <button className="primary-btn diary-save-btn" onClick={handleSave}>Save Entry 저장하기</button>
+            <button className="primary-btn diary-save-btn" onClick={handleSave}>
+              {todaySaved ? 'Update Entry 수정하기' : 'Save Entry 저장하기'}
+            </button>
+          </>
+        )}
       </div>
 
       {/* Timeline */}
