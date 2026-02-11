@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { loadSkinProgress, saveSkinProgress, deleteSkinProgress, resizePhoto } from '../../lib/storage'
-import { loadDiaryEntries } from '../../lib/db'
+import { loadDiaryEntries, loadAnalysisResults } from '../../lib/db'
 
 export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) {
   const [entries, setEntries] = useState([])
   const [diaryEntries, setDiaryEntries] = useState([])
+  const [analysisResult, setAnalysisResult] = useState(null)
   const [loading, setLoading] = useState(true)
   const [viewMode, setViewMode] = useState('chart') // chart | photos | compare
   const [compareA, setCompareA] = useState(null)
@@ -23,17 +24,31 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       // Also load diary entries that have AI scores
       const diary = await loadDiaryEntries(userId, 90)
       setDiaryEntries(diary.filter(d => d.ai_overall_score))
+
+      // Load saved skin analysis from Supabase
+      const analysis = await loadAnalysisResults(userId)
+      setAnalysisResult(analysis)
     } catch { /* ignore */ }
     setLoading(false)
   }
 
   useEffect(() => {
     if (viewMode === 'chart' && chartRef.current) drawChart()
-  }, [entries, diaryEntries, viewMode])
+  }, [entries, diaryEntries, analysisResult, viewMode])
 
-  // Merge progress entries with diary AI scores for the chart
+  // Merge progress entries with diary AI scores and analysis results for the chart
   function getAllScores() {
     const map = new Map()
+
+    // From saved AI skin analysis (Supabase analysis_results)
+    if (analysisResult && analysisResult.skin_overall_score && analysisResult.skin_analyzed_at) {
+      const date = analysisResult.skin_analyzed_at.split('T')[0]
+      map.set(date, {
+        date,
+        score: analysisResult.skin_overall_score,
+        source: 'analysis'
+      })
+    }
 
     // From diary entries with AI scores
     for (const d of diaryEntries) {
@@ -46,14 +61,16 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       }
     }
 
-    // From progress tracker (overrides diary if same date)
+    // From progress tracker (overrides others if same date)
     for (const e of entries) {
-      map.set(e.date, {
-        date: e.date,
-        score: e.overallScore,
-        source: 'progress',
-        hasPhoto: !!e.photoThumb
-      })
+      if (e.overallScore) {
+        map.set(e.date, {
+          date: e.date,
+          score: e.overallScore,
+          source: 'progress',
+          hasPhoto: !!e.photoThumb
+        })
+      }
     }
 
     return Array.from(map.values()).sort((a, b) => a.date.localeCompare(b.date))

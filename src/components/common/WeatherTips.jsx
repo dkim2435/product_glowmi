@@ -208,6 +208,9 @@ export default function WeatherTips() {
         </div>
         <span className={'weather-expand-icon' + (expanded ? ' expanded' : '')}>▾</span>
       </div>
+      {!expanded && (
+        <div className="weather-tap-hint" onClick={() => setExpanded(true)}>Tap for product recommendations 탭하여 추천 제품 보기</div>
+      )}
 
       {expanded && (
         <div className="weather-details">

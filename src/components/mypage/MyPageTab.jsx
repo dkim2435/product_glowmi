@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { deleteAllUserData } from '../../lib/db'
+import MyResults from './MyResults'
 import SkinProgress from './SkinProgress'
 import ProductShelf from './ProductShelf'
 import SkinDiary from './SkinDiary'
@@ -8,7 +9,7 @@ import MyRoutine from './MyRoutine'
 
 export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
   const { user, logout } = useAuth()
-  const [section, setSection] = useState('progress') // progress | shelf | diary | routine
+  const [section, setSection] = useState('results') // results | progress | shelf | diary | routine
 
   if (!user) {
     return (
@@ -36,6 +37,7 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
     <section className="tab-panel" id="mypage">
       <div className="mypage-nav">
         {[
+          { id: 'results', emoji: '🏆', label: 'Results' },
           { id: 'progress', emoji: '📈', label: 'Progress' },
           { id: 'shelf', emoji: '💄', label: 'My Shelf' },
           { id: 'diary', emoji: '📝', label: 'Diary' },
@@ -51,6 +53,7 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
         ))}
       </div>
 
+      {section === 'results' && <MyResults userId={user.id} />}
       {section === 'progress' && <SkinProgress userId={user.id} showToast={showToast} onGoToSkinAnalyzer={onGoToSkinAnalyzer} />}
       {section === 'shelf' && <ProductShelf showToast={showToast} />}
       {section === 'diary' && <SkinDiary userId={user.id} showToast={showToast} />}
