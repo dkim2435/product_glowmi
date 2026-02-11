@@ -294,6 +294,15 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
           </p>
         </div>
       )}
+      {viewMode === 'chart' && allScores.length < 2 && (
+        <div className="progress-chart-empty">
+          <p className="progress-empty">{allScores.length === 0
+            ? t('No skin scores yet.', '아직 피부 점수가 없습니다.')
+            : t('1 score recorded. Need one more to show the trend!', '1개 점수 기록됨. 1번 더 스캔하면 추이 차트가 나타나요!')
+          }</p>
+          <p className="progress-empty-hint">{t('Use "Quick Skin Scan" to track your skin over time.', '"피부 스캔"을 사용해서 피부 변화를 추적해보세요.')}</p>
+        </div>
+      )}
 
       {/* Photos timeline */}
       {viewMode === 'photos' && (
