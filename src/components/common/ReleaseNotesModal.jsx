@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.2.9'
+const APP_VERSION = '1.3.0'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
@@ -11,13 +11,13 @@ const RELEASE_NOTES = [
     emoji: '✨',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트 소식`,
-    desc: 'Cleaner navigation and improved profile access.',
-    descKr: '더 깔끔한 네비게이션과 프로필 접근 개선.',
+    desc: 'Smarter empty states, cleaner navigation, and full dark mode.',
+    descKr: '스마트 빈 화면 안내, 깔끔한 네비게이션, 다크 모드 완성.',
     items: [
-      { emoji: '👤', label: 'Profile in Nav', labelKr: '네비에 프로필', desc: 'Your avatar is now in the tab bar for quick access to My Page.', descKr: '탭 바에서 프로필 아바타로 마이페이지에 바로 접근하세요.' },
+      { emoji: '🧭', label: 'Smart Empty States', labelKr: '빈 화면 안내', desc: 'Results & Progress pages now guide you to the right tool when empty.', descKr: '결과/진행 페이지가 비어있을 때 관련 도구로 안내합니다.' },
+      { emoji: '👤', label: 'Profile in Nav', labelKr: '네비에 프로필', desc: 'Your avatar is now in the tab bar for quick My Page access.', descKr: '탭 바에서 프로필 아바타로 마이페이지에 바로 접근하세요.' },
       { emoji: '🌙', label: 'Full Dark Mode', labelKr: '다크 모드 완성', desc: 'Every card, button, and text is now properly styled in dark mode.', descKr: '모든 카드, 버튼, 텍스트가 다크 모드에서 올바르게 표시됩니다.' },
-      { emoji: '☁️', label: 'Photo Cloud Sync', labelKr: '사진 클라우드 저장', desc: 'Progress photos are now saved to your account — no more disappearing photos.', descKr: '진행 사진이 계정에 저장되어 더 이상 사라지지 않습니다.' },
-      { emoji: '📸', label: 'Camera Fix', labelKr: '카메라 수정', desc: 'Front camera photos are no longer flipped.', descKr: '전면 카메라 사진이 더 이상 뒤집히지 않습니다.' },
+      { emoji: '☁️', label: 'Photo Cloud Sync', labelKr: '사진 클라우드 저장', desc: 'Progress photos saved to your account — no more disappearing photos.', descKr: '진행 사진이 계정에 저장되어 더 이상 사라지지 않습니다.' },
     ],
   },
 ]
