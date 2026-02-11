@@ -3,19 +3,19 @@ import IngredientAnalyzer from './IngredientAnalyzer'
 import CompatibilityChecker from './CompatibilityChecker'
 
 export default function ProductsTab({ showToast }) {
-  const [activeSub, setActiveSub] = useState('analyzer')
+  const [activeSub, setActiveSub] = useState('guide')
 
   return (
     <section className="tab-panel" id="products">
       <div className="ai-tool-tabs">
+        <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
+          📖 Skincare Guide
+        </button>
         <button className={'sub-tab-btn' + (activeSub === 'analyzer' ? ' active' : '')} onClick={() => setActiveSub('analyzer')}>
           🧪 Ingredient Analyzer
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'compatibility' ? ' active' : '')} onClick={() => setActiveSub('compatibility')}>
           ⚡ Compatibility
-        </button>
-        <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
-          📖 Skincare Guide
         </button>
       </div>
 
