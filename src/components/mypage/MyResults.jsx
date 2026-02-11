@@ -3,6 +3,8 @@ import { loadAnalysisResults } from '../../lib/db'
 import { personalColorResults } from '../../data/personalColor'
 import { fsShapeData } from '../../data/faceShape'
 import { skinTypeResults } from '../../data/quiz'
+import { getRecommendations } from '../../data/products'
+import ProductCard from '../common/ProductCard'
 
 export default function MyResults({ userId }) {
   const [data, setData] = useState(null)
@@ -90,6 +92,19 @@ export default function MyResults({ userId }) {
                     Celebs: {pc.celebs.join(', ')}
                   </div>
                 )}
+
+                <div className="mypage-card-section-title">🧴 Skincare 스킨케어 추천</div>
+                <div className="product-card-list">
+                  {getRecommendations({
+                    concerns: (pc.season === 'Spring' || pc.season === 'Fall')
+                      ? ['redness', 'dryness']
+                      : ['dark_spots', 'texture'],
+                    categories: ['serum', 'moisturizer', 'sunscreen']
+                  })
+                    .filter((p, idx, arr) => arr.findIndex(x => x.category === p.category) === idx)
+                    .slice(0, 3)
+                    .map(p => <ProductCard key={p.id} product={p} compact />)}
+                </div>
 
                 <button className="mypage-card-close" onClick={() => setExpanded(null)}>Close ▴</button>
               </div>
