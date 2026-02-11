@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { TRENDING_INGREDIENTS } from '../../data/trendingIngredients'
 import IngredientAnalyzer from './IngredientAnalyzer'
 import CompatibilityChecker from './CompatibilityChecker'
 
@@ -36,16 +37,16 @@ function SkincareGuide() {
       titleKr: '한국식 10단계 스킨케어',
       content: (
         <ol className="routine-steps-guide">
-          <li><strong>1. Oil Cleanser</strong> — Removes makeup & sunscreen</li>
-          <li><strong>2. Water Cleanser</strong> — Deep cleanse pores</li>
-          <li><strong>3. Exfoliator</strong> — 1-2x per week</li>
-          <li><strong>4. Toner</strong> — Balance pH & prep skin</li>
-          <li><strong>5. Essence</strong> — Hydration boost</li>
-          <li><strong>6. Serum/Ampoule</strong> — Targeted treatment</li>
-          <li><strong>7. Sheet Mask</strong> — 1-2x per week for extra hydration</li>
-          <li><strong>8. Eye Cream</strong> — Delicate eye area care</li>
-          <li><strong>9. Moisturizer</strong> — Lock in hydration</li>
-          <li><strong>10. Sunscreen</strong> — SPF 50+ PA++++ (AM only)</li>
+          <li><strong>Step 1. Oil Cleanser</strong> — Removes makeup & sunscreen</li>
+          <li><strong>Step 2. Water Cleanser</strong> — Deep cleanse pores</li>
+          <li><strong>Step 3. Exfoliator</strong> — 1-2x per week</li>
+          <li><strong>Step 4. Toner</strong> — Balance pH & prep skin</li>
+          <li><strong>Step 5. Essence</strong> — Hydration boost</li>
+          <li><strong>Step 6. Serum/Ampoule</strong> — Targeted treatment</li>
+          <li><strong>Step 7. Sheet Mask</strong> — 1-2x per week for extra hydration</li>
+          <li><strong>Step 8. Eye Cream</strong> — Delicate eye area care</li>
+          <li><strong>Step 9. Moisturizer</strong> — Lock in hydration</li>
+          <li><strong>Step 10. Sunscreen</strong> — SPF 50+ PA++++ (AM only)</li>
         </ol>
       )
     },
@@ -63,6 +64,12 @@ function SkincareGuide() {
           <p><strong>Snail Mucin</strong> — Hydrates, repairs, fades scars. Uniquely Korean.</p>
         </div>
       )
+    },
+    {
+      id: 'trending',
+      title: '🔥 2025/2026 Trending Ingredients',
+      titleKr: '올해 한국에서 제일 핫한 성분 TOP 10',
+      content: <TrendingIngredients />
     },
     {
       id: 'tips',
@@ -100,6 +107,47 @@ function SkincareGuide() {
           )}
         </div>
       ))}
+    </div>
+  )
+}
+
+function TrendingIngredients() {
+  const [openIdx, setOpenIdx] = useState(null)
+
+  return (
+    <div className="trending-ing-list">
+      <p className="trending-source">Source: Olive Young, Hwahae, Allure Korea 2025-2026</p>
+      {TRENDING_INGREDIENTS.map((ing, i) => {
+        const isOpen = openIdx === i
+        return (
+          <div key={i} className={'trending-ing-item' + (isOpen ? ' open' : '')} onClick={() => setOpenIdx(isOpen ? null : i)}>
+            <div className="trending-ing-header">
+              <span className="trending-ing-rank">#{i + 1}</span>
+              <div className="trending-ing-names">
+                <strong>{ing.name}</strong>
+                <span className="trending-ing-kr">{ing.nameKr}</span>
+              </div>
+              <span className="trending-ing-chevron">{isOpen ? '▲' : '▼'}</span>
+            </div>
+            {isOpen && (
+              <div className="trending-ing-body" onClick={e => e.stopPropagation()}>
+                <p className="trending-ing-desc">{ing.desc}</p>
+                <p className="trending-ing-desc-kr">{ing.descKr}</p>
+                <div className="trending-ing-why">
+                  <strong>Why trending 왜 핫한가</strong>
+                  <p>{ing.why}</p>
+                </div>
+                <div className="trending-ing-products">
+                  <strong>Popular Products 인기 제품</strong>
+                  <ul>
+                    {ing.products.map((p, j) => <li key={j}>{p}</li>)}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }
