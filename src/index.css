@@ -3465,6 +3465,46 @@ body {
   padding: 30px 20px;
 }
 
+.mypage-signup-cta {
+  text-align: center;
+  padding: 40px 20px;
+}
+.signup-cta-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.mypage-signup-cta h3 { font-size: 1.3rem; margin-bottom: 8px; }
+.signup-cta-desc { color: #666; font-size: 0.9rem; margin-bottom: 16px; }
+.signup-cta-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  max-width: 300px;
+  margin: 0 auto 20px;
+}
+.signup-cta-feature {
+  font-size: 0.9rem;
+  color: #444;
+  padding: 8px 12px;
+  background: var(--light-pink);
+  border-radius: 10px;
+}
+.signup-cta-btn {
+  width: 100%;
+  max-width: 300px;
+  font-size: 1rem;
+  padding: 14px;
+}
+.signup-cta-note {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 10px;
+}
+.start-signup-nudge {
+  font-size: 0.8rem;
+  color: var(--primary-pink);
+  margin-top: 10px;
+  text-align: center;
+}
+
 .mypage-empty-hint {
   color: #888;
   font-size: 0.85rem;
@@ -6430,6 +6470,9 @@ body {
 [data-theme="dark"] .mypage-nav-btn.active { color: white; }
 [data-theme="dark"] .mypage-empty-link { background: #2a2a40; border-color: #3a3a50; color: #ccc; }
 [data-theme="dark"] .mypage-empty-link:hover { border-color: var(--primary-pink); color: var(--primary-pink); background: rgba(255,107,157,0.1); }
+[data-theme="dark"] .signup-cta-desc { color: #aaa; }
+[data-theme="dark"] .signup-cta-feature { background: #2a2a40; color: #ccc; }
+[data-theme="dark"] .signup-cta-note { color: #777; }
 
 /* Diary & routine pills */
 [data-theme="dark"] .diary-emoji-btn,

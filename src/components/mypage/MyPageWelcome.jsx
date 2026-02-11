@@ -26,19 +26,6 @@ const SLIDES = [
     visualType: 'chart',
   },
   {
-    emoji: '💄',
-    title: 'My Shelf',
-    titleKr: '내 화장대',
-    desc: 'Register your skincare products, manage expiry dates, and auto-detect ingredient conflicts.',
-    descKr: '스킨케어 제품을 등록하고, 유통기한을 관리하며, 성분 충돌을 자동으로 감지합니다.',
-    visual: [
-      { emoji: '🧴', label: 'Register products', labelKr: '제품 등록', sub: 'Register products', subKr: '제품 등록' },
-      { emoji: '⏰', label: 'Expiry tracking', labelKr: '유통기한 관리', sub: 'Expiry tracking', subKr: '유통기한 관리' },
-      { emoji: '⚠️', label: 'Conflict detection', labelKr: '성분 충돌 감지', sub: 'Conflict detection', subKr: '성분 충돌 감지' },
-    ],
-    visualType: 'steps',
-  },
-  {
     emoji: '📝',
     title: 'Diary',
     titleKr: '피부 일지',

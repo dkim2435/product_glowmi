@@ -267,7 +267,6 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
         </button>
         <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handlePhotoUpload} />
       </div>
-      <p className="progress-save-hint">{t('Skin scan results save 1 photo per day. Upload adds photos manually.', '피부 스캔 결과는 하루 1회 자동 저장됩니다. 업로드로 직접 사진을 추가할 수도 있어요.')}</p>
 
       {/* View toggle */}
       {(allScores.length > 0 || photos.length > 0) && (
@@ -299,10 +298,9 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       {viewMode === 'chart' && allScores.length < 2 && (
         <div className="progress-chart-empty">
           <p className="progress-empty">{allScores.length === 0
-            ? t('No skin scores yet.', '아직 피부 점수가 없습니다.')
-            : t('1 score recorded. Save one more scan to see the chart!', '1개 점수 기록됨. 1번더 스캔 후 저장하면 차트가 나타나요!')
+            ? t('No skin scores yet. Scan your skin and save — scores & photos are tracked here (1/day).', '아직 피부 점수가 없습니다. 피부 스캔 후 저장하면 점수와 사진이 여기에 기록돼요 (하루 1회).')
+            : t('1 score recorded. Save one more scan to see the chart! (1 save/day)', '1개 점수 기록됨. 1번 더 스캔 후 저장하면 차트가 나타나요! (하루 1회 저장)')
           }</p>
-          <p className="progress-empty-hint">{t('Use "Quick Skin Scan" to track your skin over time.', '"피부 스캔"을 사용해서 피부 변화를 추적해보세요.')}</p>
         </div>
       )}
 

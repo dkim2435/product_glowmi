@@ -142,6 +142,11 @@ export default function SkinAnalyzer({ showToast }) {
         <button className="secondary-btn" onClick={() => setScreen('camera')}>
           {'📁 ' + t('Upload Photo', '사진 업로드')}
         </button>
+        {!user && (
+          <p className="start-signup-nudge">
+            {'🆓 ' + t('Free! Sign up to save results & track progress.', '무료! 가입하면 결과 저장 & 변화 추적이 가능해요.')}
+          </p>
+        )}
       </div>
     )
   }

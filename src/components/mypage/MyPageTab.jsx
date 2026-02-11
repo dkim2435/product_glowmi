@@ -3,22 +3,33 @@ import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import MyResults from './MyResults'
 import SkinProgress from './SkinProgress'
-import ProductShelf from './ProductShelf'
 import SkinDiary from './SkinDiary'
 import MyRoutine from './MyRoutine'
 import MyPageWelcome, { shouldShowMyPageWelcome } from './MyPageWelcome'
 
 export default function MyPageTab({ showToast, onNavigate }) {
-  const { user } = useAuth()
+  const { user, loginWithGoogle } = useAuth()
   const { t } = useLang()
-  const [section, setSection] = useState('results') // results | progress | shelf | diary | routine
+  const [section, setSection] = useState('results') // results | progress | diary | routine
   const [showWelcome, setShowWelcome] = useState(() => shouldShowMyPageWelcome())
 
   if (!user) {
     return (
       <section className="tab-panel" id="mypage">
-        <div className="mypage-empty">
-          <p>{t('Please login to access My Page.', '로그인 후 이용해주세요.')}</p>
+        <div className="mypage-signup-cta">
+          <div className="signup-cta-icon">🙋</div>
+          <h3>{t('Your Beauty Hub', '나만의 뷰티 허브')}</h3>
+          <p className="signup-cta-desc">{t('Sign up free to unlock all features:', '무료 가입하고 모든 기능을 이용하세요:')}</p>
+          <div className="signup-cta-features">
+            <div className="signup-cta-feature">🏆 {t('Save AI analysis results', 'AI 분석 결과 저장')}</div>
+            <div className="signup-cta-feature">📈 {t('Track skin changes over time', '피부 변화 추적')}</div>
+            <div className="signup-cta-feature">📝 {t('Write daily skin diary', '매일 피부 일지 기록')}</div>
+            <div className="signup-cta-feature">🧴 {t('Build your AM/PM routine', 'AM/PM 루틴 관리')}</div>
+          </div>
+          <button className="primary-btn signup-cta-btn" onClick={loginWithGoogle}>
+            {t('Sign Up Free with Google', 'Google로 무료 가입')}
+          </button>
+          <p className="signup-cta-note">{t('Already have an account? Same button to log in.', '이미 계정이 있나요? 같은 버튼으로 로그인하세요.')}</p>
         </div>
       </section>
     )
@@ -30,7 +41,6 @@ export default function MyPageTab({ showToast, onNavigate }) {
         {[
           { id: 'results', emoji: '🏆', label: t('Results', '결과') },
           { id: 'progress', emoji: '📈', label: t('Skin Progress', '피부현황') },
-          { id: 'shelf', emoji: '💄', label: t('My Shelf', '화장대') },
           { id: 'diary', emoji: '📝', label: t('Diary', '일지') },
           { id: 'routine', emoji: '🧴', label: t('Routine', '루틴') },
         ].map(s => (
@@ -46,7 +56,6 @@ export default function MyPageTab({ showToast, onNavigate }) {
 
       {section === 'results' && <MyResults userId={user.id} onNavigate={onNavigate} />}
       {section === 'progress' && <SkinProgress userId={user.id} showToast={showToast} onGoToSkinAnalyzer={() => onNavigate('ai', 'skinAnalyzer')} />}
-      {section === 'shelf' && <ProductShelf showToast={showToast} />}
       {section === 'diary' && <SkinDiary userId={user.id} showToast={showToast} />}
       {section === 'routine' && <MyRoutine userId={user.id} showToast={showToast} />}
 
