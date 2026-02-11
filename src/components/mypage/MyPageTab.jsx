@@ -26,17 +26,21 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
   }
 
   async function handleDeleteAll() {
-    if (window.confirm(t(
-      'Are you sure you want to delete ALL your data? This cannot be undone.',
-      '정말로 모든 데이터를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.'
-    ))) {
-      try {
-        await deleteAllUserData(user.id)
-        showToast(t('All data deleted.', '모든 데이터가 삭제되었습니다.'))
-        await logout()
-      } catch {
-        showToast(t('Failed to delete data.', '데이터 삭제에 실패했습니다.'))
-      }
+    const keyword = t('DELETE', '삭제')
+    const input = window.prompt(t(
+      `This will permanently delete ALL your data (results, diary, photos, routines) and sign you out.\n\nType "${keyword}" to confirm:`,
+      `모든 데이터(결과, 일지, 사진, 루틴)가 영구 삭제되고 로그아웃됩니다.\n\n확인하려면 "${keyword}"을(를) 입력하세요:`
+    ))
+    if (input !== keyword) {
+      if (input !== null) showToast(t(`Type "${keyword}" exactly to delete.`, `"${keyword}"을(를) 정확히 입력해주세요.`))
+      return
+    }
+    try {
+      await deleteAllUserData(user.id)
+      showToast(t('All data deleted.', '모든 데이터가 삭제되었습니다.'))
+      await logout()
+    } catch {
+      showToast(t('Failed to delete data.', '데이터 삭제에 실패했습니다.'))
     }
   }
 
