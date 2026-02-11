@@ -1,7 +1,7 @@
 export const TRENDING_INGREDIENTS = [
   {
     name: 'PDRN (Salmon DNA)',
-    nameKr: '폴리데옥시리보뉴클레오티드 (연어 DNA)',
+    nameKr: 'PDRN (연어 DNA)',
     desc: 'DNA fragments from salmon that accelerate cell turnover, stimulate collagen synthesis, and repair damaged skin. Effective for weakened skin barriers and post-acne scarring.',
     descKr: '연어에서 추출된 DNA 조각으로 세포 재생을 촉진하고 콜라겐 합성을 자극합니다. 피부 장벽 강화와 여드름 흉터 개선에 탁월합니다.',
     why: 'Olive Young search volume surged 695%. Originally clinic-grade, now in everyday skincare. Vogue named it the dominant K-beauty ingredient for 2025-2026.',
@@ -57,7 +57,7 @@ export const TRENDING_INGREDIENTS = [
   },
   {
     name: 'Snail Mucin',
-    nameKr: '달팽이 뮤신',
+    nameKr: '달팽이 크림',
     desc: 'Contains hyaluronic acid and glycoproteins for deep hydration, elasticity, fine line reduction, and wound healing. Key to "glass skin".',
     descKr: '히알루론산과 당단백질이 풍부하여 깊은 보습, 탄력 개선, 잔주름 감소 효과가 있습니다. 글래스 스킨의 핵심 성분입니다.',
     why: 'Massive resurgence fueled by "glass skin" trend on TikTok. COSRX snail mucin is the leading K-beauty export. U.S. K-beauty sales rose 53% in Q1 2025.',
@@ -73,7 +73,7 @@ export const TRENDING_INGREDIENTS = [
   },
   {
     name: 'Niacinamide (Vitamin B3)',
-    nameKr: '나이아신아마이드',
+    nameKr: '나이아신아마이드 (비타민 B3)',
     desc: 'Multi-functional brightening ingredient that fades dark spots, controls sebum, minimizes pores, and improves texture. Works with nearly every other active.',
     descKr: '미백, 피지 조절, 모공 축소, 피부결 개선 등 다기능 만능 성분입니다. 대부분의 다른 활성 성분과 시너지 효과를 발휘합니다.',
     why: 'Olive Young search volume grew 65% YoY. The quintessential "ingredient beauty" ingredient. Being combined with TXA, zinc, and PDRN for multi-targeting.',
