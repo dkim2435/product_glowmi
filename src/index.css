@@ -3357,6 +3357,7 @@ body {
 /* ========== My Page ========== */
 .mypage-nav {
   display: flex;
+  justify-content: center;
   gap: 6px;
   margin-bottom: 15px;
   overflow-x: auto;
