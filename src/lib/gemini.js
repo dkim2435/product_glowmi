@@ -1,5 +1,5 @@
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ''
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
 
 /**
  * Resize an image to max 720px (longest side) and return base64 (no prefix).
@@ -37,6 +37,8 @@ function resizeImageToBase64(imageSrc) {
 async function callGemini(imageBase64, prompt) {
   if (!GEMINI_API_KEY) throw new Error('Gemini API key not configured')
 
+  const url = `${GEMINI_URL}?key=${GEMINI_API_KEY}`
+
   const body = {
     contents: [{
       parts: [
@@ -55,7 +57,7 @@ async function callGemini(imageBase64, prompt) {
     }
   }
 
-  const res = await fetch(GEMINI_URL, {
+  const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)

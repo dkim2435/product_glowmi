@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.3.1'
+const APP_VERSION = '1.3.2'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '✨',
+    emoji: '🎯',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트 소식`,
-    desc: 'Camera fix, smart empty states, and cleaner navigation.',
-    descKr: '카메라 수정, 스마트 빈 화면 안내, 깔끔한 네비게이션.',
+    desc: 'AI analysis accuracy dramatically improved with Google Gemini.',
+    descKr: 'Google Gemini AI 도입으로 분석 정확도 대폭 개선.',
     items: [
-      { emoji: '📸', label: 'Camera Fix', labelKr: '카메라 수정', desc: 'Camera preview and saved photos are no longer flipped.', descKr: '카메라 프리뷰와 저장된 사진이 더 이상 좌우반전되지 않습니다.' },
-      { emoji: '🧭', label: 'Smart Empty States', labelKr: '빈 화면 안내', desc: 'Results & Progress pages now guide you to the right tool when empty.', descKr: '결과/진행 페이지가 비어있을 때 관련 도구로 안내합니다.' },
-      { emoji: '👤', label: 'Profile in Nav', labelKr: '네비에 프로필', desc: 'Your avatar is now in the tab bar for quick My Page access.', descKr: '탭 바에서 프로필 아바타로 마이페이지에 바로 접근하세요.' },
-      { emoji: '🌙', label: 'Full Dark Mode', labelKr: '다크 모드 완성', desc: 'Every card, button, and text is now properly styled in dark mode.', descKr: '모든 카드, 버튼, 텍스트가 다크 모드에서 올바르게 표시됩니다.' },
+      { emoji: '🤖', label: 'Gemini AI', labelKr: 'Gemini AI 도입', desc: 'Personal color, face shape, and skin analysis now powered by Google Gemini AI.', descKr: '퍼스널컬러, 얼굴형, 피부 분석에 Google Gemini AI를 도입했습니다.' },
+      { emoji: '🎯', label: 'Consistent Results', labelKr: '일관된 결과', desc: 'Results no longer change based on lighting or camera angle.', descKr: '조명이나 카메라 각도에 따라 결과가 달라지지 않습니다.' },
+      { emoji: '📱', label: 'Offline Fallback', labelKr: '오프라인 지원', desc: 'Falls back to on-device analysis when offline — always works.', descKr: '오프라인일 때 기존 로컬 분석으로 자동 전환됩니다.' },
     ],
   },
 ]
