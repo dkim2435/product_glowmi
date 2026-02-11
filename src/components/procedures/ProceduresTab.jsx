@@ -63,9 +63,14 @@ function ProceduresList() {
 
 function ClinicFinder() {
   const [filter, setFilter] = useState('all')
+  const [expanded, setExpanded] = useState(null)
 
   const filters = ['all', 'botox', 'filler', 'laser', 'skincare', 'lifting']
   const filtered = filter === 'all' ? clinicsData : clinicsData.filter(c => c.specialties.includes(filter))
+
+  function toggle(i) {
+    setExpanded(prev => prev === i ? null : i)
+  }
 
   return (
     <div className="clinics-section">
@@ -83,39 +88,42 @@ function ClinicFinder() {
 
       <div className="clinics-grid">
         {filtered.map((c, i) => {
+          const isOpen = expanded === i
           const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.korean + ' ' + c.areaKr)
           const naverMapUrl = 'https://map.naver.com/p/search/' + encodeURIComponent(c.korean)
           const googleReviewUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.korean + ' ' + c.areaKr + ' 리뷰')
 
           return (
-            <div key={i} className="clinic-card">
-              <div className="cc-top">
-                <div className="cc-info">
-                  <div className="cc-name-row">
-                    <span className="cc-name">{c.name}</span>
-                    {c.englishOk && <span className="english-badge">EN</span>}
+            <div key={i} className={'clinic-card' + (isOpen ? ' clinic-expanded' : '')} onClick={() => toggle(i)}>
+              <div className="clinic-icon">🏥</div>
+              <div className="clinic-title">{c.name}</div>
+              <div className="clinic-sub">{c.korean}</div>
+              <div className="clinic-rating-big">{c.rating}</div>
+              <div className="clinic-stars">{'★'.repeat(Math.floor(c.rating))}{'☆'.repeat(5 - Math.floor(c.rating))}</div>
+              <div className="clinic-meta-line">📍 {c.area} · {c.priceRange}</div>
+              {c.englishOk && <span className="english-badge">EN OK</span>}
+
+              {isOpen && (
+                <div className="clinic-details" onClick={e => e.stopPropagation()}>
+                  <div className="clinic-detail-row">
+                    <span className="clinic-detail-label">Location</span>
+                    <span>{c.area} {c.areaKr}</span>
                   </div>
-                  <div className="cc-kr">{c.korean}</div>
-                  <div className="cc-loc">📍 {c.area} {c.areaKr}</div>
+                  <div className="clinic-detail-row">
+                    <span className="clinic-detail-label">Popular</span>
+                    <span>{c.popular}</span>
+                  </div>
+                  <div className="clinic-detail-row">
+                    <span className="clinic-detail-label">Reviews</span>
+                    <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" className="clinic-review-link">{c.reviews} reviews →</a>
+                  </div>
+                  <div className="clinic-map-btns">
+                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="map-btn google-btn">Google Maps</a>
+                    <a href={naverMapUrl} target="_blank" rel="noopener noreferrer" className="map-btn naver-btn">네이버 지도</a>
+                  </div>
+                  <button className="clinic-close-btn" onClick={() => setExpanded(null)}>Close ▴</button>
                 </div>
-                <div className="cc-score">
-                  <div className="cc-rating-num">{c.rating}</div>
-                  <div className="cc-stars">{'★'.repeat(Math.floor(c.rating))}{'☆'.repeat(5 - Math.floor(c.rating))}</div>
-                  <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" className="cc-reviews" onClick={e => e.stopPropagation()}>
-                    {c.reviews} reviews
-                  </a>
-                </div>
-              </div>
-              <div className="cc-bottom">
-                <div className="cc-meta">
-                  <span className="cc-popular">✨ {c.popular}</span>
-                  <span className="cc-price">{c.priceRange}</span>
-                </div>
-                <div className="cc-maps">
-                  <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="map-btn google-btn" onClick={e => e.stopPropagation()}>Google</a>
-                  <a href={naverMapUrl} target="_blank" rel="noopener noreferrer" className="map-btn naver-btn" onClick={e => e.stopPropagation()}>네이버</a>
-                </div>
-              </div>
+              )}
             </div>
           )
         })}

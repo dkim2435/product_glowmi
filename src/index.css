@@ -2028,63 +2028,86 @@ body {
 }
 
 .clinics-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 480px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .clinic-card {
   background: white;
-  border-radius: 14px;
-  padding: 14px;
+  border-radius: 16px;
+  padding: 18px;
   box-shadow: var(--card-shadow);
-  border-left: 4px solid #667eea;
-  transition: all 0.2s;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
 }
 
 .clinic-card:hover {
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+  border-color: #c5caf7;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+  transform: translateY(-2px);
 }
 
-.cc-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+.clinic-card:active {
+  transform: translateY(0) scale(0.98);
 }
 
-.cc-info {
-  flex: 1;
-  min-width: 0;
+.clinic-card::after {
+  content: 'Tap for details ▾';
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  font-size: 0.58rem;
+  color: #ccc;
+  animation: pulse-hint 2s ease-in-out infinite;
 }
 
-.cc-name-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+.clinic-card.clinic-expanded {
+  grid-column: 1 / -1;
+  cursor: default;
 }
 
-.cc-name {
-  font-size: 0.92rem;
+.clinic-card.clinic-expanded::after {
+  display: none;
+}
+
+.clinic-icon { font-size: 1.8rem; margin-bottom: 6px; }
+
+.clinic-title {
+  font-size: 0.9rem;
   font-weight: 700;
   color: #333;
+  line-height: 1.3;
 }
 
-.cc-kr {
+.clinic-sub {
   font-size: 0.75rem;
   color: #999;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
-.cc-loc {
-  font-size: 0.72rem;
+.clinic-rating-big {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #667eea;
+  margin-top: 8px;
+  line-height: 1;
+}
+
+.clinic-stars {
+  font-size: 0.65rem;
+  color: #ffc107;
+  margin-top: 2px;
+}
+
+.clinic-meta-line {
+  font-size: 0.7rem;
   color: #888;
-  margin-top: 3px;
+  margin-top: 6px;
 }
 
 .english-badge {
@@ -2093,84 +2116,77 @@ body {
   color: white;
   font-size: 0.55rem;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 8px;
+  margin-top: 6px;
   letter-spacing: 0.5px;
-  flex-shrink: 0;
 }
 
-.cc-score {
-  text-align: center;
-  flex-shrink: 0;
-  min-width: 56px;
+.clinic-details {
+  margin-top: 14px;
+  text-align: left;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 14px;
+  animation: slideDown 0.3s ease;
 }
 
-.cc-rating-num {
-  font-size: 1.3rem;
-  font-weight: 800;
+.clinic-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 0.78rem;
+  color: #555;
+}
+
+.clinic-detail-label {
+  font-weight: 600;
   color: #667eea;
-  line-height: 1;
+  font-size: 0.7rem;
+  text-transform: uppercase;
 }
 
-.cc-stars {
-  font-size: 0.6rem;
-  color: #ffc107;
-  margin-top: 2px;
-}
-
-.cc-reviews {
-  font-size: 0.6rem;
+.clinic-review-link {
   color: #667eea;
   text-decoration: none;
-  display: block;
-  margin-top: 2px;
+  font-weight: 500;
 }
 
-.cc-reviews:hover {
+.clinic-review-link:hover {
   text-decoration: underline;
 }
 
-.cc-bottom {
+.clinic-map-btns {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 8px;
   margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid #f0f0f0;
 }
 
-.cc-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-  min-width: 0;
-  flex-wrap: wrap;
-}
-
-.cc-popular {
-  font-size: 0.72rem;
-  color: #666;
-}
-
-.cc-price {
+.clinic-close-btn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 7px;
+  border: 1.5px solid #eee;
+  background: #fafafa;
+  border-radius: 10px;
   font-size: 0.75rem;
-  color: #4caf50;
-  font-weight: 700;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.cc-maps {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
+.clinic-close-btn:hover {
+  background: #f0f0f0;
+  color: #555;
 }
 
 .map-btn {
-  padding: 5px 10px;
-  border-radius: 6px;
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.2s;
@@ -4256,7 +4272,6 @@ body {
     font-size: 0.85rem;
   }
 
-  .clinics-grid,
   .step-list,
   .ingredient-grid,
   .face-shape-grid,
@@ -4380,7 +4395,6 @@ body {
     font-size: 0.9rem;
   }
 
-  .clinics-grid,
   .ingredient-grid,
   .face-shape-grid {
     grid-template-columns: repeat(3, 1fr);
