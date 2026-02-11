@@ -1852,6 +1852,76 @@ body {
   animation: pulse-hint 2s ease-in-out infinite;
 }
 
+/* Gold / Silver / Bronze medals */
+.proc-medal {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  z-index: 1;
+}
+
+.proc-gold {
+  border-color: #d4a843;
+  background: linear-gradient(135deg, #fffdf5 0%, #fff8e1 50%, #ffffff 100%);
+  box-shadow: 0 4px 16px rgba(212, 168, 67, 0.2), inset 0 0 0 1px rgba(212, 168, 67, 0.12);
+}
+
+.proc-gold:hover {
+  border-color: #c9981e;
+  box-shadow: 0 6px 24px rgba(212, 168, 67, 0.3);
+}
+
+.proc-gold .proc-rank {
+  background: linear-gradient(135deg, #d4a843, #f0c860, #b8912a);
+  box-shadow: 0 2px 8px rgba(180, 142, 58, 0.35);
+}
+
+.proc-gold .proc-title {
+  color: #8b6914;
+}
+
+.proc-silver {
+  border-color: #b0b0b0;
+  background: linear-gradient(135deg, #fafafa 0%, #f0f0f5 50%, #ffffff 100%);
+  box-shadow: 0 4px 16px rgba(150, 150, 160, 0.2), inset 0 0 0 1px rgba(180, 180, 190, 0.15);
+}
+
+.proc-silver:hover {
+  border-color: #999;
+  box-shadow: 0 6px 24px rgba(150, 150, 160, 0.3);
+}
+
+.proc-silver .proc-rank {
+  background: linear-gradient(135deg, #a8a8b0, #c8c8d0, #909098);
+  box-shadow: 0 2px 8px rgba(130, 130, 140, 0.35);
+}
+
+.proc-silver .proc-title {
+  color: #5a5a65;
+}
+
+.proc-bronze {
+  border-color: #cd7f32;
+  background: linear-gradient(135deg, #fffaf5 0%, #fff0e5 50%, #ffffff 100%);
+  box-shadow: 0 4px 16px rgba(205, 127, 50, 0.15), inset 0 0 0 1px rgba(205, 127, 50, 0.1);
+}
+
+.proc-bronze:hover {
+  border-color: #b56a22;
+  box-shadow: 0 6px 24px rgba(205, 127, 50, 0.25);
+}
+
+.proc-bronze .proc-rank {
+  background: linear-gradient(135deg, #cd7f32, #e8a050, #a0612a);
+  box-shadow: 0 2px 8px rgba(180, 100, 40, 0.35);
+}
+
+.proc-bronze .proc-title {
+  color: #8a5520;
+}
+
 .proc-card.proc-expanded {
   grid-column: 1 / -1;
   cursor: default;

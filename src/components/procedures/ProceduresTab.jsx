@@ -33,8 +33,10 @@ function ProceduresList() {
     <div className="proc-grid">
       {proceduresData.map((p, i) => {
         const isOpen = expanded === i
+        const medal = i === 0 ? ' proc-gold' : i === 1 ? ' proc-silver' : i === 2 ? ' proc-bronze' : ''
         return (
-          <div key={i} className={'proc-card' + (isOpen ? ' proc-expanded' : '')} onClick={() => toggle(i)}>
+          <div key={i} className={'proc-card' + medal + (isOpen ? ' proc-expanded' : '')} onClick={() => toggle(i)}>
+            {i < 3 && <div className="proc-medal">{i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}</div>}
             <div className="proc-icon">{p.emoji}</div>
             <div className="proc-title">{p.english}</div>
             <div className="proc-sub">{p.korean}</div>
