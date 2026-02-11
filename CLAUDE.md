@@ -1,9 +1,8 @@
 # Glowmi — Claude Code 가이드
 
 ## 푸시 전 체크리스트
-1. **package.json version** — 버전 번호 올렸는지 확인
-2. **Header.jsx logo-version** — `<span className="logo-version">` 텍스트가 package.json과 일치하는지 확인
-3. **ReleaseNotesModal.jsx APP_VERSION** — `const APP_VERSION` 값이 일치하는지 확인
+1. **매 푸시마다 버전 올리기 (필수)** — patch 버전을 반드시 +1 (예: 1.3.2 → 1.3.3)
+2. **3곳 동기화** — package.json `version`, Header.jsx `logo-version`, ReleaseNotesModal.jsx `APP_VERSION` 세 곳 모두 동일한 버전으로 업데이트
 4. **npm run build** — 빌드 에러 없는지 확인
 5. **.env 키가 코드에 하드코딩 안 됐는지** — API 키가 소스에 직접 들어가면 안 됨
 
