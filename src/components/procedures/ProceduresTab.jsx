@@ -83,29 +83,38 @@ function ClinicFinder() {
 
       <div className="clinics-grid">
         {filtered.map((c, i) => {
-          const stars = Array.from({ length: 5 }, (_, s) => s < Math.floor(c.rating) ? '★' : '☆').join('')
           const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.korean + ' ' + c.areaKr)
           const naverMapUrl = 'https://map.naver.com/p/search/' + encodeURIComponent(c.korean)
           const googleReviewUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.korean + ' ' + c.areaKr + ' 리뷰')
 
           return (
             <div key={i} className="clinic-card">
-              <div className="clinic-header">
-                <div className="clinic-name">{c.name}{c.englishOk && <span className="english-badge">EN</span>}</div>
-                <div className="clinic-name-kr">{c.korean}</div>
+              <div className="cc-top">
+                <div className="cc-info">
+                  <div className="cc-name-row">
+                    <span className="cc-name">{c.name}</span>
+                    {c.englishOk && <span className="english-badge">EN</span>}
+                  </div>
+                  <div className="cc-kr">{c.korean}</div>
+                  <div className="cc-loc">📍 {c.area} {c.areaKr}</div>
+                </div>
+                <div className="cc-score">
+                  <div className="cc-rating-num">{c.rating}</div>
+                  <div className="cc-stars">{'★'.repeat(Math.floor(c.rating))}{'☆'.repeat(5 - Math.floor(c.rating))}</div>
+                  <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" className="cc-reviews" onClick={e => e.stopPropagation()}>
+                    {c.reviews} reviews
+                  </a>
+                </div>
               </div>
-              <div className="clinic-location">📍 {c.area} {c.areaKr}</div>
-              <div className="clinic-rating">
-                <span className="stars">{stars}</span> {c.rating}{' '}
-                <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" className="review-link" onClick={e => e.stopPropagation()}>
-                  ({c.reviews} reviews)
-                </a>
-              </div>
-              <div className="clinic-popular">✨ {c.popular}</div>
-              <div className="clinic-price">{c.priceRange}</div>
-              <div className="clinic-maps">
-                <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="map-btn google-btn">Google Maps</a>
-                <a href={naverMapUrl} target="_blank" rel="noopener noreferrer" className="map-btn naver-btn">네이버 지도</a>
+              <div className="cc-bottom">
+                <div className="cc-meta">
+                  <span className="cc-popular">✨ {c.popular}</span>
+                  <span className="cc-price">{c.priceRange}</span>
+                </div>
+                <div className="cc-maps">
+                  <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="map-btn google-btn" onClick={e => e.stopPropagation()}>Google</a>
+                  <a href={naverMapUrl} target="_blank" rel="noopener noreferrer" className="map-btn naver-btn" onClick={e => e.stopPropagation()}>네이버</a>
+                </div>
               </div>
             </div>
           )

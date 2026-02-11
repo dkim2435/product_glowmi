@@ -2030,8 +2030,8 @@ body {
 .clinics-grid {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  max-width: 420px;
+  gap: 10px;
+  max-width: 480px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -2040,93 +2040,137 @@ body {
 .clinic-card {
   background: white;
   border-radius: 14px;
-  padding: 16px;
+  padding: 14px;
   box-shadow: var(--card-shadow);
   border-left: 4px solid #667eea;
+  transition: all 0.2s;
 }
 
-.clinic-header {
-  margin-bottom: 8px;
+.clinic-card:hover {
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
 }
 
-.clinic-name {
-  font-size: 1rem;
+.cc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cc-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cc-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cc-name {
+  font-size: 0.92rem;
   font-weight: 700;
   color: #333;
 }
 
-.clinic-name-kr {
-  font-size: 0.85rem;
-  color: #888;
-}
-
-.clinic-location {
-  font-size: 0.8rem;
-  color: #666;
-  margin-bottom: 6px;
-}
-
-.clinic-rating {
-  font-size: 0.85rem;
-  margin-bottom: 6px;
-}
-
-.clinic-rating .stars { color: #ffc107; }
-
-.clinic-rating .review-count {
-  color: #888;
+.cc-kr {
   font-size: 0.75rem;
+  color: #999;
+  margin-top: 1px;
 }
 
-.clinic-rating .review-link {
-  color: #667eea;
-  font-size: 0.75rem;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.clinic-rating .review-link:hover {
-  color: #764ba2;
-  text-decoration: underline;
+.cc-loc {
+  font-size: 0.72rem;
+  color: #888;
+  margin-top: 3px;
 }
 
 .english-badge {
   display: inline-block;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 10px;
-  margin-left: 8px;
-  vertical-align: middle;
+  padding: 2px 6px;
+  border-radius: 8px;
   letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
-.clinic-popular {
-  font-size: 0.8rem;
-  color: #555;
-  margin-bottom: 6px;
+.cc-score {
+  text-align: center;
+  flex-shrink: 0;
+  min-width: 56px;
 }
 
-.clinic-price {
-  font-size: 0.85rem;
-  color: #4caf50;
-  font-weight: 600;
-  margin-bottom: 10px;
+.cc-rating-num {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #667eea;
+  line-height: 1;
 }
 
-.clinic-maps {
+.cc-stars {
+  font-size: 0.6rem;
+  color: #ffc107;
+  margin-top: 2px;
+}
+
+.cc-reviews {
+  font-size: 0.6rem;
+  color: #667eea;
+  text-decoration: none;
+  display: block;
+  margin-top: 2px;
+}
+
+.cc-reviews:hover {
+  text-decoration: underline;
+}
+
+.cc-bottom {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.cc-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.cc-popular {
+  font-size: 0.72rem;
+  color: #666;
+}
+
+.cc-price {
+  font-size: 0.75rem;
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.cc-maps {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 .map-btn {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 5px 10px;
+  border-radius: 6px;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.2s;
