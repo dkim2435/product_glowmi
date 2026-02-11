@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
-import { deleteAllUserData } from '../../lib/db'
 
 const TABS = [
   { id: 'ai', label: 'AI Beauty', labelKr: 'AI 뷰티', emoji: '✨' },
@@ -11,7 +10,7 @@ const TABS = [
   { id: 'wellness', label: 'Wellness', labelKr: '웰니스', emoji: '🧘' },
 ]
 
-export default function TabNav({ activeTab, onTabChange, showToast }) {
+export default function TabNav({ activeTab, onTabChange }) {
   const { user, loginWithGoogle, logout, loading } = useAuth()
   const { t } = useLang()
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -27,10 +26,6 @@ export default function TabNav({ activeTab, onTabChange, showToast }) {
     return () => document.removeEventListener('click', handleClick)
   }, [])
 
-  const allTabs = user
-    ? [...TABS, { id: 'mypage', label: 'My Page', labelKr: '마이페이지', emoji: '🙋' }]
-    : TABS
-
   async function handleLogin() {
     try {
       await loginWithGoogle()
@@ -43,7 +38,7 @@ export default function TabNav({ activeTab, onTabChange, showToast }) {
     <nav className="tab-nav" role="tablist">
       <div className="tab-nav-inner">
         <div className="tab-buttons">
-          {allTabs.map(tab => (
+          {TABS.map(tab => (
             <button
               key={tab.id}
               className={'tab-btn' + (activeTab === tab.id ? ' active' : '')}
@@ -69,42 +64,23 @@ export default function TabNav({ activeTab, onTabChange, showToast }) {
           )}
           {!loading && user && (
             <div className="nav-user-menu" ref={dropdownRef}>
-              <button className="nav-avatar-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
+              <button
+                className={'nav-avatar-btn' + (activeTab === 'mypage' ? ' active' : '')}
+                onClick={() => { onTabChange('mypage'); setDropdownOpen(false) }}
+              >
                 <img
                   src={user.user_metadata?.avatar_url || ''}
                   alt="avatar"
                   className="header-user-avatar"
                 />
+                <span className="nav-avatar-label">{t('My Page', '마이페이지')}</span>
               </button>
+              <button className="nav-avatar-menu-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>▾</button>
               {dropdownOpen && (
                 <div className="user-dropdown">
                   <div className="user-dropdown-name">{user.user_metadata?.full_name || 'User'}</div>
-                  <button className="user-dropdown-item" onClick={() => { onTabChange('mypage'); setDropdownOpen(false) }}>
-                    {t('My Page', '마이페이지')}
-                  </button>
                   <button className="user-dropdown-item user-dropdown-logout" onClick={logout}>
                     {t('Logout', '로그아웃')}
-                  </button>
-                  <button className="user-dropdown-item user-dropdown-danger" onClick={async () => {
-                    setDropdownOpen(false)
-                    const keyword = t('DELETE', '삭제')
-                    const input = window.prompt(t(
-                      `This will permanently delete ALL your data and sign you out.\n\nType "${keyword}" to confirm:`,
-                      `모든 데이터가 영구 삭제되고 로그아웃됩니다.\n\n확인하려면 "${keyword}"을(를) 입력하세요:`
-                    ))
-                    if (input !== keyword) {
-                      if (input !== null) showToast(t(`Type "${keyword}" exactly to delete.`, `"${keyword}"을(를) 정확히 입력해주세요.`))
-                      return
-                    }
-                    try {
-                      await deleteAllUserData(user.id)
-                      showToast(t('All data deleted.', '모든 데이터가 삭제되었습니다.'))
-                      await logout()
-                    } catch {
-                      showToast(t('Failed to delete data.', '데이터 삭제에 실패했습니다.'))
-                    }
-                  }}>
-                    {t('Delete All Data', '데이터 전체 삭제')}
                   </button>
                 </div>
               )}

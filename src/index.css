@@ -589,13 +589,43 @@ body {
   font-weight: 500;
 }
 
-.nav-user-menu { position: relative; }
+.nav-user-menu { position: relative; display: flex; align-items: center; gap: 2px; }
 
 .nav-avatar-btn {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-avatar-label {
+  font-size: 0.6rem;
+  color: #888;
+  white-space: nowrap;
+}
+
+.nav-avatar-btn.active .nav-avatar-label {
+  color: var(--primary-pink);
+  font-weight: 600;
+}
+
+.nav-avatar-menu-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  line-height: 1;
+  align-self: flex-start;
+}
+
+.nav-avatar-menu-btn:hover {
+  color: var(--primary-pink);
 }
 
 .nav-user-avatar, .header-user-avatar {
@@ -639,10 +669,8 @@ body {
 }
 
 .user-dropdown-item:hover { background: var(--light-pink); }
-.user-dropdown-item.danger, .user-dropdown-logout { color: #f44336; }
-.user-dropdown-item.danger:hover, .user-dropdown-logout:hover { background: #ffebee; }
-.user-dropdown-danger { color: #f44336; font-size: 0.75rem; border-top: 1px solid #eee; margin-top: 4px; padding-top: 8px; }
-.user-dropdown-danger:hover { background: #ffebee; }
+.user-dropdown-logout { color: #f44336; }
+.user-dropdown-logout:hover { background: #ffebee; }
 
 /* ========== AI Beauty — Personal Color ========== */
 .pc-start-card {
@@ -3576,12 +3604,6 @@ body {
   color: #555;
 }
 
-.mypage-danger-zone {
-  text-align: center;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-}
 
 /* ========== Diary ========== */
 .diary-form {
@@ -6529,8 +6551,9 @@ body {
 [data-theme="dark"] .user-dropdown-name { color: #e0e0e8; border-color: #3a3a50; }
 [data-theme="dark"] .user-dropdown-item.danger:hover,
 [data-theme="dark"] .user-dropdown-logout:hover,
-[data-theme="dark"] .user-dropdown-danger:hover { background: #3a1a1a; }
-[data-theme="dark"] .user-dropdown-danger { border-color: #3a3a50; color: #ff6b6b; }
+[data-theme="dark"] .nav-avatar-label { color: rgba(255,255,255,0.6); }
+[data-theme="dark"] .nav-avatar-btn.active .nav-avatar-label { color: var(--primary-pink); }
+[data-theme="dark"] .nav-avatar-menu-btn { color: rgba(255,255,255,0.5); }
 
 /* ===== Analyzer ===== */
 [data-theme="dark"] .analyzer-stat { background: #2a2a40; }
