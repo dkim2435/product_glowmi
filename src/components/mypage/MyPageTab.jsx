@@ -8,7 +8,7 @@ import SkinDiary from './SkinDiary'
 import MyRoutine from './MyRoutine'
 import MyPageWelcome, { shouldShowMyPageWelcome } from './MyPageWelcome'
 
-export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
+export default function MyPageTab({ showToast, onNavigate }) {
   const { user } = useAuth()
   const { t } = useLang()
   const [section, setSection] = useState('results') // results | progress | shelf | diary | routine
@@ -44,8 +44,8 @@ export default function MyPageTab({ showToast, onGoToSkinAnalyzer }) {
         ))}
       </div>
 
-      {section === 'results' && <MyResults userId={user.id} />}
-      {section === 'progress' && <SkinProgress userId={user.id} showToast={showToast} onGoToSkinAnalyzer={onGoToSkinAnalyzer} />}
+      {section === 'results' && <MyResults userId={user.id} onNavigate={onNavigate} />}
+      {section === 'progress' && <SkinProgress userId={user.id} showToast={showToast} onGoToSkinAnalyzer={() => onNavigate('ai', 'skinAnalyzer')} />}
       {section === 'shelf' && <ProductShelf showToast={showToast} />}
       {section === 'diary' && <SkinDiary userId={user.id} showToast={showToast} />}
       {section === 'routine' && <MyRoutine userId={user.id} showToast={showToast} />}

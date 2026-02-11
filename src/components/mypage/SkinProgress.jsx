@@ -251,7 +251,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
         ) : (
           <div className="progress-empty">
             <p>{t('No skin scores yet.', '아직 피부 점수가 없습니다.')}</p>
-            <p className="progress-empty-hint">{t('Use Skin Analyzer to get your first score!', '피부 분석기를 사용해보세요!')}</p>
+            <button className="mypage-empty-link" onClick={onGoToSkinAnalyzer}>🔬 {t('Try Skin Analyzer', '피부 분석 시작하기')}</button>
           </div>
         )}
       </div>

@@ -3436,6 +3436,31 @@ body {
   margin-top: 8px;
 }
 
+.mypage-empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.mypage-empty-link {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #555;
+}
+
+.mypage-empty-link:hover {
+  border-color: var(--primary-pink);
+  color: var(--primary-pink);
+  background: var(--light-pink);
+}
+
 .mypage-results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -6360,6 +6385,8 @@ body {
 [data-theme="dark"] .mypage-nav { background: #252538; }
 [data-theme="dark"] .mypage-nav-btn { color: #aaa; background: #2a2a40; border-color: #3a3a50; }
 [data-theme="dark"] .mypage-nav-btn.active { color: white; }
+[data-theme="dark"] .mypage-empty-link { background: #2a2a40; border-color: #3a3a50; color: #ccc; }
+[data-theme="dark"] .mypage-empty-link:hover { border-color: var(--primary-pink); color: var(--primary-pink); background: rgba(255,107,157,0.1); }
 
 /* Diary & routine pills */
 [data-theme="dark"] .diary-emoji-btn,

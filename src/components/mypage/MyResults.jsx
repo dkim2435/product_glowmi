@@ -7,7 +7,7 @@ import { skinTypeResults } from '../../data/quiz'
 import { getRecommendations } from '../../data/products'
 import ProductCard from '../common/ProductCard'
 
-export default function MyResults({ userId }) {
+export default function MyResults({ userId, onNavigate }) {
   const { t } = useLang()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -25,7 +25,13 @@ export default function MyResults({ userId }) {
     return (
       <div className="mypage-empty">
         <p>{t('No saved results yet.', '저장된 결과가 없습니다.')}</p>
-        <p className="mypage-empty-hint">{t('Use AI Beauty tools and save your results!', 'AI 뷰티 분석 후 결과를 저장해보세요!')}</p>
+        <p className="mypage-empty-hint">{t('Try an AI tool to get started!', 'AI 도구를 사용해 시작해보세요!')}</p>
+        <div className="mypage-empty-actions">
+          <button className="mypage-empty-link" onClick={() => onNavigate('ai', 'personalColor')}>🎨 {t('Personal Color', '퍼스널컬러')}</button>
+          <button className="mypage-empty-link" onClick={() => onNavigate('ai', 'faceShape')}>💎 {t('Face Shape', '얼굴형')}</button>
+          <button className="mypage-empty-link" onClick={() => onNavigate('ai', 'skinAnalyzer')}>🔬 {t('Skin Analyzer', '피부 분석')}</button>
+          <button className="mypage-empty-link" onClick={() => onNavigate('quiz')}>📝 {t('Skin Quiz', '피부 퀴즈')}</button>
+        </div>
       </div>
     )
   }

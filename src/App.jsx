@@ -35,11 +35,13 @@ export default function App() {
     setTimeout(() => setToast(null), 2500)
   }
 
-  function goToSkinAnalyzer() {
-    setActiveTab('ai')
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('glowmi-select-tool', { detail: 'skinAnalyzer' }))
-    }, 100)
+  function navigateTo(tab, toolId) {
+    setActiveTab(tab)
+    if (toolId) {
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('glowmi-select-tool', { detail: toolId }))
+      }, 100)
+    }
   }
 
   return (
@@ -56,7 +58,7 @@ export default function App() {
               {activeTab === 'products' && <ProductsTab showToast={showToast} />}
               {activeTab === 'procedures' && <ProceduresTab />}
               {activeTab === 'wellness' && <WellnessTab />}
-              {activeTab === 'mypage' && <MyPageTab showToast={showToast} onGoToSkinAnalyzer={goToSkinAnalyzer} />}
+              {activeTab === 'mypage' && <MyPageTab showToast={showToast} onNavigate={navigateTo} />}
             </main>
 
             <Footer />
