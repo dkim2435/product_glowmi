@@ -23,7 +23,7 @@ export default function App() {
   return (
     <AuthProvider>
       <div className="app-container">
-        <Header />
+        <Header onLogoClick={() => setActiveTab('ai')} />
         <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
 
         <main className="main-content">
