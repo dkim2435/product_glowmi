@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { saveQuizResult } from '../../lib/db'
 import { summerQuizQuestions, winterQuizQuestions, skinTypeResults } from '../../data/quiz'
+import { getRecommendations } from '../../data/products'
+import ProductCard from '../common/ProductCard'
 import ShareButtons from '../common/ShareButtons'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
@@ -173,16 +175,16 @@ export default function QuizTab({ showToast }) {
         </div>
 
         <div className="recommended-products">
-          <h4>🛒 Recommended Products</h4>
-          {r.products.map((p, i) => (
-            <div key={i} className="product-item">
-              <span className="product-emoji">{p.emoji}</span>
-              <div className="product-info">
-                <span className="product-name">{p.name}</span>
-                <span className="product-brand">{p.brand}</span>
-              </div>
-            </div>
-          ))}
+          <h4>🛒 Recommended K-Beauty Products</h4>
+          <div className="product-card-list">
+            {getRecommendations({
+              skinType: resultType,
+              categories: ['cleanser', 'toner', 'serum', 'moisturizer', 'sunscreen']
+            })
+              .filter((p, i, arr) => arr.findIndex(x => x.category === p.category) === i)
+              .slice(0, 5)
+              .map(p => <ProductCard key={p.id} product={p} />)}
+          </div>
         </div>
 
         <SaveResultBtn onSave={handleSave} />

@@ -6,6 +6,8 @@ import { saveSkinResult } from '../../lib/db'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
 import { lookupIngredient } from '../products/ingredientLogic'
+import { getRecommendations } from '../../data/products'
+import ProductCard from '../common/ProductCard'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
 import SaveResultBtn from '../common/SaveResultBtn'
@@ -199,6 +201,15 @@ export default function SkinAnalyzer({ showToast }) {
             </div>
           )
         })}
+      </div>
+
+      <div className="skin-product-recs">
+        <h4>🛒 Recommended Products 추천 제품</h4>
+        <div className="product-card-list">
+          {getRecommendations({
+            concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k)
+          }).slice(0, 4).map(p => <ProductCard key={p.id} product={p} />)}
+        </div>
       </div>
 
       <SaveResultBtn onSave={handleSave} />

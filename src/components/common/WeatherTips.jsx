@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getWeatherCache, setWeatherCache } from '../../lib/storage'
+import { getRecommendations } from '../../data/products'
+import ProductCard from './ProductCard'
 
 const TIPS = {
   uvHigh: {
@@ -8,7 +10,7 @@ const TIPS = {
     titleKr: '자외선 주의',
     tip: 'Apply SPF 50+ sunscreen and reapply every 2 hours. Wear a hat outdoors.',
     tipKr: 'SPF 50+ 자외선 차단제를 바르고 2시간마다 덧발라주세요.',
-    products: ['Sunscreen SPF50+', 'Antioxidant Serum', 'UV Mist']
+    productQuery: { categories: ['sunscreen', 'serum'], concerns: ['aging', 'dark_spots'] }
   },
   uvMod: {
     emoji: '🌤️',
@@ -16,7 +18,7 @@ const TIPS = {
     titleKr: '자외선 보통',
     tip: 'Don\'t skip sunscreen today! SPF 30+ recommended.',
     tipKr: '오늘도 자외선 차단제를 꼭 발라주세요! SPF 30+ 추천.',
-    products: ['Sunscreen SPF30+', 'Vitamin C Serum']
+    productQuery: { categories: ['sunscreen'], concerns: ['aging'] }
   },
   dryAir: {
     emoji: '🏜️',
@@ -24,7 +26,7 @@ const TIPS = {
     titleKr: '건조 주의',
     tip: 'Air is very dry. Layer hydrating products and use a richer moisturizer.',
     tipKr: '공기가 매우 건조합니다. 수분 제품을 레이어링하고 리치한 보습제를 사용하세요.',
-    products: ['Hyaluronic Acid', 'Ceramide Cream', 'Facial Mist']
+    productQuery: { categories: ['toner', 'moisturizer', 'essence'], concerns: ['dryness'] }
   },
   humid: {
     emoji: '💧',
@@ -32,7 +34,7 @@ const TIPS = {
     titleKr: '습도 높음',
     tip: 'Switch to lightweight, gel-based products. Oil control is key today.',
     tipKr: '가벼운 젤 타입 제품으로 교체하세요. 유분 관리가 중요합니다.',
-    products: ['Gel Moisturizer', 'BHA Toner', 'Oil-Free SPF']
+    productQuery: { categories: ['toner', 'moisturizer', 'sunscreen'], concerns: ['oiliness', 'pores'] }
   },
   cold: {
     emoji: '🥶',
@@ -40,7 +42,7 @@ const TIPS = {
     titleKr: '추운 날씨',
     tip: 'Protect your skin barrier with rich creams. Avoid hot water when cleansing.',
     tipKr: '리치한 크림으로 피부 장벽을 보호하세요. 세안 시 뜨거운 물은 피하세요.',
-    products: ['Barrier Cream', 'Facial Oil', 'Gentle Cleanser']
+    productQuery: { categories: ['moisturizer', 'cleanser', 'essence'], concerns: ['dryness', 'redness'] }
   },
   hot: {
     emoji: '🔥',
@@ -48,7 +50,7 @@ const TIPS = {
     titleKr: '더운 날씨',
     tip: 'Use cooling products and keep skin hydrated. Double cleanse in the evening.',
     tipKr: '쿨링 제품을 사용하고 수분을 유지하세요. 저녁엔 이중 세안을 해주세요.',
-    products: ['Cooling Mist', 'Aloe Gel', 'Light Moisturizer']
+    productQuery: { categories: ['cleanser', 'toner', 'moisturizer'], concerns: ['oiliness', 'dryness'] }
   },
   nice: {
     emoji: '🌸',
@@ -56,7 +58,7 @@ const TIPS = {
     titleKr: '피부에 좋은 날씨',
     tip: 'Conditions are ideal! Stick to your regular routine.',
     tipKr: '피부에 좋은 날씨입니다! 기존 루틴을 유지하세요.',
-    products: ['Regular Routine', 'Sunscreen']
+    productQuery: { categories: ['sunscreen', 'moisturizer'] }
   }
 }
 
@@ -191,7 +193,7 @@ export default function WeatherTips() {
       <div className="weather-header" onClick={() => setExpanded(!expanded)}>
         <div className="weather-current">
           <span className="weather-temp-emoji">{getWeatherEmoji(weather.weatherCode)}</span>
-          <span className="weather-temp">{weather.temp}°C</span>
+          <span className="weather-temp">{weather.temp}°C / {Math.round(weather.temp * 9 / 5 + 32)}°F</span>
           <div className="weather-stats">
             <span className="weather-stat">💧 {weather.humidity}%</span>
             <span className="weather-stat">☀️ UV {weather.uvIndex}</span>
@@ -210,12 +212,19 @@ export default function WeatherTips() {
       {expanded && (
         <div className="weather-details">
           <div className="weather-tip-kr-detail">{mainAdvice.tipKr}</div>
-          <div className="weather-products">
-            <span className="weather-products-label">Recommended 추천:</span>
-            {mainAdvice.products.map((p, i) => (
-              <span key={i} className="weather-product-tag">{p}</span>
-            ))}
-          </div>
+          {mainAdvice.productQuery && (
+            <div className="weather-products">
+              <span className="weather-products-label">Recommended Products 추천 제품:</span>
+              <div className="product-card-list">
+                {getRecommendations({
+                  concerns: mainAdvice.productQuery.concerns || [],
+                  categories: mainAdvice.productQuery.categories || []
+                }).slice(0, 3).map(p => (
+                  <ProductCard key={p.id} product={p} compact />
+                ))}
+              </div>
+            </div>
+          )}
           {advice.length > 1 && advice.slice(1).map((a, i) => (
             <div key={i} className="weather-extra-tip">
               <span>{a.emoji}</span>

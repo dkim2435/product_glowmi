@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { loadProducts, saveProduct, deleteProduct } from '../../lib/storage'
 import { parseIngredientList } from '../products/ingredientLogic'
+import { PRODUCT_DB, PRODUCT_CATEGORIES, searchProducts, getProductsByCategory } from '../../data/products'
+import ProductCard from '../common/ProductCard'
 
 const CATEGORIES = [
   { key: 'cleanser', label: 'Cleanser', labelKr: '클렌저', emoji: '🫧' },
@@ -72,6 +74,9 @@ export default function ProductShelf({ showToast }) {
     ingredientText: '', openedDate: '', expiryMonths: '12'
   })
   const [editingId, setEditingId] = useState(null)
+  const [showBrowse, setShowBrowse] = useState(false)
+  const [browseSearch, setBrowseSearch] = useState('')
+  const [browseCategory, setBrowseCategory] = useState('all')
 
   useEffect(() => {
     setProducts(loadProducts())
@@ -127,6 +132,34 @@ export default function ProductShelf({ showToast }) {
     setForm({ name: '', brand: '', category: 'moisturizer', ingredientText: '', openedDate: '', expiryMonths: '12' })
     setEditingId(null)
     setShowAddForm(false)
+  }
+
+  function addFromDB(dbProduct) {
+    const product = {
+      name: dbProduct.name,
+      brand: dbProduct.brand,
+      category: dbProduct.category,
+      ingredients: dbProduct.keyIngredients || [],
+      openedDate: null,
+      expiryMonths: 12,
+    }
+    const updated = saveProduct(product)
+    setProducts(updated)
+    showToast(`${dbProduct.brand} ${dbProduct.name} added! 추가되었습니다!`)
+  }
+
+  function getBrowseProducts() {
+    let results = browseCategory === 'all' ? PRODUCT_DB : getProductsByCategory(browseCategory)
+    if (browseSearch.trim()) {
+      const q = browseSearch.toLowerCase()
+      results = results.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.nameKr.includes(q) ||
+        p.keyIngredients.some(i => i.toLowerCase().includes(q))
+      )
+    }
+    return results
   }
 
   const conflicts = findConflicts(products)
@@ -269,9 +302,55 @@ export default function ProductShelf({ showToast }) {
           </div>
         </div>
       ) : (
-        <button className="primary-btn shelf-add-btn" onClick={() => setShowAddForm(true)}>
-          + Add Product 제품 추가
-        </button>
+        <div className="shelf-btn-row">
+          <button className="primary-btn shelf-add-btn" onClick={() => setShowAddForm(true)}>
+            + Add Product 제품 추가
+          </button>
+          <button className="secondary-btn shelf-browse-btn" onClick={() => setShowBrowse(true)}>
+            🔍 Browse K-Beauty K-뷰티 검색
+          </button>
+        </div>
+      )}
+
+      {showBrowse && (
+        <div className="browse-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowBrowse(false) }}>
+          <div className="browse-modal">
+            <div className="browse-header">
+              <h4>Browse K-Beauty Products</h4>
+              <button className="browse-close" onClick={() => setShowBrowse(false)}>&times;</button>
+            </div>
+            <div className="browse-filters">
+              <input
+                type="text"
+                className="browse-search"
+                placeholder="Search products, brands, ingredients... 검색..."
+                value={browseSearch}
+                onChange={e => setBrowseSearch(e.target.value)}
+              />
+              <div className="browse-cat-row">
+                <button
+                  className={'browse-cat-btn' + (browseCategory === 'all' ? ' active' : '')}
+                  onClick={() => setBrowseCategory('all')}
+                >All</button>
+                {Object.entries(PRODUCT_CATEGORIES).map(([key, cat]) => (
+                  <button
+                    key={key}
+                    className={'browse-cat-btn' + (browseCategory === key ? ' active' : '')}
+                    onClick={() => setBrowseCategory(key)}
+                  >{cat.icon} {cat.name}</button>
+                ))}
+              </div>
+            </div>
+            <div className="browse-results">
+              {getBrowseProducts().map(p => (
+                <ProductCard key={p.id} product={p} onAdd={addFromDB} />
+              ))}
+              {getBrowseProducts().length === 0 && (
+                <p className="browse-empty">No products found. 제품을 찾을 수 없습니다.</p>
+              )}
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )

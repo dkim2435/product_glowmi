@@ -5,6 +5,8 @@ import { initFaceLandmarker } from '../../lib/mediapipe'
 import { savePersonalColorResult } from '../../lib/db'
 import { analyzeSkinTone, cropFaceFromPhoto } from './analysis/personalColorLogic'
 import { personalColorResults } from '../../data/personalColor'
+import { getRecommendations } from '../../data/products'
+import ProductCard from '../common/ProductCard'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
 import SaveResultBtn from '../common/SaveResultBtn'
@@ -233,6 +235,21 @@ export default function PersonalColorAnalysis({ showToast }) {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="pc-skincare-recs">
+        <h4>🧴 Recommended Skincare 스킨케어 추천</h4>
+        <div className="product-card-list">
+          {getRecommendations({
+            concerns: (r.season === 'Spring' || r.season === 'Fall')
+              ? ['redness', 'dryness']
+              : ['dark_spots', 'texture'],
+            categories: ['serum', 'moisturizer', 'sunscreen']
+          })
+            .filter((p, i, arr) => arr.findIndex(x => x.category === p.category) === i)
+            .slice(0, 3)
+            .map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       </div>
 

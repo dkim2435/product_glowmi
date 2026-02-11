@@ -757,7 +757,60 @@ body {
   flex-wrap: wrap;
 }
 
-/* Face guide overlay */
+/* ========== CameraView Component ========== */
+.camera-view {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.camera-preview-area {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #1a1a2e;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.camera-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.camera-preview-area img.camera-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.face-guide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.face-guide::after {
+  content: '';
+  width: 55%;
+  height: 70%;
+  border: 2px dashed rgba(255, 107, 157, 0.6);
+  border-radius: 50%;
+  animation: faceGuidePulse 2s ease-in-out infinite;
+}
+
+@keyframes faceGuidePulse {
+  0%, 100% { border-color: rgba(255, 107, 157, 0.4); }
+  50% { border-color: rgba(255, 107, 157, 0.8); }
+}
+
+/* Face guide overlay (legacy) */
 .fs-face-guide {
   position: absolute;
   inset: 0;
@@ -5154,4 +5207,293 @@ body {
 .onboard-next:hover {
   box-shadow: 0 4px 18px rgba(255, 107, 157, 0.45);
   transform: translateY(-1px);
+}
+
+/* ========== Product Card ========== */
+.product-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.product-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #fafafa;
+  border-radius: 10px;
+  border: 1px solid #f0f0f0;
+  transition: all 0.2s;
+}
+
+.product-card:hover {
+  background: #fff0f5;
+  border-color: #ffcce0;
+}
+
+.product-card-compact {
+  padding: 8px 10px;
+}
+
+.product-card-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.product-card-compact .product-card-icon {
+  font-size: 1.2rem;
+}
+
+.product-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.product-card-brand {
+  font-size: 0.7rem;
+  color: #c44569;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.product-card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.3;
+}
+
+.product-card-name-kr {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.product-card-compact .product-card-name-kr {
+  display: none;
+}
+
+.product-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+  font-size: 0.75rem;
+}
+
+.product-card-rating {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.product-card-price {
+  font-size: 0.65rem;
+}
+
+.product-card-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.product-card-ing-tag {
+  font-size: 0.65rem;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 2px 6px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.product-card-add-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-pink);
+  background: white;
+  color: var(--primary-pink);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  align-self: center;
+}
+
+.product-card-add-btn:hover {
+  background: var(--primary-pink);
+  color: white;
+}
+
+/* ========== Browse K-Beauty Modal ========== */
+.shelf-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.shelf-btn-row .shelf-add-btn,
+.shelf-btn-row .shelf-browse-btn {
+  flex: 1;
+  font-size: 0.82rem;
+}
+
+.browse-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.browse-modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.browse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.browse-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.browse-close {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.browse-close:hover {
+  background: #eee;
+  color: #333;
+}
+
+.browse-filters {
+  padding: 12px 18px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.browse-search {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.browse-search:focus {
+  border-color: var(--primary-pink);
+}
+
+.browse-cat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.browse-cat-btn {
+  padding: 4px 10px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 16px;
+  background: white;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.browse-cat-btn:hover {
+  border-color: var(--primary-pink);
+  color: var(--primary-pink);
+}
+
+.browse-cat-btn.active {
+  background: var(--gradient);
+  color: white;
+  border-color: transparent;
+}
+
+.browse-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 18px;
+}
+
+.browse-results .product-card {
+  margin-bottom: 4px;
+}
+
+.browse-empty {
+  text-align: center;
+  color: #aaa;
+  padding: 30px;
+  font-size: 0.9rem;
+}
+
+/* ========== Skin Product Recommendations ========== */
+.skin-product-recs {
+  margin-top: 20px;
+  padding: 16px;
+  background: #fef9ff;
+  border-radius: 14px;
+  border: 1px solid #f3e5f5;
+}
+
+.skin-product-recs h4 {
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* ========== Personal Color Skincare Recs ========== */
+.pc-skincare-recs {
+  margin-top: 20px;
+  padding: 16px;
+  background: linear-gradient(135deg, #fef9ff, #fff0f5);
+  border-radius: 14px;
+  border: 1px solid #f3e5f5;
+}
+
+.pc-skincare-recs h4 {
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 0.95rem;
 }
