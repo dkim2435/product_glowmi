@@ -55,18 +55,12 @@ body {
 }
 
 .logo-version {
-  font-size: 0.5rem;
+  font-size: 0.45em;
   font-weight: 600;
-  background: #FFD700;
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 6px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  color: #FFD700;
   position: relative;
-  top: -1.4em;
-  border: 1px solid rgba(255, 215, 0, 0.6);
-  line-height: 1;
+  top: -1.2em;
+  letter-spacing: 0.3px;
 }
 
 .subtitle {
@@ -533,15 +527,31 @@ body {
 }
 
 .nav-login-btn {
-  background: var(--gradient);
-  color: white;
+  background: none;
+  color: #888;
   border: none;
-  padding: 6px 14px;
-  border-radius: 15px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 8px 4px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.nav-login-btn:hover {
+  color: var(--primary-pink);
+}
+
+.nav-login-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.nav-login-label {
+  font-size: 0.6rem;
+  font-weight: 500;
 }
 
 .nav-user-menu { position: relative; }
