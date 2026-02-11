@@ -1105,6 +1105,518 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     description: "Repair serum with black snail mucin and centella asiatica that heals blemishes, fades acne marks, calms inflammation, and improves skin texture.",
     rating: 4.3
+  },
+
+  // ============================================================
+  // TRENDING INGREDIENTS - PDRN (Salmon DNA)
+  // ============================================================
+  {
+    id: "anua-pdrn-hyaluronic-acid-capsule-100-serum",
+    name: "PDRN Hyaluronic Acid Capsule 100 Serum",
+    nameKr: "피디알엔 히알루론산 캡슐 100 세럼",
+    brand: "Anua",
+    category: "serum",
+    subcategory: "hydrating_serum",
+    keyIngredients: ["Sodium DNA (PDRN)", "Hyaluronic Acid", "Hydrolyzed Collagen", "Niacinamide", "Glutathione", "Sodium Hyaluronate Crosspolymer"],
+    skinTypes: ["normal", "dry", "combination", "sensitive"],
+    skinConcerns: ["dryness", "aging", "texture"],
+    priceRange: "mid",
+    trendingIngredients: ["PDRN"],
+    description: "Olive Young No.1 serum and Glow Pick Awards winner with salmon-derived PDRN, multi-weight hyaluronic acid, and collagen that delivers intense hydration and plumping for glass skin.",
+    rating: 4.6
+  },
+  {
+    id: "mixsoon-pdrn-collagen-cream",
+    name: "PDRN Collagen Cream",
+    nameKr: "믹순 PDRN 콜라겐 크림",
+    brand: "Mixsoon",
+    category: "moisturizer",
+    subcategory: "gel_cream",
+    keyIngredients: ["Sodium DNA (PDRN)", "Collagen Extract", "Copper Tripeptide-1", "Niacinamide", "Hydrolyzed Hyaluronic Acid", "Saccharomyces/Rice Ferment Filtrate"],
+    skinTypes: ["normal", "oily", "combination", "sensitive"],
+    skinConcerns: ["aging", "dryness", "texture"],
+    priceRange: "mid",
+    trendingIngredients: ["PDRN"],
+    description: "Lightweight gel cream with plant-based PDRN, low-molecular collagen, and liposomal peptides that restores skin elasticity and firmness while brightening with rice ferment filtrate.",
+    rating: 4.4
+  },
+  {
+    id: "medicube-pdrn-pink-peptide-ampoule",
+    name: "PDRN Pink Peptide Ampoule",
+    nameKr: "메디큐브 PDRN 핑크 펩타이드 앰플",
+    brand: "medicube",
+    category: "serum",
+    subcategory: "anti_aging_serum",
+    keyIngredients: ["Sodium DNA (PDRN)", "Peptides", "Niacinamide", "Collagen", "Adenosine"],
+    skinTypes: ["normal", "dry", "combination", "sensitive"],
+    skinConcerns: ["aging", "dark_spots", "texture", "dryness"],
+    priceRange: "mid",
+    trendingIngredients: ["PDRN"],
+    description: "2025 Olive Young Awards winner and Glow Pick Award-winning ampoule with salmon PDRN and peptides that brightens dark spots, firms skin, and provides a radiant pink glow.",
+    rating: 4.5
+  },
+  {
+    id: "sungboon-editor-alaska-pdrn-barrier-cream",
+    name: "Alaska PDRN Ultra Moisturizing Barrier Cream",
+    nameKr: "성분에디터 알래스카 PDRN 울트라 모이스처라이징 배리어 크림",
+    brand: "Sungboon Editor",
+    category: "moisturizer",
+    subcategory: "cream",
+    keyIngredients: ["Sodium DNA (PDRN) 5250ppm", "Ceramide NP", "Ceramide AP", "Ceramide EOP", "Panthenol", "Niacinamide", "Hyaluronic Acid", "Palmitoyl Tripeptide-5"],
+    skinTypes: ["dry", "normal", "sensitive"],
+    skinConcerns: ["dryness", "aging", "redness"],
+    priceRange: "mid",
+    trendingIngredients: ["PDRN", "Ceramides"],
+    description: "Barrier-repair cream featuring 93.5% ultra-pure Alaska Salmon PDRN complex with 5 types of ceramides, clinically proven to improve skin barrier function by 199% in 7 days.",
+    rating: 4.5
+  },
+
+  // ============================================================
+  // TRENDING INGREDIENTS - Exosomes
+  // ============================================================
+  {
+    id: "medicube-zero-one-day-exosome-shot-7500",
+    name: "Zero One Day Exosome Shot 7500",
+    nameKr: "메디큐브 제로 원데이 엑소좀 샷 모공 앰플 7500",
+    brand: "medicube",
+    category: "serum",
+    subcategory: "pore_serum",
+    keyIngredients: ["Lactobacillus Extracellular Vesicles (Exosomes)", "Hydrolyzed Sponge (Spicule)", "AHA", "BHA", "PHA", "Niacinamide", "Panthenol"],
+    skinTypes: ["oily", "combination", "normal"],
+    skinConcerns: ["pores", "texture", "oiliness", "acne"],
+    priceRange: "mid",
+    trendingIngredients: ["Exosomes"],
+    description: "Exosome-coated spicule ampoule with lacto-exosome technology that delivers anti-inflammatory and pore-tightening effects, enhancing active ingredient uptake by 242%.",
+    rating: 4.5
+  },
+  {
+    id: "medicube-zero-one-day-exosome-shot-2000",
+    name: "Zero One Day Exosome Shot 2000",
+    nameKr: "메디큐브 제로 원데이 엑소좀 샷 모공 앰플 2000",
+    brand: "medicube",
+    category: "serum",
+    subcategory: "pore_serum",
+    keyIngredients: ["Lactobacillus Extracellular Vesicles (Exosomes)", "Hydrolyzed Sponge (Spicule)", "Niacinamide", "Panthenol", "Adenosine"],
+    skinTypes: ["oily", "combination", "normal", "sensitive"],
+    skinConcerns: ["pores", "texture", "oiliness"],
+    priceRange: "mid",
+    trendingIngredients: ["Exosomes"],
+    description: "Entry-level exosome-coated spicule ampoule for sensitive skin with gentler 2000 PPM concentration that refines pores and smooths skin texture with minimal irritation.",
+    rating: 4.4
+  },
+  {
+    id: "medicube-exosome-cica-calming-pad",
+    name: "Exosome Cica Calming Pad",
+    nameKr: "메디큐브 엑소좀 시카 카밍 패드",
+    brand: "medicube",
+    category: "treatment",
+    subcategory: "toner_pad",
+    keyIngredients: ["Centella Asiatica Leaf Vesicles (Exosome Cica)", "Centella Asiatica Extract", "Madecassoside", "Niacinamide (2%)", "Tea Tree Water", "Houttuynia Cordata Water", "Ectoin"],
+    skinTypes: ["sensitive", "oily", "combination", "normal"],
+    skinConcerns: ["redness", "acne", "pores"],
+    priceRange: "mid",
+    trendingIngredients: ["Exosomes", "Centella/Cica"],
+    description: "Hypoallergenic calming toner pad with nano-sized exosome cica that is 5.3x more powerful than regular cica, featuring 12 types of centella for soothing sensitive and acne-prone skin.",
+    rating: 4.5
+  },
+  {
+    id: "vt-cica-exosome-moisture-mask",
+    name: "Cica-Exosome Moisture Mask",
+    nameKr: "VT 시카 엑소좀 모이스처 마스크",
+    brand: "VT Cosmetics",
+    category: "mask",
+    subcategory: "sheet_mask",
+    keyIngredients: ["Centella Asiatica Exosome", "Hyaluronic Acid", "Panthenol", "Niacinamide", "Madecassoside"],
+    skinTypes: ["dry", "sensitive", "normal", "combination"],
+    skinConcerns: ["dryness", "redness"],
+    priceRange: "mid",
+    trendingIngredients: ["Exosomes", "Centella/Cica"],
+    description: "Vegan biodegradable sheet mask with VT Exosome Delivery (VED) technology that purifies centella extract to 141.9nm particles, 645x smaller than pores, for deep soothing hydration.",
+    rating: 4.3
+  },
+  {
+    id: "vt-pdrn-cica-exosome-ampoule",
+    name: "PDRN Cica Exosome R5 Firming Ampoule",
+    nameKr: "VT PDRN 시카 엑소좀 R5 퍼밍 앰플",
+    brand: "VT Cosmetics",
+    category: "serum",
+    subcategory: "anti_aging_serum",
+    keyIngredients: ["Sodium DNA (PDRN)", "Lactobacillus/Soymilk Ferment Filtrate (Exosome)", "Ceramide NP", "Ceramide AS", "Ceramide NS", "Collagen Amino Acids", "Panthenol", "Squalane"],
+    skinTypes: ["normal", "dry", "combination", "sensitive"],
+    skinConcerns: ["aging", "dryness", "texture"],
+    priceRange: "mid",
+    trendingIngredients: ["Exosomes", "PDRN", "Ceramides"],
+    description: "Triple-trending-ingredient firming ampoule combining PDRN, exosomes, and ceramides with peptides for advanced anti-aging, wrinkle care, and deep hydration.",
+    rating: 4.4
+  },
+
+  // ============================================================
+  // TRENDING INGREDIENTS - Mugwort (Artemisia)
+  // ============================================================
+  {
+    id: "im-from-mugwort-essence",
+    name: "Mugwort Essence",
+    nameKr: "아임프롬 머그워트 에센스",
+    brand: "I'm From",
+    category: "essence",
+    subcategory: "soothing_essence",
+    keyIngredients: ["Artemisia Princeps Extract", "Sodium Hyaluronate", "Butylene Glycol", "Ethylhexylglycerin"],
+    skinTypes: ["sensitive", "oily", "combination", "normal"],
+    skinConcerns: ["redness", "acne", "texture"],
+    priceRange: "mid",
+    trendingIngredients: ["Mugwort"],
+    description: "Cult-favorite calming essence with concentrated mugwort extract harvested from Ganghwa Island that soothes irritation, calms redness, and strengthens the skin barrier. Vegan and fragrance-free.",
+    rating: 4.6
+  },
+  {
+    id: "im-from-mugwort-cream",
+    name: "Mugwort Cream",
+    nameKr: "아임프롬 머그워트 크림",
+    brand: "I'm From",
+    category: "moisturizer",
+    subcategory: "treatment_cream",
+    keyIngredients: ["Artemisia Princeps Extract (73.55%)", "Propanediol", "Glycerin", "Centella Asiatica Extract", "Tea Tree Extract"],
+    skinTypes: ["sensitive", "combination", "normal"],
+    skinConcerns: ["redness", "acne", "dryness"],
+    priceRange: "mid",
+    trendingIngredients: ["Mugwort"],
+    description: "Soothing repair cream with 73.55% mugwort extract that calms sensitive and troubled skin, reduces redness, and provides a healthy radiance. Vegan and cruelty-free.",
+    rating: 4.5
+  },
+  {
+    id: "im-from-mugwort-mask",
+    name: "Mugwort Mask",
+    nameKr: "아임프롬 머그워트 마스크",
+    brand: "I'm From",
+    category: "mask",
+    subcategory: "wash_off_mask",
+    keyIngredients: ["Artemisia Princeps Extract", "Artemisia Princeps Leaf Powder", "Mugwort Root Extract"],
+    skinTypes: ["sensitive", "oily", "combination", "normal"],
+    skinConcerns: ["redness", "acne", "pores"],
+    priceRange: "mid",
+    trendingIngredients: ["Mugwort"],
+    description: "Wash-off mask packed with real mugwort leaves from Ganghwa Island that deeply purifies pores, soothes irritation, and calms inflamed, troubled skin.",
+    rating: 4.5
+  },
+  {
+    id: "bringgreen-artemisia-cera-calming-repair-cream",
+    name: "Artemisia Cera Calming Moisture Repair Cream",
+    nameKr: "브링그린 쑥 세라 카밍 모이스처 리페어 크림",
+    brand: "BringGreen",
+    category: "moisturizer",
+    subcategory: "treatment_cream",
+    keyIngredients: ["Artemisia Capillaris Extract", "Ceramides", "Panthenol", "Centella Asiatica Extract", "Madecassoside"],
+    skinTypes: ["sensitive", "dry", "normal", "combination"],
+    skinConcerns: ["redness", "dryness", "acne"],
+    priceRange: "budget",
+    trendingIngredients: ["Mugwort", "Ceramides"],
+    description: "Vegan calming repair cream with Artemisia Ceramide complex that strengthens the skin moisture barrier, reduces redness, and soothes stressed and irritated sensitive skin.",
+    rating: 4.3
+  },
+  {
+    id: "bringgreen-artemisia-calming-ex-water-cream",
+    name: "Artemisia Calming EX Water Cream",
+    nameKr: "브링그린 사철쑥 카밍 EX 수분 크림",
+    brand: "BringGreen",
+    category: "moisturizer",
+    subcategory: "gel_cream",
+    keyIngredients: ["Artemisia Capillaris Extract", "Niacinamide", "Panthenol", "Allantoin", "Dipotassium Glycyrrhizate"],
+    skinTypes: ["oily", "combination", "sensitive", "normal"],
+    skinConcerns: ["redness", "oiliness", "acne"],
+    priceRange: "budget",
+    trendingIngredients: ["Mugwort"],
+    description: "Lightweight water cream with low-molecular artemisia that synergizes with high-molecular soothing ingredients for effective calming, ideal for oily and combination skin.",
+    rating: 4.2
+  },
+  {
+    id: "bringgreen-artemisia-cera-calming-toner",
+    name: "Artemisia Cera Calming Moisture Toner",
+    nameKr: "브링그린 쑥 세라 카밍 모이스처 토너",
+    brand: "BringGreen",
+    category: "toner",
+    subcategory: "hydrating_toner",
+    keyIngredients: ["Artemisia Capillaris Extract", "Ceramides", "Panthenol", "Hyaluronic Acid", "Allantoin"],
+    skinTypes: ["sensitive", "dry", "normal", "combination"],
+    skinConcerns: ["redness", "dryness"],
+    priceRange: "budget",
+    trendingIngredients: ["Mugwort", "Ceramides"],
+    description: "Calming toner with artemisia ceramide complex that preps and hydrates sensitive skin while strengthening the moisture barrier and reducing irritation.",
+    rating: 4.2
+  },
+
+  // ============================================================
+  // TRENDING INGREDIENTS - Tranexamic Acid
+  // ============================================================
+  {
+    id: "anua-niacinamide-10-txa-4-serum",
+    name: "Niacinamide 10% + TXA 4% Dark Spot Correcting Serum",
+    nameKr: "아누아 나이아신아마이드 10 TXA 4 다크 스팟 코렉팅 세럼",
+    brand: "Anua",
+    category: "serum",
+    subcategory: "brightening_serum",
+    keyIngredients: ["Niacinamide (10%)", "Tranexamic Acid (4%)", "Alpha-Arbutin (2%)", "Hyaluronic Acid", "Glutathione"],
+    skinTypes: ["normal", "oily", "combination", "sensitive"],
+    skinConcerns: ["dark_spots", "texture", "acne"],
+    priceRange: "mid",
+    trendingIngredients: ["Tranexamic Acid"],
+    description: "Powerful yet gentle dark spot correcting serum with 10% niacinamide, 4% tranexamic acid, and 2% arbutin that fades hyperpigmentation and prevents new spots from forming.",
+    rating: 4.5
+  },
+  {
+    id: "mary-and-may-tranexamic-acid-glutathione-eye-cream",
+    name: "Tranexamic Acid + Glutathione Eye Cream",
+    nameKr: "메리앤메이 트라넥삼산 + 글루타치온 아이크림",
+    brand: "Mary&May",
+    category: "eye_cream",
+    subcategory: "brightening_eye_cream",
+    keyIngredients: ["Tranexamic Acid (1000ppm)", "Glutathione (1000ppm)", "Niacinamide", "Panthenol", "Sodium Hyaluronate", "Ascorbic Acid"],
+    skinTypes: ["normal", "dry", "combination", "sensitive"],
+    skinConcerns: ["dark_spots", "aging", "dryness"],
+    priceRange: "mid",
+    trendingIngredients: ["Tranexamic Acid"],
+    description: "Brightening eye cream with tranexamic acid and glutathione that targets dark circles, pigmentation around the eyes, and provides deep nourishment to the delicate eye area.",
+    rating: 4.3
+  },
+
+  // ============================================================
+  // TRENDING INGREDIENTS - Ceramides
+  // ============================================================
+  {
+    id: "illiyoon-ceramide-ato-concentrate-cream",
+    name: "Ceramide Ato Concentrate Cream",
+    nameKr: "일리윤 세라마이드 아토 집중크림",
+    brand: "Illiyoon",
+    category: "moisturizer",
+    subcategory: "cream",
+    keyIngredients: ["Ceramides", "Cholesterol", "Fatty Acids", "Panthenol", "Sunflower Seed Oil"],
+    skinTypes: ["dry", "sensitive", "normal"],
+    skinConcerns: ["dryness", "redness"],
+    priceRange: "budget",
+    trendingIngredients: ["Ceramides"],
+    description: "Olive Young No.1 repurchase cream with ceramide capsule technology that provides 100+ hours of moisturization, strengthens the skin barrier, and soothes dry, sensitive, and eczema-prone skin.",
+    rating: 4.7
+  },
+  {
+    id: "aestura-atobarrier-365-cream",
+    name: "Atobarrier 365 Cream",
+    nameKr: "에스트라 아토베리어365 크림",
+    brand: "Aestura",
+    category: "moisturizer",
+    subcategory: "cream",
+    keyIngredients: ["Long-Chain Ceramides", "Linker Ceramides", "Cholesterol", "DermaON Complex", "Panthenol"],
+    skinTypes: ["dry", "sensitive", "normal"],
+    skinConcerns: ["dryness", "redness", "aging"],
+    priceRange: "mid",
+    trendingIngredients: ["Ceramides"],
+    description: "Olive Young Awards No.1 cream with long-chain and linker ceramides that provides 120-hour moisturization, repairs the damaged skin barrier, and protects sensitive skin from external irritants.",
+    rating: 4.6
+  },
+
+  // ============================================================
+  // TRENDING INGREDIENTS - Centella/Cica
+  // ============================================================
+  {
+    id: "aestura-a-cica-365-soothing-repair-cream",
+    name: "A-Cica 365 Soothing Repair Cream pH4.5",
+    nameKr: "에스트라 에이시카365 리페어 크림 pH4.5",
+    brand: "Aestura",
+    category: "moisturizer",
+    subcategory: "treatment_cream",
+    keyIngredients: ["Madecassoside", "Beta-Glucan", "Centella Asiatica Extract", "Panthenol", "Allantoin"],
+    skinTypes: ["sensitive", "combination", "normal", "oily"],
+    skinConcerns: ["redness", "acne", "dryness"],
+    priceRange: "mid",
+    trendingIngredients: ["Centella/Cica"],
+    description: "pH 4.5 soothing repair cream with madecassoside and beta-glucan that forms a moisture coating film preventing evaporation for 48 hours, proven for all trouble-prone sensitive skin types.",
+    rating: 4.5
+  },
+
+  // ============================================================
+  // TRENDING INGREDIENTS - Ginseng
+  // ============================================================
+  {
+    id: "beauty-of-joseon-ginseng-essence-water",
+    name: "Ginseng Essence Water",
+    nameKr: "조선미녀 인삼 에센스워터",
+    brand: "Beauty of Joseon",
+    category: "essence",
+    subcategory: "hydrating_essence",
+    keyIngredients: ["Ginseng Water (80%)", "Niacinamide (2%)", "Adenosine (0.04%)", "Panax Ginseng Root Extract"],
+    skinTypes: ["normal", "dry", "combination", "sensitive"],
+    skinConcerns: ["dryness", "aging", "dark_spots", "texture"],
+    priceRange: "budget",
+    trendingIngredients: ["Ginseng"],
+    description: "Barrier-boosting essence packed with 80% ginseng water, 2% niacinamide, and adenosine that provides lasting hydration, antioxidant benefits, controls sebum, and reduces wrinkles for a glow boost.",
+    rating: 4.5
+  },
+
+  // ============================================================
+  // ADDITIONAL TRENDING PRODUCTS
+  // ============================================================
+  {
+    id: "vt-cica-exosome-h3-hydro-ampoule",
+    name: "Cica Exosome H3 Hydro Ampoule",
+    nameKr: "VT 시카 엑소좀 H3 하이드로 앰플",
+    brand: "VT Cosmetics",
+    category: "serum",
+    subcategory: "hydrating_serum",
+    keyIngredients: ["Centella Asiatica Exosome", "Liposome Hyaluronic Acid", "Panthenol", "Ceramide NP", "Niacinamide"],
+    skinTypes: ["dry", "sensitive", "normal", "combination"],
+    skinConcerns: ["dryness", "redness"],
+    priceRange: "mid",
+    trendingIngredients: ["Exosomes", "Centella/Cica", "Ceramides"],
+    description: "Deeply hydrating ampoule with cica exosome complex and liposome hyaluronic acids that delivers moisture deep into skin layers while soothing and calming sensitive skin.",
+    rating: 4.3
+  },
+  {
+    id: "im-from-mugwort-serum",
+    name: "Mugwort Serum",
+    nameKr: "아임프롬 머그워트 세럼",
+    brand: "I'm From",
+    category: "serum",
+    subcategory: "soothing_serum",
+    keyIngredients: ["Artemisia Princeps Extract", "Panthenol", "Allantoin", "Sodium Hyaluronate"],
+    skinTypes: ["sensitive", "oily", "combination", "normal"],
+    skinConcerns: ["redness", "acne", "texture"],
+    priceRange: "mid",
+    trendingIngredients: ["Mugwort"],
+    description: "Concentrated mugwort serum that targets skin troubles and inflammation, calms reactive skin, and strengthens the natural skin barrier for healthy, balanced complexion.",
+    rating: 4.4
+  },
+  {
+    id: "bringgreen-artemisia-cera-calming-cleanser",
+    name: "Artemisia Cera Calming Moisture pH Balance Cleansing Foam",
+    nameKr: "브링그린 쑥 세라 카밍 모이스처 pH밸런스 클렌징폼",
+    brand: "BringGreen",
+    category: "cleanser",
+    subcategory: "water_cleanser",
+    keyIngredients: ["Artemisia Capillaris Extract", "Ceramides", "Panthenol", "Centella Asiatica Extract"],
+    skinTypes: ["sensitive", "dry", "normal", "combination"],
+    skinConcerns: ["redness", "dryness"],
+    priceRange: "budget",
+    trendingIngredients: ["Mugwort", "Ceramides"],
+    description: "pH-balanced gentle foam cleanser with artemisia ceramide complex that cleanses without stripping, soothes sensitive skin, and maintains the moisture barrier.",
+    rating: 4.1
+  },
+  {
+    id: "aestura-a-cica-365-hydrating-relief-toner",
+    name: "A-Cica 365 Hydrating Relief Toner pH4.5",
+    nameKr: "에스트라 에이시카365 하이드레이팅 릴리프 토너 pH4.5",
+    brand: "Aestura",
+    category: "toner",
+    subcategory: "hydrating_toner",
+    keyIngredients: ["Madecassoside", "Centella Asiatica Extract", "Beta-Glucan", "Panthenol", "Allantoin"],
+    skinTypes: ["sensitive", "combination", "normal"],
+    skinConcerns: ["redness", "dryness", "acne"],
+    priceRange: "mid",
+    trendingIngredients: ["Centella/Cica"],
+    description: "pH 4.5 mildly acidic toner with madecassoside and beta-glucan that hydrates, calms sensitive skin, and preps the barrier for optimal absorption of subsequent skincare steps.",
+    rating: 4.4
+  },
+  {
+    id: "aestura-a-cica-365-soothing-relief-serum",
+    name: "A-Cica 365 Soothing Relief Serum pH4.5",
+    nameKr: "에스트라 에이시카365 수딩 릴리프 세럼 pH4.5",
+    brand: "Aestura",
+    category: "serum",
+    subcategory: "soothing_serum",
+    keyIngredients: ["Madecassoside", "Centella Asiatica Extract", "Beta-Glucan", "Panthenol"],
+    skinTypes: ["sensitive", "combination", "normal"],
+    skinConcerns: ["redness", "acne", "dryness"],
+    priceRange: "mid",
+    trendingIngredients: ["Centella/Cica"],
+    description: "Soothing serum that pairs with A-Cica cream to strengthen the barrier up to 218%, featuring madecassoside for intensive calming and repair of stressed, trouble-prone skin.",
+    rating: 4.4
+  },
+  {
+    id: "isntree-tranexamic-acid-glutathione-serum",
+    name: "Spot Saver Tranexamic Acid + Glutathione Serum",
+    nameKr: "이즈앤트리 스팟 세이버 트라넥삼산 + 글루타치온 세럼",
+    brand: "Isntree",
+    category: "serum",
+    subcategory: "brightening_serum",
+    keyIngredients: ["Tranexamic Acid (3%)", "Glutathione", "Niacinamide (2%)", "4-Butylresorcinol", "Alpha-Arbutin"],
+    skinTypes: ["normal", "combination", "sensitive", "oily"],
+    skinConcerns: ["dark_spots", "texture", "acne"],
+    priceRange: "mid",
+    trendingIngredients: ["Tranexamic Acid", "Niacinamide"],
+    description: "5-target brightening serum with tranexamic acid, glutathione, and niacinamide that fades dark spots, post-acne marks, and melasma through multi-pathway melanin inhibition.",
+    rating: 4.5
+  },
+  {
+    id: "anua-heartleaf-80-moisture-soothing-ampoule",
+    name: "Heartleaf 80% Moisture Soothing Ampoule",
+    nameKr: "아누아 어성초 80% 수분 진정 앰플",
+    brand: "Anua",
+    category: "serum",
+    subcategory: "soothing_serum",
+    keyIngredients: ["Houttuynia Cordata Extract (80%)", "Panthenol", "Allantoin", "Beta-Glucan", "Sodium Hyaluronate"],
+    skinTypes: ["sensitive", "oily", "combination", "normal"],
+    skinConcerns: ["redness", "acne", "dryness"],
+    priceRange: "mid",
+    trendingIngredients: ["Heartleaf"],
+    description: "Concentrated 80% heartleaf ampoule that delivers intense soothing and moisture to irritated and troubled skin, reducing redness and strengthening the barrier.",
+    rating: 4.5
+  },
+  {
+    id: "skin1004-centella-tone-brightening-capsule-ampoule",
+    name: "Madagascar Centella Tone Brightening Capsule Ampoule",
+    nameKr: "스킨1004 마다가스카르 센텔라 톤 브라이트닝 캡슐 앰플",
+    brand: "SKIN1004",
+    category: "serum",
+    subcategory: "brightening_serum",
+    keyIngredients: ["Centella Asiatica Extract", "Tranexamic Acid", "Niacinamide", "Glutathione", "Alpha-Arbutin"],
+    skinTypes: ["normal", "combination", "sensitive", "oily"],
+    skinConcerns: ["dark_spots", "redness", "texture"],
+    priceRange: "mid",
+    trendingIngredients: ["Centella/Cica", "Tranexamic Acid", "Niacinamide"],
+    description: "Triple-brightening ampoule combining centella with tranexamic acid, niacinamide, and glutathione that fades dark spots while calming sensitive skin.",
+    rating: 4.4
+  },
+  {
+    id: "mixsoon-bean-essence",
+    name: "Bean Essence",
+    nameKr: "믹순 빈 에센스",
+    brand: "Mixsoon",
+    category: "essence",
+    subcategory: "hydrating_essence",
+    keyIngredients: ["Glycine Soja (Soybean) Seed Extract (90.7%)", "Niacinamide", "Sodium Hyaluronate"],
+    skinTypes: ["normal", "dry", "combination", "sensitive"],
+    skinConcerns: ["dryness", "texture", "dark_spots"],
+    priceRange: "mid",
+    trendingIngredients: ["Niacinamide"],
+    description: "Olive Young bestseller with 90.7% fermented soybean extract that brightens, hydrates, and smooths skin texture with a clean, minimal formula.",
+    rating: 4.5
+  },
+  {
+    id: "anua-pdrn-cell-regenerating-eye-cream",
+    name: "PDRN Cell Regenerating Eye Cream",
+    nameKr: "아누아 PDRN 셀 리제너레이팅 아이크림",
+    brand: "Anua",
+    category: "eye_cream",
+    subcategory: "anti_aging_eye_cream",
+    keyIngredients: ["Sodium DNA (PDRN)", "Niacinamide", "Peptides", "Adenosine", "Caffeine"],
+    skinTypes: ["normal", "dry", "combination", "sensitive"],
+    skinConcerns: ["aging", "dark_spots", "dryness"],
+    priceRange: "mid",
+    trendingIngredients: ["PDRN", "Niacinamide"],
+    description: "Eye cream with PDRN and peptides that targets dark circles, fine lines, and puffiness while boosting cell regeneration around the delicate eye area.",
+    rating: 4.4
+  },
+  {
+    id: "illiyoon-ceramide-ato-soothing-gel",
+    name: "Ceramide Ato Soothing Gel",
+    nameKr: "일리윤 세라마이드 아토 수딩젤",
+    brand: "Illiyoon",
+    category: "moisturizer",
+    subcategory: "gel_cream",
+    keyIngredients: ["Ceramides", "Panthenol", "Allantoin", "Centella Asiatica Extract"],
+    skinTypes: ["oily", "combination", "sensitive", "normal"],
+    skinConcerns: ["redness", "oiliness", "dryness"],
+    priceRange: "budget",
+    trendingIngredients: ["Ceramides", "Centella/Cica"],
+    description: "Lightweight gel moisturizer with ceramide capsule technology ideal for oily and combination skin that calms, hydrates, and reinforces the moisture barrier.",
+    rating: 4.4
   }
 ];
 
@@ -1146,7 +1658,15 @@ export const BRAND_INFO = {
   "SKIN1004": { nameKr: "스킨1004", origin: "Korea", priceRange: "mid", specialty: "Madagascar centella asiatica skincare" },
   "numbuzin": { nameKr: "넘버즈인", origin: "Korea", priceRange: "mid", specialty: "Number-coded targeted treatments" },
   "TIRTIR": { nameKr: "티르티르", origin: "Korea", priceRange: "mid", specialty: "Skincare-meets-makeup hybrid products" },
-  "Neogen": { nameKr: "네오젠", origin: "Korea", priceRange: "mid", specialty: "Innovative exfoliating treatments" }
+  "Neogen": { nameKr: "네오젠", origin: "Korea", priceRange: "mid", specialty: "Innovative exfoliating treatments" },
+  "I'm From": { nameKr: "아임프롬", origin: "Korea", priceRange: "mid", specialty: "Single-ingredient concentrated natural essences" },
+  "BringGreen": { nameKr: "브링그린", origin: "Korea", priceRange: "budget", specialty: "Artemisia (mugwort) and botanical calming skincare" },
+  "Aestura": { nameKr: "에스트라", origin: "Korea", priceRange: "mid", specialty: "Dermatologist-tested ceramide barrier repair" },
+  "Illiyoon": { nameKr: "일리윤", origin: "Korea", priceRange: "budget", specialty: "Ceramide-based sensitive and ato skin care" },
+  "Mixsoon": { nameKr: "믹순", origin: "Korea", priceRange: "mid", specialty: "Pure single-ingredient clean skincare" },
+  "VT Cosmetics": { nameKr: "브이티", origin: "Korea", priceRange: "mid", specialty: "Cica exosome and PDRN technology" },
+  "Mary&May": { nameKr: "메리앤메이", origin: "Korea", priceRange: "mid", specialty: "Clean vegan skincare with active ingredients" },
+  "Sungboon Editor": { nameKr: "성분에디터", origin: "Korea", priceRange: "mid", specialty: "Ingredient-focused PDRN barrier skincare" }
 };
 
 // Helper function to get products by category
@@ -1186,6 +1706,33 @@ export function searchProducts(query) {
   );
 }
 
+// Trending ingredient keyword detection
+const TRENDING_KEYWORDS = {
+  'PDRN': ['pdrn', 'sodium dna'],
+  'Exosomes': ['exosome', 'extracellular vesicle'],
+  'Centella/Cica': ['centella', 'madecassoside', 'asiaticoside'],
+  'Heartleaf': ['houttuynia cordata'],
+  'Ginseng': ['ginseng', 'panax ginseng'],
+  'Tranexamic Acid': ['tranexamic acid'],
+  'Ceramides': ['ceramide', 'cera complex'],
+  'Snail Mucin': ['snail secretion filtrate', 'snail mucin'],
+  'Mugwort': ['artemisia'],
+  'Niacinamide': ['niacinamide'],
+};
+
+// Calculate trending score for a product
+function getTrendingScore(product) {
+  // Explicit trendingIngredients field gives highest boost
+  if (product.trendingIngredients) return product.trendingIngredients.length * 2;
+  // Auto-detect from keyIngredients
+  const joined = product.keyIngredients.map(i => i.toLowerCase()).join(' ');
+  let score = 0;
+  for (const keywords of Object.values(TRENDING_KEYWORDS)) {
+    if (keywords.some(kw => joined.includes(kw))) score++;
+  }
+  return score;
+}
+
 // Helper function to get product recommendations based on skin analysis
 export function getRecommendations({ skinType, concerns = [], priceRange = null, categories = null }) {
   let products = PRODUCT_DB;
@@ -1212,12 +1759,15 @@ export function getRecommendations({ skinType, concerns = [], priceRange = null,
     products = products.filter(p => categories.includes(p.category));
   }
 
-  // Sort by rating (highest first) then by number of matching concerns
+  // Sort: concern match (×3) + trending boost (×2) + rating
   products.sort((a, b) => {
-    const aMatchCount = a.skinConcerns.filter(c => concerns.includes(c)).length;
-    const bMatchCount = b.skinConcerns.filter(c => concerns.includes(c)).length;
-    if (bMatchCount !== aMatchCount) return bMatchCount - aMatchCount;
-    return (b.rating || 0) - (a.rating || 0);
+    const aMatch = a.skinConcerns.filter(c => concerns.includes(c)).length;
+    const bMatch = b.skinConcerns.filter(c => concerns.includes(c)).length;
+    const aTrend = getTrendingScore(a);
+    const bTrend = getTrendingScore(b);
+    const aScore = aMatch * 3 + aTrend * 2 + (a.rating || 0);
+    const bScore = bMatch * 3 + bTrend * 2 + (b.rating || 0);
+    return bScore - aScore;
   });
 
   return products;

@@ -5633,6 +5633,22 @@ body {
   font-weight: 500;
 }
 
+.pcard-trending {
+  border: 1.5px solid #ff6b9d;
+  background: linear-gradient(135deg, #fff5f8 0%, #fff0f5 100%);
+}
+.pcard-trending-badge {
+  display: inline-block;
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: white;
+  background: linear-gradient(135deg, #ff6b9d, #ee5a24);
+  padding: 1px 8px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
 .pcard-add {
   width: 36px;
   min-width: 36px;

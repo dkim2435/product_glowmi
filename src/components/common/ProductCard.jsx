@@ -5,13 +5,16 @@ const PRICE_LABELS = { budget: '$', mid: '$$', premium: '$$$' }
 export default function ProductCard({ product, compact = false, onAdd = null }) {
   const cat = PRODUCT_CATEGORIES[product.category] || { icon: '✨', name: product.category, nameKr: '' }
 
+  const hasTrending = product.trendingIngredients && product.trendingIngredients.length > 0
+
   return (
-    <div className={'pcard' + (compact ? ' pcard-compact' : '')}>
+    <div className={'pcard' + (compact ? ' pcard-compact' : '') + (hasTrending ? ' pcard-trending' : '')}>
       <div className="pcard-left">
         <span className="pcard-cat-icon">{cat.icon}</span>
         <span className="pcard-cat-label">{cat.name}</span>
       </div>
       <div className="pcard-main">
+        {hasTrending && <span className="pcard-trending-badge">HOT 2025</span>}
         <div className="pcard-brand">{product.brand}</div>
         <div className="pcard-name">{product.name}</div>
         {!compact && product.nameKr && <div className="pcard-name-kr">{product.nameKr}</div>}
