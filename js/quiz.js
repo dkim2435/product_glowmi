@@ -5,6 +5,7 @@ var currentQuestion = 0;
 var scores = { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 };
 var selectedSeason = null;
 var quizQuestions = summerQuizQuestions;
+var quizLastType = null;
 
 // Season Selection
 function selectSeason(season) {
@@ -86,6 +87,7 @@ function showResult() {
         }
     }
 
+    quizLastType = maxType;
     var r = skinTypeResults[maxType];
     var seasonBadge = (selectedSeason === 'summer') ? '☀️ Summer Result' : '❄️ Winter Result';
     var seasonTip = (selectedSeason === 'summer')
@@ -114,13 +116,19 @@ function showResult() {
         '<div class="season-tip">' + seasonTip + '</div>' +
         '<h4>Care Tips</h4><ul>' + tipsHtml + '</ul></div>' +
         '<div class="recommended-products"><h4>🛒 Recommended Products</h4>' + productsHtml + '</div>' +
+        '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="saveQuizResultClick()">💾 Save My Result 결과 저장하기</button>' +
         '<button class="secondary-btn" onclick="retakeQuiz()">Retake Quiz 다시하기</button>';
 
     document.getElementById('result-content').classList.add('animated');
     createConfetti();
 }
 
+function saveQuizResultClick() {
+    if (quizLastType) saveQuizResult(quizLastType, selectedSeason, scores);
+}
+
 function retakeQuiz() {
+    quizLastType = null;
     document.getElementById('quiz-result').classList.add('hidden');
     document.getElementById('quiz-season-select').classList.remove('hidden');
     document.getElementById('result-content').classList.remove('animated');

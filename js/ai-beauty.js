@@ -630,6 +630,7 @@ function showPCResult() {
         celebsHtml +
         '</div>' +
         allTypesHtml +
+        '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="savePersonalColorResult(pcAnalysisResult)">💾 Save My Result 결과 저장하기</button>' +
         buildShareButtons(r.emoji, r.english, r.korean) +
         '<button class="secondary-btn" onclick="retakePersonalColor()">Retake Test 다시하기</button>';
 
@@ -650,6 +651,7 @@ function retakePersonalColor() {
 var fsStream = null;
 var fsIsMirrored = false;
 var fsCapturedImageData = null;
+var fsLastResult = null;
 
 function showFsScreen(screenId) {
     var screens = document.querySelectorAll('#fs-section .fs-screen');
@@ -932,6 +934,7 @@ function classifyFaceShape(landmarks) {
 }
 
 function showFsResult(result) {
+    fsLastResult = result;
     var data = fsShapeData[result.shape];
     var tipsHtml = '';
     for (var i = 0; i < data.tips.length; i++) {
@@ -959,6 +962,7 @@ function showFsResult(result) {
         '<div class="result-description"><h4>About Your Face Shape</h4><p>' + data.description + '</p>' +
         '<h4>Styling Tips 스타일링 팁</h4><ul>' + tipsHtml + '</ul></div>' +
         '<div class="fs-ref-section"><h4>All Face Shapes 전체 얼굴형 가이드</h4>' + shapesRefHtml + '</div>' +
+        '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="saveFsResultClick()">💾 Save My Result 결과 저장하기</button>' +
         buildShareButtons(data.emoji, data.name, data.korean) +
         '<div class="fs-result-buttons">' +
         '<button class="primary-btn" onclick="retryFaceShape()">🔄 Try Again 다시하기</button>' +
@@ -971,8 +975,13 @@ function showFsResult(result) {
 
 function retryFaceShape() {
     fsCapturedImageData = null;
+    fsLastResult = null;
     document.getElementById('fs-result-content').classList.remove('animated');
     showFsScreen('fs-start');
+}
+
+function saveFsResultClick() {
+    if (fsLastResult) saveFaceShapeResult(fsLastResult);
 }
 
 // ===== Skin Condition Analyzer =====
@@ -980,6 +989,8 @@ function retryFaceShape() {
 var skinStream = null;
 var skinIsMirrored = false;
 var skinCapturedImageData = null;
+var skinLastScores = null;
+var skinLastOverallScore = null;
 
 function showSkinScreen(screenId) {
     var screens = document.querySelectorAll('#skin-section .skin-screen');
@@ -1272,10 +1283,12 @@ function analyzeSkinPixels(ctx, landmarks, imgW, imgH) {
 }
 
 function showSkinResult(scores) {
+    skinLastScores = scores;
     // Compute overall skin score (inverse of average concern)
     var avgConcern = (scores.redness + scores.oiliness + scores.dryness + scores.darkSpots + scores.texture) / 5;
     var overallScore = Math.round(100 - avgConcern * 0.6);
     overallScore = Math.max(10, Math.min(95, overallScore));
+    skinLastOverallScore = overallScore;
 
     var grade, gradeClass;
     if (overallScore >= 80) { grade = 'Excellent 우수'; gradeClass = 'skin-grade-excellent'; }
@@ -1349,6 +1362,9 @@ function showSkinResult(scores) {
     }
     html += '</div>';
 
+    // Save button
+    html += '<button class="save-result-btn' + (currentUser ? '' : ' hidden') + '" onclick="saveSkinResultClick()">💾 Save My Result 결과 저장하기</button>';
+
     // Share buttons
     var skinShareSummary = 'Skin Score ' + overallScore + '/100 (' + grade + ')';
     html += buildShareButtons('🔬', skinShareSummary, 'AI 피부 분석 결과');
@@ -1366,6 +1382,12 @@ function showSkinResult(scores) {
 
 function retrySkinAnalysis() {
     skinCapturedImageData = null;
+    skinLastScores = null;
+    skinLastOverallScore = null;
     document.getElementById('skin-result-content').classList.remove('animated');
     showSkinScreen('skin-start');
+}
+
+function saveSkinResultClick() {
+    if (skinLastScores && skinLastOverallScore) saveSkinResult(skinLastScores, skinLastOverallScore);
 }

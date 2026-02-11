@@ -1,0 +1,701 @@
+/* css/profile.css — Login, My Page, Diary, Routine styles */
+
+/* ===== Header Auth UI ===== */
+
+.header-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.header-login-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border: 1.5px solid #ddd;
+    border-radius: 20px;
+    background: #fff;
+    font-size: 0.82rem;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.header-login-btn:hover {
+    border-color: #ff6b9d;
+    color: #ff6b9d;
+}
+
+.header-login-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.header-user-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.header-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #ff6b9d;
+    object-fit: cover;
+}
+
+.header-user-name {
+    font-size: 0.82rem;
+    color: #555;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 6px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    min-width: 160px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.user-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 0.85rem;
+    color: #555;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.user-dropdown-item:hover {
+    background: #fff0f5;
+    color: #ff6b9d;
+}
+
+.user-dropdown-item.danger {
+    color: #e74c3c;
+}
+
+.user-dropdown-item.danger:hover {
+    background: #fff0f0;
+}
+
+/* ===== My Page Tab (hidden by default) ===== */
+
+#tab-mypage {
+    display: none;
+}
+
+#tab-mypage:not(.hidden) {
+    display: inline-flex;
+}
+
+/* ===== My Page Navigation ===== */
+
+.mypage-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0;
+}
+
+.mypage-nav-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: none;
+    font-size: 0.82rem;
+    color: #888;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+
+.mypage-nav-btn.active {
+    color: #ff6b9d;
+    border-bottom-color: #ff6b9d;
+    font-weight: 600;
+}
+
+/* ===== My Results Grid ===== */
+
+.mypage-results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.mypage-result-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: box-shadow 0.2s;
+}
+
+.mypage-result-card:hover {
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.12);
+}
+
+.mypage-card-icon {
+    font-size: 2rem;
+    margin-bottom: 6px;
+}
+
+.mypage-card-title {
+    font-size: 0.72rem;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.mypage-card-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.mypage-card-sub {
+    font-size: 0.78rem;
+    color: #888;
+}
+
+.mypage-card-meta {
+    font-size: 0.72rem;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+.mypage-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+}
+
+.mypage-empty-hint {
+    font-size: 0.82rem;
+    color: #aaa;
+    margin-top: 8px;
+}
+
+.mypage-loading {
+    text-align: center;
+    padding: 30px;
+    color: #aaa;
+    font-size: 0.85rem;
+}
+
+/* ===== Save Result Button ===== */
+
+.save-result-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: 2px solid #ff6b9d;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fff0f5, #fff);
+    color: #ff6b9d;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    justify-content: center;
+}
+
+.save-result-btn:hover {
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
+    color: #fff;
+}
+
+/* ===== Skin Diary ===== */
+
+.diary-form {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.diary-form h4 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.diary-form-date {
+    font-size: 0.78rem;
+    color: #aaa;
+    margin-bottom: 14px;
+}
+
+.diary-field {
+    margin-bottom: 14px;
+}
+
+.diary-field label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.diary-emoji-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.diary-emoji-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 10px 6px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.diary-emoji-btn:hover {
+    border-color: #ffc0cb;
+}
+
+.diary-btn-selected {
+    border-color: #ff6b9d;
+    background: #fff0f5;
+}
+
+.diary-emoji {
+    font-size: 1.4rem;
+}
+
+.diary-btn-label {
+    font-size: 0.7rem;
+    color: #888;
+}
+
+.diary-pill-btns {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.diary-pill-btn {
+    padding: 7px 14px;
+    border: 1.5px solid #eee;
+    border-radius: 20px;
+    background: #fff;
+    font-size: 0.78rem;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.diary-pill-btn:hover {
+    border-color: #ffc0cb;
+}
+
+.diary-pill-selected {
+    border-color: #ff6b9d;
+    background: #fff0f5;
+    color: #ff6b9d;
+}
+
+.diary-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #eee;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    resize: vertical;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.diary-textarea:focus {
+    outline: none;
+    border-color: #ff6b9d;
+}
+
+.diary-save-btn {
+    width: 100%;
+    margin-top: 4px;
+}
+
+/* Diary Timeline */
+
+.diary-timeline-section {
+    margin-top: 8px;
+}
+
+.diary-timeline-section h4 {
+    margin: 0 0 12px;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.diary-timeline {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.diary-card {
+    position: relative;
+    min-width: 200px;
+    max-width: 220px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 14px;
+    padding: 14px 12px 10px;
+    flex-shrink: 0;
+}
+
+.diary-card-date {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.diary-card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.diary-tag {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    color: #666;
+}
+
+.diary-card-ai {
+    font-size: 0.76rem;
+    color: #ff6b9d;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.diary-card-notes {
+    font-size: 0.76rem;
+    color: #888;
+    line-height: 1.4;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.diary-delete-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    border: none;
+    background: none;
+    font-size: 1.1rem;
+    color: #ccc;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px;
+}
+
+.diary-delete-btn:hover {
+    color: #e74c3c;
+}
+
+/* Diary Chart */
+
+.diary-chart-section {
+    margin-top: 20px;
+}
+
+.diary-chart-section h4 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+#diary-trend-canvas {
+    width: 100%;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    background: #fefefe;
+}
+
+/* ===== My Routine ===== */
+
+.routine-type-toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid #eee;
+}
+
+.routine-toggle-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    background: #fff;
+    font-size: 0.85rem;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.routine-toggle-btn.active {
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
+    color: #fff;
+    font-weight: 600;
+}
+
+.routine-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.routine-step-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    transition: box-shadow 0.2s;
+}
+
+.routine-step-item:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.routine-step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.routine-step-emoji {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.routine-step-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.routine-step-name {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.routine-step-brand {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.routine-step-cat {
+    display: block;
+    font-size: 0.7rem;
+    color: #aaa;
+}
+
+.routine-step-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.routine-action-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #fafafa;
+    font-size: 0.85rem;
+    color: #888;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+}
+
+.routine-action-btn:hover {
+    border-color: #ff6b9d;
+    color: #ff6b9d;
+}
+
+.routine-action-btn.routine-delete:hover {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.routine-add-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.routine-add-section h4 {
+    margin: 0 0 10px;
+    font-size: 0.92rem;
+    color: #333;
+}
+
+.routine-add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.routine-select,
+.routine-input {
+    padding: 10px 12px;
+    border: 1.5px solid #eee;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    background: #fff;
+}
+
+.routine-select:focus,
+.routine-input:focus {
+    outline: none;
+    border-color: #ff6b9d;
+}
+
+.routine-add-btn {
+    align-self: flex-end;
+    padding: 10px 24px;
+}
+
+/* ===== Delete Data Button ===== */
+
+.mypage-danger-zone {
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+.delete-data-btn {
+    padding: 8px 20px;
+    border: 1.5px solid #e74c3c;
+    border-radius: 10px;
+    background: #fff;
+    color: #e74c3c;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-data-btn:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 500px) {
+    .mypage-results-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .mypage-result-card {
+        padding: 12px 8px;
+    }
+
+    .mypage-card-icon {
+        font-size: 1.6rem;
+    }
+
+    .mypage-card-value {
+        font-size: 0.85rem;
+    }
+
+    .diary-card {
+        min-width: 170px;
+    }
+
+    .routine-step-actions {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 768px) {
+    .mypage-results-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .routine-add-form {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .routine-select {
+        min-width: 180px;
+    }
+
+    .routine-input {
+        flex: 1;
+    }
+}

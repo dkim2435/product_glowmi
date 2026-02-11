@@ -203,6 +203,9 @@ function setupTabs() {
             if (tabId === 'procedures' && !sessionStorage.getItem('proceduresGuideSeen')) {
                 document.getElementById('procedures-guide-modal').classList.remove('hidden');
             }
+            if (tabId === 'mypage' && typeof loadMyPage === 'function') {
+                loadMyPage();
+            }
         });
     }
 }
@@ -312,24 +315,28 @@ var pageContent = {
         '<p><strong>Last updated:</strong> February 2026</p>' +
         '<p>Glowmi ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website.</p>' +
         '<h3>1. Information We Collect</h3>' +
-        '<p><strong>Quiz and Test Data:</strong> When you take our Skin Type Quiz or Personal Color Test, your answers are processed locally in your browser to generate results. We do not store your quiz responses on any server. All quiz data remains on your device and is cleared when you close or refresh the page.</p>' +
+        '<p><strong>Quiz and Test Data:</strong> When you take our Skin Type Quiz or Personal Color Test, your answers are processed locally in your browser to generate results. If you are not logged in, we do not store your quiz responses on any server. All quiz data remains on your device and is cleared when you close or refresh the page.</p>' +
+        '<p><strong>Account Data:</strong> If you choose to sign in with Google, we store your Google profile name and avatar to personalize your experience. We also store your analysis results, skin diary entries, and skincare routines on Supabase (our database provider) so you can access them across sessions. This data is tied to your account and protected by row-level security policies.</p>' +
         '<p><strong>Automatically Collected Data:</strong> Like most websites, we may collect certain information automatically, including your IP address, browser type, device type, operating system, referring URLs, and pages visited. This data is collected through cookies and similar technologies for analytics purposes.</p>' +
         '<h3>2. How We Use Your Information</h3>' +
-        '<p>We use collected information to: (a) provide and improve our services; (b) analyze website traffic and usage patterns; (c) display relevant advertisements through Google AdSense; and (d) ensure the security and functionality of our website.</p>' +
-        '<h3>3. Google AdSense and Cookies</h3>' +
-        '<p>We use Google AdSense to display advertisements on our website. Google AdSense uses cookies to serve ads based on your prior visits to our website and other websites on the Internet. Google\'s use of advertising cookies enables it and its partners to serve ads based on your visit to our site and other sites on the Internet. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>.</p>' +
-        '<p>Third-party vendors, including Google, use cookies to serve ads based on your prior visits. You can opt out of third-party vendor cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">www.aboutads.info</a>.</p>' +
-        '<h3>4. Third-Party Links</h3>' +
-        '<p>Our website contains links to external websites including Google Maps, Naver Maps, and clinic websites. We are not responsible for the privacy practices or content of these external sites. We encourage you to review the privacy policies of any third-party sites you visit.</p>' +
-        '<h3>5. Data Security</h3>' +
-        '<p>We implement appropriate technical and organizational measures to protect your personal data. However, no method of transmission over the Internet or electronic storage is completely secure, and we cannot guarantee absolute security.</p>' +
-        '<h3>6. Children\'s Privacy</h3>' +
-        '<p>Our website is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.</p>' +
-        '<h3>7. Your Rights</h3>' +
-        '<p>Depending on your location, you may have the right to: (a) access the personal data we hold about you; (b) request correction or deletion of your data; (c) object to or restrict processing of your data; and (d) data portability. To exercise any of these rights, please contact us at the email address provided on our Contact page.</p>' +
-        '<h3>8. Changes to This Policy</h3>' +
-        '<p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page with an updated revision date. Your continued use of the website after any changes constitutes acceptance of the updated policy.</p>' +
-        '<h3>9. Contact Us</h3>' +
+        '<p>We use collected information to: (a) provide and improve our services; (b) save your analysis results and skin diary for your personal use; (c) analyze website traffic and usage patterns; (d) display relevant advertisements through Google AdSense; and (e) ensure the security and functionality of our website.</p>' +
+        '<h3>3. Google Sign-In</h3>' +
+        '<p>We use Google OAuth via Supabase for authentication. When you sign in, we receive your public profile information (name, email, profile photo) from Google. We do not access your Google contacts, drive, or any other data. You can revoke access at any time through your Google Account settings.</p>' +
+        '<h3>4. Data Storage and Security</h3>' +
+        '<p>Account data is stored on Supabase with row-level security (RLS), meaning only you can access your own data. All data is transmitted over HTTPS. AI photo analysis continues to run entirely on your device — photos are never uploaded to any server, even when logged in.</p>' +
+        '<h3>5. Data Deletion</h3>' +
+        '<p>You can delete all your data at any time using the "Delete All My Data" button on the My Page tab or in the user dropdown menu. This permanently removes your profile, analysis results, diary entries, and routines from our database.</p>' +
+        '<h3>6. Google AdSense and Cookies</h3>' +
+        '<p>We use Google AdSense to display advertisements on our website. Google AdSense uses cookies to serve ads based on your prior visits to our website and other websites on the Internet. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>.</p>' +
+        '<h3>7. Third-Party Links</h3>' +
+        '<p>Our website contains links to external websites including Google Maps, Naver Maps, and clinic websites. We are not responsible for the privacy practices or content of these external sites.</p>' +
+        '<h3>8. Children\'s Privacy</h3>' +
+        '<p>Our website is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13.</p>' +
+        '<h3>9. Your Rights</h3>' +
+        '<p>Depending on your location, you may have the right to: (a) access the personal data we hold about you; (b) request correction or deletion of your data; (c) object to or restrict processing of your data; and (d) data portability. To exercise any of these rights, please contact us at support@glowmi.co or use the in-app data deletion feature.</p>' +
+        '<h3>10. Changes to This Policy</h3>' +
+        '<p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page with an updated revision date.</p>' +
+        '<h3>11. Contact Us</h3>' +
         '<p>If you have questions about this Privacy Policy or our data practices, please contact us at support@glowmi.co.</p>'
 };
 
