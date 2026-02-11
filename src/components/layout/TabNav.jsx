@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
+import { deleteAllUserData } from '../../lib/db'
 
 const TABS = [
   { id: 'ai', label: 'AI Beauty', labelKr: 'AI 뷰티', emoji: '✨' },
@@ -10,7 +11,7 @@ const TABS = [
   { id: 'wellness', label: 'Wellness', labelKr: '웰니스', emoji: '🧘' },
 ]
 
-export default function TabNav({ activeTab, onTabChange }) {
+export default function TabNav({ activeTab, onTabChange, showToast }) {
   const { user, loginWithGoogle, logout, loading } = useAuth()
   const { t } = useLang()
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -83,6 +84,27 @@ export default function TabNav({ activeTab, onTabChange }) {
                   </button>
                   <button className="user-dropdown-item user-dropdown-logout" onClick={logout}>
                     {t('Logout', '로그아웃')}
+                  </button>
+                  <button className="user-dropdown-item user-dropdown-danger" onClick={async () => {
+                    setDropdownOpen(false)
+                    const keyword = t('DELETE', '삭제')
+                    const input = window.prompt(t(
+                      `This will permanently delete ALL your data and sign you out.\n\nType "${keyword}" to confirm:`,
+                      `모든 데이터가 영구 삭제되고 로그아웃됩니다.\n\n확인하려면 "${keyword}"을(를) 입력하세요:`
+                    ))
+                    if (input !== keyword) {
+                      if (input !== null) showToast(t(`Type "${keyword}" exactly to delete.`, `"${keyword}"을(를) 정확히 입력해주세요.`))
+                      return
+                    }
+                    try {
+                      await deleteAllUserData(user.id)
+                      showToast(t('All data deleted.', '모든 데이터가 삭제되었습니다.'))
+                      await logout()
+                    } catch {
+                      showToast(t('Failed to delete data.', '데이터 삭제에 실패했습니다.'))
+                    }
+                  }}>
+                    {t('Delete All Data', '데이터 전체 삭제')}
                   </button>
                 </div>
               )}

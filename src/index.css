@@ -641,6 +641,8 @@ body {
 .user-dropdown-item:hover { background: var(--light-pink); }
 .user-dropdown-item.danger, .user-dropdown-logout { color: #f44336; }
 .user-dropdown-item.danger:hover, .user-dropdown-logout:hover { background: #ffebee; }
+.user-dropdown-danger { color: #f44336; font-size: 0.75rem; border-top: 1px solid #eee; margin-top: 4px; padding-top: 8px; }
+.user-dropdown-danger:hover { background: #ffebee; }
 
 /* ========== AI Beauty — Personal Color ========== */
 .pc-start-card {
@@ -6526,7 +6528,9 @@ body {
 /* ===== User Dropdown ===== */
 [data-theme="dark"] .user-dropdown-name { color: #e0e0e8; border-color: #3a3a50; }
 [data-theme="dark"] .user-dropdown-item.danger:hover,
-[data-theme="dark"] .user-dropdown-logout:hover { background: #3a1a1a; }
+[data-theme="dark"] .user-dropdown-logout:hover,
+[data-theme="dark"] .user-dropdown-danger:hover { background: #3a1a1a; }
+[data-theme="dark"] .user-dropdown-danger { border-color: #3a3a50; color: #ff6b6b; }
 
 /* ===== Analyzer ===== */
 [data-theme="dark"] .analyzer-stat { background: #2a2a40; }

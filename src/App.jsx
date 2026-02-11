@@ -48,7 +48,7 @@ export default function App() {
         <AuthProvider>
           <div className="app-container">
             <Header onLogoClick={() => setActiveTab('ai')} />
-            <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
+            <TabNav activeTab={activeTab} onTabChange={setActiveTab} showToast={showToast} />
 
             <main className="main-content">
               {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}

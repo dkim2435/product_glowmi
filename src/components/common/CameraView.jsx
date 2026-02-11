@@ -35,7 +35,6 @@ export default function CameraView({
           muted
           className="camera-video"
           style={{
-            transform: 'scaleX(-1)',
             display: (cameraActive && !capturedImage) ? 'block' : 'none'
           }}
         />
