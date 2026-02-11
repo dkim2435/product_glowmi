@@ -4,7 +4,6 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
   const streamRef = useRef(null)
-  const [isMirrored, setIsMirrored] = useState(facingMode === 'user')
   const [capturedImage, setCapturedImage] = useState(null)
   const [cameraError, setCameraError] = useState(null)
   const [cameraActive, setCameraActive] = useState(false)
@@ -19,8 +18,6 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
   const startCamera = useCallback(async () => {
     setCameraError(null)
     setCapturedImage(null)
-    setIsMirrored(facingMode === 'user')
-
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode, width: { ideal: idealWidth }, height: { ideal: idealHeight } }
@@ -64,7 +61,7 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
     const dataUrl = canvas.toDataURL('image/jpeg', 0.9)
     setCapturedImage(dataUrl)
     return dataUrl
-  }, [isMirrored, stopCamera])
+  }, [stopCamera])
 
   const handleUpload = useCallback((file) => {
     return new Promise((resolve, reject) => {
@@ -76,7 +73,6 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
         return reject(new Error('File is too large (max 10MB). 파일이 너무 큽니다 (최대 10MB).'))
       }
 
-      setIsMirrored(false)
       const reader = new FileReader()
       reader.onload = (e) => {
         setCapturedImage(e.target.result)
@@ -97,7 +93,6 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
   return {
     videoRef,
     canvasRef,
-    isMirrored,
     capturedImage,
     cameraError,
     cameraActive,
