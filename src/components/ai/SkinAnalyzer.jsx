@@ -5,6 +5,7 @@ import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveSkinResult } from '../../lib/db'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
+import { analyzeSkinAI } from '../../lib/gemini'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
 import { lookupIngredient } from '../products/ingredientLogic'
 import { getRecommendations } from '../../data/products'
@@ -47,25 +48,39 @@ export default function SkinAnalyzer({ showToast }) {
   async function handleAnalyze() {
     setScreen('analyzing')
     try {
-      const landmarker = await initFaceLandmarker()
-      const img = new Image()
-      img.src = camera.capturedImage
-      await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject })
+      let skinScores = null
 
-      const detection = landmarker.detect(img)
-      if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
-        setScreen('camera')
-        showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
-        return
+      // Try Gemini AI first
+      try {
+        skinScores = await analyzeSkinAI(camera.capturedImage)
+        console.log('Gemini skin result:', skinScores)
+      } catch (geminiErr) {
+        console.warn('Gemini failed, falling back to local analysis:', geminiErr)
       }
 
-      const tempCanvas = document.createElement('canvas')
-      tempCanvas.width = img.width
-      tempCanvas.height = img.height
-      const ctx = tempCanvas.getContext('2d')
-      ctx.drawImage(img, 0, 0)
+      // Fallback to local MediaPipe analysis
+      if (!skinScores) {
+        const landmarker = await initFaceLandmarker()
+        const img = new Image()
+        img.src = camera.capturedImage
+        await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject })
 
-      const skinScores = analyzeSkinPixels(ctx, detection.faceLandmarks[0], img.width, img.height)
+        const detection = landmarker.detect(img)
+        if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
+          setScreen('camera')
+          showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
+          return
+        }
+
+        const tempCanvas = document.createElement('canvas')
+        tempCanvas.width = img.width
+        tempCanvas.height = img.height
+        const ctx = tempCanvas.getContext('2d')
+        ctx.drawImage(img, 0, 0)
+
+        skinScores = analyzeSkinPixels(ctx, detection.faceLandmarks[0], img.width, img.height)
+      }
+
       const avgConcern = (skinScores.redness + skinScores.oiliness + skinScores.dryness + skinScores.darkSpots + skinScores.texture) / 5
       let overall = Math.round(100 - avgConcern * 0.6)
       overall = Math.max(10, Math.min(95, overall))

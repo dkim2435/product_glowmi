@@ -5,6 +5,7 @@ import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { savePersonalColorResult } from '../../lib/db'
 import { analyzeSkinTone, cropFaceFromPhoto } from './analysis/personalColorLogic'
+import { analyzePersonalColorAI } from '../../lib/gemini'
 import { personalColorResults } from '../../data/personalColor'
 import { getRecommendations } from '../../data/products'
 import ProductCard from '../common/ProductCard'
@@ -45,35 +46,53 @@ export default function PersonalColorAnalysis({ showToast }) {
   async function handleAnalyze() {
     setScreen('analyzing')
     try {
-      const img = new Image()
-      img.src = camera.capturedImage
-      await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject })
+      let analysis = null
 
-      const landmarker = await initFaceLandmarker()
-      const detection = landmarker.detect(img)
-
-      if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
-        setScreen('camera')
-        showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
-        return
+      // Try Gemini AI first
+      try {
+        analysis = await analyzePersonalColorAI(camera.capturedImage)
+        console.log('Gemini personal color result:', analysis)
+      } catch (geminiErr) {
+        console.warn('Gemini failed, falling back to local analysis:', geminiErr)
       }
 
-      const landmarks = detection.faceLandmarks[0]
-      const canvas = document.createElement('canvas')
-      canvas.width = img.naturalWidth
-      canvas.height = img.naturalHeight
-      const ctx = canvas.getContext('2d')
-      ctx.drawImage(img, 0, 0)
-
-      const analysis = analyzeSkinTone(ctx, landmarks, canvas.width, canvas.height)
+      // Fallback to local MediaPipe analysis
       if (!analysis) {
-        setScreen('camera')
-        showToast(t('Could not analyze skin tone. Please try another photo.', '피부톤 분석에 실패했습니다.'))
-        return
+        const img = new Image()
+        img.src = camera.capturedImage
+        await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject })
+
+        const landmarker = await initFaceLandmarker()
+        const detection = landmarker.detect(img)
+
+        if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
+          setScreen('camera')
+          showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
+          return
+        }
+
+        const landmarks = detection.faceLandmarks[0]
+        const canvas = document.createElement('canvas')
+        canvas.width = img.naturalWidth
+        canvas.height = img.naturalHeight
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0)
+
+        analysis = analyzeSkinTone(ctx, landmarks, canvas.width, canvas.height)
+        if (!analysis) {
+          setScreen('camera')
+          showToast(t('Could not analyze skin tone. Please try another photo.', '피부톤 분석에 실패했습니다.'))
+          return
+        }
       }
 
-      const crop = await cropFaceFromPhoto(camera.capturedImage, landmarker)
-      setFaceCrop(crop)
+      // Face crop for result screen (best-effort, non-blocking)
+      try {
+        const landmarker = await initFaceLandmarker()
+        const crop = await cropFaceFromPhoto(camera.capturedImage, landmarker)
+        setFaceCrop(crop)
+      } catch { /* ignore crop failure */ }
+
       setResult(analysis)
 
       setTimeout(() => {

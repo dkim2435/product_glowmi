@@ -5,6 +5,7 @@ import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveFaceShapeResult } from '../../lib/db'
 import { classifyFaceShape } from './analysis/faceShapeLogic'
+import { analyzeFaceShapeAI } from '../../lib/gemini'
 import { fsShapeData } from '../../data/faceShape'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
@@ -42,19 +43,33 @@ export default function FaceShapeDetector({ showToast }) {
   async function handleAnalyze() {
     setScreen('analyzing')
     try {
-      const landmarker = await initFaceLandmarker()
-      const img = new Image()
-      img.src = camera.capturedImage
-      await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject })
+      let shape = null
 
-      const detection = landmarker.detect(img)
-      if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
-        setScreen('camera')
-        showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
-        return
+      // Try Gemini AI first
+      try {
+        shape = await analyzeFaceShapeAI(camera.capturedImage)
+        console.log('Gemini face shape result:', shape)
+      } catch (geminiErr) {
+        console.warn('Gemini failed, falling back to local analysis:', geminiErr)
       }
 
-      const shape = classifyFaceShape(detection.faceLandmarks[0])
+      // Fallback to local MediaPipe analysis
+      if (!shape) {
+        const landmarker = await initFaceLandmarker()
+        const img = new Image()
+        img.src = camera.capturedImage
+        await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject })
+
+        const detection = landmarker.detect(img)
+        if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
+          setScreen('camera')
+          showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
+          return
+        }
+
+        shape = classifyFaceShape(detection.faceLandmarks[0])
+      }
+
       setResult(shape)
       setScreen('result')
       setShowConfetti(true)
