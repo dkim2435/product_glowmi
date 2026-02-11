@@ -23,40 +23,57 @@ export default function ProceduresTab() {
 }
 
 function ProceduresList() {
-  const [openIdx, setOpenIdx] = useState(null)
+  const [expanded, setExpanded] = useState(null)
+
+  function toggle(i) {
+    setExpanded(prev => prev === i ? null : i)
+  }
 
   return (
-    <div className="procedures-grid">
-      {proceduresData.map((p, i) => (
-        <div
-          key={i}
-          className={'procedure-card' + (i === 0 ? ' procedure-card-top' : '') + (openIdx === i ? ' open' : '')}
-          onClick={() => setOpenIdx(openIdx === i ? null : i)}
-        >
-          <div className="procedure-header">
-            <div>
-              <div className="procedure-title">{p.english}</div>
-              <div className="procedure-title-korean">{p.korean}</div>
+    <div className="proc-grid">
+      {proceduresData.map((p, i) => {
+        const isOpen = expanded === i
+        return (
+          <div key={i} className={'proc-card' + (isOpen ? ' proc-expanded' : '')} onClick={() => toggle(i)}>
+            <div className="proc-icon">{p.emoji}</div>
+            <div className="proc-title">{p.english}</div>
+            <div className="proc-sub">{p.korean}</div>
+            <div className="proc-rank">{p.rank}</div>
+            <div className="proc-tags-row">
+              {p.tags.slice(0, 2).map((t, j) => <span key={j} className="proc-tag">{t}</span>)}
             </div>
-            <div className="procedure-header-right">
-              <span className="procedure-rank">{p.rank}</span>
-              <span className="procedure-chevron">&#9660;</span>
-            </div>
+
+            {isOpen && (
+              <div className="proc-details" onClick={e => e.stopPropagation()}>
+                <div className="proc-desc">{p.description}</div>
+                <div className="proc-desc-kr">{p.descriptionKr}</div>
+
+                <div className="proc-info-grid">
+                  <div className="proc-info-item">
+                    <span className="proc-info-label">Price 가격</span>
+                    <span className="proc-info-val">{p.priceKRW}</span>
+                    <span className="proc-info-sub">{p.priceUSD}</span>
+                  </div>
+                  <div className="proc-info-item">
+                    <span className="proc-info-label">Duration 시간</span>
+                    <span className="proc-info-val">{p.duration}</span>
+                  </div>
+                  <div className="proc-info-item">
+                    <span className="proc-info-label">Downtime 회복</span>
+                    <span className="proc-info-val">{p.downtime}</span>
+                  </div>
+                  <div className="proc-info-item">
+                    <span className="proc-info-label">Lasts 유지기간</span>
+                    <span className="proc-info-val">{p.lasts}</span>
+                  </div>
+                </div>
+
+                <button className="proc-close-btn" onClick={() => setExpanded(null)}>Close ▴</button>
+              </div>
+            )}
           </div>
-          <div className="procedure-tags">
-            {p.tags.map((tag, j) => <span key={j} className="tag">{tag}</span>)}
-          </div>
-          <div className="procedure-body">
-            <p className="procedure-description">{p.description}</p>
-            <div className="procedure-details">
-              <div className="detail-item"><div className="detail-label">Price</div><div className="detail-value">{p.priceKRW}</div><div className="detail-value-sub">{p.priceUSD}</div></div>
-              <div className="detail-item"><div className="detail-label">Duration</div><div className="detail-value">{p.duration}</div></div>
-              <div className="detail-item"><div className="detail-label">Downtime</div><div className="detail-value">{p.downtime}</div></div>
-              <div className="detail-item"><div className="detail-label">Lasts</div><div className="detail-value">{p.lasts}</div></div>
-            </div>
-          </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

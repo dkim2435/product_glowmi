@@ -1812,172 +1812,173 @@ body {
   margin-bottom: 25px;
 }
 
-.procedures-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  max-width: 420px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+/* ========== Procedure Cards (2-col grid) ========== */
+.proc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.procedure-card {
+.proc-card {
   background: white;
   border-radius: 16px;
-  padding: 16px 20px;
+  padding: 18px;
   box-shadow: var(--card-shadow);
-  border-left: 4px solid var(--primary-pink);
+  text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.procedure-card:hover {
-  box-shadow: 0 8px 30px rgba(196, 69, 105, 0.18);
-}
-
-.procedure-card-top {
-  background: linear-gradient(135deg, #fffbf0 0%, #fff5f8 50%, #fff 100%);
-  border-left: 4px solid #d4a843;
-  box-shadow: 0 4px 20px rgba(180, 142, 58, 0.15), 0 0 0 1px rgba(212, 168, 67, 0.18);
+  border: 2px solid transparent;
   position: relative;
 }
 
-.procedure-card-top::before {
-  content: '\1F451';
+.proc-card:hover {
+  border-color: #f5c2d4;
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.15);
+  transform: translateY(-2px);
+}
+
+.proc-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.proc-card::after {
+  content: 'Tap for details ▾';
   position: absolute;
-  top: -10px;
-  left: 12px;
-  font-size: 1.2rem;
-  filter: drop-shadow(0 1px 2px rgba(180, 142, 58, 0.4));
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  font-size: 0.58rem;
+  color: #ccc;
+  animation: pulse-hint 2s ease-in-out infinite;
 }
 
-.procedure-card-top .procedure-rank {
-  background: linear-gradient(135deg, #d4a843 0%, #f0c860 40%, #b8912a 100%);
-  padding: 5px 14px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(180, 142, 58, 0.35);
-  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+.proc-card.proc-expanded {
+  grid-column: 1 / -1;
+  cursor: default;
 }
 
-.procedure-card-top .procedure-title {
-  font-size: 1.2rem;
-  color: #8b6914;
+.proc-card.proc-expanded::after {
+  display: none;
 }
 
-.procedure-card-top:hover {
-  box-shadow: 0 10px 35px rgba(180, 142, 58, 0.22), 0 0 0 1px rgba(212, 168, 67, 0.25);
-}
+.proc-icon { font-size: 1.8rem; margin-bottom: 6px; }
 
-.procedure-card .procedure-body {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
-  margin-top: 0;
-}
-
-.procedure-card.open .procedure-body {
-  max-height: 500px;
-  opacity: 1;
-  margin-top: 15px;
-}
-
-.procedure-card .procedure-chevron {
-  font-size: 0.7rem;
-  color: #aaa;
-  transition: transform 0.3s ease;
-  display: inline-block;
-}
-
-.procedure-card.open .procedure-chevron {
-  transform: rotate(180deg);
-  color: var(--primary-pink);
-}
-
-.procedure-header-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-}
-
-.procedure-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
-
-.procedure-title {
-  font-size: 1.1rem;
+.proc-title {
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--secondary-pink);
+  line-height: 1.3;
 }
 
-.procedure-title-korean {
-  font-size: 0.9rem;
+.proc-sub {
+  font-size: 0.72rem;
   color: #888;
-  font-weight: 400;
+  margin-top: 2px;
 }
 
-.procedure-rank {
+.proc-rank {
+  display: inline-block;
   background: var(--gradient);
   color: white;
-  padding: 4px 10px;
-  border-radius: 15px;
-  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.65rem;
   font-weight: 600;
+  margin-top: 8px;
 }
 
-.procedure-description {
+.proc-tags-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.proc-tag {
+  font-size: 0.6rem;
+  background: #f0f0f0;
   color: #666;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 15px;
-  padding-top: 0;
-}
-
-.procedure-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.detail-item {
-  background: var(--light-pink);
-  padding: 10px 12px;
+  padding: 3px 8px;
   border-radius: 10px;
 }
 
-.detail-label {
-  font-size: 0.7rem;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.proc-details {
+  margin-top: 14px;
+  text-align: left;
+  border-top: 1px solid #f5f0f5;
+  padding-top: 14px;
+  animation: slideDown 0.3s ease;
 }
 
-.detail-value {
-  font-size: 0.85rem;
+.proc-desc {
+  font-size: 0.82rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.proc-desc-kr {
+  font-size: 0.78rem;
+  color: #999;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.proc-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.proc-info-item {
+  background: var(--light-pink);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.proc-info-label {
+  display: block;
+  font-size: 0.62rem;
+  color: #c44569;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.proc-info-val {
+  display: block;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #333;
 }
 
-.detail-value-sub {
-  font-size: 0.75rem;
+.proc-info-sub {
+  display: block;
+  font-size: 0.7rem;
   color: #888;
 }
 
-.procedure-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
+.proc-close-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px;
+  border: 1.5px solid #eee;
+  background: #fafafa;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
+.proc-close-btn:hover {
+  background: #f0f0f0;
+  color: #555;
+}
+
+/* Legacy tag class (kept for other uses) */
 .tag {
   background: #f0f0f0;
   color: #666;
@@ -4161,19 +4162,6 @@ body {
 }
 
 /* --- Procedures: content-card override for body display --- */
-.procedure-card .procedure-body {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
-  margin-top: 0;
-}
-
-.procedure-card.open .procedure-body {
-  max-height: 600px;
-  opacity: 1;
-  margin-top: 15px;
-}
 
 /* ========== Responsive — Mobile ========== */
 @media (max-width: 500px) {
@@ -4197,10 +4185,6 @@ body {
   .coming-soon-card,
   .result-card {
     padding: 30px 20px;
-  }
-
-  .procedure-details {
-    grid-template-columns: 1fr;
   }
 
   .analyzer-summary {
@@ -4285,16 +4269,6 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-  }
-
-  .procedures-grid {
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .procedure-details {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .color-palette {
