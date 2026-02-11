@@ -57,7 +57,7 @@ body {
 .logo-version {
   font-size: 0.5rem;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.25);
+  background: #FFD700;
   color: #fff;
   padding: 2px 6px;
   border-radius: 6px;
@@ -65,7 +65,7 @@ body {
   text-transform: uppercase;
   position: relative;
   top: -1.4em;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 215, 0, 0.6);
   line-height: 1;
 }
 
