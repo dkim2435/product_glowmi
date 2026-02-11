@@ -38,7 +38,12 @@ export default function CameraView({
             display: (cameraActive && !capturedImage) ? 'block' : 'none'
           }}
         />
-        {cameraActive && !capturedImage && showFaceGuide && <div className="face-guide" />}
+        {cameraActive && !capturedImage && showFaceGuide && (
+          <>
+            <div className="face-guide" />
+            <div className="camera-tip">{t('Center your face. Use natural light.', '얼굴을 원 안에 맞춰주세요. 자연광 추천.')}</div>
+          </>
+        )}
         {capturedImage && (
           <img src={capturedImage} alt="Preview" className="camera-preview-img" />
         )}

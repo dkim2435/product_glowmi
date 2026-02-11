@@ -101,7 +101,15 @@ export default function MyRoutine({ userId, showToast }) {
 
       <div className="routine-steps">
         {steps.length === 0 ? (
-          <div className="mypage-empty-hint">{t('No steps added yet.', '아직 추가된 단계가 없습니다.')}</div>
+          <div className="mypage-empty-hint">
+            <p>{t('No steps added yet.', '아직 추가된 단계가 없습니다.')}</p>
+            <p style={{ fontSize: '0.78rem', color: '#999', marginTop: 4 }}>
+              {t('Build your skincare routine step by step so you never skip a step!', '스킨케어 루틴을 단계별로 정리해보세요!')}
+            </p>
+            <p style={{ fontSize: '0.75rem', color: '#bbb', marginTop: 2 }}>
+              {t('Example: Cleanser → Toner → Serum → Moisturizer → Sunscreen', '예시: 클렌저 → 토너 → 세럼 → 보습제 → 선크림')}
+            </p>
+          </div>
         ) : (
           steps.map((step, i) => {
             const cat = getCategoryByKey(step.category)

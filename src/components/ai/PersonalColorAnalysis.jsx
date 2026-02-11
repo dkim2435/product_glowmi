@@ -113,7 +113,7 @@ export default function PersonalColorAnalysis({ showToast }) {
     if (!user || !result) return
     try {
       await savePersonalColorResult(user.id, result)
-      showToast(t('Personal color result saved!', '퍼스널컬러 결과가 저장되었습니다!'))
+      showToast(t('Saved! View in My Page > Results', '저장 완료! 마이페이지 > 결과에서 확인하세요'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }
@@ -133,7 +133,7 @@ export default function PersonalColorAnalysis({ showToast }) {
           <span className="tool-icon">🎨</span>
           <h3>AI Personal Color Analysis</h3>
           <p className="tool-desc">{t('Discover your personal color type from a selfie. AI analyzes your skin tone to classify you into one of 10 types.', '셀카 한 장으로 퍼스널컬러를 알아보세요. AI가 피부톤을 분석하여 10가지 타입 중 하나로 분류합니다.')}</p>
-          <p className="privacy-note">🔒 All processing happens on your device. Photos are never uploaded.</p>
+          <p className="privacy-note">🔒 {t('Photos are sent to Google AI for analysis. Not stored.', '사진은 Google AI로 전송되어 분석됩니다. 저장되지 않습니다.')}</p>
         </div>
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
           {t('Start Analysis', '분석 시작')}

@@ -898,6 +898,20 @@ body {
   50% { border-color: rgba(255, 107, 157, 0.8); }
 }
 
+.camera-tip {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 0.72rem;
+  padding: 4px 12px;
+  border-radius: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 /* Face guide overlay (legacy) */
 .fs-face-guide {
   position: absolute;
@@ -3541,6 +3555,7 @@ body {
 .mypage-card-value { font-size: 1rem; font-weight: 600; color: var(--secondary-pink); }
 .mypage-card-sub { font-size: 0.8rem; color: #888; }
 .mypage-card-meta { font-size: 0.72rem; color: #aaa; margin-top: 4px; }
+.mypage-card-expand-hint { font-size: 0.7rem; color: #ccc; margin-top: 6px; }
 
 .mypage-card-details {
   margin-top: 14px;

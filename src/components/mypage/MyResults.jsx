@@ -52,6 +52,7 @@ export default function MyResults({ userId, onNavigate }) {
             <div className="mypage-card-title">{t('Personal Color', '퍼스널컬러')}</div>
             <div className="mypage-card-value">{t(pc.english, pc.korean)}</div>
             <div className="mypage-card-meta">{t('Confidence', '신뢰도')}: {data.pc_confidence}%</div>
+            {!isOpen && <div className="mypage-card-expand-hint">{t('Tap for details ▾', '탭하여 상세보기 ▾')}</div>}
             {isOpen && (
               <div className="mypage-card-details" onClick={e => e.stopPropagation()}>
                 <div className="mypage-card-desc">{t(pc.description, pc.descriptionKr)}</div>
@@ -129,6 +130,7 @@ export default function MyResults({ userId, onNavigate }) {
             <div className="mypage-card-title">{t('Face Shape', '얼굴형')}</div>
             <div className="mypage-card-value">{t(fs.name, fs.korean)}</div>
             <div className="mypage-card-meta">{t('Confidence', '신뢰도')}: {data.fs_confidence}%</div>
+            {!isOpen && <div className="mypage-card-expand-hint">{t('Tap for details ▾', '탭하여 상세보기 ▾')}</div>}
             {isOpen && (
               <div className="mypage-card-details" onClick={e => e.stopPropagation()}>
                 <div className="mypage-card-desc">{fs.description}</div>
@@ -173,6 +175,7 @@ export default function MyResults({ userId, onNavigate }) {
             <div className="mypage-card-title">{t('Skin Score', '피부 점수')}</div>
             <div className="mypage-card-value">{data.skin_overall_score} / 100</div>
             <div className="mypage-card-sub">{gradeEmoji} {gradeText}</div>
+            {!isOpen && <div className="mypage-card-expand-hint">{t('Tap for details ▾', '탭하여 상세보기 ▾')}</div>}
             {isOpen && (
               <div className="mypage-card-details" onClick={e => e.stopPropagation()}>
                 <div className="mypage-card-section-title">{t('Detailed Scores', '상세 점수')}</div>
@@ -211,6 +214,7 @@ export default function MyResults({ userId, onNavigate }) {
             <div className="mypage-card-title">{t('Skin Type', '피부타입')}</div>
             <div className="mypage-card-value">{t(q.english, q.korean)}</div>
             {data.quiz_season && <div className="mypage-card-meta">{data.quiz_season === 'summer' ? '☀️ Summer' : '❄️ Winter'}</div>}
+            {!isOpen && <div className="mypage-card-expand-hint">{t('Tap for details ▾', '탭하여 상세보기 ▾')}</div>}
             {isOpen && (
               <div className="mypage-card-details" onClick={e => e.stopPropagation()}>
                 <div className="mypage-card-desc">{q.description}</div>

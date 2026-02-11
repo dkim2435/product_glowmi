@@ -19,8 +19,8 @@ export default function SaveResultBtn({ onSave, onLogin, label }) {
     <div className="save-login-prompt">
       <p className="save-login-text">
         {t(
-          <>Save your result and view it anytime — it's <strong>100% free!</strong></>,
-          <>결과를 저장하고 언제든 다시 보세요 — <strong>완전 무료!</strong></>
+          <>Save to My Page and view it anytime — it's <strong>100% free!</strong></>,
+          <>마이페이지에 저장하고 언제든 다시 보세요 — <strong>완전 무료!</strong></>
         )}
       </p>
       <button className="save-login-btn" onClick={onLogin || loginWithGoogle}>

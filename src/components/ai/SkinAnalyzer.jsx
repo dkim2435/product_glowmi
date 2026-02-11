@@ -108,7 +108,7 @@ export default function SkinAnalyzer({ showToast }) {
         overallScore,
         scores
       })
-      showToast(t('Skin analysis saved!', '피부 분석 결과가 저장되었습니다!'))
+      showToast(t('Saved! Score tracked in My Page > Skin Progress (1/day)', '저장 완료! 피부현황에 기록됩니다 (하루 1회)'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }
@@ -128,7 +128,7 @@ export default function SkinAnalyzer({ showToast }) {
           <span className="tool-icon">🔬</span>
           <h3>AI Skin Condition Analyzer</h3>
           <p className="tool-desc">{t('AI analyzes your skin for redness, oiliness, dryness, dark spots, and texture to provide personalized recommendations.', 'AI가 홍조, 유분, 건조, 색소침착, 피부결을 분석하여 맞춤 추천을 제공합니다.')}</p>
-          <p className="privacy-note">🔒 All processing happens on your device. Photos are never uploaded.</p>
+          <p className="privacy-note">🔒 {t('Photos are sent to Google AI for analysis. Not stored.', '사진은 Google AI로 전송되어 분석됩니다. 저장되지 않습니다.')}</p>
         </div>
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
           {t('Start Analysis', '분석 시작')}

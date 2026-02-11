@@ -90,7 +90,7 @@ export default function FaceShapeDetector({ showToast }) {
     if (!user || !result) return
     try {
       await saveFaceShapeResult(user.id, result)
-      showToast(t('Face shape result saved!', '얼굴형 결과가 저장되었습니다!'))
+      showToast(t('Saved! View in My Page > Results', '저장 완료! 마이페이지 > 결과에서 확인하세요'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
     }
@@ -109,7 +109,7 @@ export default function FaceShapeDetector({ showToast }) {
           <span className="tool-icon">💎</span>
           <h3>AI Face Shape Detector</h3>
           <p className="tool-desc">{t('AI analyzes 468 facial landmarks to determine your face shape and provide styling tips.', 'AI가 468개의 얼굴 랜드마크를 분석하여 얼굴형을 판별하고 스타일링 팁을 제공합니다.')}</p>
-          <p className="privacy-note">🔒 All processing happens on your device. Photos are never uploaded.</p>
+          <p className="privacy-note">🔒 {t('Photos are sent to Google AI for analysis. Not stored.', '사진은 Google AI로 전송되어 분석됩니다. 저장되지 않습니다.')}</p>
         </div>
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
           {t('Start Analysis', '분석 시작')}
