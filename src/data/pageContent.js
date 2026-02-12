@@ -57,5 +57,34 @@ export const pageContent = {
         '<h3>10. Changes to This Policy</h3>' +
         '<p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page with an updated revision date.</p>' +
         '<h3>11. Contact Us</h3>' +
-        '<p>If you have questions about this Privacy Policy or our data practices, please contact us at support@glowmi.co.</p>'
+        '<p>If you have questions about this Privacy Policy or our data practices, please contact us at support@glowmi.co.</p>',
+
+    terms: '<h2>Terms of Service</h2>' +
+        '<p class="page-subtitle">\uc774\uc6a9\uc57d\uad00</p>' +
+        '<p><strong>Last updated:</strong> February 2026</p>' +
+        '<p>Welcome to Glowmi. By accessing or using our website at glowmi.org (the \u201cService\u201d), you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use the Service.</p>' +
+        '<h3>1. Description of Service</h3>' +
+        '<p>Glowmi is a free K-Beauty companion web application that provides AI-powered beauty analysis tools, skincare guides, product information, Korean aesthetic procedure guides, and wellness content. The Service is available in English and Korean.</p>' +
+        '<h3>2. Use of the Service</h3>' +
+        '<p>You may use the Service for personal, non-commercial purposes. You agree not to: (a) use the Service for any unlawful purpose; (b) attempt to reverse-engineer, scrape, or extract data from the Service through automated means; (c) impersonate any person or entity; (d) interfere with or disrupt the Service or servers connected to the Service.</p>' +
+        '<h3>3. Account and Authentication</h3>' +
+        '<p>Some features require signing in with a Google account via Supabase authentication. You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account. You may delete your account and all associated data at any time using the in-app data deletion feature.</p>' +
+        '<h3>4. AI Analysis Disclaimer</h3>' +
+        '<p>Our AI beauty analysis tools (Skin Analyzer, Personal Color Analysis, Face Shape Detection) use machine learning models to provide estimates and suggestions. These results are for entertainment and informational purposes only. They are <strong>not</strong> medical diagnoses. Accuracy may vary depending on lighting, photo quality, and other factors. Always consult a licensed dermatologist or healthcare professional for medical advice about your skin.</p>' +
+        '<h3>5. Product and Procedure Information</h3>' +
+        '<p>Product recommendations, ingredient analyses, and aesthetic procedure details are provided for informational purposes only. Prices, availability, and product formulations may change without notice. We do not guarantee the accuracy of third-party product information. Always verify details with the manufacturer or clinic before making purchasing or treatment decisions.</p>' +
+        '<h3>6. Intellectual Property</h3>' +
+        '<p>All content on Glowmi, including text, graphics, logos, icons, images, and software, is the property of Glowmi or its content suppliers and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works from any content without our prior written permission.</p>' +
+        '<h3>7. User-Generated Content</h3>' +
+        '<p>When you save analysis results, diary entries, or routines through the Service, you retain ownership of your data. By using the Service, you grant us a limited license to store and process your data solely to provide the Service to you.</p>' +
+        '<h3>8. Third-Party Services</h3>' +
+        '<p>The Service integrates with third-party services including Google Gemini API, Google AdSense, Google Analytics, Microsoft Clarity, and Supabase. Your use of these services is subject to their respective terms and privacy policies. We are not responsible for the availability or content of any third-party services.</p>' +
+        '<h3>9. Limitation of Liability</h3>' +
+        '<p>The Service is provided \u201cas is\u201d and \u201cas available\u201d without warranties of any kind, either express or implied. To the fullest extent permitted by law, Glowmi shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly.</p>' +
+        '<h3>10. Modifications</h3>' +
+        '<p>We reserve the right to modify or discontinue the Service at any time without notice. We may also update these Terms of Service from time to time. Continued use of the Service after any changes constitutes acceptance of the new terms.</p>' +
+        '<h3>11. Governing Law</h3>' +
+        '<p>These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.</p>' +
+        '<h3>12. Contact</h3>' +
+        '<p>If you have questions about these Terms of Service, please contact us at support@glowmi.co.</p>'
 };

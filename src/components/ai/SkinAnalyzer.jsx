@@ -302,6 +302,13 @@ export default function SkinAnalyzer({ showToast }) {
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
         <p>{t('Analyzing your skin condition...', '피부 상태를 분석하고 있습니다...')}</p>
+        <div className="analyzing-tip">
+          <strong>{t('Did you know?', '알고 계셨나요?')}</strong>
+          <p>{t(
+            'AI analyzes 5 key metrics — redness, oiliness, dryness, dark spots, and texture — each scored 0-100. Lower scores mean better skin condition in that area.',
+            'AI가 5가지 핵심 지표(홍조, 유분, 건조, 잡티, 피부결)를 0-100점으로 분석해요. 점수가 낮을수록 해당 부분의 피부 상태가 좋아요.'
+          )}</p>
+        </div>
       </div>
     )
   }
@@ -342,6 +349,13 @@ export default function SkinAnalyzer({ showToast }) {
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
         <p>{t('Running comprehensive skin analysis...', '종합 피부 분석 중...')}</p>
+        <div className="analyzing-tip">
+          <strong>{t('Did you know?', '알고 계셨나요?')}</strong>
+          <p>{t(
+            'Combining photo AI analysis with your quiz answers gives a more accurate skin type result, accounting for seasonal changes and daily habits.',
+            '사진 AI 분석과 퀴즈 답변을 결합하면 계절 변화와 생활 습관까지 반영한 더 정확한 피부 타입 결과를 얻을 수 있어요.'
+          )}</p>
+        </div>
       </div>
     )
   }

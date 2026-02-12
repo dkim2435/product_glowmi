@@ -182,6 +182,13 @@ export default function PersonalColorAnalysis({ showToast }) {
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
         <p>{t('Analyzing your skin tone...', '피부톤을 분석하고 있습니다...')}</p>
+        <div className="analyzing-tip">
+          <strong>{t('Did you know?', '알고 계셨나요?')}</strong>
+          <p>{t(
+            'Personal color analysis originated in the 1980s and has become a key part of K-Beauty culture. Your undertone determines which makeup shades and clothing colors look most flattering on you.',
+            '퍼스널 컬러 분석은 1980년대에 시작되어 K-뷰티 문화의 핵심이 되었어요. 언더톤에 따라 어떤 메이크업 색상과 옷 색이 가장 잘 어울리는지 결정돼요.'
+          )}</p>
+        </div>
       </div>
     )
   }

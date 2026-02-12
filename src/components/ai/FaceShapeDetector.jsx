@@ -160,6 +160,13 @@ export default function FaceShapeDetector({ showToast }) {
       <div className="analyzing-screen">
         <div className="analyzing-spinner" />
         <p>{t('Analyzing your face shape...', '얼굴형을 분석하고 있습니다...')}</p>
+        <div className="analyzing-tip">
+          <strong>{t('Did you know?', '알고 계셨나요?')}</strong>
+          <p>{t(
+            'Face shape analysis uses AI to map facial proportions and classify into 7 types — oval, round, square, heart, oblong, diamond, and triangle — each with personalized style recommendations.',
+            '얼굴형 분석은 AI로 얼굴 비율을 측정하고 7가지 유형(타원형, 둥근형, 사각형, 하트형, 긴형, 다이아몬드형, 삼각형)으로 분류하여 맞춤 스타일을 추천해요.'
+          )}</p>
+        </div>
       </div>
     )
   }
