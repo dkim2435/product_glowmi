@@ -1,0 +1,18 @@
+# Static assets — long cache
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages — revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/blog/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# SEO files — short cache
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+/robots.txt
+  Cache-Control: public, max-age=3600
+/ads.txt
+  Cache-Control: public, max-age=3600

@@ -7,6 +7,13 @@ Allow: /blog/
 Disallow: /api/
 Disallow: /admin/
 
+# Google AdsBot — explicitly allow for AdSense
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
 # Sitemaps
 Sitemap: https://glowmi.org/sitemap.xml
 
