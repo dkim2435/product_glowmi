@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { TRENDING_INGREDIENTS } from '../../data/trendingIngredients'
 import IngredientAnalyzer from './IngredientAnalyzer'
 import CompatibilityChecker from './CompatibilityChecker'
 import { useLang } from '../../context/LanguageContext'
@@ -30,7 +29,7 @@ export default function ProductsTab({ showToast }) {
 }
 
 function SkincareGuide() {
-  const [openCard, setOpenCard] = useState(null)
+  const [openCard, setOpenCard] = useState('routine')
   const { t } = useLang()
 
   const cards = [
@@ -69,12 +68,6 @@ function SkincareGuide() {
       )
     },
     {
-      id: 'trending',
-      title: '🔥 2025/2026 Trending Ingredients',
-      titleKr: '🔥 올해 한국에서 제일 핫한 성분 TOP 10',
-      content: <TrendingIngredients />
-    },
-    {
       id: 'tips',
       title: '💡 Beginner Tips',
       titleKr: '💡 초보자 팁',
@@ -110,46 +103,6 @@ function SkincareGuide() {
           )}
         </div>
       ))}
-    </div>
-  )
-}
-
-function TrendingIngredients() {
-  const [openIdx, setOpenIdx] = useState(null)
-  const { t } = useLang()
-
-  return (
-    <div className="trending-ing-list">
-      <p className="trending-source">Source: Olive Young, Hwahae, Allure Korea 2025-2026</p>
-      {TRENDING_INGREDIENTS.map((ing, i) => {
-        const isOpen = openIdx === i
-        return (
-          <div key={i} className={'trending-ing-item' + (isOpen ? ' open' : '')} onClick={() => setOpenIdx(isOpen ? null : i)}>
-            <div className="trending-ing-header">
-              <span className="trending-ing-rank">#{i + 1}</span>
-              <div className="trending-ing-names">
-                <strong>{t(ing.name, ing.nameKr)}</strong>
-              </div>
-              <span className="trending-ing-chevron">{isOpen ? '▲' : '▼'}</span>
-            </div>
-            {isOpen && (
-              <div className="trending-ing-body" onClick={e => e.stopPropagation()}>
-                <p className="trending-ing-desc">{t(ing.desc, ing.descKr)}</p>
-                <div className="trending-ing-why">
-                  <strong>{t('Why trending', '왜 핫한가')}</strong>
-                  <p>{ing.why}</p>
-                </div>
-                <div className="trending-ing-products">
-                  <strong>{t('Popular Products', '인기 제품')}</strong>
-                  <ul>
-                    {ing.products.map((p, j) => <li key={j}>{p}</li>)}
-                  </ul>
-                </div>
-              </div>
-            )}
-          </div>
-        )
-      })}
     </div>
   )
 }

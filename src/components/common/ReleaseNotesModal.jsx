@@ -1,22 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.5.5'
+const APP_VERSION = '2.0.0'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🧘',
+    emoji: '🎉',
     title: `What's New in v${APP_VERSION}`,
-    titleKr: `v${APP_VERSION} 업데이트 소식`,
-    desc: 'Wellness tab upgraded with personalized nutrients, weather care, and K-beauty trends!',
-    descKr: '웰니스 탭이 맞춤 영양소, 날씨케어, K-뷰티 트렌드로 업그레이드!',
+    titleKr: `v${APP_VERSION} 대규모 업데이트!`,
+    desc: 'Major update — Wellness overhaul, K-beauty YouTubers, global weather widget, privacy improvements, and a new onboarding experience!',
+    descKr: '대규모 업데이트 — 웰니스 개편, K-뷰티 유튜버, 전역 날씨 위젯, 개인정보 보호 개선, 새로운 안내 화면!',
     items: [
-      { emoji: '🍎', label: 'Nutrient Recs', labelKr: '맞춤 영양소', desc: 'Get personalized food & nutrient recommendations based on your skin analysis.', descKr: '피부 분석 결과에 따른 맞춤 음식 및 영양소를 추천받으세요.' },
-      { emoji: '🌤️', label: 'Weather Care', labelKr: '날씨케어', desc: 'Real-time weather-based skincare tips with product recommendations.', descKr: '실시간 날씨 기반 스킨케어 팁과 제품 추천.' },
-      { emoji: '🔥', label: 'K-Trends', labelKr: 'K트렌드', desc: '2025-2026 K-beauty trends — ingredients, methods, philosophy, and top brands.', descKr: '2025-2026 K-뷰티 트렌드 — 성분, 방법, 철학, 주목 브랜드.' },
+      { emoji: '🧘', label: 'Wellness Tab', labelKr: '웰니스 탭', desc: 'Personalized nutrient recs based on your skin analysis + K-beauty trends 2025-2026.', descKr: '피부 분석 기반 맞춤 영양소 추천 + 2025-2026 K-뷰티 트렌드.' },
+      { emoji: '📺', label: 'K-YouTubers', labelKr: 'K-뷰티 유튜버', desc: 'Meet the top 7 Korean beauty YouTubers with curated video picks.', descKr: '한국 인기 뷰티 유튜버 7인과 추천 영상을 만나보세요.' },
+      { emoji: '🌤️', label: 'Weather Widget', labelKr: '날씨 위젯', desc: 'Weather skincare tips now appear on every page, not just AI Beauty.', descKr: '날씨 스킨케어 팁이 이제 모든 페이지 상단에 표시됩니다.' },
+      { emoji: '🔒', label: 'Privacy Update', labelKr: '개인정보 개선', desc: 'Updated privacy policy to accurately disclose AI photo processing via Gemini API.', descKr: 'AI 사진 분석(Gemini API)에 대한 개인정보 처리방침을 정확하게 업데이트했습니다.' },
     ],
   },
 ]

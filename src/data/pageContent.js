@@ -41,7 +41,9 @@ export const pageContent = {
         '<h3>3. Google Sign-In</h3>' +
         '<p>We use Google OAuth via Supabase for authentication. When you sign in, we receive your public profile information (name, email, profile photo) from Google. We do not access your Google contacts, drive, or any other data. You can revoke access at any time through your Google Account settings.</p>' +
         '<h3>4. Data Storage and Security</h3>' +
-        '<p>Account data is stored on Supabase with row-level security (RLS), meaning only you can access your own data. All data is transmitted over HTTPS. AI photo analysis continues to run entirely on your device \u2014 photos are never uploaded to any server, even when logged in.</p>' +
+        '<p>Account data is stored on Supabase with row-level security (RLS), meaning only you can access your own data. All data is transmitted over HTTPS.</p>' +
+        '<h3>4-1. AI Photo Analysis</h3>' +
+        '<p>When you use our AI beauty analysis tools (Personal Color, Face Shape, Skin Analyzer), your photo is sent to the Google Gemini API for processing. Google processes the image to generate your analysis results and does not permanently store your photos. We do not store your photos on our servers. For users who prefer on-device processing, a local fallback using MediaPipe technology is used automatically if the AI service is unavailable. For full details on how Google handles data, see <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Google Gemini API Terms</a>.</p>' +
         '<h3>5. Data Deletion</h3>' +
         '<p>You can delete all your data at any time using the \u201cDelete All My Data\u201d button on the My Page tab or in the user dropdown menu. This permanently removes your profile, analysis results, diary entries, and routines from our database.</p>' +
         '<h3>6. Google AdSense and Cookies</h3>' +
