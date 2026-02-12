@@ -8,6 +8,7 @@ import Footer from './components/layout/Footer'
 import Toast from './components/common/Toast'
 import OnboardingModal, { shouldShowOnboarding } from './components/common/OnboardingModal'
 import ReleaseNotesModal, { shouldShowReleaseNotes, seedVersionForNewUser } from './components/common/ReleaseNotesModal'
+import WeatherTips from './components/common/WeatherTips'
 import AiBeautyTab from './components/ai/AiBeautyTab'
 import ProductsTab from './components/products/ProductsTab'
 import ProceduresTab from './components/procedures/ProceduresTab'
@@ -52,6 +53,7 @@ export default function App() {
             <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
 
             <main className="main-content">
+              <WeatherTips />
               {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
               {activeTab === 'products' && <ProductsTab showToast={showToast} />}
               {activeTab === 'procedures' && <ProceduresTab />}

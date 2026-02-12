@@ -7798,6 +7798,36 @@ body {
   margin-bottom: 0;
 }
 
+.weather-wellness-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--card-shadow);
+  margin-top: 4px;
+}
+
+.weather-wellness-hint span {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.weather-wellness-hint p {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+[data-theme="dark"] .weather-wellness-hint {
+  background: #1e1e2e;
+}
+
+[data-theme="dark"] .weather-wellness-hint p {
+  color: #999;
+}
+
 /* ========== Dark Mode — Nutrients & K-Trends ========== */
 [data-theme="dark"] .nutrient-generic-card,
 [data-theme="dark"] .nutrient-concern-section,
