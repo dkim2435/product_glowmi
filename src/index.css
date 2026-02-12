@@ -2430,11 +2430,9 @@ body {
   padding: 16px;
   text-align: center;
 }
-.proc-gated-overlay p {
-  font-size: 0.85rem;
-  color: #555;
-  margin-bottom: 10px;
-  font-weight: 500;
+.proc-gated-overlay .primary-btn {
+  font-size: 0.82rem;
+  padding: 8px 18px;
 }
 
 /* Legacy tag class (kept for other uses) */
@@ -7199,7 +7197,6 @@ body {
 [data-theme="dark"] .proc-close-btn { background: #2a2a40; border-color: #3a3a50; color: #aaa; }
 [data-theme="dark"] .proc-close-btn:hover { background: #35354a; color: #e0e0e8; }
 [data-theme="dark"] .proc-gated-overlay { background: rgba(30,30,50,0.75); }
-[data-theme="dark"] .proc-gated-overlay p { color: #c0c0d0; }
 [data-theme="dark"] .procedures-guide-subtitle { color: #909098; }
 [data-theme="dark"] .section-subtitle { color: #909098; }
 

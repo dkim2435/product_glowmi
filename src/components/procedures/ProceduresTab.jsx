@@ -53,8 +53,7 @@ function ProceduresList() {
 
             {isGated && (
               <div className="proc-gated-overlay" onClick={e => e.stopPropagation()}>
-                <p>{t('Sign up to see top procedures!', '가입하고 인기 시술 정보를 확인하세요!')}</p>
-                <button className="primary-btn" onClick={loginWithGoogle}>{t('Sign up (Free)', '무료 가입')}</button>
+                <button className="primary-btn" onClick={loginWithGoogle}>{t('Sign up free to unlock', '무료 가입하고 보기')}</button>
               </div>
             )}
 
