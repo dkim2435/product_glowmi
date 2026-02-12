@@ -5,13 +5,13 @@ import KTrends from './KTrends'
 import WellnessGuide from './WellnessGuide'
 
 const WELLNESS_TABS = [
+  { id: 'guide', label: 'Guide', labelKr: '가이드', emoji: '📚' },
   { id: 'nutrients', label: 'Nutrients', labelKr: '영양소', emoji: '🍎' },
-  { id: 'ktrends', label: 'K-Trends', labelKr: 'K트렌드', emoji: '🔥' },
-  { id: 'guide', label: 'Guide', labelKr: '가이드', emoji: '📚' }
+  { id: 'ktrends', label: 'K-Trends', labelKr: 'K트렌드', emoji: '🔥' }
 ]
 
 export default function WellnessTab({ onNavigate }) {
-  const [activeTab, setActiveTab] = useState('nutrients')
+  const [activeTab, setActiveTab] = useState('guide')
   const { t } = useLang()
 
   return (
