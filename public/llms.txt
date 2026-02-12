@@ -32,6 +32,12 @@
 - [Best Korean Sunscreens 2026](https://glowmi.org/blog/best-korean-sunscreen-2026): Expert-reviewed guide to top Korean sunscreens with SPF ratings and price comparisons.
 - [Korean Skincare Routine for Oily Skin](https://glowmi.org/blog/korean-skincare-routine-oily-skin): Step-by-step K-Beauty routine tailored for oily skin types.
 - [Free AI Personal Color Analysis](https://glowmi.org/blog/free-personal-color-analysis): How to find your personal color type at home using AI.
+- [How to Find Your Skin Type at Home](https://glowmi.org/blog/how-to-find-your-skin-type): Complete guide to determining your skin type with the bare face test and AI tools.
+- [K-Beauty Ingredients Guide](https://glowmi.org/blog/k-beauty-ingredients-guide): Top 15 Korean skincare actives explained — niacinamide, snail mucin, centella, and more.
+- [Gangnam Clinic Guide for Foreigners](https://glowmi.org/blog/gangnam-clinic-guide-foreigners): Everything foreigners need to know about Korean dermatology and aesthetic procedures in Gangnam.
+- [AI Face Shape Analysis](https://glowmi.org/blog/ai-face-shape-analysis): How AI face shape analysis works and style recommendations for 7 face shapes.
+- [피부타입별 K-뷰티 루틴 가이드](https://glowmi.org/blog/skin-type-kbeauty-routine-guide): 건성·지성·복합성·민감성별 맞춤 K-뷰티 스킨케어 루틴.
+- [강남 피부과 시술 가격 비교 2026](https://glowmi.org/blog/gangnam-dermatology-price-guide-2026): 보톡스·필러·레이저·피부 부스터 시술 가격 총정리.
 
 ## Technical
 

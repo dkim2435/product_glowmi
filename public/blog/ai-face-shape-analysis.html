@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Face Shape Analysis — How It Works & What Your Face Shape Says About You | Glowmi</title>
+    <meta name="description" content="Learn how AI face shape analysis works using facial landmarks, discover the 7 face shapes (oval, round, square, heart, oblong, diamond, triangle), and find the best hairstyles, glasses, and makeup for your shape.">
+    <meta name="keywords" content="AI face shape analysis, face shape detector, what is my face shape, oval face shape, round face shape, heart face shape, face shape hairstyle, face shape glasses, facial landmark detection">
+    <meta name="author" content="Glowmi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://glowmi.org/blog/ai-face-shape-analysis">
+
+    <meta property="og:title" content="AI Face Shape Analysis — How It Works & What Your Face Shape Says About You">
+    <meta property="og:description" content="Discover the 7 face shapes, how AI detects yours using facial landmarks, and what it means for your best hairstyles, glasses, and makeup.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://glowmi.org/blog/ai-face-shape-analysis">
+    <meta property="og:image" content="https://glowmi.org/og-image.png">
+    <meta property="og:site_name" content="Glowmi">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Face Shape Analysis — What Your Face Shape Says About You">
+    <meta name="twitter:image" content="https://glowmi.org/og-image.png">
+
+    <meta name="theme-color" content="#FF6B9D">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.json">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "AI Face Shape Analysis — How It Works & What Your Face Shape Says About You",
+        "description": "How AI face shape analysis uses facial landmarks to detect the 7 face shapes and what each means for hairstyles, glasses, and makeup.",
+        "author": { "@type": "Organization", "name": "Glowmi", "url": "https://glowmi.org" },
+        "publisher": { "@type": "Organization", "name": "Glowmi", "logo": { "@type": "ImageObject", "url": "https://glowmi.org/og-image.png" } },
+        "datePublished": "2026-02-12",
+        "dateModified": "2026-02-12",
+        "mainEntityOfPage": "https://glowmi.org/blog/ai-face-shape-analysis",
+        "image": "https://glowmi.org/og-image.png"
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #faf7f5; color: #333; line-height: 1.7; }
+        .blog-header { background: linear-gradient(135deg, #FF6B9D, #c44569); padding: 20px; text-align: center; }
+        .blog-header a { color: #fff; text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+        .blog-header span { font-size: 0.7rem; opacity: 0.8; margin-left: 6px; }
+        .blog-container { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+        h1 { font-size: 1.8rem; line-height: 1.3; margin-bottom: 12px; color: #222; }
+        .blog-meta { font-size: 0.85rem; color: #888; margin-bottom: 28px; }
+        h2 { font-size: 1.3rem; margin: 32px 0 12px; color: #333; border-bottom: 2px solid #FF6B9D; padding-bottom: 6px; }
+        h3 { font-size: 1.1rem; margin: 20px 0 8px; }
+        p { margin-bottom: 16px; font-size: 0.95rem; }
+        .product-card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .product-card h3 { margin-top: 0; color: #c44569; }
+        .product-card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .product-card .tag { background: #fff0f5; color: #c44569; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; }
+        ul { padding-left: 20px; margin-bottom: 16px; }
+        li { margin-bottom: 8px; font-size: 0.93rem; }
+        .cta-box { background: linear-gradient(135deg, #FF6B9D, #c44569); color: #fff; padding: 24px; border-radius: 14px; text-align: center; margin: 32px 0; }
+        .cta-box h3 { color: #fff; margin: 0 0 8px; }
+        .cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+        .cta-box a { display: inline-block; background: #fff; color: #c44569; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+        .blog-footer { text-align: center; padding: 24px; border-top: 1px solid #eee; font-size: 0.85rem; color: #888; }
+        .blog-footer a { color: #c44569; text-decoration: none; }
+        @media (max-width: 600px) { h1 { font-size: 1.4rem; } .blog-container { padding: 20px 16px 40px; } }
+    </style>
+</head>
+<body>
+    <div class="blog-header">
+        <a href="https://glowmi.org">Glowmi<span>K-Beauty Companion</span></a>
+    </div>
+    <article class="blog-container">
+        <h1>AI Face Shape Analysis: How It Works & What Your Face Shape Says About You</h1>
+        <div class="blog-meta">Published February 2026 &middot; By Glowmi Team &middot; 8 min read</div>
+
+        <p>Your face shape influences which hairstyles flatter you, which glasses frames suit you best, and how to apply makeup for the most balanced look. Traditionally, figuring out your face shape required holding a marker to a mirror and tracing your jawline — an imprecise and frustrating process. AI face shape analysis changes that entirely, delivering accurate results in seconds using nothing more than a selfie.</p>
+
+        <h2>How AI Face Shape Analysis Works</h2>
+        <p>Modern AI face shape analyzers use a technology called <strong>facial landmark detection</strong>. When you upload a photo or take a selfie, the AI model identifies and maps key anatomical points on your face — typically between 68 and 478 individual landmarks depending on the model used.</p>
+        <p>These landmarks include the contour of your jawline, the width of your cheekbones, the position of your temples, your forehead boundaries, and the proportions between your chin and hairline. The AI measures the geometric relationships between these points: the ratio of face length to face width, the relative widths of your forehead, cheekbones, and jaw, and the angle of your jawline.</p>
+        <p>Using these measurements, the algorithm classifies your face into one of seven standard shapes by comparing your proportions against known geometric profiles. Advanced models like Google's MediaPipe FaceMesh can detect 478 3D landmarks in real time, providing enough data for highly accurate shape classification even from a single front-facing photo.</p>
+
+        <h2>The 7 Face Shapes Explained</h2>
+        <p>Every human face is unique, but faces generally cluster into seven recognizable geometric categories. Understanding yours unlocks personalized style guidance for everything from haircuts to contouring.</p>
+
+        <div class="product-card">
+            <h3>Oval Face Shape</h3>
+            <p>The oval face is slightly longer than it is wide, with gently rounded contours and a jawline that is narrower than the cheekbones. The forehead is slightly wider than the jaw, and the overall proportions are balanced and symmetrical. Considered the most versatile face shape — virtually any hairstyle, glasses frame, or makeup technique works.</p>
+            <p><strong>Best hairstyles:</strong> Almost anything works. Long layers, bobs, side parts, center parts, updos. Your proportions are naturally balanced, so experiment freely.</p>
+            <p><strong>Best glasses:</strong> Walnut-shaped, rectangular, or aviator frames. You can pull off geometric frames that other shapes struggle with.</p>
+            <p><strong>Makeup tip:</strong> Light contouring along the cheekbones is all you need. Focus on enhancing features rather than reshaping proportions.</p>
+            <div class="tags"><span class="tag">Balanced Proportions</span><span class="tag">Versatile</span><span class="tag">Rounded Jaw</span></div>
+        </div>
+
+        <div class="product-card">
+            <h3>Round Face Shape</h3>
+            <p>Round faces have nearly equal width and length, with full cheeks, a rounded jawline, and a softer chin. The widest point of the face is at the cheekbones, and the face lacks strong angular features. Round faces often appear youthful and friendly.</p>
+            <p><strong>Best hairstyles:</strong> Long layers that fall below the chin, side-swept bangs, and high-volume styles that add height. Avoid blunt chin-length bobs that emphasize width.</p>
+            <p><strong>Best glasses:</strong> Angular frames — rectangular, square, or cat-eye shapes that add definition and contrast the face's soft curves.</p>
+            <p><strong>Makeup tip:</strong> Contour along the sides of the forehead and under the cheekbones to create the illusion of length. Apply highlighter down the center of the nose and on the chin to elongate.</p>
+            <div class="tags"><span class="tag">Equal Width & Length</span><span class="tag">Full Cheeks</span><span class="tag">Soft Jawline</span></div>
+        </div>
+
+        <div class="product-card">
+            <h3>Square Face Shape</h3>
+            <p>Square faces feature a strong, angular jawline with the forehead, cheekbones, and jaw all approximately the same width. The face is roughly as wide as it is long, but with sharply defined corners at the jaw rather than rounded edges. This shape conveys strength and structure.</p>
+            <p><strong>Best hairstyles:</strong> Soft layers, waves, and side parts that soften the angular jaw. Longer styles that fall past the chin work well. Avoid blunt, straight-across cuts that mirror the jaw's straight lines.</p>
+            <p><strong>Best glasses:</strong> Round or oval frames soften the angular features. Thin metal frames work beautifully. Avoid boxy, square frames that exaggerate the jaw.</p>
+            <p><strong>Makeup tip:</strong> Contour the corners of the jaw and temples to soften angles. Apply blush in a rounded sweep on the apples of the cheeks rather than along the cheekbone.</p>
+            <div class="tags"><span class="tag">Strong Jawline</span><span class="tag">Angular</span><span class="tag">Equal Widths</span></div>
+        </div>
+
+        <div class="product-card">
+            <h3>Heart Face Shape</h3>
+            <p>Heart-shaped faces are widest at the forehead and taper to a narrow, sometimes pointed chin. The cheekbones are prominent and high, and the overall effect resembles an inverted triangle. This shape often features a widow's peak hairline, though that is not required for classification.</p>
+            <p><strong>Best hairstyles:</strong> Chin-length bobs, side-swept bangs, and styles that add volume around the jaw area to balance the wider forehead. Avoid heavy, full bangs that make the forehead look even wider.</p>
+            <p><strong>Best glasses:</strong> Bottom-heavy frames, rimless styles, or light-colored frames that do not draw attention to the wider forehead. Aviators and round frames work well.</p>
+            <p><strong>Makeup tip:</strong> Contour the temples and sides of the forehead to narrow the upper face. Apply highlighter on the chin to balance proportions. Blush on the apples of the cheeks draws attention to the center of the face.</p>
+            <div class="tags"><span class="tag">Wide Forehead</span><span class="tag">Narrow Chin</span><span class="tag">High Cheekbones</span></div>
+        </div>
+
+        <div class="product-card">
+            <h3>Oblong (Rectangle) Face Shape</h3>
+            <p>The oblong face is noticeably longer than it is wide, with a relatively uniform width from forehead through cheekbones to jaw. The jaw is gently rounded or slightly squared. This shape is sometimes called "rectangular" when the jaw has sharper angles. The goal with styling is to add width and reduce the perception of length.</p>
+            <p><strong>Best hairstyles:</strong> Chin-length or shoulder-length cuts with volume at the sides. Bangs (curtain bangs are ideal) shorten the appearance of a long face. Avoid very long, straight hair that drags the eye downward.</p>
+            <p><strong>Best glasses:</strong> Wide frames, oversized styles, and decorative temples that add horizontal emphasis. Round or square frames both work as long as they are proportionally wide.</p>
+            <p><strong>Makeup tip:</strong> Apply bronzer or contour across the hairline and along the chin to visually shorten the face. Horizontal blush placement across the cheekbones adds width.</p>
+            <div class="tags"><span class="tag">Longer Than Wide</span><span class="tag">Uniform Width</span><span class="tag">Gentle Jaw</span></div>
+        </div>
+
+        <div class="product-card">
+            <h3>Diamond Face Shape</h3>
+            <p>Diamond faces are widest at the cheekbones, with a narrow forehead and a narrow, pointed chin. The face has angular, dramatic proportions — it is essentially a combination of sharp cheekbones with a petite forehead and jawline. This is one of the rarer face shapes and is often considered very photogenic.</p>
+            <p><strong>Best hairstyles:</strong> Side-swept styles, tucked-behind-the-ear looks, and medium-length cuts that show off the cheekbones. Fringe or bangs that add width at the forehead balance the proportions nicely.</p>
+            <p><strong>Best glasses:</strong> Cat-eye or oval frames that complement the cheekbones. Frames with detailing on the brow line add width to the forehead area. Avoid narrow frames that exaggerate the diamond silhouette.</p>
+            <p><strong>Makeup tip:</strong> Highlight the center of the forehead and chin to add fullness. Contour under the cheekbones sparingly — your cheekbone structure is already defined. Use blush above the cheekbones, sweeping toward the temples.</p>
+            <div class="tags"><span class="tag">Wide Cheekbones</span><span class="tag">Narrow Forehead</span><span class="tag">Pointed Chin</span></div>
+        </div>
+
+        <div class="product-card">
+            <h3>Triangle (Pear) Face Shape</h3>
+            <p>The triangle face shape is widest at the jawline and narrows toward the forehead. The jaw is prominent and strong, and the cheekbones may be less defined than the jaw width suggests. Sometimes called "pear-shaped," this face type benefits from styles that add volume and visual weight to the upper face.</p>
+            <p><strong>Best hairstyles:</strong> Volume at the crown and temples is key. Side parts, voluminous waves, and layered styles that are fuller at the top balance the wider jaw. Avoid slicked-back styles that expose the narrower forehead.</p>
+            <p><strong>Best glasses:</strong> Top-heavy frames, browline styles, cat-eye shapes, and frames with decorative upper halves that draw the eye upward and add width to the forehead region.</p>
+            <p><strong>Makeup tip:</strong> Highlight the forehead and temples to create the illusion of width. Contour along the jawline to soften and narrow it. Apply blush high on the cheekbones to draw attention upward.</p>
+            <div class="tags"><span class="tag">Wide Jawline</span><span class="tag">Narrow Forehead</span><span class="tag">Strong Jaw</span></div>
+        </div>
+
+        <h2>The Technology Behind the Detection</h2>
+        <p>AI face shape analysis relies on several layers of computer vision technology working together:</p>
+        <ul>
+            <li><strong>Face detection:</strong> The first step locates the face within the image and draws a bounding box around it. Models like BlazeFace (used in MediaPipe) can do this in under 5 milliseconds.</li>
+            <li><strong>Landmark regression:</strong> A neural network predicts the precise x, y (and sometimes z) coordinates of each facial landmark. MediaPipe FaceMesh uses a lightweight convolutional neural network trained on thousands of annotated faces.</li>
+            <li><strong>Geometric measurement:</strong> The AI calculates key ratios — face length vs. width, forehead width vs. jaw width, cheekbone width vs. face length — and compares them against the defining characteristics of each face shape.</li>
+            <li><strong>Classification:</strong> Based on these ratios, a classification model (or rule-based system) assigns the face to one of the seven shapes. Some systems also provide a confidence percentage for each shape.</li>
+        </ul>
+        <p>More advanced systems like Glowmi use multi-model approaches: a primary AI model (such as Google Gemini) analyzes the overall facial structure, with a fallback to MediaPipe-based local analysis if the primary model is unavailable. This dual approach ensures both accuracy and reliability.</p>
+
+        <h2>Tips for the Most Accurate Results</h2>
+        <p>The quality of your input photo dramatically affects the accuracy of AI face shape analysis. Follow these guidelines for the best results:</p>
+        <ul>
+            <li><strong>Face the camera directly:</strong> A straight-on, front-facing angle is essential. Even a slight head tilt can distort the perceived width of your jaw or forehead.</li>
+            <li><strong>Use even, natural lighting:</strong> Harsh shadows from overhead or side lighting can obscure your jawline and cheekbone contours. Soft, diffused front-facing light (near a window during the day) is ideal.</li>
+            <li><strong>Pull hair back from your face:</strong> If your hair covers your forehead, temples, or jawline, the AI cannot accurately detect those boundaries. Pin or tie your hair back for the analysis photo.</li>
+            <li><strong>Remove glasses:</strong> Frames can interfere with landmark detection around the cheekbones and temples.</li>
+            <li><strong>Use a neutral expression:</strong> Smiling widens the cheeks and can shift the analysis toward "round." A relaxed, neutral expression gives the most accurate baseline measurement.</li>
+            <li><strong>Avoid heavy filters:</strong> Beauty filters that slim the jaw or enlarge the eyes will produce inaccurate results. Use an unedited photo.</li>
+        </ul>
+
+        <h2>AI vs. Traditional Face Shape Analysis</h2>
+        <p>Before AI, the standard method for determining face shape was the "mirror and lipstick" technique: trace the outline of your face on a mirror with a washable marker, step back, and compare the shape to diagrams. This approach has significant limitations.</p>
+        <p>Traditional methods are subjective — different people may interpret the same face shape differently. They require steady hands, consistent distance from the mirror, and the ability to objectively assess your own proportions (which is surprisingly difficult). Most people get it wrong or end up somewhere between two shapes with no clear answer.</p>
+        <p>AI analysis, by contrast, measures exact pixel distances between landmarks and calculates precise geometric ratios. The results are objective, reproducible, and consistent. An AI analyzer will give you the same result whether you test at 8 AM or 11 PM, something a mirror test cannot guarantee. The speed advantage is also dramatic: AI delivers results in 2-5 seconds compared to 10-15 minutes for a careful manual analysis.</p>
+        <p>That said, AI is not perfect. Results can vary slightly between different apps depending on the model used, and factors like photo angle and lighting can introduce error. The best approach is to use AI as a highly reliable starting point and then verify the results against the written descriptions of each shape.</p>
+
+        <div class="cta-box">
+            <h3>Discover Your Face Shape in Seconds</h3>
+            <p>Glowmi's free AI face shape analyzer uses advanced facial landmark detection to identify your face shape and provide personalized style recommendations.</p>
+            <a href="https://glowmi.org">Analyze My Face Shape Free &rarr;</a>
+        </div>
+
+        <h2>What to Do With Your Results</h2>
+        <p>Knowing your face shape is the starting point, not the destination. Once you know your shape, you can make more informed decisions about:</p>
+        <ul>
+            <li><strong>Haircuts:</strong> Show your stylist your face shape analysis before your next cut. A great stylist will use this information to recommend cuts that enhance your natural proportions.</li>
+            <li><strong>Glasses shopping:</strong> Filter by recommended frame shapes when shopping online. Brands like Warby Parker and Gentle Monster now include face shape recommendations in their product listings.</li>
+            <li><strong>Makeup contouring:</strong> Each face shape has a specific contouring map. Rather than following a one-size-fits-all YouTube tutorial, contour based on your actual shape for dramatically better results.</li>
+            <li><strong>Skincare focus areas:</strong> Face shape also correlates with where you are most likely to experience oiliness, dryness, or tension. Understanding your facial geometry helps you apply products where they are needed most.</li>
+            <li><strong>K-Beauty personal color:</strong> In Korean beauty culture, face shape analysis is often paired with personal color analysis (warm/cool tone typing) for a complete beauty profile. Together, these two data points guide everything from foundation shade to lip color to clothing choices.</li>
+        </ul>
+        <p>Face shape is one piece of the beauty puzzle, but it is an important one. Combined with skin type, personal color, and individual features, it forms the foundation of a truly personalized beauty routine — and AI makes discovering it faster and more accurate than ever before.</p>
+
+    </article>
+    <div class="blog-footer">
+        <p>&copy; 2026 <a href="https://glowmi.org">Glowmi</a> &middot; Your K-Beauty Companion</p>
+    </div>
+</body>
+</html>
