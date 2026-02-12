@@ -7,15 +7,15 @@ import SkinChat from './SkinChat'
 import WeatherTips from '../common/WeatherTips'
 
 const AI_TOOLS = [
+  { id: 'skinAnalyzer', label: 'Skin', labelKr: '피부 분석', emoji: '🔬' },
   { id: 'personalColor', label: 'Color', labelKr: '퍼스널컬러', emoji: '🎨' },
   { id: 'faceShape', label: 'Face', labelKr: '얼굴형', emoji: '💎' },
-  { id: 'skinAnalyzer', label: 'Skin', labelKr: '피부 분석', emoji: '🔬' },
   { id: 'skinChat', label: 'Chat', labelKr: '상담', emoji: '💬' }
 ]
 
 export default function AiBeautyTab({ showToast }) {
   const { t } = useLang()
-  const [activeTool, setActiveTool] = useState('personalColor')
+  const [activeTool, setActiveTool] = useState('skinAnalyzer')
 
   useEffect(() => {
     function handleToolSelect(e) {

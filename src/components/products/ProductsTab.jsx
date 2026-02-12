@@ -23,7 +23,7 @@ export default function ProductsTab({ showToast }) {
       </div>
 
       {activeSub === 'analyzer' && <IngredientAnalyzer showToast={showToast} />}
-      {activeSub === 'compatibility' && <CompatibilityChecker />}
+      {activeSub === 'compatibility' && <CompatibilityChecker showToast={showToast} />}
       {activeSub === 'guide' && <SkincareGuide />}
     </section>
   )
@@ -40,16 +40,16 @@ function SkincareGuide() {
       titleKr: '🧴 한국식 10단계 스킨케어',
       content: (
         <ol className="routine-steps-guide">
-          <li><strong>Step 1. Oil Cleanser</strong> — Removes makeup & sunscreen</li>
-          <li><strong>Step 2. Water Cleanser</strong> — Deep cleanse pores</li>
-          <li><strong>Step 3. Exfoliator</strong> — 1-2x per week</li>
-          <li><strong>Step 4. Toner</strong> — Balance pH & prep skin</li>
-          <li><strong>Step 5. Essence</strong> — Hydration boost</li>
-          <li><strong>Step 6. Serum/Ampoule</strong> — Targeted treatment</li>
-          <li><strong>Step 7. Sheet Mask</strong> — 1-2x per week for extra hydration</li>
-          <li><strong>Step 8. Eye Cream</strong> — Delicate eye area care</li>
-          <li><strong>Step 9. Moisturizer</strong> — Lock in hydration</li>
-          <li><strong>Step 10. Sunscreen</strong> — SPF 50+ PA++++ (AM only)</li>
+          <li><strong>{t('Step 1. Oil Cleanser', '1단계. 오일 클렌저')}</strong> — {t('Removes makeup & sunscreen', '메이크업과 선크림 제거')}</li>
+          <li><strong>{t('Step 2. Water Cleanser', '2단계. 수성 클렌저')}</strong> — {t('Deep cleanse pores', '모공 속 깊은 세안')}</li>
+          <li><strong>{t('Step 3. Exfoliator', '3단계. 각질 제거')}</strong> — {t('1-2x per week', '주 1-2회')}</li>
+          <li><strong>{t('Step 4. Toner', '4단계. 토너')}</strong> — {t('Balance pH & prep skin', 'pH 밸런스 & 피부 준비')}</li>
+          <li><strong>{t('Step 5. Essence', '5단계. 에센스')}</strong> — {t('Hydration boost', '수분 공급 부스트')}</li>
+          <li><strong>{t('Step 6. Serum/Ampoule', '6단계. 세럼/앰플')}</strong> — {t('Targeted treatment', '집중 케어')}</li>
+          <li><strong>{t('Step 7. Sheet Mask', '7단계. 시트 마스크')}</strong> — {t('1-2x per week for extra hydration', '주 1-2회 집중 보습')}</li>
+          <li><strong>{t('Step 8. Eye Cream', '8단계. 아이크림')}</strong> — {t('Delicate eye area care', '섬세한 눈가 케어')}</li>
+          <li><strong>{t('Step 9. Moisturizer', '9단계. 수분크림')}</strong> — {t('Lock in hydration', '수분 잠금')}</li>
+          <li><strong>{t('Step 10. Sunscreen', '10단계. 선크림')}</strong> — {t('SPF 50+ PA++++ (AM only)', 'SPF 50+ PA++++ (아침만)')}</li>
         </ol>
       )
     },
@@ -59,12 +59,12 @@ function SkincareGuide() {
       titleKr: '🔬 주요 성분 가이드',
       content: (
         <div className="ingredients-guide">
-          <p><strong>Hyaluronic Acid</strong> — Holds 1000x its weight in water. Great for all skin types.</p>
-          <p><strong>Niacinamide</strong> — Brightens, minimizes pores, controls oil. The K-Beauty hero.</p>
-          <p><strong>Centella Asiatica (CICA)</strong> — Soothes, heals, reduces redness. Essential for sensitive skin.</p>
-          <p><strong>Retinol</strong> — Anti-aging gold standard. Start low (0.025%), use at night, always use sunscreen.</p>
-          <p><strong>Vitamin C</strong> — Antioxidant, brightening. Use in AM under sunscreen.</p>
-          <p><strong>Snail Mucin</strong> — Hydrates, repairs, fades scars. Uniquely Korean.</p>
+          <p><strong>{t('Hyaluronic Acid', '히알루론산')}</strong> — {t('Holds 1000x its weight in water. Great for all skin types.', '자기 무게의 1000배 수분을 머금습니다. 모든 피부 타입에 좋습니다.')}</p>
+          <p><strong>{t('Niacinamide', '나이아신아마이드')}</strong> — {t('Brightens, minimizes pores, controls oil. The K-Beauty hero.', '미백, 모공 축소, 유분 조절. K-뷰티의 만능 성분.')}</p>
+          <p><strong>{t('Centella Asiatica (CICA)', '센텔라 아시아티카 (시카)')}</strong> — {t('Soothes, heals, reduces redness. Essential for sensitive skin.', '진정, 치유, 홍조 완화. 민감 피부 필수 성분.')}</p>
+          <p><strong>{t('Retinol', '레티놀')}</strong> — {t('Anti-aging gold standard. Start low (0.025%), use at night, always use sunscreen.', '안티에이징 대표 성분. 저농도(0.025%)부터 시작, 야간 사용, 반드시 선크림과 함께.')}</p>
+          <p><strong>{t('Vitamin C', '비타민 C')}</strong> — {t('Antioxidant, brightening. Use in AM under sunscreen.', '항산화, 미백 효과. 아침에 선크림 아래 사용.')}</p>
+          <p><strong>{t('Snail Mucin', '달팽이 뮤신')}</strong> — {t('Hydrates, repairs, fades scars. Uniquely Korean.', '수분 공급, 피부 재생, 흉터 완화. 한국만의 대표 성분.')}</p>
         </div>
       )
     },
@@ -80,12 +80,12 @@ function SkincareGuide() {
       titleKr: '💡 초보자 팁',
       content: (
         <ul className="tips-list">
-          <li>Start with 5 basics: cleanser, toner, moisturizer, sunscreen, and one serum</li>
-          <li>Introduce new products one at a time, wait 2 weeks before adding another</li>
-          <li>Patch test new products on your inner arm or behind your ear</li>
-          <li>Apply products thinnest to thickest consistency</li>
-          <li>Sunscreen is non-negotiable — reapply every 2 hours outdoors</li>
-          <li>Consistency beats intensity — a simple routine done daily beats a complex one done rarely</li>
+          <li>{t('Start with 5 basics: cleanser, toner, moisturizer, sunscreen, and one serum', '기본 5가지부터: 클렌저, 토너, 수분크림, 선크림, 세럼 하나')}</li>
+          <li>{t('Introduce new products one at a time, wait 2 weeks before adding another', '새 제품은 한 번에 하나씩, 다음 제품 추가 전 2주 기다리기')}</li>
+          <li>{t('Patch test new products on your inner arm or behind your ear', '새 제품은 팔 안쪽이나 귀 뒤에 먼저 패치 테스트')}</li>
+          <li>{t('Apply products thinnest to thickest consistency', '제형이 가벼운 것부터 무거운 순으로 바르기')}</li>
+          <li>{t('Sunscreen is non-negotiable — reapply every 2 hours outdoors', '선크림은 필수 — 야외에서 2시간마다 덧바르기')}</li>
+          <li>{t('Consistency beats intensity — a simple routine done daily beats a complex one done rarely', '꾸준함이 최고 — 매일 하는 간단한 루틴이 가끔 하는 복잡한 루틴보다 낫습니다')}</li>
         </ul>
       )
     }

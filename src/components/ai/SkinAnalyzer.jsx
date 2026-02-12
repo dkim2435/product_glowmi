@@ -480,19 +480,33 @@ export default function SkinAnalyzer({ showToast }) {
 
       <div className="skin-product-recs">
         <h4>{'🛒 ' + t('Recommended Products', '추천 제품')}</h4>
-        <div className="product-card-list">
-          {getRecommendations({
-            concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k)
-          }).slice(0, 4).map(p => <ProductCard key={p.id} product={p} />)}
-        </div>
+        {user ? (
+          <div className="product-card-list">
+            {getRecommendations({
+              concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k)
+            }).slice(0, 4).map(p => <ProductCard key={p.id} product={p} />)}
+          </div>
+        ) : (
+          <div className="login-gate-card">
+            <p>{t('Sign up to see personalized product recommendations!', '가입하면 맞춤 제품 추천을 볼 수 있어요!')}</p>
+            <button className="primary-btn" onClick={loginAndKeepResult}>{t('Sign up (Free)', '무료 가입')}</button>
+          </div>
+        )}
       </div>
 
       <div className="ai-routine-section">
         <h4>{t('AI Routine Recommendation', 'AI 루틴 추천')}</h4>
         <p className="ai-routine-desc">{t('Get a personalized AM/PM routine based on your skin analysis.', '피부 분석 결과를 바탕으로 맞춤 AM/PM 루틴을 추천받으세요.')}</p>
-        <button className="primary-btn ai-routine-btn" onClick={handleGenerateRoutine} disabled={routineLoading}>
-          {routineLoading ? t('Generating...', '생성 중...') : t('Generate AI Routine', 'AI 루틴 추천받기')}
-        </button>
+        {user ? (
+          <button className="primary-btn ai-routine-btn" onClick={handleGenerateRoutine} disabled={routineLoading}>
+            {routineLoading ? t('Generating...', '생성 중...') : t('Generate AI Routine', 'AI 루틴 추천받기')}
+          </button>
+        ) : (
+          <div className="login-gate-card">
+            <p>{t('Sign up to get your AI-personalized skincare routine!', '가입하면 AI 맞춤 스킨케어 루틴을 받을 수 있어요!')}</p>
+            <button className="primary-btn" onClick={loginAndKeepResult}>{t('Sign up (Free)', '무료 가입')}</button>
+          </div>
+        )}
       </div>
 
       {showRoutineModal && routineResult && (

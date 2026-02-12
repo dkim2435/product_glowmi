@@ -100,6 +100,14 @@ export default function IngredientAnalyzer({ showToast }) {
 
   return (
     <div className="ingredient-analyzer">
+      <div className="tool-usage-guide">
+        <h4>{t('How to Use', '사용법')}</h4>
+        <ol>
+          <li>{t('Find the ingredient list on your product packaging (usually on the back)', '제품 뒷면의 전성분 목록을 찾으세요')}</li>
+          <li>{t('Copy & paste the ingredients below, or take a photo of the label', '아래에 성분을 복사/붙여넣기 하거나, 라벨 사진을 촬영하세요')}</li>
+          <li>{t('Tap "Analyze" to see safety ratings, key actives, and warnings', '"분석" 버튼을 눌러 안전 등급, 핵심 성분, 주의사항을 확인하세요')}</li>
+        </ol>
+      </div>
       <div className="analyzer-input-area">
         <textarea
           className="analyzer-input"
@@ -127,39 +135,43 @@ export default function IngredientAnalyzer({ showToast }) {
       {results && (
         <div className="analyzer-results">
           <div className="analyzer-summary">
-            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.recognized.length}</span><span className="analyzer-stat-label">Recognized</span></div>
-            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.actives.length}</span><span className="analyzer-stat-label">Key Actives</span></div>
-            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.warnings.length}</span><span className="analyzer-stat-label">Warnings</span></div>
-            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.unknown.length}</span><span className="analyzer-stat-label">Unknown</span></div>
+            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.recognized.length}</span><span className="analyzer-stat-label">{t('Recognized', '인식됨')}</span></div>
+            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.actives.length}</span><span className="analyzer-stat-label">{t('Key Actives', '핵심 활성')}</span></div>
+            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.warnings.length}</span><span className="analyzer-stat-label">{t('Warnings', '주의')}</span></div>
+            <div className="analyzer-stat"><span className="analyzer-stat-num">{results.unknown.length}</span><span className="analyzer-stat-label">{t('Unknown', '미인식')}</span></div>
           </div>
 
           {results.actives.length > 0 && (
             <>
-              <div className="analyzer-section-title">Key Actives</div>
+              <div className="analyzer-section-title">{t('Key Actives', '핵심 활성 성분')}</div>
               {results.actives.map((r, i) => <IngredientRow key={i} data={r.data} extraClass="analyzer-row-active" />)}
             </>
           )}
 
           {results.warnings.length > 0 && (
             <>
-              <div className="analyzer-section-title">Warnings</div>
+              <div className="analyzer-section-title">{t('Warnings', '주의 성분')}</div>
               {results.warnings.map((r, i) => <IngredientRow key={i} data={r.data} extraClass="analyzer-row-warn" />)}
             </>
           )}
 
           {results.recognized.length > 0 && (
             <>
-              <div className="analyzer-section-title">Full Breakdown ({results.recognized.length} ingredients)</div>
+              <div className="analyzer-section-title">{t(`Full Breakdown (${results.recognized.length} ingredients)`, `전체 분석 (${results.recognized.length}개 성분)`)}</div>
               {results.recognized.map((r, i) => <IngredientRow key={i} data={r.data} />)}
             </>
           )}
 
           {results.unknown.length > 0 && (
             <>
-              <div className="analyzer-section-title">Not Recognized ({results.unknown.length})</div>
+              <div className="analyzer-section-title">{t(`Not Recognized (${results.unknown.length})`, `미인식 (${results.unknown.length}개)`)}</div>
               <div className="analyzer-unknown-list">
                 {results.unknown.map((r, i) => <span key={i} className="analyzer-unknown-tag">{r.query}</span>)}
               </div>
+              <p className="analyzer-unknown-hint">{t(
+                'These ingredients were not found in our database. If scanned from a photo, try typing the ingredient names manually for better accuracy.',
+                '이 성분들은 데이터베이스에 없습니다. 사진으로 스캔한 경우, 정확도를 위해 성분명을 직접 입력해 보세요.'
+              )}</p>
             </>
           )}
 

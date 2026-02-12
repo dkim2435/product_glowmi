@@ -211,6 +211,36 @@ export const combinedQuizQuestions = [
             { english: "Redness, itching, or rash", korean: "홍조, 가려움, 또는 발진", scores: { dry: 0, oily: 0, combination: 0, sensitive: 3, normal: 0 } },
             { english: "Looks a bit tired but recovers quickly", korean: "좀 피곤해 보이지만 금방 회복됨", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 3 } }
         ]
+    },
+    {
+        english: "How does your skin feel right after cleansing?",
+        korean: "세안 직후 피부가 어떻게 느껴지나요?",
+        options: [
+            { english: "Very tight and uncomfortable", korean: "매우 당기고 불편함", scores: { dry: 3, oily: 0, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Comfortable and clean", korean: "편안하고 깨끗함", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 3 } },
+            { english: "Already feels oily again within minutes", korean: "몇 분 내로 다시 기름져짐", scores: { dry: 0, oily: 3, combination: 0, sensitive: 0, normal: 0 } },
+            { english: "Cheeks tight but T-zone is fine", korean: "볼은 당기지만 T존은 괜찮음", scores: { dry: 0, oily: 0, combination: 3, sensitive: 0, normal: 0 } }
+        ]
+    },
+    {
+        english: "How often do you experience breakouts?",
+        korean: "트러블(여드름)이 얼마나 자주 생기나요?",
+        options: [
+            { english: "Rarely or never", korean: "거의 없거나 전혀 없음", scores: { dry: 1, oily: 0, combination: 0, sensitive: 0, normal: 2 } },
+            { english: "Frequently, especially on chin and cheeks", korean: "자주, 특히 턱과 볼에", scores: { dry: 0, oily: 2, combination: 0, sensitive: 1, normal: 0 } },
+            { english: "Mainly on forehead and nose", korean: "주로 이마와 코에", scores: { dry: 0, oily: 1, combination: 2, sensitive: 0, normal: 0 } },
+            { english: "When using wrong products or stressed", korean: "잘못된 제품 사용 시 또는 스트레스 받을 때", scores: { dry: 0, oily: 0, combination: 0, sensitive: 3, normal: 0 } }
+        ]
+    },
+    {
+        english: "How much water do you drink daily?",
+        korean: "하루에 물을 얼마나 마시나요?",
+        options: [
+            { english: "Less than 4 cups", korean: "4잔 미만", scores: { dry: 2, oily: 0, combination: 0, sensitive: 1, normal: 0 } },
+            { english: "4-6 cups", korean: "4-6잔", scores: { dry: 1, oily: 0, combination: 1, sensitive: 0, normal: 1 } },
+            { english: "6-8 cups", korean: "6-8잔", scores: { dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 3 } },
+            { english: "More than 8 cups", korean: "8잔 이상", scores: { dry: 0, oily: 1, combination: 0, sensitive: 0, normal: 2 } }
+        ]
     }
 ];
 

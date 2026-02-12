@@ -1,12 +1,16 @@
-import { useState } from 'react'
-import { parseIngredientList, findConflicts, countStrongActives } from './ingredientLogic'
+import { useState, useRef } from 'react'
+import { parseIngredientList, findConflicts, countStrongActives, parseOCRText } from './ingredientLogic'
 import { useLang } from '../../context/LanguageContext'
 
-export default function CompatibilityChecker() {
+export default function CompatibilityChecker({ showToast }) {
   const { t } = useLang()
   const [inputA, setInputA] = useState('')
   const [inputB, setInputB] = useState('')
   const [results, setResults] = useState(null)
+  const [scanningTarget, setScanningTarget] = useState(null) // 'A' | 'B' | null
+  const [scanProgress, setScanProgress] = useState(0)
+  const fileRefA = useRef(null)
+  const fileRefB = useRef(null)
 
   function check() {
     if (!inputA.trim() || !inputB.trim()) return
@@ -21,6 +25,43 @@ export default function CompatibilityChecker() {
     setInputA('')
     setInputB('')
     setResults(null)
+  }
+
+  async function handleScan(imageDataUrl, target) {
+    setScanningTarget(target)
+    setScanProgress(10)
+    try {
+      const Tesseract = await import('tesseract.js')
+      const result = await Tesseract.recognize(imageDataUrl, 'eng+kor', {
+        logger: (m) => {
+          if (m.status === 'recognizing text') {
+            setScanProgress(Math.max(10, Math.round(m.progress * 100)))
+          }
+        }
+      })
+      setScanningTarget(null)
+      const ocrText = result.data.text
+      if (!ocrText || ocrText.trim().length < 5) {
+        showToast?.(t('Could not read text. Please type the ingredients manually.', '텍스트를 읽지 못했습니다. 성분을 직접 입력해주세요.'))
+        return
+      }
+      const ingredientNames = parseOCRText(ocrText)
+      const joined = ingredientNames.join(', ')
+      if (target === 'A') setInputA(joined)
+      else setInputB(joined)
+    } catch (err) {
+      setScanningTarget(null)
+      showToast?.(t('Scan failed. Please type the ingredients manually.', '스캔에 실패했습니다. 성분을 직접 입력해주세요.'))
+    }
+  }
+
+  function handleFileUpload(e, target) {
+    const file = e.target.files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => handleScan(ev.target.result, target)
+    reader.readAsDataURL(file)
+    e.target.value = ''
   }
 
   const highCount = results?.conflicts.filter(c => c.rule.severity === 'high').length || 0
@@ -43,16 +84,51 @@ export default function CompatibilityChecker() {
 
   return (
     <div className="compatibility-checker">
+      <div className="tool-usage-guide">
+        <h4>{t('How to Use', '사용법')}</h4>
+        <ol>
+          <li>{t('Enter the ingredient list of Product A (e.g., your serum)', '제품 A의 전성분을 입력하세요 (예: 세럼)')}</li>
+          <li>{t('Enter the ingredient list of Product B (e.g., your toner)', '제품 B의 전성분을 입력하세요 (예: 토너)')}</li>
+          <li>{t('Tap "Check Compatibility" to find conflicts between the two products', '"호환성 확인"을 눌러 두 제품 간 충돌을 확인하세요')}</li>
+        </ol>
+        <p className="tool-usage-tip">{t('Tip: You can also scan labels with the camera button!', '팁: 카메라 버튼으로 라벨 사진을 촬영할 수도 있어요!')}</p>
+      </div>
+
       <div className="compat-inputs">
         <div className="compat-input-group">
-          <label>{t('Product A', '제품 A')}</label>
-          <textarea className="compat-input" placeholder="Paste ingredients..." value={inputA} onChange={e => setInputA(e.target.value)} rows={3} />
+          <div className="compat-label-row">
+            <label>{t('Product A', '제품 A')}</label>
+            <button className="compat-scan-btn" onClick={() => fileRefA.current?.click()} disabled={!!scanningTarget}>
+              {'📷 ' + t('Scan', '스캔')}
+            </button>
+          </div>
+          <textarea className="compat-input" placeholder={t('Paste ingredients or scan label...', '성분을 붙여넣거나 라벨을 스캔하세요...')} value={inputA} onChange={e => setInputA(e.target.value)} rows={3} />
+          {scanningTarget === 'A' && (
+            <div className="ia-scan-progress">
+              <p>{t('Scanning...', '스캔 중...')} {scanProgress}%</p>
+              <div className="progress-bar"><div className="progress-fill" style={{ width: scanProgress + '%' }} /></div>
+            </div>
+          )}
         </div>
         <div className="compat-input-group">
-          <label>{t('Product B', '제품 B')}</label>
-          <textarea className="compat-input" placeholder="Paste ingredients..." value={inputB} onChange={e => setInputB(e.target.value)} rows={3} />
+          <div className="compat-label-row">
+            <label>{t('Product B', '제품 B')}</label>
+            <button className="compat-scan-btn" onClick={() => fileRefB.current?.click()} disabled={!!scanningTarget}>
+              {'📷 ' + t('Scan', '스캔')}
+            </button>
+          </div>
+          <textarea className="compat-input" placeholder={t('Paste ingredients or scan label...', '성분을 붙여넣거나 라벨을 스캔하세요...')} value={inputB} onChange={e => setInputB(e.target.value)} rows={3} />
+          {scanningTarget === 'B' && (
+            <div className="ia-scan-progress">
+              <p>{t('Scanning...', '스캔 중...')} {scanProgress}%</p>
+              <div className="progress-bar"><div className="progress-fill" style={{ width: scanProgress + '%' }} /></div>
+            </div>
+          )}
         </div>
       </div>
+
+      <input ref={fileRefA} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleFileUpload(e, 'A')} />
+      <input ref={fileRefB} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleFileUpload(e, 'B')} />
 
       <div className="compat-btn-row">
         <button className="primary-btn" onClick={check}>{'⚡ ' + t('Check Compatibility', '호환성 확인')}</button>
@@ -67,11 +143,11 @@ export default function CompatibilityChecker() {
           </div>
 
           <div className="compat-stats">
-            <span className="compat-stat">Product A: {results.countA} ingredients</span>
-            <span className="compat-stat">Product B: {results.countB} ingredients</span>
-            {highCount > 0 && <span className="compat-stat compat-stat-high">{highCount} high risk</span>}
-            {medCount > 0 && <span className="compat-stat compat-stat-med">{medCount} medium</span>}
-            {lowCount > 0 && <span className="compat-stat compat-stat-low">{lowCount} low</span>}
+            <span className="compat-stat">{t(`Product A: ${results.countA} ingredients`, `제품 A: ${results.countA}개 성분`)}</span>
+            <span className="compat-stat">{t(`Product B: ${results.countB} ingredients`, `제품 B: ${results.countB}개 성분`)}</span>
+            {highCount > 0 && <span className="compat-stat compat-stat-high">{t(`${highCount} high risk`, `${highCount}개 고위험`)}</span>}
+            {medCount > 0 && <span className="compat-stat compat-stat-med">{t(`${medCount} medium`, `${medCount}개 중간`)}</span>}
+            {lowCount > 0 && <span className="compat-stat compat-stat-low">{t(`${lowCount} low`, `${lowCount}개 저위험`)}</span>}
           </div>
 
           {results.actives.count >= 3 && (
@@ -80,14 +156,18 @@ export default function CompatibilityChecker() {
               <p>{t(
                 `${results.actives.count} strong actives detected: `,
                 `두 제품에 ${results.actives.count}개의 강력한 활성 성분이 포함되어 있습니다: `
-              )}<em>{results.actives.names.join(', ')}</em>{t('. Using too many actives at once can compromise your skin barrier.', '.')}</p>
+              )}<em>{results.actives.names.join(', ')}</em>{t('. Using too many actives at once can compromise your skin barrier.', '. 한 번에 너무 많은 활성 성분을 사용하면 피부 장벽이 손상될 수 있습니다.')}</p>
             </div>
           )}
 
           {results.conflicts.length > 0 && (
             <div className="compat-conflicts">
               {results.conflicts.map((c, i) => {
-                const severityLabel = c.rule.severity === 'high' ? '🔴 High Risk' : c.rule.severity === 'medium' ? '🟡 Medium' : '🟢 Low'
+                const severityLabel = c.rule.severity === 'high'
+                  ? t('🔴 High Risk', '🔴 고위험')
+                  : c.rule.severity === 'medium'
+                  ? t('🟡 Medium', '🟡 중간')
+                  : t('🟢 Low', '🟢 저위험')
                 return (
                   <div key={i} className={'compat-conflict-card compat-card-' + c.rule.severity}>
                     <div className="compat-card-header">
@@ -95,7 +175,7 @@ export default function CompatibilityChecker() {
                       <strong>{c.rule.nameA} + {c.rule.nameB}</strong>
                     </div>
                     <p className="compat-card-msg">{t(c.rule.message, c.rule.messageKr)}</p>
-                    <p className="compat-card-tip">💡 <strong>Tip:</strong> {c.rule.tip}</p>
+                    <p className="compat-card-tip">💡 <strong>{t('Tip:', '팁:')}</strong> {c.rule.tip}</p>
                   </div>
                 )
               })}
