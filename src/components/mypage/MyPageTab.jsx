@@ -45,7 +45,7 @@ export default function MyPageTab({ showToast, onNavigate }) {
           { id: 'progress', emoji: '📈', label: t('Skin Progress', '피부현황') },
           { id: 'diary', emoji: '📝', label: t('Diary', '일지') },
           { id: 'routine', emoji: '🧴', label: t('Routine', '루틴') },
-          { id: 'history', emoji: '📊', label: t('History', '기록') },
+          { id: 'history', emoji: '📊', label: t('Analysis Log', '분석기록') },
           { id: 'skinChat', emoji: '💬', label: t('AI Chat', 'AI 상담') },
         ].map(s => (
           <button

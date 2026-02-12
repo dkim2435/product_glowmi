@@ -1669,6 +1669,49 @@ export const BRAND_INFO = {
   "Sungboon Editor": { nameKr: "성분에디터", origin: "Korea", priceRange: "mid", specialty: "Ingredient-focused PDRN barrier skincare" }
 };
 
+// Ingredient Korean name map (INCI → Korean)
+export const INGREDIENT_KR = {
+  // Hydration
+  'Hyaluronic Acid': '히알루론산', 'Sodium Hyaluronate': '히알루론산나트륨', 'Glycerin': '글리세린',
+  'Betaine': '베타인', 'Panthenol': '판테놀', 'Allantoin': '알란토인', 'Squalane': '스쿠알란',
+  'Ceramides': '세라마이드', 'Amino Acids': '아미노산', 'Deep Sea Water': '심층수', 'Minerals': '미네랄',
+  'Birch Juice': '자작나무수액', 'Aloe Vera': '알로에베라', 'Collagen': '콜라겐',
+  'Hydrolyzed Collagen': '가수분해콜라겐',
+  // Actives
+  'Niacinamide': '나이아신아마이드', 'Retinol': '레티놀', 'Retinal': '레티날', 'Adenosine': '아데노신',
+  'Peptides': '펩타이드', 'AHA': 'AHA', 'BHA': 'BHA', 'PHA': 'PHA',
+  'Salicylic Acid': '살리실산', 'Glycolic Acid': '글리콜산', 'Lactic Acid': '젖산',
+  'Tranexamic Acid': '트라넥사믹산', 'Alpha-Arbutin': '알파알부틴', 'Glutathione': '글루타치온',
+  'Ascorbic Acid': '아스코르빈산', 'Resveratrol': '레스베라트롤',
+  // Vitamins
+  'Vitamin C': '비타민C', 'Vitamin E': '비타민E', 'Vitamin C Derivative': '비타민C유도체',
+  // Botanicals
+  'Centella Asiatica': '센텔라아시아티카', 'Centella Asiatica Extract': '센텔라추출물',
+  'Madecassoside': '마데카소사이드', 'Green Tea Extract': '녹차추출물', 'Green Tea Seed Oil': '녹차씨오일',
+  'Tea Tree Oil': '티트리오일', 'Tea Tree Extract': '티트리추출물',
+  'Houttuynia Cordata Extract': '어성초추출물', 'Propolis Extract': '프로폴리스추출물',
+  'Acerola Extract': '아세로라추출물', 'Coconut Extract': '코코넛추출물',
+  'Ginseng Root Extract': '인삼근추출물', 'Panax Ginseng Root Extract': '인삼추출물',
+  'Ginseng Extract': '인삼추출물', 'Korean Ginseng Extract': '고려인삼추출물',
+  'Seaweed Extract': '해조추출물', 'Rice Extract': '쌀추출물', 'Rice Bran Water': '미강수',
+  'Orchid Extract': '난초추출물', 'Honey Extract': '꿀추출물',
+  'Artemisia Princeps Extract': '쑥추출물', 'Artemisia Capillaris Extract': '인진쑥추출물',
+  // Oils & Butters
+  'Shea Butter': '시어버터', 'Jojoba Oil': '호호바오일', 'Grape Seed Oil': '포도씨오일',
+  'Macadamia Oil': '마카다미아오일', 'Coconut Oil': '코코넛오일', 'Olive Oil': '올리브오일',
+  'Sunflower Seed Oil': '해바라기씨오일', 'Citrus Herb Oil': '시트러스허브오일',
+  // Ferments
+  'Saccharomyces Ferment': '효모발효추출물', 'Saccharomyces Ferment Filtrate': '효모발효여과물',
+  'Galactomyces Ferment Filtrate': '갈락토미세스발효여과물', 'Bifida Ferment Lysate': '비피다발효용해물',
+  // Snail / Special
+  'Snail Secretion Filtrate': '달팽이점액여과물', 'Beta-Glucan': '베타글루칸',
+  'Guaiazulene': '과이아줄렌', 'Hydrocolloid': '하이드로콜로이드', 'Gold': '금',
+  'Zinc Oxide': '징크옥사이드', 'Titanium Dioxide': '이산화티탄', 'Beeswax': '밀랍',
+  'Cholesterol': '콜레스테롤', 'Fatty Acids': '지방산', 'Caffeine': '카페인',
+  // Tech
+  'Sodium DNA (PDRN)': 'PDRN', 'Chemical UV Filters': '화학자외선차단제', 'UV Filters': '자외선차단제',
+}
+
 // Helper function to get products by category
 export function getProductsByCategory(category) {
   return PRODUCT_DB.filter(p => p.category === category);

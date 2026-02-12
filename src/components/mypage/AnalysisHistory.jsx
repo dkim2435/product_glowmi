@@ -14,7 +14,10 @@ export default function AnalysisHistory({ showToast }) {
       <div className="ah-empty">
         <span className="ah-empty-icon">📊</span>
         <p>{t('No analysis history yet.', '아직 분석 기록이 없습니다.')}</p>
-        <p className="ah-empty-hint">{t('Save your analysis results to track changes over time!', '분석 결과를 저장하면 시간에 따른 변화를 추적할 수 있어요!')}</p>
+        <p className="ah-empty-hint">{t(
+          'Run any AI analysis (Skin Scan, Personal Color, or Face Shape) and your results will be automatically saved here for comparison.',
+          'AI 분석(피부 스캔, 퍼스널컬러, 얼굴형)을 실행하면 결과가 자동으로 여기에 저장되어 비교할 수 있어요.'
+        )}</p>
       </div>
     )
   }
@@ -143,10 +146,16 @@ export default function AnalysisHistory({ showToast }) {
         <button className="ah-clear-btn" onClick={handleClear}>{t('Clear', '삭제')}</button>
       </div>
 
-      <p className="ah-helper-text">{t(
-        'Compare your past results and track how your skin changes over time.',
-        '지난 분석 결과를 비교하고 피부 변화를 추적해보세요.'
-      )}</p>
+      <div className="ah-guide">
+        <p className="ah-guide-desc">{t(
+          'Every time you run an AI analysis (Skin, Personal Color, Face Shape), the result is automatically saved here.',
+          'AI 분석(피부, 퍼스널컬러, 얼굴형)을 실행할 때마다 결과가 자동으로 여기에 저장됩니다.'
+        )}</p>
+        <p className="ah-guide-tip">{t(
+          'Use the filters below to compare past results and track changes over time.',
+          '아래 필터를 사용해 지난 결과를 비교하고 시간에 따른 변화를 추적해보세요.'
+        )}</p>
+      </div>
 
       {skinTrend && (
         <div className="ah-trend-badge">

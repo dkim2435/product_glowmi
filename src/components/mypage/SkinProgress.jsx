@@ -94,7 +94,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     reader.onload = async (ev) => {
       try {
         const thumb = await resizePhoto(ev.target.result, 400)
-        const today = new Date().toISOString().split('T')[0]
+        const today = new Date().toLocaleDateString('en-CA')
 
         await saveSkinProgressDB(userId, {
           date: today,
@@ -130,8 +130,8 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     // Rate limit: once per day
     const lastReport = localStorage.getItem('glowmi_last_ai_report')
     if (lastReport) {
-      const lastDate = new Date(lastReport).toISOString().split('T')[0]
-      const today = new Date().toISOString().split('T')[0]
+      const lastDate = new Date(lastReport).toLocaleDateString('en-CA')
+      const today = new Date().toLocaleDateString('en-CA')
       if (lastDate === today) {
         showToast(t('AI report is available once per day.', 'AI 리포트는 하루 1회 가능합니다.'))
         return

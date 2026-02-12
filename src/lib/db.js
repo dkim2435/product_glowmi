@@ -95,7 +95,7 @@ export async function saveDiaryEntry(userId, entry) {
 export async function loadDiaryEntries(userId, days = 14) {
   const fromDate = new Date()
   fromDate.setDate(fromDate.getDate() - days)
-  const fromStr = fromDate.toISOString().split('T')[0]
+  const fromStr = fromDate.toLocaleDateString('en-CA')
 
   const { data, error } = await supabase.from('skin_diary')
     .select('*')
@@ -139,7 +139,7 @@ export async function loadRoutines(userId) {
 // ===== Skin Progress =====
 
 export async function checkSkinProgressToday(userId) {
-  const today = new Date().toISOString().split('T')[0]
+  const today = new Date().toLocaleDateString('en-CA')
   const { data, error } = await supabase.from('skin_progress')
     .select('updated_at')
     .eq('user_id', userId)

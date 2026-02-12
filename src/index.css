@@ -3852,22 +3852,16 @@ body {
 
 /* ========== My Page ========== */
 .mypage-nav {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   margin-bottom: 15px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
   padding: 2px 2px 4px;
   width: 100%;
 }
 
-.mypage-nav::-webkit-scrollbar { display: none; }
-
 .mypage-nav-btn {
-  flex: 0 0 auto;
-  padding: 8px 12px;
+  padding: 8px 6px;
   border-radius: 12px;
   border: 1px solid #ddd;
   background: white;
@@ -3876,6 +3870,7 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  text-align: center;
 }
 
 .mypage-nav-btn.active {
@@ -5017,10 +5012,6 @@ body {
     padding: 40px 20px;
   }
 
-  .mypage-nav {
-    justify-content: flex-start;
-  }
-
   .shelf-btn-row .shelf-add-btn,
   .shelf-btn-row .shelf-browse-btn {
     padding: 12px 8px;
@@ -5536,6 +5527,12 @@ body {
 
 .progress-chart-section {
   margin: 16px 0;
+  overflow: hidden;
+}
+
+.progress-chart-section canvas {
+  display: block;
+  width: 100%;
 }
 
 .progress-chart-section h4 {
@@ -8361,6 +8358,12 @@ body {
 .compat-compare-hint, .ai-match-desc { font-size: 0.75rem; color: #999; margin: 0 0 10px; line-height: 1.4; }
 .diary-field-hint { margin: -2px 0 4px; font-size: 0.7rem; color: #aaa; }
 .diary-section-hint { margin-top: -2px; }
+.ah-guide { background: #f8f5ff; border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; }
+.ah-guide-desc { font-size: 0.78rem; color: #555; margin: 0 0 4px; line-height: 1.5; }
+.ah-guide-tip { font-size: 0.72rem; color: #888; margin: 0; line-height: 1.4; }
+[data-theme="dark"] .ah-guide { background: #2a2a40; }
+[data-theme="dark"] .ah-guide-desc { color: #ccc; }
+[data-theme="dark"] .ah-guide-tip { color: #888; }
 [data-theme="dark"] .pb-helper-text, [data-theme="dark"] .ah-helper-text,
 [data-theme="dark"] .diary-section-hint, [data-theme="dark"] .diary-field-hint,
 [data-theme="dark"] .compat-compare-hint, [data-theme="dark"] .ai-match-desc { color: #777; }

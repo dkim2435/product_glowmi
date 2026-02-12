@@ -197,7 +197,7 @@ export default function SkinAnalyzer({ showToast }) {
         photoThumb = await resizePhoto(camera.capturedImage, 400)
       }
       await saveSkinProgressDB(user.id, {
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toLocaleDateString('en-CA'),
         overallScore,
         scores,
         photoThumb

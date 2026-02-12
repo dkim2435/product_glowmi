@@ -43,7 +43,7 @@ function scoreToLevel(score, levels) {
 }
 
 export default function SkinDiary({ userId, showToast }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState({
@@ -56,7 +56,7 @@ export default function SkinDiary({ userId, showToast }) {
   const [chartMetric, setChartMetric] = useState('all')
   const chartRef = useRef(null)
 
-  const today = new Date().toISOString().split('T')[0]
+  const today = new Date().toLocaleDateString('en-CA') // YYYY-MM-DD in local timezone
 
   useEffect(() => { refresh() }, [userId])
 
@@ -189,12 +189,13 @@ export default function SkinDiary({ userId, showToast }) {
       ctx.fillText(g, pad.left - 5, gy + 3)
     }
 
+    const isKr = lang === 'ko'
     const metrics = [
-      { key: 'ai_dryness', color: '#f59e0b', label: 'Dry' },
-      { key: 'ai_oiliness', color: '#3b82f6', label: 'Oil' },
-      { key: 'ai_redness', color: '#ef4444', label: 'Red' },
-      { key: 'ai_dark_spots', color: '#8b5cf6', label: 'Spots' },
-      { key: 'ai_texture', color: '#10b981', label: 'Tex' }
+      { key: 'ai_dryness', color: '#f59e0b', label: isKr ? '건조' : 'Dry' },
+      { key: 'ai_oiliness', color: '#3b82f6', label: isKr ? '유분' : 'Oil' },
+      { key: 'ai_redness', color: '#ef4444', label: isKr ? '홍조' : 'Red' },
+      { key: 'ai_dark_spots', color: '#8b5cf6', label: isKr ? '잡티' : 'Spots' },
+      { key: 'ai_texture', color: '#10b981', label: isKr ? '질감' : 'Tex' }
     ]
 
     // Draw each metric line
