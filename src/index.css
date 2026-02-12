@@ -1646,9 +1646,11 @@ body {
   transition: all 0.2s;
 }
 
-.combined-quiz-option:hover {
-  border-color: var(--primary-pink);
-  background: #fff8fa;
+@media (hover: hover) {
+  .combined-quiz-option:hover {
+    border-color: var(--primary-pink);
+    background: #fff8fa;
+  }
 }
 
 .combined-quiz-option:active {

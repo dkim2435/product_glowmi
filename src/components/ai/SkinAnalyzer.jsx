@@ -311,7 +311,7 @@ export default function SkinAnalyzer({ showToast }) {
             <div className="combined-quiz-progress-fill" style={{ width: progress + '%' }} />
           </div>
           <p className="combined-quiz-question">{t(q.english, q.korean)}</p>
-          <div className="combined-quiz-options">
+          <div className="combined-quiz-options" key={quizQ}>
             {q.options.map((opt, i) => (
               <button key={i} className="combined-quiz-option" onClick={() => handleQuizAnswer(opt)}>
                 {t(opt.english, opt.korean)}
@@ -395,8 +395,8 @@ export default function SkinAnalyzer({ showToast }) {
         </div>
       )}
 
-      {/* Quiz prompt card (only if quiz not started yet) */}
-      {!quizPhase && (
+      {/* Quiz prompt card (only if quiz not started and not completed) */}
+      {quizPhase === null && (
         <div className="quiz-prompt-card">
           <div className="quiz-prompt-icon">📝</div>
           <h4>{t('Want a more accurate skin type?', '더 정확한 피부타입을 알고 싶다면?')}</h4>
