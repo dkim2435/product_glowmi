@@ -12,6 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 // Virtual keyboard detection + auto-scroll focused input into view
 if (window.visualViewport) {
   let wasKeyboardOpen = false
+  let scrollTimer = null
   const updateVh = () => {
     const vv = window.visualViewport
     document.documentElement.style.setProperty('--vh', `${vv.height * 0.01}px`)
@@ -20,12 +21,13 @@ if (window.visualViewport) {
 
     // Keyboard just opened — scroll focused element into view
     if (keyboardOpen && !wasKeyboardOpen) {
-      const el = document.activeElement
-      if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
-        requestAnimationFrame(() => {
+      clearTimeout(scrollTimer)
+      scrollTimer = setTimeout(() => {
+        const el = document.activeElement
+        if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
           el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        })
-      }
+        }
+      }, 100)
     }
     wasKeyboardOpen = keyboardOpen
   }

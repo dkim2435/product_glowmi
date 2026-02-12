@@ -66,12 +66,14 @@ export default function SkinChat({ showToast }) {
   }
 
   function handleInputFocus() {
-    // Prevent mobile keyboard from scrolling the whole page
-    setTimeout(() => {
-      if (chatRef.current) {
-        chatRef.current.scrollIntoView({ block: 'end', behavior: 'instant' })
+    // iOS keyboard takes ~400ms to animate. Scroll input into view after it settles.
+    const scrollToInput = () => {
+      if (inputRef.current) {
+        inputRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' })
       }
-    }, 300)
+    }
+    setTimeout(scrollToInput, 400)
+    setTimeout(scrollToInput, 700)
   }
 
   function handleKeyDown(e) {
