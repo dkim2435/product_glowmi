@@ -5,8 +5,8 @@ import { useLang } from '../../context/LanguageContext'
 const TABS = [
   { id: 'ai', label: 'AI Beauty', labelKr: 'AI 뷰티', emoji: '✨' },
   { id: 'products', label: 'K-Beauty', labelKr: 'K-뷰티', emoji: '🧴' },
-  { id: 'procedures', label: 'Treatments', labelKr: '시술 가이드', emoji: '💉' },
   { id: 'wellness', label: 'Wellness', labelKr: '웰니스', emoji: '🧘' },
+  { id: 'procedures', label: 'Treatments', labelKr: '시술 가이드', emoji: '💉' },
 ]
 
 export default function TabNav({ activeTab, onTabChange }) {

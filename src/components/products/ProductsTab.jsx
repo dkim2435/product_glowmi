@@ -18,7 +18,7 @@ export default function ProductsTab({ showToast }) {
           {'🧪 ' + t('Analyzer', '성분 분석기')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'compatibility' ? ' active' : '')} onClick={() => setActiveSub('compatibility')}>
-          {'⚡ ' + t('Compat', '호환성')}
+          {'⚡ ' + t('Compat', '호환성')} <span className="beta-badge">beta</span>
         </button>
       </div>
 

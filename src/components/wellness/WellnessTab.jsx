@@ -3,17 +3,15 @@ import { useLang } from '../../context/LanguageContext'
 import NutrientRecs from './NutrientRecs'
 import KTrends from './KTrends'
 import KYoutubers from './KYoutubers'
-import WellnessGuide from './WellnessGuide'
 
 const WELLNESS_TABS = [
-  { id: 'guide', label: 'Guide', labelKr: '가이드', emoji: '📚' },
   { id: 'nutrients', label: 'Nutrients', labelKr: '영양소', emoji: '🍎' },
   { id: 'ktrends', label: 'K-Trends', labelKr: 'K트렌드', emoji: '🔥' },
   { id: 'kyoutubers', label: 'YouTubers', labelKr: '유튜버', emoji: '📺' }
 ]
 
 export default function WellnessTab({ onNavigate }) {
-  const [activeTab, setActiveTab] = useState('guide')
+  const [activeTab, setActiveTab] = useState('nutrients')
   const { t } = useLang()
 
   return (
@@ -35,7 +33,6 @@ export default function WellnessTab({ onNavigate }) {
         ))}
       </div>
 
-      {activeTab === 'guide' && <WellnessGuide />}
       {activeTab === 'nutrients' && <NutrientRecs onNavigate={onNavigate} />}
       {activeTab === 'ktrends' && <KTrends />}
       {activeTab === 'kyoutubers' && <KYoutubers />}
