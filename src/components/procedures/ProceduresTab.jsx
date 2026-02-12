@@ -96,7 +96,18 @@ function ClinicFinder() {
   const [expanded, setExpanded] = useState(null)
   const { t } = useLang()
 
-  const filters = ['all', 'botox', 'filler', 'laser', 'skincare', 'lifting']
+  const FILTER_LABELS = {
+    all: { en: 'All', kr: '전체' },
+    botox: { en: 'Botox', kr: '보톡스' },
+    filler: { en: 'Filler', kr: '필러' },
+    laser: { en: 'Laser', kr: '레이저' },
+    lifting: { en: 'Lifting', kr: '리프팅' },
+    pico: { en: 'Pico', kr: '피코' },
+    skinbooster: { en: 'Skin Booster', kr: '스킨부스터' },
+    thread: { en: 'Thread', kr: '실리프팅' },
+    aquapeel: { en: 'Aqua Peel', kr: '아쿠아필' },
+  }
+  const filters = Object.keys(FILTER_LABELS)
   const filtered = filter === 'all' ? clinicsData : clinicsData.filter(c => c.specialties.includes(filter))
 
   function toggle(i) {
@@ -112,7 +123,7 @@ function ClinicFinder() {
             className={'filter-btn' + (filter === f ? ' active' : '')}
             onClick={() => setFilter(f)}
           >
-            {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1)}
+            {t(FILTER_LABELS[f].en, FILTER_LABELS[f].kr)}
           </button>
         ))}
       </div>
@@ -145,13 +156,13 @@ function ClinicFinder() {
                   </div>
                   <div className="clinic-detail-row">
                     <span className="clinic-detail-label">{t('Reviews', '리뷰')}</span>
-                    <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" className="clinic-review-link">{c.reviews} reviews →</a>
+                    <a href={googleReviewUrl} target="_blank" rel="noopener noreferrer" className="clinic-review-link">{c.reviews} {t('reviews', '리뷰')} →</a>
                   </div>
                   <div className="clinic-map-btns">
-                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="map-btn google-btn">Google Maps</a>
+                    <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="map-btn google-btn">{t('Google Maps', '구글 지도')}</a>
                     <a href={naverMapUrl} target="_blank" rel="noopener noreferrer" className="map-btn naver-btn">네이버 지도</a>
                   </div>
-                  <button className="clinic-close-btn" onClick={() => setExpanded(null)}>Close ▴</button>
+                  <button className="clinic-close-btn" onClick={() => setExpanded(null)}>{t('Close', '닫기')} ▴</button>
                 </div>
               )}
             </div>

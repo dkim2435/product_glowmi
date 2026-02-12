@@ -227,6 +227,15 @@ export default function MyResults({ userId, onNavigate, showToast }) {
                   </>
                 )}
 
+                {!hasRoutine && (
+                  <div className="mypage-routine-prompt">
+                    <p>{t('No AI routine yet. Generate one based on your skin analysis!', '아직 AI 루틴이 없어요. 피부 분석 기반으로 추천받아 보세요!')}</p>
+                    <button className="primary-btn" onClick={handleGenerateRoutine} disabled={routineLoading}>
+                      {routineLoading ? t('Generating...', '생성 중...') : t('Generate AI Routine', 'AI 루틴 추천받기')}
+                    </button>
+                  </div>
+                )}
+
                 <button className="mypage-card-close" onClick={() => setExpanded(null)}>{t('Close', '닫기')} ▴</button>
               </div>
             )}

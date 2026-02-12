@@ -14,10 +14,20 @@ const SUGGESTED_QUESTIONS = [
 export default function SkinChat({ showToast }) {
   const { user, loginWithGoogle } = useAuth()
   const { t } = useLang()
-  const [messages, setMessages] = useState([])
+  const CHAT_STORAGE_KEY = 'glowmi_chat_history'
+  const [messages, setMessages] = useState(() => {
+    try {
+      const saved = localStorage.getItem(CHAT_STORAGE_KEY)
+      return saved ? JSON.parse(saved) : []
+    } catch { return [] }
+  })
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [userContext, setUserContext] = useState(null)
+
+  useEffect(() => {
+    try { localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages)) } catch {}
+  }, [messages])
   const chatEndRef = useRef(null)
   const inputRef = useRef(null)
   const chatRef = useRef(null)

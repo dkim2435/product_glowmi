@@ -127,7 +127,7 @@ export default function IngredientAnalyzer({ showToast }) {
 
       {scanning && (
         <div className="ia-scan-progress">
-          <p>Scanning... {scanProgress}%</p>
+          <p>{t('Scanning...', '스캔 중...')} {scanProgress}%</p>
           <div className="progress-bar"><div className="progress-fill" style={{ width: scanProgress + '%' }} /></div>
         </div>
       )}
@@ -238,8 +238,8 @@ function IngredientRow({ data, extraClass = '' }) {
   const { t } = useLang()
   const meta = []
   if (data.category) meta.push(data.category)
-  if (data.comedogenic > 0) meta.push('comedogenic: ' + data.comedogenic + '/5')
-  if (data.irritation > 0) meta.push('irritation: ' + data.irritation + '/5')
+  if (data.comedogenic > 0) meta.push(t('comedogenic', '모공막힘') + ': ' + data.comedogenic + '/5')
+  if (data.irritation > 0) meta.push(t('irritation', '자극') + ': ' + data.irritation + '/5')
 
   return (
     <div className={'analyzer-row ' + extraClass}>
@@ -249,7 +249,7 @@ function IngredientRow({ data, extraClass = '' }) {
           {t(data.name, data.nameKr || data.name)}
         </div>
         {meta.length > 0 && <div className="analyzer-row-meta">{meta.join(' · ')}</div>}
-        <div className="analyzer-row-desc">{data.description}</div>
+        <div className="analyzer-row-desc">{t(data.description, data.descriptionKr || data.description)}</div>
       </div>
     </div>
   )

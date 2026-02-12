@@ -337,7 +337,7 @@ Be specific and personalized. The description should explain WHY this type was d
  */
 export async function analyzeDiaryAI(entries) {
   const entrySummary = entries.map(e =>
-    `${e.entry_date}: dryness=${e.dryness||'-'}, oiliness=${e.oiliness||'-'}, redness=${e.redness||'-'}, breakouts=${e.breakouts||'-'}, sensitivity=${e.sensitivity||'-'}, condition=${e.overall_condition||'-'}, sleep=${e.sleep_hours||'-'}, stress=${e.stress_level||'-'}, water=${e.water_intake||'-'}, notes="${e.notes||''}"`
+    `${e.entry_date}: dryness=${e.ai_dryness||'-'}, oiliness=${e.ai_oiliness||'-'}, redness=${e.ai_redness||'-'}, darkSpots=${e.ai_dark_spots||'-'}, texture=${e.ai_texture||'-'}, condition=${e.overall_condition||'-'}, sleep=${e.sleep_hours||'-'}, stress=${e.stress_level||'-'}, water=${e.water_intake||'-'}, notes="${e.notes||''}"`
   ).join('\n')
 
   const prompt = `You are an expert dermatologist. Analyze the user's 7-day skin diary below and provide personalized improvement recommendations.

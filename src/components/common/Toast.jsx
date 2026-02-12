@@ -10,7 +10,7 @@ export default function Toast({ message }) {
   }, [message])
 
   return (
-    <div className={'share-toast' + (visible ? ' share-toast-visible' : '')}>
+    <div className={'share-toast' + (visible ? ' share-toast-visible' : '')} role="alert" aria-live="polite">
       {message}
     </div>
   )

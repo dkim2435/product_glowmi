@@ -41,7 +41,7 @@ export default function CameraView({
         {cameraActive && !capturedImage && showFaceGuide && (
           <>
             <div className="face-guide" />
-            <div className="camera-tip">{t('Center your face. Use natural light.', '얼굴을 원 안에 맞춰주세요. 자연광 추천.')}</div>
+            <div className="camera-tip">{t('Center your face. Use natural light. Remove makeup & filters for best results.', '얼굴을 원 안에 맞춰주세요. 자연광 추천. 정확한 분석을 위해 화장과 필터를 제거하세요.')}</div>
           </>
         )}
         {capturedImage && (

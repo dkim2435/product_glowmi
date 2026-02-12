@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.0.3'
+const APP_VERSION = '2.0.4'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🎉',
+    emoji: '✨',
     title: `What's New in v${APP_VERSION}`,
-    titleKr: `v${APP_VERSION} 대규모 업데이트!`,
-    desc: 'Major update — Wellness overhaul, K-beauty YouTubers, global weather widget, privacy improvements, and a new onboarding experience!',
-    descKr: '대규모 업데이트 — 웰니스 개편, K-뷰티 유튜버, 전역 날씨 위젯, 개인정보 보호 개선, 새로운 안내 화면!',
+    titleKr: `v${APP_VERSION} 품질 개선!`,
+    desc: 'Bug fixes, full Korean translation, and UX improvements across the entire app.',
+    descKr: '버그 수정, 전체 한국어 번역, 앱 전반의 사용성 개선!',
     items: [
-      { emoji: '🧘', label: 'Wellness Tab', labelKr: '웰니스 탭', desc: 'Personalized nutrient recs based on your skin analysis + K-beauty trends 2025-2026.', descKr: '피부 분석 기반 맞춤 영양소 추천 + 2025-2026 K-뷰티 트렌드.' },
-      { emoji: '📺', label: 'K-YouTubers', labelKr: 'K-뷰티 유튜버', desc: 'Meet the top 7 Korean beauty YouTubers with curated video picks.', descKr: '한국 인기 뷰티 유튜버 7인과 추천 영상을 만나보세요.' },
-      { emoji: '🌤️', label: 'Weather Widget', labelKr: '날씨 위젯', desc: 'Weather skincare tips now appear on every page, not just AI Beauty.', descKr: '날씨 스킨케어 팁이 이제 모든 페이지 상단에 표시됩니다.' },
-      { emoji: '🔒', label: 'Privacy Update', labelKr: '개인정보 개선', desc: 'Updated privacy policy to accurately disclose AI photo processing via Gemini API.', descKr: 'AI 사진 분석(Gemini API)에 대한 개인정보 처리방침을 정확하게 업데이트했습니다.' },
+      { emoji: '🐛', label: 'Bug Fixes', labelKr: '버그 수정', desc: 'Fixed diary AI analysis, clinic filters, and dark mode toast issues.', descKr: '다이어리 AI 분석, 클리닉 필터, 다크모드 토스트 문제를 수정했습니다.' },
+      { emoji: '🌐', label: 'Full Korean', labelKr: '완전 한국어화', desc: 'All face shapes, ingredients, personal colors, and UI labels now fully translated.', descKr: '얼굴형, 성분, 퍼스널컬러, UI 라벨 모두 한국어 번역 완료.' },
+      { emoji: '📱', label: 'UX Improvements', labelKr: 'UX 개선', desc: 'Better upload flow, chat history saved, improved camera tips, and more.', descKr: '업로드 개선, 채팅 기록 저장, 카메라 팁 개선 등.' },
+      { emoji: '⚡', label: 'Performance', labelKr: '성능 개선', desc: 'Lazy loading, reduced layout shifts, and optimized script loading.', descKr: '지연 로딩, 레이아웃 시프트 감소, 스크립트 로딩 최적화.' },
     ],
   },
 ]

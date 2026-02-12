@@ -24,10 +24,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Choose vivid warm colors for maximum impact",
-            "\uc120\uba85\ud558\uace0 \ub530\ub73b\ud55c \ucef4\ub7ec\ub97c \uc120\ud0dd\ud558\uc138\uc694",
             "Gold jewelry and bright accessories suit you",
-            "\uace8\ub4dc \uc8fc\uc5bc\ub9ac\uc640 \ubc1d\uc740 \uc561\uc138\uc11c\ub9ac\uac00 \uc798 \uc5b4\uc6b8\ub824\uc694",
             "Avoid muted or dusty tones that dull your glow"
+        ],
+        tipsKr: [
+            "\uc120\uba85\ud558\uace0 \ub530\ub73b\ud55c \ucef4\ub7ec\ub97c \uc120\ud0dd\ud558\uc138\uc694",
+            "\uace8\ub4dc \uc8fc\uc5bc\ub9ac\uc640 \ubc1d\uc740 \uc561\uc138\uc11c\ub9ac\uac00 \uc798 \uc5b4\uc6b8\ub824\uc694",
+            "\ud0c1\ud558\uac70\ub098 \uba3c\uc9c0 \ub08c \ub290\ub08c\uc758 \ud1a4\uc740 \ud53c\ud558\uc138\uc694"
         ],
         celebs: ["Yoona (SNSD)", "Joy (Red Velvet)"],
         celebsKr: ["\uc724\uc544 (\uc18c\ub140\uc2dc\ub300)", "\uc870\uc774 (\ub808\ub4dc\ubca8\ubcb3)"],
@@ -57,10 +60,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Soft pastels with warm bases are your best friends",
-            "\ubd80\ub4dc\ub7ec\uc6b4 \uc6f0 \ud30c\uc2a4\ud154 \ud1a4\uc774 \uac00\uc7a5 \uc798 \uc5b4\uc6b8\ub824\uc694",
             "Rose gold and light gold jewelry complement you",
-            "\ub85c\uc988\uace8\ub4dc\uc640 \ub77c\uc774\ud2b8\uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uc798 \uc5b4\uc6b8\ub824\uc694",
             "Avoid heavy dark colors that overpower your lightness"
+        ],
+        tipsKr: [
+            "\ubd80\ub4dc\ub7ec\uc6b4 \uc6f0 \ud30c\uc2a4\ud154 \ud1a4\uc774 \uac00\uc7a5 \uc798 \uc5b4\uc6b8\ub824\uc694",
+            "\ub85c\uc988\uace8\ub4dc\uc640 \ub77c\uc774\ud2b8\uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uc798 \uc5b4\uc6b8\ub824\uc694",
+            "\ubb34\uac70\uc6b4 \uc5b4\ub450\uc6b4 \uc0c9\uc740 \uac00\ubcbc\uc6b4 \ub9e4\ub825\uc744 \ub36e\uc744 \uc218 \uc788\uc5b4\uc694"
         ],
         celebs: ["Suzy", "Park Boyoung"],
         celebsKr: ["\uc218\uc9c0", "\ubc15\ubcf4\uc601"],
@@ -90,10 +96,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Go for vivid cool hues that add sparkle",
-            "\uc120\uba85\ud55c \ucfe8\ud1a4 \ucef4\ub7ec\ub85c \ud654\uc0ac\ud568\uc744 \ub354\ud558\uc138\uc694",
             "Silver and white gold jewelry work perfectly",
-            "\uc2e4\ubc84\uc640 \ud654\uc774\ud2b8\uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uc798 \uc5b4\uc6b8\ub824\uc694",
             "Stay away from warm, earthy tones"
+        ],
+        tipsKr: [
+            "\uc120\uba85\ud55c \ucfe8\ud1a4 \ucef4\ub7ec\ub85c \ud654\uc0ac\ud568\uc744 \ub354\ud558\uc138\uc694",
+            "\uc2e4\ubc84\uc640 \ud654\uc774\ud2b8\uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uc798 \uc5b4\uc6b8\ub824\uc694",
+            "\ub530\ub73b\ud558\uace0 \ud754\ud55c \uc5b4\uc2a4\ud1a4\uc740 \ud53c\ud558\uc138\uc694"
         ],
         celebs: ["IU", "Taeyeon (SNSD)"],
         celebsKr: ["\uc544\uc774\uc720", "\ud0dc\uc5f0 (\uc18c\ub140\uc2dc\ub300)"],
@@ -123,10 +132,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Soft cool pastels make you glow effortlessly",
-            "\ubd80\ub4dc\ub7ec\uc6b4 \ucfe8 \ud30c\uc2a4\ud154\uc774 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud654\uc0ac\ud568\uc744 \uc918\uc694",
             "Rose gold and silver jewelry suit your elegance",
-            "\ub85c\uc988\uace8\ub4dc\uc640 \uc2e4\ubc84 \uc8fc\uc5bc\ub9ac\uac00 \uc6b0\uc544\ud568\uc744 \ub354\ud574\uc918\uc694",
             "Avoid overly warm or saturated earth tones"
+        ],
+        tipsKr: [
+            "\ubd80\ub4dc\ub7ec\uc6b4 \ucfe8 \ud30c\uc2a4\ud154\uc774 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud654\uc0ac\ud568\uc744 \uc918\uc694",
+            "\ub85c\uc988\uace8\ub4dc\uc640 \uc2e4\ubc84 \uc8fc\uc5bc\ub9ac\uac00 \uc6b0\uc544\ud568\uc744 \ub354\ud574\uc918\uc694",
+            "\ub108\ubb34 \ub530\ub73b\ud558\uac70\ub098 \ucc44\ub3c4 \ub192\uc740 \uc5b4\uc2a4\ud1a4\uc740 \ud53c\ud558\uc138\uc694"
         ],
         celebs: ["Kim Taehee", "Bae Suzy"],
         celebsKr: ["\uae40\ud0dc\ud76c", "\ubc30\uc218\uc9c0"],
@@ -156,10 +168,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Muted, dusty tones create harmony with your skin",
-            "\ud0c1\ud558\uace0 \uc740\uc740\ud55c \ud1a4\uc774 \ud53c\ubd80\uc640 \uc870\ud654\ub97c \uc774\ub8f0\uc694",
             "Avoid overly bright or saturated colors",
-            "\ub108\ubb34 \uc120\uba85\ud558\uac70\ub098 \ucc44\ub3c4 \ub192\uc740 \uc0c9\uc740 \ud53c\ud558\uc138\uc694",
             "Layering soft neutrals creates your best look"
+        ],
+        tipsKr: [
+            "\ud0c1\ud558\uace0 \uc740\uc740\ud55c \ud1a4\uc774 \ud53c\ubd80\uc640 \uc870\ud654\ub97c \uc774\ub8f0\uc694",
+            "\ub108\ubb34 \uc120\uba85\ud558\uac70\ub098 \ucc44\ub3c4 \ub192\uc740 \uc0c9\uc740 \ud53c\ud558\uc138\uc694",
+            "\ubd80\ub4dc\ub7ec\uc6b4 \ub274\ud2b8\ub7f4 \ub808\uc774\uc5b4\ub9c1\uc774 \uac00\uc7a5 \uba4b\uc9c4 \ub8e9\uc744 \ub9cc\ub4e4\uc5b4\uc694"
         ],
         celebs: ["Son Yejin", "Shin Minah"],
         celebsKr: ["\uc190\uc608\uc9c4", "\uc2e0\ubbfc\uc544"],
@@ -189,10 +204,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Earth tones and muted warm colors are your signature",
-            "\uc5b4\uc2a4\ud1a4\uacfc \ucc28\ubd84\ud55c \uc6ec\ucef4\ub7ec\uac00 \uc2dc\uadf8\ub2c8\ucc98\uc608\uc694",
             "Antique gold jewelry adds warmth naturally",
-            "\uc564\ud2f1 \uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ub530\ub73b\ud568\uc744 \ub354\ud574\uc694",
             "Avoid vivid cool-toned or neon colors"
+        ],
+        tipsKr: [
+            "\uc5b4\uc2a4\ud1a4\uacfc \ucc28\ubd84\ud55c \uc6ec\ucef4\ub7ec\uac00 \uc2dc\uadf8\ub2c8\ucc98\uc608\uc694",
+            "\uc564\ud2f1 \uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ub530\ub73b\ud568\uc744 \ub354\ud574\uc694",
+            "\uc120\uba85\ud55c \ucfe8\ud1a4\uc774\ub098 \ub124\uc628 \ucef4\ub7ec\ub294 \ud53c\ud558\uc138\uc694"
         ],
         celebs: ["Song Hyekyo", "Han Sohee"],
         celebsKr: ["\uc1a1\ud61c\uad50", "\ud55c\uc18c\ud76c"],
@@ -222,10 +240,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Deep warm tones create a striking, luxurious look",
-            "\uae4a\uc740 \uc6f0\ud1a4\uc774 \uace0\uae09\uc2a4\ub7fd\uace0 \uac15\ub82c\ud55c \uc778\uc0c1\uc744 \ub9cc\ub4e4\uc5b4\uc694",
             "Bronze and antique gold accessories are ideal",
-            "\ube0c\ub860\uc988\uc640 \uc564\ud2f1 \uace8\ub4dc \uc561\uc138\uc11c\ub9ac\uac00 \uc774\uc0c1\uc801\uc774\uc5d0\uc694",
             "Avoid light pastels that wash you out"
+        ],
+        tipsKr: [
+            "\uae4a\uc740 \uc6f0\ud1a4\uc774 \uace0\uae09\uc2a4\ub7fd\uace0 \uac15\ub82c\ud55c \uc778\uc0c1\uc744 \ub9cc\ub4e4\uc5b4\uc694",
+            "\ube0c\ub860\uc988\uc640 \uc564\ud2f1 \uace8\ub4dc \uc561\uc138\uc11c\ub9ac\uac00 \uc774\uc0c1\uc801\uc774\uc5d0\uc694",
+            "\uc5f0\ud55c \ud30c\uc2a4\ud154 \ucef4\ub7ec\ub294 \uc5bc\uad74\uc744 \ucc3d\ubc31\ud574 \ubcf4\uc774\uac8c \ud574\uc694"
         ],
         celebs: ["Jennie (BLACKPINK)", "HyunA"],
         celebsKr: ["\uc81c\ub2c8 (\ube14\ub799\ud551\ud06c)", "\ud604\uc544"],
@@ -255,10 +276,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Bold saturated warm colors are your power palette",
-            "\ucc44\ub3c4 \ub192\uc740 \ub530\ub73b\ud55c \ucef4\ub7ec\uac00 \ud30c\uc6cc \ud314\ub808\ud2b8\uc608\uc694",
             "Statement gold jewelry matches your intensity",
-            "\uc784\ud329\ud2b8 \uc788\ub294 \uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uac15\ub82c\ud568\uacfc \uc5b4\uc6b8\ub824\uc694",
             "Avoid pale or washed-out cool tones"
+        ],
+        tipsKr: [
+            "\ucc44\ub3c4 \ub192\uc740 \ub530\ub73b\ud55c \ucef4\ub7ec\uac00 \ud30c\uc6cc \ud314\ub808\ud2b8\uc608\uc694",
+            "\uc784\ud329\ud2b8 \uc788\ub294 \uace8\ub4dc \uc8fc\uc5bc\ub9ac\uac00 \uac15\ub82c\ud568\uacfc \uc5b4\uc6b8\ub824\uc694",
+            "\ucc3d\ubc31\ud558\uac70\ub098 \ubc14\ub79c \ucfe8\ud1a4\uc740 \ud53c\ud558\uc138\uc694"
         ],
         celebs: ["CL (2NE1)", "Hwasa (Mamamoo)"],
         celebsKr: ["\uc528\uc5d8 (2NE1)", "\ud654\uc0ac (\ub9c8\ub9c8\ubb34)"],
@@ -288,10 +312,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Deep, dark cool tones create dramatic impact",
-            "\uae4a\uace0 \uc5b4\ub450\uc6b4 \ucfe8\ud1a4\uc774 \ub4dc\ub77c\ub9c8\ud2f1\ud55c \uc778\uc0c1\uc744 \uc918\uc694",
             "Platinum and dark silver jewelry suit you",
-            "\ud50c\ub798\ud2f0\ub118\uacfc \ub2e4\ud06c \uc2e4\ubc84 \uc8fc\uc5bc\ub9ac\uac00 \uc5b4\uc6b8\ub824\uc694",
             "Avoid warm, muted earth tones"
+        ],
+        tipsKr: [
+            "\uae4a\uace0 \uc5b4\ub450\uc6b4 \ucfe8\ud1a4\uc774 \ub4dc\ub77c\ub9c8\ud2f1\ud55c \uc778\uc0c1\uc744 \uc918\uc694",
+            "\ud50c\ub798\ud2f0\ub118\uacfc \ub2e4\ud06c \uc2e4\ubc84 \uc8fc\uc5bc\ub9ac\uac00 \uc5b4\uc6b8\ub824\uc694",
+            "\ub530\ub73b\ud558\uace0 \ud0c1\ud55c \uc5b4\uc2a4\ud1a4\uc740 \ud53c\ud558\uc138\uc694"
         ],
         celebs: ["Jun Jihyun", "Kim Soohyun"],
         celebsKr: ["\uc804\uc9c0\ud604", "\uae40\uc218\ud604"],
@@ -321,10 +348,13 @@ export const personalColorResults = {
         ],
         tips: [
             "Bold high-contrast outfits look stunning on you",
-            "\ub300\ube44\uac00 \uac15\ud55c \uacfc\uac10\ud55c \uc2a4\ud0c0\uc77c\uc774 \uc798 \uc5b4\uc6b8\ub824\uc694",
             "Platinum and silver jewelry enhance your features",
-            "\ud50c\ub798\ud2f0\ub118\uacfc \uc2e4\ubc84 \uc8fc\uc5bc\ub9ac\uac00 \uc774\ubaa9\uad6c\ube44\ub97c \uc0b4\ub824\uc918\uc694",
             "Don't be afraid of pure white and jet black"
+        ],
+        tipsKr: [
+            "\ub300\ube44\uac00 \uac15\ud55c \uacfc\uac10\ud55c \uc2a4\ud0c0\uc77c\uc774 \uc798 \uc5b4\uc6b8\ub824\uc694",
+            "\ud50c\ub798\ud2f0\ub118\uacfc \uc2e4\ubc84 \uc8fc\uc5bc\ub9ac\uac00 \uc774\ubaa9\uad6c\ube44\ub97c \uc0b4\ub824\uc918\uc694",
+            "\uc21c\ubc31\uc0c9\uacfc \uc81c\ud2b8 \ube14\ub799\uc744 \uacfc\uac10\ud558\uac8c \ud65c\uc6a9\ud574 \ubcf4\uc138\uc694"
         ],
         celebs: ["Jisoo (BLACKPINK)", "Cha Eunwoo"],
         celebsKr: ["\uc9c0\uc218 (\ube14\ub799\ud551\ud06c)", "\ucc28\uc740\uc6b0"],

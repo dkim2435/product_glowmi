@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
@@ -21,6 +21,7 @@ export default function SkinAnalyzer({ showToast }) {
   const { user, loginWithGoogle } = useAuth()
   const { t } = useLang()
   const camera = useCamera()
+  const startUploadRef = useRef(null)
   const [screen, setScreen] = useState('start')
   const [scores, setScores] = useState(null)
   const [overallScore, setOverallScore] = useState(null)
@@ -256,9 +257,14 @@ export default function SkinAnalyzer({ showToast }) {
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
           {t('Start Analysis', '분석 시작')}
         </button>
-        <button className="secondary-btn" onClick={() => setScreen('camera')}>
+        <button className="secondary-btn" onClick={() => startUploadRef.current?.click()}>
           {'📁 ' + t('Upload Photo', '사진 업로드')}
         </button>
+        <input ref={startUploadRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => {
+          const file = e.target.files[0]
+          if (file) { camera.handleUpload(file).then(() => setScreen('camera')).catch(err => showToast(err.message)) }
+          e.target.value = ''
+        }} />
         {!user && (
           <p className="start-signup-nudge">
             {'🆓 ' + t('Free! Sign up to save results & track progress.', '무료! 가입하면 결과 저장 & 변화 추적이 가능해요.')}
@@ -395,23 +401,6 @@ export default function SkinAnalyzer({ showToast }) {
         </div>
       )}
 
-      {/* Quiz prompt card (only if quiz not started and not completed) */}
-      {quizPhase === null && (
-        <div className="quiz-prompt-card">
-          <div className="quiz-prompt-icon">📝</div>
-          <h4>{t('Want a more accurate skin type?', '더 정확한 피부타입을 알고 싶다면?')}</h4>
-          <p>{t('Answer 5 quick questions to combine with your photo analysis for a comprehensive skin type diagnosis.', '5개 질문에 답하면 사진 분석과 합쳐서 종합 피부타입을 진단해 드려요.')}</p>
-          <div className="quiz-prompt-actions">
-            <button className="primary-btn" onClick={handleStartQuiz}>
-              {t('Start Quiz', '퀴즈 시작')}
-            </button>
-            <button className="quiz-prompt-skip" onClick={() => setQuizPhase('skipped')}>
-              {t('Skip', '건너뛰기')}
-            </button>
-          </div>
-        </div>
-      )}
-
       <div className="skin-overall">
         <div className="skin-score-circle">
           <span className="skin-score-number">{overallScore}</span>
@@ -454,7 +443,7 @@ export default function SkinAnalyzer({ showToast }) {
           return (
             <div key={cKey} className="skin-rec-card">
               <div className="skin-rec-header">{cData.emoji} <strong>{t(cData.name, cData.nameKr)}</strong> — Score: {scores[cKey]}</div>
-              <p className="skin-rec-desc">{cData.description}</p>
+              <p className="skin-rec-desc">{t(cData.description, cData.descriptionKr || cData.description)}</p>
               <div className="skin-rec-tips">
                 <strong>{t('Tips', '팁')}:</strong>
                 <ul>
@@ -559,6 +548,23 @@ export default function SkinAnalyzer({ showToast }) {
                 {t('Close', '닫기')}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quiz prompt card (only if quiz not started and not completed) */}
+      {quizPhase === null && (
+        <div className="quiz-prompt-card">
+          <div className="quiz-prompt-icon">📝</div>
+          <h4>{t('Want a more accurate skin type?', '더 정확한 피부타입을 알고 싶다면?')}</h4>
+          <p>{t('Answer 8 quick questions to combine with your photo analysis for a comprehensive skin type diagnosis.', '8개 질문에 답하면 사진 분석과 합쳐서 종합 피부타입을 진단해 드려요.')}</p>
+          <div className="quiz-prompt-actions">
+            <button className="primary-btn" onClick={handleStartQuiz}>
+              {t('Start Quiz', '퀴즈 시작')}
+            </button>
+            <button className="quiz-prompt-skip" onClick={() => setQuizPhase('skipped')}>
+              {t('Skip', '건너뛰기')}
+            </button>
           </div>
         </div>
       )}

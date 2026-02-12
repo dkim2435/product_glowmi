@@ -161,7 +161,10 @@ export default function WeatherTips() {
               : t('Could not load weather data.', '날씨 데이터를 불러올 수 없습니다.')}
           </p>
           {error === 'location' && (
-            <button className="weather-retry-btn" onClick={fetchWeather}>📍 {t('Enable Location', '위치 허용')}</button>
+            <>
+              <button className="weather-retry-btn" onClick={fetchWeather}>📍 {t('Enable Location', '위치 허용')}</button>
+              <p className="weather-perm-hint">{t('If the button doesn\'t work, enable location in your browser settings.', '버튼이 작동하지 않으면 브라우저 설정에서 위치 권한을 켜주세요.')}</p>
+            </>
           )}
         </div>
       </div>

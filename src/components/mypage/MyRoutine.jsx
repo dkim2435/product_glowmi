@@ -56,7 +56,7 @@ export default function MyRoutine({ userId, showToast }) {
     const updated = { ...routineData }
     updated[activeType] = [...updated[activeType], { category: newStep.category, name: newStep.name.trim(), brand: newStep.brand.trim() }]
     setRoutineData(updated)
-    setNewStep({ category: 'oil_cleanser', name: '', brand: '' })
+    setNewStep(prev => ({ category: prev.category, name: '', brand: '' }))
     try {
       await saveRoutine(userId, activeType, updated[activeType])
       showToast(t('Routine saved!', '루틴이 저장되었습니다!'))

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
@@ -16,8 +16,9 @@ import Confetti from '../common/Confetti'
 
 export default function PersonalColorAnalysis({ showToast }) {
   const { user, loginWithGoogle } = useAuth()
-  const { t } = useLang()
+  const { lang, t } = useLang()
   const camera = useCamera()
+  const startUploadRef = useRef(null)
   const [screen, setScreen] = useState('start') // start | camera | analyzing | result
   const [result, setResult] = useState(null)
   const [faceCrop, setFaceCrop] = useState(null)
@@ -97,11 +98,9 @@ export default function PersonalColorAnalysis({ showToast }) {
 
       setResult(analysis)
 
-      setTimeout(() => {
-        setScreen('result')
-        setShowConfetti(true)
-        setTimeout(() => setShowConfetti(false), 4000)
-      }, 1500)
+      setScreen('result')
+      setShowConfetti(true)
+      setTimeout(() => setShowConfetti(false), 4000)
     } catch (e) {
       console.error('Color analysis failed:', e)
       setScreen('camera')
@@ -138,9 +137,14 @@ export default function PersonalColorAnalysis({ showToast }) {
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
           {t('Start Analysis', '분석 시작')}
         </button>
-        <button className="secondary-btn" onClick={() => setScreen('camera')}>
+        <button className="secondary-btn" onClick={() => startUploadRef.current?.click()}>
           📁 {t('Upload Photo', '사진 업로드')}
         </button>
+        <input ref={startUploadRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={e => {
+          const file = e.target.files[0]
+          if (file) { camera.handleUpload(file).then(() => setScreen('camera')).catch(err => showToast(err.message)) }
+          e.target.value = ''
+        }} />
         {!user && (
           <p className="start-signup-nudge">
             {'🆓 ' + t('Free! Sign up to save results & track progress.', '무료! 가입하면 결과 저장 & 변화 추적이 가능해요.')}
@@ -280,7 +284,7 @@ export default function PersonalColorAnalysis({ showToast }) {
         </div>
 
         <h4>{t('Styling Tips', '스타일링 팁')}</h4>
-        <ul>{r.tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
+        <ul>{(lang === 'ko' && r.tipsKr ? r.tipsKr : r.tips).map((tip, i) => <li key={i}>{tip}</li>)}</ul>
 
         <div className="makeup-guide">
           <h4>{t('Makeup Guide', '메이크업 가이드')}</h4>

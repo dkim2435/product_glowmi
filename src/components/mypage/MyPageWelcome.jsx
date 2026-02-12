@@ -33,8 +33,8 @@ const SLIDES = [
     descKr: '매일 피부 상태, 사용 제품, 날씨, 기분을 기록하세요. 나만의 피부 히스토리를 만들어보세요.',
     visual: [
       { emoji: '📅', label: 'Daily logging', labelKr: '매일 기록', sub: 'Daily logging', subKr: '매일 기록' },
-      { emoji: '🧴', label: 'Products & weather', labelKr: '제품 & 날씨', sub: 'Products & weather', subKr: '제품 & 날씨 메모' },
-      { emoji: '😊', label: 'Mood tracking', labelKr: '기분 기록', sub: 'Mood tracking', subKr: '기분 기록' },
+      { emoji: '🧴', label: 'Skin conditions', labelKr: '피부 상태', sub: 'Track dryness, oiliness & more', subKr: '건조함, 유분기 등 추적' },
+      { emoji: '📊', label: 'AI Analysis', labelKr: 'AI 분석', sub: '7-day trend insights', subKr: '7일 트렌드 분석' },
     ],
     visualType: 'steps',
   },

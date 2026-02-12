@@ -571,6 +571,11 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
+[data-theme="dark"] .share-toast {
+  background: #e0e0e0;
+  color: #1a1a1a;
+}
+
 /* ========== Save Result Button ========== */
 .save-result-btn {
   display: inline-block;
@@ -7217,6 +7222,8 @@ body {
 [data-theme="dark"] .weather-products-label { color: #b0b0c0; }
 [data-theme="dark"] .weather-extra-tip { color: #c0c0d0; }
 [data-theme="dark"] .weather-retry-btn { background: #2a2a40; border-color: var(--primary-pink); color: var(--primary-pink); }
+.weather-perm-hint { font-size: 0.7rem; color: #999; margin-top: 4px; }
+[data-theme="dark"] .weather-perm-hint { color: #777; }
 [data-theme="dark"] .weather-product-tag { background: #2a2a40; border-color: #3a3a50; }
 
 /* ===== Product Cards (pcard) ===== */
