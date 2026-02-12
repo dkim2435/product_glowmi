@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import NutrientRecs from './NutrientRecs'
+import WeatherWellness from './WeatherWellness'
 import KTrends from './KTrends'
 import KYoutubers from './KYoutubers'
+import WellnessGuide from './WellnessGuide'
 
 const WELLNESS_TABS = [
   { id: 'nutrients', label: 'Nutrients', labelKr: '영양소', emoji: '🍎' },
+  { id: 'weather', label: 'Weather', labelKr: '날씨케어', emoji: '🌤️' },
   { id: 'ktrends', label: 'K-Trends', labelKr: 'K트렌드', emoji: '🔥' },
-  { id: 'kyoutubers', label: 'YouTubers', labelKr: '유튜버', emoji: '📺' }
+  { id: 'kyoutubers', label: 'YouTubers', labelKr: '유튜버', emoji: '📺' },
+  { id: 'guide', label: 'Guide', labelKr: '가이드', emoji: '📚' }
 ]
 
 export default function WellnessTab({ onNavigate }) {
@@ -18,7 +22,7 @@ export default function WellnessTab({ onNavigate }) {
     <section className="tab-panel" id="wellness">
       <div className="wellness-intro">
         <h3>{'🧘 ' + t('Wellness & Skin Health', '웰니스 & 피부 건강')}</h3>
-        <p>{t('Beautiful skin starts from within. Nutrition, trends & lifestyle guides.', '아름다운 피부는 내면에서 시작됩니다. 영양, 트렌드, 생활 가이드.')}</p>
+        <p>{t('Beautiful skin starts from within. Nutrition, weather care, trends & lifestyle guides.', '아름다운 피부는 내면에서 시작됩니다. 영양, 날씨케어, 트렌드, 생활 가이드.')}</p>
       </div>
 
       <div className="ai-tool-tabs">
@@ -34,8 +38,10 @@ export default function WellnessTab({ onNavigate }) {
       </div>
 
       {activeTab === 'nutrients' && <NutrientRecs onNavigate={onNavigate} />}
+      {activeTab === 'weather' && <WeatherWellness />}
       {activeTab === 'ktrends' && <KTrends />}
       {activeTab === 'kyoutubers' && <KYoutubers />}
+      {activeTab === 'guide' && <WellnessGuide />}
     </section>
   )
 }

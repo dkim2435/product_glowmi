@@ -56,6 +56,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
 
     <!-- Structured Data: WebSite + SearchAction -->
     <script type="application/ld+json">
@@ -199,7 +200,40 @@
             { "@type": "ListItem", "position": 3, "name": "Skin Quiz", "item": "https://glowmi.org/#quiz" },
             { "@type": "ListItem", "position": 4, "name": "K-Beauty Skincare", "item": "https://glowmi.org/#products" },
             { "@type": "ListItem", "position": 5, "name": "Treatments & Clinics", "item": "https://glowmi.org/#procedures" },
-            { "@type": "ListItem", "position": 6, "name": "Wellness", "item": "https://glowmi.org/#wellness" }
+            { "@type": "ListItem", "position": 6, "name": "Wellness", "item": "https://glowmi.org/#wellness" },
+            { "@type": "ListItem", "position": 7, "name": "Blog", "item": "https://glowmi.org/blog/" }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: Blog -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Glowmi Blog",
+        "url": "https://glowmi.org/blog/",
+        "description": "K-Beauty tips, skincare guides, and Korean beauty trends.",
+        "publisher": { "@type": "Organization", "name": "Glowmi", "url": "https://glowmi.org" },
+        "blogPost": [
+            {
+                "@type": "BlogPosting",
+                "headline": "Best Korean Sunscreens 2026",
+                "url": "https://glowmi.org/blog/best-korean-sunscreen-2026",
+                "datePublished": "2026-02-01"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Korean Skincare Routine for Oily Skin",
+                "url": "https://glowmi.org/blog/korean-skincare-routine-oily-skin",
+                "datePublished": "2026-02-01"
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "퍼스널컬러 무료 AI 진단",
+                "url": "https://glowmi.org/blog/free-personal-color-analysis",
+                "datePublished": "2026-02-01"
+            }
         ]
     }
     </script>

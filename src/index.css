@@ -8067,3 +8067,89 @@ body {
 [data-theme="dark"] .nutrient-section-desc {
   color: #777;
 }
+
+/* === Wellness Guide === */
+.wellness-guide-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wellness-guide-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wellness-guide-card:hover {
+  border-color: #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.wellness-guide-expanded {
+  border-color: #FF6B9D;
+}
+
+.wellness-guide-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wellness-guide-card-header h4 {
+  flex: 1;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.wellness-guide-emoji {
+  font-size: 1.3rem;
+}
+
+.wellness-guide-points {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.wellness-guide-points li {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.wellness-guide-points li:last-child {
+  margin-bottom: 0;
+}
+
+/* Weather Wellness wrapper */
+.weather-wellness {
+  margin-top: 4px;
+}
+
+.weather-wellness .weather-card {
+  margin-top: 12px;
+}
+
+/* === Dark mode: Wellness Guide === */
+[data-theme="dark"] .wellness-guide-card {
+  background: #1a1a2e;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .wellness-guide-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .wellness-guide-expanded {
+  border-color: #FF6B9D;
+}
+
+[data-theme="dark"] .wellness-guide-points li {
+  color: #aaa;
+}
