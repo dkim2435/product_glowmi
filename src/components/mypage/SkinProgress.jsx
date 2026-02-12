@@ -3,6 +3,7 @@ import { useLang } from '../../context/LanguageContext'
 import { resizePhoto } from '../../lib/storage'
 import { loadDiaryEntries, loadAnalysisResults, saveSkinProgressDB, loadSkinProgressDB, deleteSkinProgressDB } from '../../lib/db'
 import { generateProgressReportAI } from '../../lib/gemini'
+import { getLocalDate } from '../../lib/dateUtils'
 
 export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) {
   const { t } = useLang()
@@ -33,7 +34,9 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       // Load saved skin analysis from Supabase
       const analysis = await loadAnalysisResults(userId)
       setAnalysisResult(analysis)
-    } catch { /* ignore */ }
+    } catch {
+      showToast(t('Failed to load progress data.', '진행 데이터를 불러오지 못했습니다.'))
+    }
     setLoading(false)
   }
 
@@ -94,7 +97,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     reader.onload = async (ev) => {
       try {
         const thumb = await resizePhoto(ev.target.result, 400)
-        const today = new Date().toLocaleDateString('en-CA')
+        const today = getLocalDate()
 
         await saveSkinProgressDB(userId, {
           date: today,
@@ -130,8 +133,8 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     // Rate limit: once per day
     const lastReport = localStorage.getItem('glowmi_last_ai_report')
     if (lastReport) {
-      const lastDate = new Date(lastReport).toLocaleDateString('en-CA')
-      const today = new Date().toLocaleDateString('en-CA')
+      const lastDate = getLocalDate(new Date(lastReport))
+      const today = getLocalDate()
       if (lastDate === today) {
         showToast(t('AI report is available once per day.', 'AI 리포트는 하루 1회 가능합니다.'))
         return

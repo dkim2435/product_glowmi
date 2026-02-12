@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { saveDiaryEntry, loadDiaryEntries, deleteDiaryEntry } from '../../lib/db'
 import { analyzeDiaryAI } from '../../lib/gemini'
+import { getLocalDate } from '../../lib/dateUtils'
 
 const CONDITIONS = [
   { value: 'good', emoji: '😊', label: 'Good', labelKr: '좋음' },
@@ -56,7 +57,7 @@ export default function SkinDiary({ userId, showToast }) {
   const [chartMetric, setChartMetric] = useState('all')
   const chartRef = useRef(null)
 
-  const today = new Date().toLocaleDateString('en-CA') // YYYY-MM-DD in local timezone
+  const today = getLocalDate()
 
   useEffect(() => { refresh() }, [userId])
 
@@ -83,7 +84,9 @@ export default function SkinDiary({ userId, showToast }) {
       } else {
         setTodaySaved(false)
       }
-    } catch { /* ignore */ }
+    } catch {
+      showToast(t('Failed to load diary.', '일지를 불러오지 못했습니다.'))
+    }
     setLoading(false)
   }
 

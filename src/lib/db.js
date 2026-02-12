@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import { getLocalDate } from './dateUtils'
 
 // ===== Analysis Results =====
 
@@ -95,7 +96,7 @@ export async function saveDiaryEntry(userId, entry) {
 export async function loadDiaryEntries(userId, days = 14) {
   const fromDate = new Date()
   fromDate.setDate(fromDate.getDate() - days)
-  const fromStr = fromDate.toLocaleDateString('en-CA')
+  const fromStr = getLocalDate(fromDate)
 
   const { data, error } = await supabase.from('skin_diary')
     .select('*')
@@ -139,7 +140,7 @@ export async function loadRoutines(userId) {
 // ===== Skin Progress =====
 
 export async function checkSkinProgressToday(userId) {
-  const today = new Date().toLocaleDateString('en-CA')
+  const today = getLocalDate()
   const { data, error } = await supabase.from('skin_progress')
     .select('updated_at')
     .eq('user_id', userId)

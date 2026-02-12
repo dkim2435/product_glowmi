@@ -45,7 +45,9 @@ export default function MyRoutine({ userId, showToast }) {
         if (r.routine_type === 'pm') data.pm = r.steps || []
       }
       setRoutineData(data)
-    } catch { /* ignore */ }
+    } catch {
+      showToast(t('Failed to load routine.', '루틴을 불러오지 못했습니다.'))
+    }
     setLoading(false)
   }
 
@@ -72,7 +74,9 @@ export default function MyRoutine({ userId, showToast }) {
     setRoutineData(updated)
     try {
       await saveRoutine(userId, activeType, updated[activeType])
-    } catch { /* ignore */ }
+    } catch {
+      showToast(t('Failed to delete step.', '단계 삭제에 실패했습니다.'))
+    }
   }
 
   async function handleAiRoutine() {
@@ -127,7 +131,9 @@ export default function MyRoutine({ userId, showToast }) {
     setRoutineData(updated)
     try {
       await saveRoutine(userId, activeType, steps)
-    } catch { /* ignore */ }
+    } catch {
+      showToast(t('Failed to reorder steps.', '순서 변경에 실패했습니다.'))
+    }
   }
 
   if (loading) return <p className="mypage-loading">{t('Loading...', '불러오는 중...')}</p>

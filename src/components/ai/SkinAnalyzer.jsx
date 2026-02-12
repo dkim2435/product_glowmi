@@ -9,6 +9,7 @@ import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
 import { analyzeSkinAI, generateRoutineAI, analyzeSkinCombinedAI } from '../../lib/gemini'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
 import { addHistoryEntry } from '../../lib/analysisHistory'
+import { getLocalDate } from '../../lib/dateUtils'
 import { combinedQuizQuestions, detectSeason } from '../../data/quiz'
 import { lookupIngredient } from '../products/ingredientLogic'
 import { getRecommendations } from '../../data/products'
@@ -197,7 +198,7 @@ export default function SkinAnalyzer({ showToast }) {
         photoThumb = await resizePhoto(camera.capturedImage, 400)
       }
       await saveSkinProgressDB(user.id, {
-        date: new Date().toLocaleDateString('en-CA'),
+        date: getLocalDate(),
         overallScore,
         scores,
         photoThumb
@@ -254,7 +255,7 @@ export default function SkinAnalyzer({ showToast }) {
       <div className="pc-start-card">
         <div className="tool-intro">
           <span className="tool-icon">🔬</span>
-          <h3>AI Skin Condition Analyzer</h3>
+          <h3>{t('AI Skin Condition Analyzer', 'AI 피부 상태 분석')}</h3>
           <p className="tool-desc">{t('AI analyzes your skin for redness, oiliness, dryness, dark spots, and texture to provide personalized recommendations.', 'AI가 홍조, 유분, 건조, 색소침착, 피부결을 분석하여 맞춤 추천을 제공합니다.')}</p>
           <p className="privacy-note">🔒 {t('Photos are sent to Google AI for analysis. Not stored.', '사진은 Google AI로 전송되어 분석됩니다. 저장되지 않습니다.')}</p>
         </div>
@@ -427,7 +428,7 @@ export default function SkinAnalyzer({ showToast }) {
         <div className={'skin-grade ' + gradeClass}>{grade}</div>
         <p className="skin-overall-desc">{t('Your overall skin health score based on AI pixel analysis.', 'AI 픽셀 분석 기반 전체 피부 건강 점수입니다.')}</p>
         <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
-          {usedGemini ? '🤖 AI Powered' : '📱 Local Analysis'}
+          {usedGemini ? t('🤖 AI Powered', '🤖 AI 분석') : t('📱 Local Analysis', '📱 로컬 분석')}
         </div>
       </div>
 

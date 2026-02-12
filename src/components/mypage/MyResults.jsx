@@ -24,7 +24,10 @@ export default function MyResults({ userId, onNavigate, showToast }) {
       setData(d)
       setHasRoutine(routines && routines.length > 0)
       setLoading(false)
-    }).catch(() => setLoading(false))
+    }).catch(() => {
+      showToast?.(t('Failed to load results.', '결과를 불러오지 못했습니다.'))
+      setLoading(false)
+    })
   }, [userId])
 
   async function handleGenerateRoutine() {

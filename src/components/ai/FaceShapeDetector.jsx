@@ -112,7 +112,7 @@ export default function FaceShapeDetector({ showToast }) {
       <div className="pc-start-card">
         <div className="tool-intro">
           <span className="tool-icon">💎</span>
-          <h3>AI Face Shape Detector</h3>
+          <h3>{t('AI Face Shape Detector', 'AI 얼굴형 분석')}</h3>
           <p className="tool-desc">{t('AI analyzes 468 facial landmarks to determine your face shape and provide styling tips.', 'AI가 468개의 얼굴 랜드마크를 분석하여 얼굴형을 판별하고 스타일링 팁을 제공합니다.')}</p>
           <p className="privacy-note">🔒 {t('Photos are sent to Google AI for analysis. Not stored.', '사진은 Google AI로 전송되어 분석됩니다. 저장되지 않습니다.')}</p>
         </div>
@@ -181,7 +181,7 @@ export default function FaceShapeDetector({ showToast }) {
       <h2 className="result-type">{t(data.name + ' Face', data.korean)}</h2>
       <div className="fs-confidence">{t('Confidence', '신뢰도')}: {result.confidence}%</div>
       <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
-        {usedGemini ? '🤖 AI Powered' : '📱 Local Analysis'}
+        {usedGemini ? t('🤖 AI Powered', '🤖 AI 분석') : t('📱 Local Analysis', '📱 로컬 분석')}
       </div>
 
       {/* 1) All Face Shapes — visible to everyone */}

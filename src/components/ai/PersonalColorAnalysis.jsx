@@ -134,7 +134,7 @@ export default function PersonalColorAnalysis({ showToast }) {
       <div className="pc-start-card">
         <div className="tool-intro">
           <span className="tool-icon">🎨</span>
-          <h3>AI Personal Color Analysis</h3>
+          <h3>{t('AI Personal Color Analysis', 'AI 퍼스널컬러 분석')}</h3>
           <p className="tool-desc">{t('Discover your personal color type from a selfie. AI analyzes your skin tone to classify you into one of 10 types.', '셀카 한 장으로 퍼스널컬러를 알아보세요. AI가 피부톤을 분석하여 10가지 타입 중 하나로 분류합니다.')}</p>
           <p className="privacy-note">🔒 {t('Photos are sent to Google AI for analysis. Not stored.', '사진은 Google AI로 전송되어 분석됩니다. 저장되지 않습니다.')}</p>
         </div>
@@ -215,7 +215,7 @@ export default function PersonalColorAnalysis({ showToast }) {
       <div className="season-result-badge" style={{ background: badgeColor }}>{r.season} {t(r.subtitle, r.subtitleKr)}</div>
       <div className="fs-confidence">{t('Confidence', '신뢰도')} {result.confidence}%</div>
       <div className={usedGemini ? 'ai-badge ai-badge-gemini' : 'ai-badge ai-badge-local'}>
-        {usedGemini ? '🤖 AI Powered' : '📱 Local Analysis'}
+        {usedGemini ? t('🤖 AI Powered', '🤖 AI 분석') : t('📱 Local Analysis', '📱 로컬 분석')}
       </div>
 
       <div className="pc-skin-swatch">
