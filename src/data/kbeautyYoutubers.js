@@ -10,8 +10,8 @@ export const KBEAUTY_YOUTUBERS = [
     tagsKr: ['#글로벌아티스트', '#변신메이크업'],
     desc: 'Korea\'s most famous beauty YouTuber and global makeup artist. Known for stunning celebrity transformation makeups and trend-setting K-beauty looks. Collaborated with major brands worldwide.',
     descKr: '한국 최고의 뷰티 유튜버이자 글로벌 메이크업 아티스트. 놀라운 셀럽 변신 메이크업과 트렌드를 이끄는 K-뷰티 룩으로 유명합니다. 세계적인 브랜드들과 협업.',
-    videoTitle: 'Celebrity Transformation Makeup',
-    videoTitleKr: '연예인 변신 메이크업',
+    videoTitle: 'Perfectly Smooth & Dewy Winter Foundation',
+    videoTitleKr: '겨울철 매끈 촉촉 베이스 메이크업',
     videoUrl: 'https://www.youtube.com/watch?v=TINJI-d9NYE'
   },
   {
@@ -25,8 +25,8 @@ export const KBEAUTY_YOUTUBERS = [
     tagsKr: ['#커버메이크업', '#초보친화'],
     desc: 'Top Korean beauty creator famous for cover makeups that transform her into celebrities and characters. Known for easy-to-follow tutorials that even beginners can master.',
     descKr: '연예인과 캐릭터로 변신하는 커버 메이크업으로 유명한 톱 뷰티 크리에이터. 초보자도 쉽게 따라할 수 있는 튜토리얼로 사랑받고 있습니다.',
-    videoTitle: 'Celebrity Cover Makeup Collection',
-    videoTitleKr: '연예인 커버 메이크업 모음',
+    videoTitle: 'The Story of Being Chosen by Wonhee',
+    videoTitleKr: '원희한테 간택 당한 썰 푼다..',
     videoUrl: 'https://www.youtube.com/watch?v=J8yiHiDc2vc'
   },
   {
@@ -40,8 +40,8 @@ export const KBEAUTY_YOUTUBERS = [
     tagsKr: ['#솔직리뷰', '#다양한화장법'],
     desc: 'Veteran beauty YouTuber loved for brutally honest product reviews and diverse makeup tutorials. From daily looks to avant-garde styles, she covers it all with humor and expertise.',
     descKr: '솔직한 제품 리뷰와 다양한 메이크업 튜토리얼로 사랑받는 베테랑 뷰티 유튜버. 데일리 룩부터 아방가르드 스타일까지 유머와 전문성으로 소화합니다.',
-    videoTitle: 'Honest Beauty Product Reviews',
-    videoTitleKr: '솔직 뷰티 제품 리뷰',
+    videoTitle: 'Best Foam Cleansers Review — Olive Young Top 10',
+    videoTitleKr: '약산성 vs 약알칼리성 폼클렌징 베스트 리뷰 올리브영 ~10순위',
     videoUrl: 'https://www.youtube.com/watch?v=JvnLTtj4OKM'
   },
   {
@@ -55,8 +55,8 @@ export const KBEAUTY_YOUTUBERS = [
     tagsKr: ['#급부상', '#솔직리뷰'],
     desc: 'Fast-rising beauty creator known for high-viewcount honest reviews and trendy makeup tutorials. Her straightforward style resonates with younger audiences seeking genuine recommendations.',
     descKr: '높은 조회수의 솔직 리뷰와 트렌디한 메이크업으로 급부상 중인 뷰티 크리에이터. 진정성 있는 추천을 원하는 젊은 시청자들에게 큰 공감을 얻고 있습니다.',
-    videoTitle: 'Trending Product Reviews',
-    videoTitleKr: '인기 제품 솔직 리뷰',
+    videoTitle: 'Best Products of the First Half of the Year',
+    videoTitleKr: '상반기 잘쓴템을 소개합니다',
     videoUrl: 'https://www.youtube.com/watch?v=ALqnCVCiQHQ'
   },
   {
@@ -70,8 +70,8 @@ export const KBEAUTY_YOUTUBERS = [
     tagsKr: ['#신제품정보', '#트렌드'],
     desc: 'Go-to creator for the latest K-beauty product launches and trend analysis. Delivers fast, concise reviews of new releases so viewers always stay ahead of the curve.',
     descKr: '최신 K-뷰티 신제품과 트렌드 분석의 필수 크리에이터. 빠르고 간결한 신제품 리뷰로 시청자들이 항상 트렌드를 선도할 수 있게 합니다.',
-    videoTitle: 'Latest K-Beauty New Releases',
-    videoTitleKr: '최신 K-뷰티 신제품 리뷰',
+    videoTitle: 'Celeb Makeup Secrets That Make You Look Prettier',
+    videoTitleKr: '갑자기 확 예뻐진 연예인 언니들이 공통적으로 바꾼 화장법',
     videoUrl: 'https://www.youtube.com/watch?v=mgAjfJyh2bY'
   },
   {
@@ -85,8 +85,8 @@ export const KBEAUTY_YOUTUBERS = [
     tagsKr: ['#맨즈뷰티', '#스킨케어'],
     desc: 'Korea\'s top male beauty creator with massive influence in the men\'s grooming space. Covers skincare routines, grooming tips, and product reviews tailored for men.',
     descKr: '한국 대표 남성 뷰티 크리에이터. 남성 스킨케어 루틴, 그루밍 팁, 남성 맞춤 제품 리뷰로 맨즈 뷰티 시장에서 큰 영향력을 발휘하고 있습니다.',
-    videoTitle: 'Men\'s Skincare Routine Guide',
-    videoTitleKr: '남성 스킨케어 루틴 가이드',
+    videoTitle: 'Best Cleanser & Cream for Sensitive Skin Recovery',
+    videoTitleKr: '요즘 피부 너무 민감할 때 복구 시켜주는 클렌저&크림',
     videoUrl: 'https://www.youtube.com/watch?v=Q-OxnhSnzjk'
   },
   {
@@ -100,8 +100,8 @@ export const KBEAUTY_YOUTUBERS = [
     tagsKr: ['#맨즈뷰티', '#현실리뷰'],
     desc: 'Rising men\'s beauty creator focused on realistic, everyday grooming for regular guys. His honest and relatable approach makes men\'s skincare accessible to everyone.',
     descKr: '일반 남성을 위한 현실적인 그루밍에 초점을 맞춘 떠오르는 남성 뷰티 크리에이터. 솔직하고 공감 가는 스타일로 남성 스킨케어를 누구나 쉽게 접근할 수 있게 합니다.',
-    videoTitle: 'Realistic Men\'s Beauty Tips',
-    videoTitleKr: '현실 남자 뷰티 팁',
+    videoTitle: 'One Week, Just One Round — You Will Change',
+    videoTitleKr: '1주일, 딱 한 라운드만 돌리면 달라집니다',
     videoUrl: 'https://www.youtube.com/watch?v=4igQyBOUZFE'
   }
 ]
