@@ -9,6 +9,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 )
 
+// Virtual keyboard detection — set CSS var for visible viewport height
+if (window.visualViewport) {
+  const updateVh = () => {
+    document.documentElement.style.setProperty(
+      '--vh', `${window.visualViewport.height * 0.01}px`
+    )
+    document.documentElement.classList.toggle(
+      'keyboard-open', window.visualViewport.height < window.innerHeight * 0.75
+    )
+  }
+  window.visualViewport.addEventListener('resize', updateVh)
+  updateVh()
+}
+
 // Register service worker for PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

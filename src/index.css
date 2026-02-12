@@ -19,11 +19,26 @@
   box-sizing: border-box;
 }
 
+/* Prevent double-tap zoom on iOS */
+html {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
   min-height: 100vh;
+  min-height: 100dvh;
   color: #333;
+  overscroll-behavior: none;
+}
+
+/* iOS input zoom prevention — iOS zooms on focus when font-size < 16px */
+@supports (-webkit-touch-callout: none) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
 }
 
 /* ========== Layout ========== */
@@ -8152,4 +8167,20 @@ body {
 
 [data-theme="dark"] .wellness-guide-points li {
   color: #aaa;
+}
+
+/* === iOS Virtual Keyboard Open === */
+.keyboard-open .help-fab,
+.keyboard-open .footer {
+  display: none;
+}
+
+.keyboard-open .tab-nav {
+  position: relative;
+}
+
+.keyboard-open .chat-input-area {
+  position: sticky;
+  bottom: 0;
+  z-index: 50;
 }
