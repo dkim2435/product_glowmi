@@ -12,7 +12,7 @@ export const KBEAUTY_YOUTUBERS = [
     descKr: '한국 최고의 뷰티 유튜버이자 글로벌 메이크업 아티스트. 놀라운 셀럽 변신 메이크업과 트렌드를 이끄는 K-뷰티 룩으로 유명합니다. 세계적인 브랜드들과 협업.',
     videoTitle: 'Celebrity Transformation Makeup',
     videoTitleKr: '연예인 변신 메이크업',
-    videoUrl: 'https://www.youtube.com/@pikicastbeauty'
+    videoUrl: 'https://www.youtube.com/watch?v=TINJI-d9NYE'
   },
   {
     name: 'RISABAE (이사배)',
@@ -27,7 +27,7 @@ export const KBEAUTY_YOUTUBERS = [
     descKr: '연예인과 캐릭터로 변신하는 커버 메이크업으로 유명한 톱 뷰티 크리에이터. 초보자도 쉽게 따라할 수 있는 튜토리얼로 사랑받고 있습니다.',
     videoTitle: 'Celebrity Cover Makeup Collection',
     videoTitleKr: '연예인 커버 메이크업 모음',
-    videoUrl: 'https://www.youtube.com/@risabae0903'
+    videoUrl: 'https://www.youtube.com/watch?v=J8yiHiDc2vc'
   },
   {
     name: 'ssin (씬님)',
@@ -42,7 +42,7 @@ export const KBEAUTY_YOUTUBERS = [
     descKr: '솔직한 제품 리뷰와 다양한 메이크업 튜토리얼로 사랑받는 베테랑 뷰티 유튜버. 데일리 룩부터 아방가르드 스타일까지 유머와 전문성으로 소화합니다.',
     videoTitle: 'Honest Beauty Product Reviews',
     videoTitleKr: '솔직 뷰티 제품 리뷰',
-    videoUrl: 'https://www.youtube.com/@ssin_official'
+    videoUrl: 'https://www.youtube.com/watch?v=JvnLTtj4OKM'
   },
   {
     name: 'Minkarong (민카롱)',
@@ -57,7 +57,7 @@ export const KBEAUTY_YOUTUBERS = [
     descKr: '높은 조회수의 솔직 리뷰와 트렌디한 메이크업으로 급부상 중인 뷰티 크리에이터. 진정성 있는 추천을 원하는 젊은 시청자들에게 큰 공감을 얻고 있습니다.',
     videoTitle: 'Trending Product Reviews',
     videoTitleKr: '인기 제품 솔직 리뷰',
-    videoUrl: 'https://www.youtube.com/@minkarong'
+    videoUrl: 'https://www.youtube.com/watch?v=ALqnCVCiQHQ'
   },
   {
     name: 'JEYU (재유)',
@@ -72,7 +72,7 @@ export const KBEAUTY_YOUTUBERS = [
     descKr: '최신 K-뷰티 신제품과 트렌드 분석의 필수 크리에이터. 빠르고 간결한 신제품 리뷰로 시청자들이 항상 트렌드를 선도할 수 있게 합니다.',
     videoTitle: 'Latest K-Beauty New Releases',
     videoTitleKr: '최신 K-뷰티 신제품 리뷰',
-    videoUrl: 'https://www.youtube.com/@JEYU__'
+    videoUrl: 'https://www.youtube.com/watch?v=mgAjfJyh2bY'
   },
   {
     name: 'LeoJ (레오제이)',
@@ -87,7 +87,7 @@ export const KBEAUTY_YOUTUBERS = [
     descKr: '한국 대표 남성 뷰티 크리에이터. 남성 스킨케어 루틴, 그루밍 팁, 남성 맞춤 제품 리뷰로 맨즈 뷰티 시장에서 큰 영향력을 발휘하고 있습니다.',
     videoTitle: 'Men\'s Skincare Routine Guide',
     videoTitleKr: '남성 스킨케어 루틴 가이드',
-    videoUrl: 'https://www.youtube.com/@LeoJ_beauty'
+    videoUrl: 'https://www.youtube.com/watch?v=Q-OxnhSnzjk'
   },
   {
     name: 'Swan (스완)',
@@ -102,6 +102,6 @@ export const KBEAUTY_YOUTUBERS = [
     descKr: '일반 남성을 위한 현실적인 그루밍에 초점을 맞춘 떠오르는 남성 뷰티 크리에이터. 솔직하고 공감 가는 스타일로 남성 스킨케어를 누구나 쉽게 접근할 수 있게 합니다.',
     videoTitle: 'Realistic Men\'s Beauty Tips',
     videoTitleKr: '현실 남자 뷰티 팁',
-    videoUrl: 'https://www.youtube.com/@swan_beauty'
+    videoUrl: 'https://www.youtube.com/watch?v=4igQyBOUZFE'
   }
 ]
