@@ -1,28 +1,26 @@
 import { useState } from 'react'
 import { useLang } from '../../context/LanguageContext'
-import NutrientRecs from './NutrientRecs'
-import WeatherWellness from './WeatherWellness'
 import KTrends from './KTrends'
 import KYoutubers from './KYoutubers'
+import NutrientRecs from './NutrientRecs'
 import WellnessGuide from './WellnessGuide'
 
 const WELLNESS_TABS = [
-  { id: 'nutrients', label: 'Nutrients', labelKr: '영양소', emoji: '🍎' },
-  { id: 'weather', label: 'Weather', labelKr: '날씨케어', emoji: '🌤️' },
   { id: 'ktrends', label: 'K-Trends', labelKr: 'K트렌드', emoji: '🔥' },
-  { id: 'kyoutubers', label: 'YouTubers', labelKr: '유튜버', emoji: '📺' },
+  { id: 'kyoutubers', label: 'K-YouTubers', labelKr: 'K유튜버', emoji: '📺' },
+  { id: 'nutrients', label: 'Nutrients', labelKr: '영양소', emoji: '🍎' },
   { id: 'guide', label: 'Guide', labelKr: '가이드', emoji: '📚' }
 ]
 
 export default function WellnessTab({ onNavigate }) {
-  const [activeTab, setActiveTab] = useState('nutrients')
+  const [activeTab, setActiveTab] = useState('ktrends')
   const { t } = useLang()
 
   return (
     <section className="tab-panel" id="wellness">
       <div className="wellness-intro">
         <h3>{'🧘 ' + t('Wellness & Skin Health', '웰니스 & 피부 건강')}</h3>
-        <p>{t('Beautiful skin starts from within. Nutrition, weather care, trends & lifestyle guides.', '아름다운 피부는 내면에서 시작됩니다. 영양, 날씨케어, 트렌드, 생활 가이드.')}</p>
+        <p>{t('Beautiful skin starts from within. Trends, nutrition & lifestyle guides.', '아름다운 피부는 내면에서 시작됩니다. 트렌드, 영양, 생활 가이드.')}</p>
       </div>
 
       <div className="ai-tool-tabs">
@@ -37,10 +35,9 @@ export default function WellnessTab({ onNavigate }) {
         ))}
       </div>
 
-      {activeTab === 'nutrients' && <NutrientRecs onNavigate={onNavigate} />}
-      {activeTab === 'weather' && <WeatherWellness />}
       {activeTab === 'ktrends' && <KTrends />}
       {activeTab === 'kyoutubers' && <KYoutubers />}
+      {activeTab === 'nutrients' && <NutrientRecs onNavigate={onNavigate} />}
       {activeTab === 'guide' && <WellnessGuide />}
     </section>
   )

@@ -3,13 +3,11 @@ import { useLang } from '../../context/LanguageContext'
 import PersonalColorAnalysis from './PersonalColorAnalysis'
 import FaceShapeDetector from './FaceShapeDetector'
 import SkinAnalyzer from './SkinAnalyzer'
-import SkinChat from './SkinChat'
 
 const AI_TOOLS = [
   { id: 'skinAnalyzer', label: 'Skin', labelKr: '피부 분석', emoji: '🔬' },
   { id: 'personalColor', label: 'Color', labelKr: '퍼스널컬러', emoji: '🎨' },
-  { id: 'faceShape', label: 'Face', labelKr: '얼굴형', emoji: '💎' },
-  { id: 'skinChat', label: 'AI Chat', labelKr: 'AI 상담', emoji: '💬' }
+  { id: 'faceShape', label: 'Face', labelKr: '얼굴형', emoji: '💎' }
 ]
 
 export default function AiBeautyTab({ showToast }) {
@@ -43,7 +41,6 @@ export default function AiBeautyTab({ showToast }) {
       {activeTool === 'personalColor' && <PersonalColorAnalysis showToast={showToast} />}
       {activeTool === 'faceShape' && <FaceShapeDetector showToast={showToast} />}
       {activeTool === 'skinAnalyzer' && <SkinAnalyzer showToast={showToast} />}
-      {activeTool === 'skinChat' && <SkinChat showToast={showToast} />}
     </section>
   )
 }
