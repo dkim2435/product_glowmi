@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { LanguageProvider } from './context/LanguageContext'
@@ -9,11 +9,12 @@ import Toast from './components/common/Toast'
 import OnboardingModal, { shouldShowOnboarding } from './components/common/OnboardingModal'
 import ReleaseNotesModal, { shouldShowReleaseNotes, seedVersionForNewUser } from './components/common/ReleaseNotesModal'
 import WeatherTips from './components/common/WeatherTips'
-import AiBeautyTab from './components/ai/AiBeautyTab'
-import ProductsTab from './components/products/ProductsTab'
-import ProceduresTab from './components/procedures/ProceduresTab'
-import WellnessTab from './components/wellness/WellnessTab'
-import MyPageTab from './components/mypage/MyPageTab'
+
+const AiBeautyTab = lazy(() => import('./components/ai/AiBeautyTab'))
+const ProductsTab = lazy(() => import('./components/products/ProductsTab'))
+const ProceduresTab = lazy(() => import('./components/procedures/ProceduresTab'))
+const WellnessTab = lazy(() => import('./components/wellness/WellnessTab'))
+const MyPageTab = lazy(() => import('./components/mypage/MyPageTab'))
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('ai')
@@ -54,11 +55,13 @@ export default function App() {
 
             <main className="main-content">
               <WeatherTips />
-              {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
-              {activeTab === 'products' && <ProductsTab showToast={showToast} />}
-              {activeTab === 'procedures' && <ProceduresTab />}
-              {activeTab === 'wellness' && <WellnessTab onNavigate={navigateTo} />}
-              {activeTab === 'mypage' && <MyPageTab showToast={showToast} onNavigate={navigateTo} />}
+              <Suspense fallback={<div className="tab-loading"><span className="tab-loading-spinner" /></div>}>
+                {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
+                {activeTab === 'products' && <ProductsTab showToast={showToast} />}
+                {activeTab === 'procedures' && <ProceduresTab />}
+                {activeTab === 'wellness' && <WellnessTab onNavigate={navigateTo} />}
+                {activeTab === 'mypage' && <MyPageTab showToast={showToast} onNavigate={navigateTo} />}
+              </Suspense>
             </main>
 
             <Footer />

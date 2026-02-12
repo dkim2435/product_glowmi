@@ -71,6 +71,8 @@ export default function TabNav({ activeTab, onTabChange }) {
                   src={user.user_metadata?.avatar_url || ''}
                   alt="avatar"
                   className="header-user-avatar"
+                  width={32}
+                  height={32}
                 />
                 <span className="nav-avatar-label">{t('My Page', '마이페이지')}</span>
               </button>

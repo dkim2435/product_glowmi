@@ -1,0 +1,42 @@
+# Glowmi
+
+> Glowmi is a free, no-login K-Beauty companion web app powered by AI. It offers personal color analysis (10 types), face shape analysis (468 landmarks), skin condition scoring (5 metrics), product ingredient analysis, Korean aesthetic procedure guides, and daily weather-based skincare tips — all in English and Korean.
+
+## AI Beauty Analysis
+
+- [AI Personal Color Analysis](https://glowmi.org/): Upload a selfie and get classified into one of 10 personal color types using Google Gemini AI. Results in under 3 seconds, free, no sign-up required.
+- [AI Face Shape Analysis](https://glowmi.org/): AI analyzes 468 facial landmarks to determine your face shape (7 types) with personalized hairstyle and accessory recommendations.
+- [AI Skin Condition Analyzer](https://glowmi.org/): Evaluates 5 skin metrics (redness, oiliness, dryness, dark spots, texture) on a 0-100 scale from a selfie photo.
+- [AI Beauty Chat](https://glowmi.org/): Ask any beauty or skincare question and get AI-powered answers.
+
+## K-Beauty Tools
+
+- [K-Beauty Skincare Guide](https://glowmi.org/): Complete Korean 10-step skincare routine with product recommendations by skin type.
+- [Ingredient Analyzer](https://glowmi.org/): Analyze product ingredients from text or photo (OCR). Identifies beneficial and harmful ingredients.
+- [Ingredient Compatibility Checker](https://glowmi.org/): Check for conflicts between skincare products and get optimal layering order.
+
+## Treatments & Clinics
+
+- [Korean Aesthetic Procedures Guide](https://glowmi.org/): Pricing, details, and recovery info for 15+ procedures — Botox (₩50,000-200,000), fillers, laser toning, skin boosters, and more. 50-70% cheaper than US prices.
+- [Gangnam Clinic Finder](https://glowmi.org/): Browse top-rated dermatology and aesthetic clinics in Gangnam, Seoul.
+
+## Wellness
+
+- [Weather Skincare Tips](https://glowmi.org/): Real-time UV, humidity, and temperature-based skincare recommendations for your location.
+- [Personalized Nutrient Recommendations](https://glowmi.org/): Skin-analysis-based food and supplement suggestions.
+- [K-Beauty Trends 2025-2026](https://glowmi.org/): Latest Korean beauty ingredient and method trends.
+- [Top K-Beauty YouTubers](https://glowmi.org/): Curated picks from 7 popular Korean beauty content creators.
+
+## Blog
+
+- [Best Korean Sunscreens 2026](https://glowmi.org/blog/best-korean-sunscreen-2026): Expert-reviewed guide to top Korean sunscreens with SPF ratings and price comparisons.
+- [Korean Skincare Routine for Oily Skin](https://glowmi.org/blog/korean-skincare-routine-oily-skin): Step-by-step K-Beauty routine tailored for oily skin types.
+- [Free AI Personal Color Analysis](https://glowmi.org/blog/free-personal-color-analysis): How to find your personal color type at home using AI.
+
+## Technical
+
+- Built with React + Vite, deployed on Cloudflare Pages
+- AI: Google Gemini 2.0 Flash API with MediaPipe local fallback
+- Languages: English and Korean (toggle in header)
+- No app download — works in any modern browser
+- Optional Google sign-in for saving results and tracking progress

@@ -125,8 +125,8 @@ export default function OnboardingModal({ onClose }) {
   const { t } = useLang()
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
+    document.body.style.overflowY = 'hidden'
+    return () => { document.body.style.overflowY = '' }
   }, [])
 
   function goNext() {

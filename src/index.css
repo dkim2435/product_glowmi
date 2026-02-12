@@ -32,6 +32,7 @@ body {
   min-height: 100dvh;
   color: #333;
   overscroll-behavior: none;
+  scrollbar-gutter: stable;
 }
 
 /* iOS input zoom prevention — iOS zooms on focus when font-size < 16px */
@@ -187,6 +188,26 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+}
+
+.tab-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 0;
+}
+
+.tab-loading-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #f0d0dd;
+  border-top-color: var(--primary-pink);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .tab-panel {
@@ -5173,6 +5194,7 @@ body {
   border-radius: 14px;
   overflow: hidden;
   font-size: 0.85rem;
+  min-height: 56px;
 }
 
 .weather-loading {
@@ -5182,6 +5204,7 @@ body {
   padding: 14px 16px;
   color: #888;
   font-size: 0.8rem;
+  min-height: 56px;
 }
 
 .weather-loading-icon {
@@ -5193,6 +5216,7 @@ body {
   align-items: flex-start;
   gap: 10px;
   padding: 14px 16px;
+  min-height: 56px;
 }
 
 .weather-error-icon {
