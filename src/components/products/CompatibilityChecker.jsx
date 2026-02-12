@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { parseIngredientList, findConflicts, countStrongActives, parseOCRText } from './ingredientLogic'
+import { parseIngredientList, findConflicts, countStrongActives, parseOCRText, lookupIngredient } from './ingredientLogic'
 import { useLang } from '../../context/LanguageContext'
 
 export default function CompatibilityChecker({ showToast }) {
@@ -18,7 +18,17 @@ export default function CompatibilityChecker({ showToast }) {
     const listB = parseIngredientList(inputB)
     const conflicts = findConflicts(listA, listB)
     const actives = countStrongActives(listA, listB)
-    setResults({ conflicts, actives, countA: listA.length, countB: listB.length })
+
+    // Side-by-side comparison
+    const lookupA = listA.map(n => ({ raw: n, ...lookupIngredient(n) }))
+    const lookupB = listB.map(n => ({ raw: n, ...lookupIngredient(n) }))
+    const namesA = new Set(lookupA.filter(r => r.found).map(r => r.data.name.toLowerCase()))
+    const namesB = new Set(lookupB.filter(r => r.found).map(r => r.data.name.toLowerCase()))
+    const shared = lookupA.filter(r => r.found && namesB.has(r.data.name.toLowerCase()))
+    const onlyA = lookupA.filter(r => r.found && !namesB.has(r.data.name.toLowerCase()))
+    const onlyB = lookupB.filter(r => r.found && !namesA.has(r.data.name.toLowerCase()))
+
+    setResults({ conflicts, actives, countA: listA.length, countB: listB.length, shared, onlyA, onlyB })
   }
 
   function clear() {
@@ -161,6 +171,13 @@ export default function CompatibilityChecker({ showToast }) {
           )}
 
           {results.conflicts.length > 0 && (
+            <div className="compat-legend">
+              <span className="compat-legend-item"><span className="compat-legend-dot high" /> {t('High Risk — avoid using together', '고위험 — 같이 사용하지 마세요')}</span>
+              <span className="compat-legend-item"><span className="compat-legend-dot medium" /> {t('Medium — use at different times (AM/PM)', '중간 — 시간을 나눠 사용하세요 (아침/저녁)')}</span>
+              <span className="compat-legend-item"><span className="compat-legend-dot low" /> {t('Low — generally safe, monitor skin', '저위험 — 보통 안전, 피부 반응 확인')}</span>
+            </div>
+          )}
+          {results.conflicts.length > 0 && (
             <div className="compat-conflicts">
               {results.conflicts.map((c, i) => {
                 const severityLabel = c.rule.severity === 'high'
@@ -181,6 +198,57 @@ export default function CompatibilityChecker({ showToast }) {
               })}
             </div>
           )}
+
+          {/* Side-by-side ingredient comparison */}
+          <div className="compat-compare">
+            <h4>{t('Ingredient Comparison', '성분 비교')}</h4>
+            <p className="compat-compare-hint">{t(
+              'See which ingredients are shared between both products and which are unique to each.',
+              '두 제품의 공통 성분과 각 제품에만 있는 고유 성분을 확인하세요.'
+            )}</p>
+            {results.shared.length > 0 && (
+              <div className="compat-compare-group">
+                <div className="compat-compare-label compat-shared-label">
+                  {t(`Shared (${results.shared.length})`, `공통 성분 (${results.shared.length}개)`)}
+                </div>
+                <div className="compat-compare-tags">
+                  {results.shared.map((r, i) => (
+                    <span key={i} className="compat-tag compat-tag-shared" title={t(r.data.description, r.data.descriptionKr || r.data.description)}>
+                      {t(r.data.name, r.data.nameKr || r.data.name)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div className="compat-compare-side">
+              <div className="compat-compare-col">
+                <div className="compat-compare-label compat-a-label">
+                  {t(`Only in A (${results.onlyA.length})`, `A에만 (${results.onlyA.length}개)`)}
+                </div>
+                <div className="compat-compare-tags">
+                  {results.onlyA.map((r, i) => (
+                    <span key={i} className="compat-tag compat-tag-a" title={t(r.data.description, r.data.descriptionKr || r.data.description)}>
+                      {t(r.data.name, r.data.nameKr || r.data.name)}
+                    </span>
+                  ))}
+                  {results.onlyA.length === 0 && <span className="compat-tag-empty">{t('None', '없음')}</span>}
+                </div>
+              </div>
+              <div className="compat-compare-col">
+                <div className="compat-compare-label compat-b-label">
+                  {t(`Only in B (${results.onlyB.length})`, `B에만 (${results.onlyB.length}개)`)}
+                </div>
+                <div className="compat-compare-tags">
+                  {results.onlyB.map((r, i) => (
+                    <span key={i} className="compat-tag compat-tag-b" title={t(r.data.description, r.data.descriptionKr || r.data.description)}>
+                      {t(r.data.name, r.data.nameKr || r.data.name)}
+                    </span>
+                  ))}
+                  {results.onlyB.length === 0 && <span className="compat-tag-empty">{t('None', '없음')}</span>}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

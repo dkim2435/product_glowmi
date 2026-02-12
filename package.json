@@ -1,12 +1,13 @@
 {
   "name": "glowmi",
   "private": true,
-  "version": "2.0.4",
+  "version": "2.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pre-push": "node scripts/pre-push-check.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

@@ -53,6 +53,7 @@ export default function SkinDiary({ userId, showToast }) {
   const [todaySaved, setTodaySaved] = useState(false)
   const [aiReport, setAiReport] = useState(null)
   const [aiLoading, setAiLoading] = useState(false)
+  const [chartMetric, setChartMetric] = useState('all')
   const chartRef = useRef(null)
 
   const today = new Date().toISOString().split('T')[0]
@@ -88,7 +89,7 @@ export default function SkinDiary({ userId, showToast }) {
 
   useEffect(() => {
     if (entries.length >= 2 && chartRef.current) drawChart()
-  }, [entries])
+  }, [entries, chartMetric])
 
   function getSkinScore(levelValue, levels) {
     const found = levels.find(l => l.value === levelValue)
@@ -160,58 +161,81 @@ export default function SkinDiary({ userId, showToast }) {
     const ctx = canvas.getContext('2d')
     const dpr = window.devicePixelRatio || 1
     const rect = canvas.parentElement.getBoundingClientRect()
+    const chartH = 240
     canvas.width = rect.width * dpr
-    canvas.height = 200 * dpr
+    canvas.height = chartH * dpr
     canvas.style.width = rect.width + 'px'
-    canvas.style.height = '200px'
+    canvas.style.height = chartH + 'px'
     ctx.scale(dpr, dpr)
 
-    const w = rect.width, h = 200
-    const pad = { top: 20, right: 20, bottom: 30, left: 40 }
-    const condMap = { good: 3, normal: 2, bad: 1 }
-
-    const sorted = entries.slice().sort((a, b) => a.entry_date.localeCompare(b.entry_date))
-    const points = sorted.filter(e => e.overall_condition).map(e => ({
-      date: e.entry_date.slice(5),
-      value: condMap[e.overall_condition] || 2
-    }))
-
-    if (points.length < 2) return
-    ctx.clearRect(0, 0, w, h)
-
-    ctx.strokeStyle = '#eee'; ctx.lineWidth = 1
-    for (let g = 1; g <= 3; g++) {
-      const gy = pad.top + (h - pad.top - pad.bottom) * (1 - (g - 1) / 2)
-      ctx.beginPath(); ctx.moveTo(pad.left, gy); ctx.lineTo(w - pad.right, gy); ctx.stroke()
-    }
-
-    ctx.fillStyle = '#888'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right'
-    const yLabels = ['😫', '😐', '😊']
-    for (let yl = 0; yl < yLabels.length; yl++) {
-      const yy = pad.top + (h - pad.top - pad.bottom) * (1 - yl / 2)
-      ctx.fillText(yLabels[yl], pad.left - 6, yy + 4)
-    }
-
+    const w = rect.width, h = chartH
+    const pad = { top: 20, right: 15, bottom: 35, left: 35 }
     const plotW = w - pad.left - pad.right
     const plotH = h - pad.top - pad.bottom
 
-    ctx.strokeStyle = '#ff6b9d'; ctx.lineWidth = 2; ctx.lineJoin = 'round'
-    ctx.beginPath()
-    for (let p = 0; p < points.length; p++) {
-      const px = pad.left + (p / (points.length - 1)) * plotW
-      const py = pad.top + plotH * (1 - (points[p].value - 1) / 2)
-      if (p === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py)
-    }
-    ctx.stroke()
+    const sorted = entries.slice().sort((a, b) => a.entry_date.localeCompare(b.entry_date))
+    if (sorted.length < 2) return
+    ctx.clearRect(0, 0, w, h)
 
-    for (let d = 0; d < points.length; d++) {
-      const dx = pad.left + (d / (points.length - 1)) * plotW
-      const dy = pad.top + plotH * (1 - (points[d].value - 1) / 2)
-      ctx.beginPath(); ctx.arc(dx, dy, 4, 0, Math.PI * 2)
-      ctx.fillStyle = '#ff6b9d'; ctx.fill()
-      ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke()
-      ctx.fillStyle = '#888'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center'
-      ctx.fillText(points[d].date, dx, h - 8)
+    // Grid lines
+    ctx.strokeStyle = '#eee'; ctx.lineWidth = 0.5
+    for (let g = 0; g <= 100; g += 25) {
+      const gy = pad.top + plotH * (1 - g / 100)
+      ctx.beginPath(); ctx.moveTo(pad.left, gy); ctx.lineTo(w - pad.right, gy); ctx.stroke()
+    }
+    ctx.fillStyle = '#999'; ctx.font = '9px sans-serif'; ctx.textAlign = 'right'
+    for (let g = 0; g <= 100; g += 25) {
+      const gy = pad.top + plotH * (1 - g / 100)
+      ctx.fillText(g, pad.left - 5, gy + 3)
+    }
+
+    const metrics = [
+      { key: 'ai_dryness', color: '#f59e0b', label: 'Dry' },
+      { key: 'ai_oiliness', color: '#3b82f6', label: 'Oil' },
+      { key: 'ai_redness', color: '#ef4444', label: 'Red' },
+      { key: 'ai_dark_spots', color: '#8b5cf6', label: 'Spots' },
+      { key: 'ai_texture', color: '#10b981', label: 'Tex' }
+    ]
+
+    // Draw each metric line
+    metrics.forEach(metric => {
+      const points = sorted.filter(e => e[metric.key] != null).map(e => ({
+        date: e.entry_date.slice(5),
+        value: e[metric.key]
+      }))
+      if (points.length < 2) return
+
+      ctx.strokeStyle = metric.color; ctx.lineWidth = 2; ctx.lineJoin = 'round'
+      ctx.globalAlpha = chartMetric === 'all' || chartMetric === metric.key ? 1 : 0.15
+      ctx.beginPath()
+      for (let p = 0; p < points.length; p++) {
+        const px = pad.left + (p / (sorted.length - 1)) * plotW
+        const py = pad.top + plotH * (1 - points[p].value / 100)
+        if (p === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py)
+      }
+      ctx.stroke()
+
+      // Draw dots
+      for (let p = 0; p < points.length; p++) {
+        const px = pad.left + (p / (sorted.length - 1)) * plotW
+        const py = pad.top + plotH * (1 - points[p].value / 100)
+        ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2)
+        ctx.fillStyle = metric.color; ctx.fill()
+      }
+      ctx.globalAlpha = 1
+    })
+
+    // X-axis labels
+    ctx.fillStyle = '#888'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center'
+    const step = Math.max(1, Math.floor(sorted.length / 7))
+    for (let i = 0; i < sorted.length; i += step) {
+      const dx = pad.left + (i / (sorted.length - 1)) * plotW
+      ctx.fillText(sorted[i].entry_date.slice(5), dx, h - 8)
+    }
+    // Always draw last date
+    if (sorted.length > 1) {
+      const dx = pad.left + plotW
+      ctx.fillText(sorted[sorted.length - 1].entry_date.slice(5), dx, h - 8)
     }
   }
 
@@ -261,9 +285,11 @@ export default function SkinDiary({ userId, showToast }) {
 
             <div className="diary-skin-section">
               <label className="diary-section-label">{t('Skin Conditions', '피부 상태')}</label>
+              <p className="diary-section-hint">{t('Rate each condition based on how your skin feels today.', '오늘 피부가 느껴지는 정도를 선택하세요.')}</p>
 
               <div className="diary-field">
                 <label>{'🏜️ ' + t('Dryness', '건조함')}</label>
+                <p className="diary-field-hint">{t('Tightness, flaking, or rough patches', '당김, 각질, 거친 부위')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.dryness === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, dryness: l.value })}>
@@ -275,6 +301,7 @@ export default function SkinDiary({ userId, showToast }) {
 
               <div className="diary-field">
                 <label>{'💧 ' + t('Oiliness', '유분')}</label>
+                <p className="diary-field-hint">{t('Shine or greasiness on T-zone or cheeks', 'T존이나 볼의 번들거림')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.oiliness === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, oiliness: l.value })}>
@@ -286,6 +313,7 @@ export default function SkinDiary({ userId, showToast }) {
 
               <div className="diary-field">
                 <label>{'🔴 ' + t('Redness', '홍조')}</label>
+                <p className="diary-field-hint">{t('Visible redness or flushing', '눈에 보이는 붉은기나 홍조')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.redness === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, redness: l.value })}>
@@ -297,6 +325,7 @@ export default function SkinDiary({ userId, showToast }) {
 
               <div className="diary-field">
                 <label>{'🫧 ' + t('Breakouts', '트러블')}</label>
+                <p className="diary-field-hint">{t('Pimples, whiteheads, or bumps', '여드름, 좁쌀, 뾰루지')}</p>
                 <div className="diary-pill-btns">
                   {BREAKOUT_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.breakouts === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, breakouts: l.value })}>
@@ -308,6 +337,7 @@ export default function SkinDiary({ userId, showToast }) {
 
               <div className="diary-field">
                 <label>{'⚡ ' + t('Sensitivity', '민감도')}</label>
+                <p className="diary-field-hint">{t('Stinging, itching, or reaction to products', '따가움, 가려움, 제품 반응')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.sensitivity === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, sensitivity: l.value })}>
@@ -469,8 +499,16 @@ export default function SkinDiary({ userId, showToast }) {
 
         {entries.length >= 2 && (
           <div className="diary-chart-section">
-            <h4>{t('Trend', '트렌드')}</h4>
-            <canvas ref={chartRef} width="600" height="200" />
+            <h4>{t('Skin Metrics Trend', '피부 지표 트렌드')}</h4>
+            <div className="chart-metric-toggles">
+              <button className={'chart-metric-btn' + (chartMetric === 'all' ? ' active' : '')} onClick={() => setChartMetric('all')}>{t('All', '전체')}</button>
+              <button className={'chart-metric-btn' + (chartMetric === 'ai_dryness' ? ' active' : '')} onClick={() => setChartMetric('ai_dryness')} style={{ borderColor: '#f59e0b' }}>{'🏜️ ' + t('Dry', '건조')}</button>
+              <button className={'chart-metric-btn' + (chartMetric === 'ai_oiliness' ? ' active' : '')} onClick={() => setChartMetric('ai_oiliness')} style={{ borderColor: '#3b82f6' }}>{'💧 ' + t('Oil', '유분')}</button>
+              <button className={'chart-metric-btn' + (chartMetric === 'ai_redness' ? ' active' : '')} onClick={() => setChartMetric('ai_redness')} style={{ borderColor: '#ef4444' }}>{'🔴 ' + t('Red', '홍조')}</button>
+              <button className={'chart-metric-btn' + (chartMetric === 'ai_dark_spots' ? ' active' : '')} onClick={() => setChartMetric('ai_dark_spots')} style={{ borderColor: '#8b5cf6' }}>{'🫧 ' + t('Spots', '잡티')}</button>
+              <button className={'chart-metric-btn' + (chartMetric === 'ai_texture' ? ' active' : '')} onClick={() => setChartMetric('ai_texture')} style={{ borderColor: '#10b981' }}>{'⚡ ' + t('Tex', '질감')}</button>
+            </div>
+            <canvas ref={chartRef} width="600" height="240" />
           </div>
         )}
       </div>

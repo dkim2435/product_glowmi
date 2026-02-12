@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.0.4'
+const APP_VERSION = '2.0.5'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
@@ -11,13 +11,13 @@ const RELEASE_NOTES = [
     emoji: '✨',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 품질 개선!`,
-    desc: 'Bug fixes, full Korean translation, and UX improvements across the entire app.',
-    descKr: '버그 수정, 전체 한국어 번역, 앱 전반의 사용성 개선!',
+    desc: '7 new features — product browser, share cards, skin timeline, reminders, and more!',
+    descKr: '7개 신규 기능 — 제품 브라우저, 공유 카드, 피부 타임라인, 루틴 알림 등!',
     items: [
-      { emoji: '🐛', label: 'Bug Fixes', labelKr: '버그 수정', desc: 'Fixed diary AI analysis, clinic filters, and dark mode toast issues.', descKr: '다이어리 AI 분석, 클리닉 필터, 다크모드 토스트 문제를 수정했습니다.' },
-      { emoji: '🌐', label: 'Full Korean', labelKr: '완전 한국어화', desc: 'All face shapes, ingredients, personal colors, and UI labels now fully translated.', descKr: '얼굴형, 성분, 퍼스널컬러, UI 라벨 모두 한국어 번역 완료.' },
-      { emoji: '📱', label: 'UX Improvements', labelKr: 'UX 개선', desc: 'Better upload flow, chat history saved, improved camera tips, and more.', descKr: '업로드 개선, 채팅 기록 저장, 카메라 팁 개선 등.' },
-      { emoji: '⚡', label: 'Performance', labelKr: '성능 개선', desc: 'Lazy loading, reduced layout shifts, and optimized script loading.', descKr: '지연 로딩, 레이아웃 시프트 감소, 스크립트 로딩 최적화.' },
+      { emoji: '🛒', label: 'Product Browser', labelKr: '제품 브라우저', desc: 'Browse all K-beauty products with filters for skin type, price, and concerns.', descKr: '피부타입, 가격대, 고민별 필터로 K-뷰티 제품을 탐색하세요.' },
+      { emoji: '🖼️', label: 'Share Cards', labelKr: '공유 카드', desc: 'Create beautiful Instagram-style cards to share your analysis results.', descKr: '분석 결과를 인스타그램 스타일의 예쁜 카드로 공유하세요.' },
+      { emoji: '📊', label: 'Skin Timeline', labelKr: '피부 타임라인', desc: 'Multi-metric chart showing skin trends over time + analysis history.', descKr: '다중 지표 차트로 피부 변화 추적 + 분석 기록 보기.' },
+      { emoji: '🔔', label: 'Routine Reminders', labelKr: '루틴 알림', desc: 'Set AM/PM skincare reminders with push notifications.', descKr: 'AM/PM 스킨케어 알림을 설정하세요.' },
     ],
   },
 ]

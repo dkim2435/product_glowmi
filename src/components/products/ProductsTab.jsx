@@ -1,26 +1,31 @@
 import { useState } from 'react'
 import IngredientAnalyzer from './IngredientAnalyzer'
 import CompatibilityChecker from './CompatibilityChecker'
+import ProductBrowser from './ProductBrowser'
 import { useLang } from '../../context/LanguageContext'
 
 export default function ProductsTab({ showToast }) {
-  const [activeSub, setActiveSub] = useState('guide')
+  const [activeSub, setActiveSub] = useState('products')
   const { t } = useLang()
 
   return (
     <section className="tab-panel" id="products">
       <div className="ai-tool-tabs">
-        <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
-          {'📖 ' + t('Guide', '스킨케어 가이드')}
+        <button className={'sub-tab-btn' + (activeSub === 'products' ? ' active' : '')} onClick={() => setActiveSub('products')}>
+          {'🛒 ' + t('Products', '제품')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'analyzer' ? ' active' : '')} onClick={() => setActiveSub('analyzer')}>
-          {'🧪 ' + t('Analyzer', '성분 분석기')}
+          {'🧪 ' + t('Analyzer', '성분 분석')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'compatibility' ? ' active' : '')} onClick={() => setActiveSub('compatibility')}>
-          {'⚡ ' + t('Compat', '호환성')} <span className="beta-badge">beta</span>
+          {'⚡ ' + t('Compat', '호환성')}
+        </button>
+        <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
+          {'📖 ' + t('Guide', '가이드')}
         </button>
       </div>
 
+      {activeSub === 'products' && <ProductBrowser />}
       {activeSub === 'analyzer' && <IngredientAnalyzer showToast={showToast} />}
       {activeSub === 'compatibility' && <CompatibilityChecker showToast={showToast} />}
       {activeSub === 'guide' && <SkincareGuide />}

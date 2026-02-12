@@ -19,6 +19,8 @@
 5. **구조화 데이터 유효성** — index.html의 JSON-LD 블록이 유효한 JSON인지 확인 (FAQPage, Blog, BreadcrumbList 등)
 6. **robots.txt AI봇 구분 유지** — 검색봇(OAI-SearchBot, PerplexityBot)은 Allow, 학습봇(GPTBot, CCBot)은 Disallow 구분 유지
 7. **llms.txt 동기화** — 새 기능/페이지 추가 시 public/llms.txt에도 반영
+8. **UX 안내 문구 확인** — 새 기능에 사용자 가이드 텍스트 포함 여부 확인 (빈 상태 메시지, 기능 설명, 범례/툴팁, 한/영 모두)
+9. **자동 체크리스트 실행** — `npm run pre-push`로 위 항목들 자동 검증
 
 ## 버전 관리 규칙
 - 버전은 Header.jsx, ReleaseNotesModal.jsx, package.json 3곳에서 동기화

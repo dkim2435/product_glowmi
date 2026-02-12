@@ -6,6 +6,7 @@ import SkinProgress from './SkinProgress'
 import SkinDiary from './SkinDiary'
 import MyRoutine from './MyRoutine'
 import SkinChat from '../ai/SkinChat'
+import AnalysisHistory from './AnalysisHistory'
 import MyPageWelcome, { shouldShowMyPageWelcome } from './MyPageWelcome'
 
 export default function MyPageTab({ showToast, onNavigate }) {
@@ -44,6 +45,7 @@ export default function MyPageTab({ showToast, onNavigate }) {
           { id: 'progress', emoji: '📈', label: t('Skin Progress', '피부현황') },
           { id: 'diary', emoji: '📝', label: t('Diary', '일지') },
           { id: 'routine', emoji: '🧴', label: t('Routine', '루틴') },
+          { id: 'history', emoji: '📊', label: t('History', '기록') },
           { id: 'skinChat', emoji: '💬', label: t('AI Chat', 'AI 상담') },
         ].map(s => (
           <button
@@ -60,6 +62,7 @@ export default function MyPageTab({ showToast, onNavigate }) {
       {section === 'progress' && <SkinProgress userId={user.id} showToast={showToast} onGoToSkinAnalyzer={() => onNavigate('ai', 'skinAnalyzer')} />}
       {section === 'diary' && <SkinDiary userId={user.id} showToast={showToast} />}
       {section === 'routine' && <MyRoutine userId={user.id} showToast={showToast} />}
+      {section === 'history' && <AnalysisHistory showToast={showToast} />}
       {section === 'skinChat' && <SkinChat showToast={showToast} />}
 
       {showWelcome && <MyPageWelcome onClose={() => setShowWelcome(false)} />}

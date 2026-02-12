@@ -4,11 +4,13 @@ import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveFaceShapeResult } from '../../lib/db'
+import { addHistoryEntry } from '../../lib/analysisHistory'
 import { classifyFaceShape } from './analysis/faceShapeLogic'
 import { analyzeFaceShapeAI } from '../../lib/gemini'
 import { fsShapeData } from '../../data/faceShape'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
+import ShareCard from '../common/ShareCard'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
@@ -21,6 +23,7 @@ export default function FaceShapeDetector({ showToast }) {
   const [result, setResult] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
   const [usedGemini, setUsedGemini] = useState(false)
+  const [showShareCard, setShowShareCard] = useState(false)
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -91,6 +94,7 @@ export default function FaceShapeDetector({ showToast }) {
     if (!user || !result) return
     try {
       await saveFaceShapeResult(user.id, result)
+      addHistoryEntry('faceShape', { shape: result.shape, confidence: result.confidence })
       showToast(t('Saved! View in My Page > Results', '저장 완료! 마이페이지 > 결과에서 확인하세요'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
@@ -208,8 +212,10 @@ export default function FaceShapeDetector({ showToast }) {
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji={data.emoji} english={data.name} korean={data.korean} showToast={showToast} />
       <div className="fs-result-buttons">
+        <button className="secondary-btn" onClick={() => setShowShareCard(true)}>{'🖼️ ' + t('Create Share Card', '공유 카드 만들기')}</button>
         <button className="primary-btn" onClick={handleRetake}>🔄 {t('Try Again', '다시하기')}</button>
       </div>
+      {showShareCard && <ShareCard type="faceShape" data={{ shape: result.shape, confidence: result.confidence, emoji: data.emoji, name: data.name, korean: data.korean }} onClose={() => setShowShareCard(false)} />}
     </div>
   )
 }

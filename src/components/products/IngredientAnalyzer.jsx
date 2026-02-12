@@ -12,6 +12,7 @@ export default function IngredientAnalyzer({ showToast }) {
   const [results, setResults] = useState(null)
   const [scanning, setScanning] = useState(false)
   const [scanProgress, setScanProgress] = useState(0)
+  const [scanStage, setScanStage] = useState('loading')
   const fileInputRef = useRef(null)
   const [aiVerdict, setAiVerdict] = useState(null)
   const [aiLoading, setAiLoading] = useState(false)
@@ -62,16 +63,24 @@ export default function IngredientAnalyzer({ showToast }) {
 
   async function handleScan(imageDataUrl) {
     setScanning(true)
-    setScanProgress(10)
+    setScanProgress(0)
+    setScanStage('loading')
     try {
       const Tesseract = await import('tesseract.js')
+      setScanStage('recognizing')
+      setScanProgress(10)
       const result = await Tesseract.recognize(imageDataUrl, 'eng+kor', {
         logger: (m) => {
-          if (m.status === 'recognizing text') {
-            setScanProgress(Math.max(10, Math.round(m.progress * 100)))
+          if (m.status === 'loading tesseract core') { setScanStage('loading'); setScanProgress(5) }
+          else if (m.status === 'initializing tesseract') { setScanStage('initializing'); setScanProgress(8) }
+          else if (m.status === 'recognizing text') {
+            setScanStage('recognizing')
+            setScanProgress(Math.max(10, Math.round(m.progress * 90)))
           }
         }
       })
+      setScanStage('processing')
+      setScanProgress(95)
       setScanning(false)
       const ocrText = result.data.text
       if (!ocrText || ocrText.trim().length < 5) {
@@ -127,13 +136,36 @@ export default function IngredientAnalyzer({ showToast }) {
 
       {scanning && (
         <div className="ia-scan-progress">
-          <p>{t('Scanning...', '스캔 중...')} {scanProgress}%</p>
+          <p className="scan-stage-text">
+            {scanStage === 'loading' && t('Loading OCR engine...', 'OCR 엔진 로딩 중...')}
+            {scanStage === 'initializing' && t('Initializing...', '초기화 중...')}
+            {scanStage === 'recognizing' && t('Reading ingredients...', '성분 읽는 중...')}
+            {scanStage === 'processing' && t('Processing results...', '결과 처리 중...')}
+            {' '}{scanProgress}%
+          </p>
           <div className="progress-bar"><div className="progress-fill" style={{ width: scanProgress + '%' }} /></div>
+          <div className="scan-stages">
+            <span className={'scan-stage-dot' + (scanStage === 'loading' || scanStage === 'initializing' || scanStage === 'recognizing' || scanStage === 'processing' ? ' done' : '')}>1</span>
+            <span className="scan-stage-line" />
+            <span className={'scan-stage-dot' + (scanStage === 'recognizing' || scanStage === 'processing' ? ' done' : '')}>2</span>
+            <span className="scan-stage-line" />
+            <span className={'scan-stage-dot' + (scanStage === 'processing' ? ' done' : '')}>3</span>
+          </div>
+          <div className="scan-stage-labels">
+            <span>{t('Load', '로드')}</span>
+            <span>{t('Read', '인식')}</span>
+            <span>{t('Done', '완료')}</span>
+          </div>
         </div>
       )}
 
       {results && (
         <div className="analyzer-results">
+          <div className="analyzer-rating-legend">
+            <span className="analyzer-legend-item"><span className="analyzer-badge rating-Good">Good</span> {t('Safe for most skin types', '대부분의 피부에 안전')}</span>
+            <span className="analyzer-legend-item"><span className="analyzer-badge rating-Fair">Fair</span> {t('May irritate sensitive skin', '민감한 피부에 자극 가능')}</span>
+            <span className="analyzer-legend-item"><span className="analyzer-badge rating-Avoid">Avoid</span> {t('Potentially harmful — check carefully', '유해 가능성 — 꼼꼼히 확인')}</span>
+          </div>
           <div className="analyzer-summary">
             <div className="analyzer-stat"><span className="analyzer-stat-num">{results.recognized.length}</span><span className="analyzer-stat-label">{t('Recognized', '인식됨')}</span></div>
             <div className="analyzer-stat"><span className="analyzer-stat-num">{results.actives.length}</span><span className="analyzer-stat-label">{t('Key Actives', '핵심 활성')}</span></div>
@@ -177,6 +209,10 @@ export default function IngredientAnalyzer({ showToast }) {
 
           <div className="ai-skin-match-section">
             <h4>{t('AI Skin Matching', 'AI 피부 매칭')}</h4>
+            <p className="ai-match-desc">{t(
+              'AI analyzes how well these ingredients match your skin analysis results.',
+              'AI가 이 성분들이 내 피부 분석 결과에 얼마나 잘 맞는지 분석합니다.'
+            )}</p>
             {!user ? (
               <p className="ai-match-hint">{t('Sign up to get AI-powered skin compatibility analysis!', '가입하면 AI 맞춤 피부 적합성 분석을 받을 수 있어요!')}</p>
             ) : aiVerdict ? (

@@ -8,12 +8,14 @@ import { resizePhoto } from '../../lib/storage'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
 import { analyzeSkinAI, generateRoutineAI, analyzeSkinCombinedAI } from '../../lib/gemini'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
+import { addHistoryEntry } from '../../lib/analysisHistory'
 import { combinedQuizQuestions, detectSeason } from '../../data/quiz'
 import { lookupIngredient } from '../products/ingredientLogic'
 import { getRecommendations } from '../../data/products'
 import ProductCard from '../common/ProductCard'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
+import ShareCard from '../common/ShareCard'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
@@ -31,6 +33,7 @@ export default function SkinAnalyzer({ showToast }) {
   const [routineLoading, setRoutineLoading] = useState(false)
   const [routineResult, setRoutineResult] = useState(null)
   const [showRoutineModal, setShowRoutineModal] = useState(false)
+  const [showShareCard, setShowShareCard] = useState(false)
 
   // Quiz integration state
   const [quizPhase, setQuizPhase] = useState(null) // null | 'questions' | 'analyzing' | 'done'
@@ -188,6 +191,7 @@ export default function SkinAnalyzer({ showToast }) {
       }
 
       await saveSkinResult(user.id, scores, overallScore)
+      addHistoryEntry('skin', { scores, overallScore })
       let photoThumb = null
       if (camera.capturedImage) {
         photoThumb = await resizePhoto(camera.capturedImage, 400)
@@ -572,8 +576,10 @@ export default function SkinAnalyzer({ showToast }) {
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji="🔬" english={`Skin Score ${overallScore}/100 (${grade})`} korean="AI 피부 분석 결과" showToast={showToast} />
       <div className="fs-result-buttons">
+        <button className="secondary-btn" onClick={() => setShowShareCard(true)}>{'🖼️ ' + t('Create Share Card', '공유 카드 만들기')}</button>
         <button className="primary-btn" onClick={handleRetake}>{'🔄 ' + t('Try Again', '다시하기')}</button>
       </div>
+      {showShareCard && <ShareCard type="skin" data={{ scores, overallScore, grade }} onClose={() => setShowShareCard(false)} />}
 
       {dailyLimitModal && (
         <div className="daily-limit-overlay" onClick={() => setDailyLimitModal(null)}>

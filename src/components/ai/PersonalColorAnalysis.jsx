@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { savePersonalColorResult } from '../../lib/db'
+import { addHistoryEntry } from '../../lib/analysisHistory'
 import { analyzeSkinTone, cropFaceFromPhoto } from './analysis/personalColorLogic'
 import { analyzePersonalColorAI } from '../../lib/gemini'
 import { personalColorResults } from '../../data/personalColor'
@@ -11,6 +12,7 @@ import { getRecommendations } from '../../data/products'
 import ProductCard from '../common/ProductCard'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
+import ShareCard from '../common/ShareCard'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
@@ -24,6 +26,7 @@ export default function PersonalColorAnalysis({ showToast }) {
   const [faceCrop, setFaceCrop] = useState(null)
   const [showConfetti, setShowConfetti] = useState(false)
   const [usedGemini, setUsedGemini] = useState(false)
+  const [showShareCard, setShowShareCard] = useState(false)
 
   // Restore result after OAuth login redirect
   useEffect(() => {
@@ -112,6 +115,7 @@ export default function PersonalColorAnalysis({ showToast }) {
     if (!user || !result) return
     try {
       await savePersonalColorResult(user.id, result)
+      addHistoryEntry('personalColor', { type: result.type, confidence: result.confidence })
       showToast(t('Saved! View in My Page > Results', '저장 완료! 마이페이지 > 결과에서 확인하세요'))
     } catch {
       showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
@@ -331,7 +335,11 @@ export default function PersonalColorAnalysis({ showToast }) {
 
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji={r.emoji} english={r.english} korean={r.korean} showToast={showToast} />
-      <button className="secondary-btn" onClick={handleRetake}>{t('Retake Test', '다시하기')}</button>
+      <div className="fs-result-buttons">
+        <button className="secondary-btn" onClick={() => setShowShareCard(true)}>{'🖼️ ' + t('Create Share Card', '공유 카드 만들기')}</button>
+        <button className="primary-btn" onClick={handleRetake}>{t('Retake Test', '다시하기')}</button>
+      </div>
+      {showShareCard && <ShareCard type="personalColor" data={{ type: result.type, confidence: result.confidence, bestColors: r.bestColors, emoji: r.emoji, english: r.english, korean: r.korean, season: r.season, subtitle: r.subtitle }} onClose={() => setShowShareCard(false)} />}
     </div>
   )
 }

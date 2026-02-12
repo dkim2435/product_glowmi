@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { saveRoutine, loadRoutines, loadAnalysisResults } from '../../lib/db'
 import { useLang } from '../../context/LanguageContext'
 import { generateRoutineAI } from '../../lib/gemini'
+import ReminderSettings from './ReminderSettings'
 
 const ROUTINE_CATEGORIES = [
   { key: 'oil_cleanser', label: 'Oil Cleanser', labelKr: '오일 클렌저', emoji: '🫒' },
@@ -254,6 +255,8 @@ export default function MyRoutine({ userId, showToast }) {
           <button className="primary-btn routine-add-btn" onClick={addStep}>{t('Add', '추가')}</button>
         </div>
       </div>
+
+      <ReminderSettings showToast={showToast} />
     </div>
   )
 }
