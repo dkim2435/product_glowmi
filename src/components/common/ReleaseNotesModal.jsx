@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.0.0'
+const APP_VERSION = '2.0.1'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
