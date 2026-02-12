@@ -55,7 +55,7 @@ export default function App() {
               {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
               {activeTab === 'products' && <ProductsTab showToast={showToast} />}
               {activeTab === 'procedures' && <ProceduresTab />}
-              {activeTab === 'wellness' && <WellnessTab />}
+              {activeTab === 'wellness' && <WellnessTab onNavigate={navigateTo} />}
               {activeTab === 'mypage' && <MyPageTab showToast={showToast} onNavigate={navigateTo} />}
             </main>
 

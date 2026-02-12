@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.5.4'
+const APP_VERSION = '1.5.5'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '📝',
+    emoji: '🧘',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트 소식`,
-    desc: 'Skin diary upgraded with daily skin tracking and AI weekly analysis!',
-    descKr: '피부 일지가 업그레이드! 매일 피부 상태 기록 + 7일 AI 분석!',
+    desc: 'Wellness tab upgraded with personalized nutrients, weather care, and K-beauty trends!',
+    descKr: '웰니스 탭이 맞춤 영양소, 날씨케어, K-뷰티 트렌드로 업그레이드!',
     items: [
-      { emoji: '🏜️', label: 'Skin Tracking', labelKr: '피부 추적', desc: 'Track dryness, oiliness, redness, breakouts, and sensitivity daily.', descKr: '건조함, 유분, 홍조, 트러블, 민감도를 매일 기록하세요.' },
-      { emoji: '🤖', label: '7-Day AI Analysis', labelKr: '7일 AI 분석', desc: 'After 7 days of entries, get AI-powered skin trend analysis with ingredient recommendations.', descKr: '7일 기록 후 AI가 피부 트렌드를 분석하고 성분을 추천합니다.' },
-      { emoji: '🔒', label: 'Top Procedures', labelKr: '인기 시술', desc: 'Top 3 procedures now revealed after sign-up with exclusive details.', descKr: '가입 후 인기 시술 TOP 3의 상세 정보를 확인하세요.' },
+      { emoji: '🍎', label: 'Nutrient Recs', labelKr: '맞춤 영양소', desc: 'Get personalized food & nutrient recommendations based on your skin analysis.', descKr: '피부 분석 결과에 따른 맞춤 음식 및 영양소를 추천받으세요.' },
+      { emoji: '🌤️', label: 'Weather Care', labelKr: '날씨케어', desc: 'Real-time weather-based skincare tips with product recommendations.', descKr: '실시간 날씨 기반 스킨케어 팁과 제품 추천.' },
+      { emoji: '🔥', label: 'K-Trends', labelKr: 'K트렌드', desc: '2025-2026 K-beauty trends — ingredients, methods, philosophy, and top brands.', descKr: '2025-2026 K-뷰티 트렌드 — 성분, 방법, 철학, 주목 브랜드.' },
     ],
   },
 ]
