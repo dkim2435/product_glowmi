@@ -1,23 +1,53 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
-import { loadAnalysisResults } from '../../lib/db'
+import { loadAnalysisResults, loadRoutines, saveRoutine } from '../../lib/db'
+import { generateRoutineAI } from '../../lib/gemini'
 import { personalColorResults } from '../../data/personalColor'
 import { fsShapeData } from '../../data/faceShape'
 import { skinTypeResults } from '../../data/quiz'
 import { getRecommendations } from '../../data/products'
 import ProductCard from '../common/ProductCard'
 
-export default function MyResults({ userId, onNavigate }) {
+export default function MyResults({ userId, onNavigate, showToast }) {
   const { t } = useLang()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [expanded, setExpanded] = useState(null) // which card is expanded
+  const [expanded, setExpanded] = useState(null)
+  const [hasRoutine, setHasRoutine] = useState(false)
+  const [routineLoading, setRoutineLoading] = useState(false)
 
   useEffect(() => {
-    loadAnalysisResults(userId)
-      .then(d => { setData(d); setLoading(false) })
-      .catch(() => setLoading(false))
+    Promise.all([
+      loadAnalysisResults(userId),
+      loadRoutines(userId)
+    ]).then(([d, routines]) => {
+      setData(d)
+      setHasRoutine(routines && routines.length > 0)
+      setLoading(false)
+    }).catch(() => setLoading(false))
   }, [userId])
+
+  async function handleGenerateRoutine() {
+    if (!data) return
+    setRoutineLoading(true)
+    try {
+      const skinScores = {
+        redness: data.skin_redness || 30,
+        oiliness: data.skin_oiliness || 30,
+        dryness: data.skin_dryness || 30,
+        darkSpots: data.skin_dark_spots || 20,
+        texture: data.skin_texture || 25
+      }
+      const result = await generateRoutineAI(skinScores)
+      if (result.am) await saveRoutine(userId, 'am', result.am)
+      if (result.pm) await saveRoutine(userId, 'pm', result.pm)
+      setHasRoutine(true)
+      showToast?.(t('AI routine created! Check My Routine tab.', 'AI 루틴이 생성되었습니다! 내 루틴 탭에서 확인하세요.'))
+    } catch {
+      showToast?.(t('Failed to generate routine.', '루틴 생성에 실패했습니다.'))
+    }
+    setRoutineLoading(false)
+  }
 
   if (loading) return <p className="mypage-loading">{t('Loading...', '불러오는 중...')}</p>
 
@@ -233,6 +263,34 @@ export default function MyResults({ userId, onNavigate }) {
                       {q.tips.map((tip, i) => <li key={i}>{tip}</li>)}
                     </ul>
                   </>
+                )}
+
+                <div className="mypage-card-section-title">{'🧴 ' + t('Recommended Products', '추천 제품')}</div>
+                <div className="product-card-list">
+                  {getRecommendations({
+                    concerns: hasCombined
+                      ? (data.quiz_scores?.combinedType?.includes('oily') ? ['oiliness', 'texture'] :
+                         data.quiz_scores?.combinedType?.includes('dry') ? ['dryness', 'redness'] :
+                         data.quiz_scores?.combinedType?.includes('sensitive') ? ['redness', 'dryness'] :
+                         ['texture', 'dark_spots'])
+                      : (data.quiz_type === 'oily' ? ['oiliness', 'texture'] :
+                         data.quiz_type === 'dry' ? ['dryness', 'redness'] :
+                         data.quiz_type === 'sensitive' ? ['redness', 'dryness'] :
+                         ['texture', 'dark_spots']),
+                    categories: ['serum', 'moisturizer', 'sunscreen']
+                  })
+                    .filter((p, idx, arr) => arr.findIndex(x => x.category === p.category) === idx)
+                    .slice(0, 3)
+                    .map(p => <ProductCard key={p.id} product={p} compact />)}
+                </div>
+
+                {!hasRoutine && (
+                  <div className="mypage-routine-prompt">
+                    <p>{t('No AI routine yet. Generate one based on your skin analysis!', '아직 AI 루틴이 없어요. 피부 분석 기반으로 추천받아 보세요!')}</p>
+                    <button className="primary-btn" onClick={handleGenerateRoutine} disabled={routineLoading}>
+                      {routineLoading ? t('Generating...', '생성 중...') : t('Generate AI Routine', 'AI 루틴 추천받기')}
+                    </button>
+                  </div>
                 )}
 
                 <button className="mypage-card-close" onClick={() => setExpanded(null)}>{t('Close', '닫기')} ▴</button>

@@ -333,6 +333,38 @@ Be specific and personalized. The description should explain WHY this type was d
 }
 
 /**
+ * Analyze 7+ days of skin diary entries to provide improvement recommendations.
+ */
+export async function analyzeDiaryAI(entries) {
+  const entrySummary = entries.map(e =>
+    `${e.entry_date}: dryness=${e.dryness||'-'}, oiliness=${e.oiliness||'-'}, redness=${e.redness||'-'}, breakouts=${e.breakouts||'-'}, sensitivity=${e.sensitivity||'-'}, condition=${e.overall_condition||'-'}, sleep=${e.sleep_hours||'-'}, stress=${e.stress_level||'-'}, water=${e.water_intake||'-'}, notes="${e.notes||''}"`
+  ).join('\n')
+
+  const prompt = `You are an expert dermatologist. Analyze the user's 7-day skin diary below and provide personalized improvement recommendations.
+
+Diary entries (most recent first):
+${entrySummary}
+
+Respond with ONLY a JSON object:
+{
+  "summary": "English summary of skin condition trends over the week",
+  "summaryKr": "한국어 피부 상태 트렌드 요약",
+  "patterns": ["Pattern 1", "Pattern 2"],
+  "patternsKr": ["패턴 1", "패턴 2"],
+  "improvements": ["Improvement tip 1", "Improvement tip 2", "Improvement tip 3"],
+  "improvementsKr": ["개선 팁 1", "개선 팁 2", "개선 팁 3"],
+  "keyIngredients": ["Ingredient 1", "Ingredient 2"],
+  "avoidIngredients": ["Ingredient 1"],
+  "lifestyleTips": ["Lifestyle tip 1"],
+  "lifestyleTipsKr": ["생활 팁 1"]
+}
+
+Be specific and actionable. Identify patterns (e.g. oiliness spikes on high-stress days, dryness correlates with low water intake). Recommend 3-5 improvements and 3-5 key ingredients.`
+
+  return await callGeminiText(prompt, { maxOutputTokens: 1500 })
+}
+
+/**
  * Analyze personal color type using Gemini AI.
  * Returns: { type, confidence, warmth, depth, clarity, skinRgb, scores }
  */

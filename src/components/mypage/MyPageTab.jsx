@@ -54,7 +54,7 @@ export default function MyPageTab({ showToast, onNavigate }) {
         ))}
       </div>
 
-      {section === 'results' && <MyResults userId={user.id} onNavigate={onNavigate} />}
+      {section === 'results' && <MyResults userId={user.id} onNavigate={onNavigate} showToast={showToast} />}
       {section === 'progress' && <SkinProgress userId={user.id} showToast={showToast} onGoToSkinAnalyzer={() => onNavigate('ai', 'skinAnalyzer')} />}
       {section === 'diary' && <SkinDiary userId={user.id} showToast={showToast} />}
       {section === 'routine' && <MyRoutine userId={user.id} showToast={showToast} />}

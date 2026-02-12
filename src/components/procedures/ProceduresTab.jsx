@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { proceduresData } from '../../data/procedures'
 import { clinicsData } from '../../data/clinics'
 import { useLang } from '../../context/LanguageContext'
+import { useAuth } from '../../context/AuthContext'
 
 export default function ProceduresTab() {
   const [activeSub, setActiveSub] = useState('procedures')
@@ -27,8 +28,10 @@ export default function ProceduresTab() {
 function ProceduresList() {
   const [expanded, setExpanded] = useState(null)
   const { t } = useLang()
+  const { user, loginWithGoogle } = useAuth()
 
   function toggle(i) {
+    if (i < 3 && !user) return
     setExpanded(prev => prev === i ? null : i)
   }
 
@@ -37,8 +40,9 @@ function ProceduresList() {
       {proceduresData.map((p, i) => {
         const isOpen = expanded === i
         const medal = i === 0 ? ' proc-gold' : i === 1 ? ' proc-silver' : i === 2 ? ' proc-bronze' : ''
+        const isGated = i < 3 && !user
         return (
-          <div key={i} className={'proc-card' + medal + (isOpen ? ' proc-expanded' : '')} onClick={() => toggle(i)}>
+          <div key={i} className={'proc-card' + medal + (isOpen ? ' proc-expanded' : '') + (isGated ? ' proc-gated' : '')} onClick={() => toggle(i)}>
             {i < 3 && <div className="proc-medal">{i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}</div>}
             <div className="proc-icon">{p.emoji}</div>
             <div className="proc-title">{t(p.english, p.korean)}</div>
@@ -46,6 +50,13 @@ function ProceduresList() {
             <div className="proc-tags-row">
               {p.tags.slice(0, 2).map((tag, j) => <span key={j} className="proc-tag">{tag}</span>)}
             </div>
+
+            {isGated && (
+              <div className="proc-gated-overlay" onClick={e => e.stopPropagation()}>
+                <p>{t('Sign up to see top procedures!', '가입하고 인기 시술 정보를 확인하세요!')}</p>
+                <button className="primary-btn" onClick={loginWithGoogle}>{t('Sign up (Free)', '무료 가입')}</button>
+              </div>
+            )}
 
             {isOpen && (
               <div className="proc-details" onClick={e => e.stopPropagation()}>
@@ -71,7 +82,7 @@ function ProceduresList() {
                   </div>
                 </div>
 
-                <button className="proc-close-btn" onClick={() => setExpanded(null)}>Close ▴</button>
+                <button className="proc-close-btn" onClick={() => setExpanded(null)}>{t('Close', '닫기')} ▴</button>
               </div>
             )}
           </div>

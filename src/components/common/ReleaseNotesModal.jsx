@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '1.5.2'
+const APP_VERSION = '1.5.3'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🧬',
+    emoji: '📝',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트 소식`,
-    desc: 'Photo + Quiz combined skin type analysis for more accurate results!',
-    descKr: '사진 + 퀴즈 통합 피부타입 분석으로 더 정확한 결과를 제공합니다!',
+    desc: 'Skin diary upgraded with daily skin tracking and AI weekly analysis!',
+    descKr: '피부 일지가 업그레이드! 매일 피부 상태 기록 + 7일 AI 분석!',
     items: [
-      { emoji: '📝', label: 'Combined Analysis', labelKr: '종합 분석', desc: 'After photo analysis, answer 5 quick questions for a comprehensive skin type diagnosis.', descKr: '사진 분석 후 5개 질문에 답하면 종합 피부타입을 진단합니다.' },
-      { emoji: '🧪', label: 'Compound Types', labelKr: '복합 타입', desc: 'AI now identifies compound skin types like "Dehydrated Oily" or "Sensitive Combination".', descKr: 'AI가 "수분부족 지성", "민감 복합성" 같은 복합 피부타입을 판별합니다.' },
-      { emoji: '💊', label: 'Ingredient Guide', labelKr: '성분 가이드', desc: 'Get personalized key ingredients to use and avoid based on your combined analysis.', descKr: '종합 분석 기반으로 추천 성분과 피할 성분을 안내합니다.' },
+      { emoji: '🏜️', label: 'Skin Tracking', labelKr: '피부 추적', desc: 'Track dryness, oiliness, redness, breakouts, and sensitivity daily.', descKr: '건조함, 유분, 홍조, 트러블, 민감도를 매일 기록하세요.' },
+      { emoji: '🤖', label: '7-Day AI Analysis', labelKr: '7일 AI 분석', desc: 'After 7 days of entries, get AI-powered skin trend analysis with ingredient recommendations.', descKr: '7일 기록 후 AI가 피부 트렌드를 분석하고 성분을 추천합니다.' },
+      { emoji: '🔒', label: 'Top Procedures', labelKr: '인기 시술', desc: 'Top 3 procedures now revealed after sign-up with exclusive details.', descKr: '가입 후 인기 시술 TOP 3의 상세 정보를 확인하세요.' },
     ],
   },
 ]
