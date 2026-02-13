@@ -602,11 +602,11 @@ export default function SkinAnalyzer({ showToast }) {
             <div className="daily-limit-icon">⏰</div>
             <h3>{t("Today's save is done!", '오늘의 저장이 완료되었어요!')}</h3>
             <p>{t(
-              'Skin progress saves once per day to track meaningful changes.',
-              '의미 있는 변화를 추적하기 위해 하루 1회 저장됩니다.'
+              'Skin progress saves once per day to track meaningful changes. Resets at midnight.',
+              '의미 있는 변화를 추적하기 위해 하루 1회 저장됩니다. 자정에 초기화돼요.'
             )}</p>
             <p className="daily-limit-time">
-              {t(`Next save available in ${dailyLimitModal}`, `${dailyLimitModal} 후에 다시 저장할 수 있어요`)}
+              {t(`Next save in ${dailyLimitModal} (after midnight)`, `${dailyLimitModal} 후 (자정 이후) 다시 저장할 수 있어요`)}
             </p>
             <button className="primary-btn" onClick={() => setDailyLimitModal(null)}>
               {t('Got it!', '확인')}
