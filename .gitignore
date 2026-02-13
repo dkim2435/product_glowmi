@@ -3,3 +3,4 @@ dist/
 nul
 .claude/
 .env
+.dev.vars

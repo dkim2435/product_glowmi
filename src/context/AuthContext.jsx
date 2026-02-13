@@ -15,9 +15,26 @@ export function AuthProvider({ children }) {
     })
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null)
       setLoading(false)
+
+      if (event === 'SIGNED_IN' && session?.user) {
+        const user = session.user
+        const createdAt = new Date(user.created_at).getTime()
+        const now = Date.now()
+        const isNewUser = now - createdAt < 60_000
+
+        if (isNewUser && !sessionStorage.getItem('glowmi_signup_notified')) {
+          sessionStorage.setItem('glowmi_signup_notified', '1')
+          const name = user.user_metadata?.full_name || 'Unknown'
+          fetch('/api/notify-signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          }).catch(() => {})
+        }
+      }
     })
 
     return () => subscription.unsubscribe()
