@@ -126,7 +126,14 @@ export default function OnboardingModal({ onClose }) {
 
   useEffect(() => {
     document.body.style.overflowY = 'hidden'
-    return () => { document.body.style.overflowY = '' }
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') handleClose()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflowY = ''
+      document.removeEventListener('keydown', handleKeyDown)
+    }
   }, [])
 
   function goNext() {
@@ -155,14 +162,14 @@ export default function OnboardingModal({ onClose }) {
 
   return (
     <div className="onboard-overlay" onClick={handleClose}>
-      <div className="onboard-modal" onClick={e => e.stopPropagation()}>
+      <div className="onboard-modal" role="dialog" aria-modal="true" aria-labelledby="onboard-title" onClick={e => e.stopPropagation()}>
         <button className="onboard-skip" onClick={handleClose}>
           {isLast ? '' : t('Skip', '건너뛰기')}
         </button>
 
         <div className="onboard-slide" key={current}>
           <div className="onboard-emoji">{slide.emoji}</div>
-          <h2 className="onboard-title">{t(slide.title, slide.titleKr)}</h2>
+          <h2 className="onboard-title" id="onboard-title">{t(slide.title, slide.titleKr)}</h2>
           <p className="onboard-desc">{t(slide.desc, slide.descKr)}</p>
 
           {slide.visualType === 'icons' && (
@@ -195,14 +202,14 @@ export default function OnboardingModal({ onClose }) {
               <svg viewBox="0 0 200 80" className="onboard-chart-svg">
                 <defs>
                   <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#ff6b9d" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#ff6b9d" stopOpacity="0.02" />
+                    <stop offset="0%" stopColor="#F4A698" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#F4A698" stopOpacity="0.02" />
                   </linearGradient>
                 </defs>
                 <path d="M10,60 L40,50 L70,55 L100,40 L130,35 L160,25 L190,20 L190,70 L10,70 Z" fill="url(#chartGrad)" />
-                <polyline points="10,60 40,50 70,55 100,40 130,35 160,25 190,20" fill="none" stroke="#ff6b9d" strokeWidth="2.5" strokeLinejoin="round" />
-                <circle cx="10" cy="60" r="3" fill="#ff6b9d" />
-                <circle cx="190" cy="20" r="3" fill="#c44569" />
+                <polyline points="10,60 40,50 70,55 100,40 130,35 160,25 190,20" fill="none" stroke="#F4A698" strokeWidth="2.5" strokeLinejoin="round" />
+                <circle cx="10" cy="60" r="3" fill="#F4A698" />
+                <circle cx="190" cy="20" r="3" fill="#C4796A" />
               </svg>
             </div>
           )}

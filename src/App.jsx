@@ -87,7 +87,7 @@ export default function App() {
             <Footer />
 
             {/* Help / Tutorial button */}
-            <button className="help-fab" onClick={() => setShowOnboarding(true)} title="Tutorial / 튜토리얼">
+            <button className="help-fab" onClick={() => setShowOnboarding(true)} title="Tutorial / 튜토리얼" aria-label="Tutorial">
               ?
             </button>
 

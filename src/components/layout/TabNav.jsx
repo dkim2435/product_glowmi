@@ -43,6 +43,7 @@ export default function TabNav({ activeTab, onTabChange }) {
               className={'tab-btn' + (activeTab === tab.id ? ' active' : '')}
               role="tab"
               aria-selected={activeTab === tab.id}
+              aria-controls={`tabpanel-${tab.id}`}
               onClick={() => onTabChange(tab.id)}
             >
               <span className="tab-emoji">{tab.emoji}</span>
@@ -76,7 +77,7 @@ export default function TabNav({ activeTab, onTabChange }) {
                 />
                 <span className="nav-avatar-label">{t('My Page', '마이페이지')}</span>
               </button>
-              <button className="nav-avatar-menu-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>▾</button>
+              <button className="nav-avatar-menu-btn" onClick={() => setDropdownOpen(!dropdownOpen)} aria-label={t('User menu', '사용자 메뉴')}>▾</button>
               {dropdownOpen && (
                 <div className="user-dropdown">
                   <div className="user-dropdown-name">{user.user_metadata?.full_name || 'User'}</div>

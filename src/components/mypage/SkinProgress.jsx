@@ -220,7 +220,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     ctx.fill()
 
     // Line
-    ctx.strokeStyle = '#ff6b9d'
+    ctx.strokeStyle = '#F4A698'
     ctx.lineWidth = 2.5
     ctx.lineJoin = 'round'
     ctx.beginPath()
@@ -240,7 +240,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       // Dot
       ctx.beginPath()
       ctx.arc(x, y, allScores[i].hasPhoto ? 5 : 3.5, 0, Math.PI * 2)
-      ctx.fillStyle = allScores[i].hasPhoto ? '#c44569' : '#ff6b9d'
+      ctx.fillStyle = allScores[i].hasPhoto ? '#C4796A' : '#F4A698'
       ctx.fill()
       ctx.strokeStyle = '#fff'
       ctx.lineWidth = 2

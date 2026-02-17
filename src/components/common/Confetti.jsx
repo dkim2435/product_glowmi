@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const COLORS = ['#ff6b9d', '#c44569', '#ff9500', '#00bcd4', '#4caf50', '#ffeb3b']
+const COLORS = ['#F4A698', '#C4796A', '#ff9500', '#00bcd4', '#4caf50', '#ffeb3b']
 
 export default function Confetti() {
   useEffect(() => {
