@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#F4A698',
-        secondary: '#C4796A',
-        'light-pink': '#FFF0ED',
+        primary: '#CF8BA9',
+        secondary: '#A66A85',
+        'light-pink': '#FDF0F5',
       },
       maxWidth: {
         app: '500px',

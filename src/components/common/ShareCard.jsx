@@ -103,7 +103,7 @@ export default function ShareCard({ type, data, onClose }) {
   function drawSkinCard(ctx, w, h) {
     // Background gradient (pink → purple)
     const bg = ctx.createLinearGradient(0, 0, w * 0.4, h)
-    bg.addColorStop(0, '#F4A698')
+    bg.addColorStop(0, '#CF8BA9')
     bg.addColorStop(0.5, '#c850c0')
     bg.addColorStop(1, '#a855f7')
     ctx.fillStyle = bg

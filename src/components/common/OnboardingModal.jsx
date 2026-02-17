@@ -202,14 +202,14 @@ export default function OnboardingModal({ onClose }) {
               <svg viewBox="0 0 200 80" className="onboard-chart-svg">
                 <defs>
                   <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#F4A698" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#F4A698" stopOpacity="0.02" />
+                    <stop offset="0%" stopColor="#CF8BA9" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#CF8BA9" stopOpacity="0.02" />
                   </linearGradient>
                 </defs>
                 <path d="M10,60 L40,50 L70,55 L100,40 L130,35 L160,25 L190,20 L190,70 L10,70 Z" fill="url(#chartGrad)" />
-                <polyline points="10,60 40,50 70,55 100,40 130,35 160,25 190,20" fill="none" stroke="#F4A698" strokeWidth="2.5" strokeLinejoin="round" />
-                <circle cx="10" cy="60" r="3" fill="#F4A698" />
-                <circle cx="190" cy="20" r="3" fill="#C4796A" />
+                <polyline points="10,60 40,50 70,55 100,40 130,35 160,25 190,20" fill="none" stroke="#CF8BA9" strokeWidth="2.5" strokeLinejoin="round" />
+                <circle cx="10" cy="60" r="3" fill="#CF8BA9" />
+                <circle cx="190" cy="20" r="3" fill="#A66A85" />
               </svg>
             </div>
           )}

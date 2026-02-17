@@ -81,7 +81,7 @@ function buildShareButtons(emoji, english, korean) {
 }
 
 function createConfetti() {
-    var colors = ['#F4A698', '#C4796A', '#ff9500', '#00bcd4', '#4caf50', '#ffeb3b'];
+    var colors = ['#CF8BA9', '#A66A85', '#ff9500', '#00bcd4', '#4caf50', '#ffeb3b'];
     var container = document.createElement('div');
     container.className = 'confetti-container';
     document.body.appendChild(container);

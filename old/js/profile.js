@@ -404,7 +404,7 @@ function drawDiaryTrendChart() {
     var plotW = w - pad.left - pad.right;
     var plotH = h - pad.top - pad.bottom;
 
-    ctx.strokeStyle = '#F4A698';
+    ctx.strokeStyle = '#CF8BA9';
     ctx.lineWidth = 2;
     ctx.lineJoin = 'round';
     ctx.beginPath();
@@ -423,7 +423,7 @@ function drawDiaryTrendChart() {
         var dy = pad.top + plotH * (1 - (points[d].value - 1) / 2);
         ctx.beginPath();
         ctx.arc(dx, dy, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#F4A698';
+        ctx.fillStyle = '#CF8BA9';
         ctx.fill();
         ctx.strokeStyle = '#fff';
         ctx.lineWidth = 2;
