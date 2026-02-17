@@ -22,6 +22,23 @@
 8. **UX 안내 문구 확인** — 새 기능에 사용자 가이드 텍스트 포함 여부 확인 (빈 상태 메시지, 기능 설명, 범례/툴팁, 한/영 모두)
 9. **자동 체크리스트 실행** — `git push` 시 pre-push hook이 자동으로 `npm run pre-push` 실행 (실패 시 푸시 차단)
 
+## 문서 자동 업데이트 규칙
+기능을 추가하거나 수정할 때, 아래 해당하는 문서를 반드시 같이 업데이트할 것:
+
+| 변경 유형 | 업데이트할 문서 |
+|-----------|----------------|
+| **새 컴포넌트/파일 추가** | CLAUDE.md "컴포넌트 구조" 트리에 추가 |
+| **새 기능/페이지 추가** | CLAUDE.md "컴포넌트 구조" + `public/llms.txt` 해당 섹션에 추가 |
+| **새 블로그 포스트 추가** | `public/sitemap.xml`에 URL 추가 + `public/llms.txt` Blog 섹션에 추가 + 기존 관련 포스트에 내부 링크 추가 + `index.html` JSON-LD BlogPosting 추가 |
+| **블로그 수정** | `public/sitemap.xml` lastmod 날짜 + 해당 포스트 JSON-LD dateModified 업데이트 |
+| **새 환경변수 추가** | `.env.example`에 추가 + CLAUDE.md "환경변수" 섹션에 추가 |
+| **브랜드 컬러 변경** | CLAUDE.md "브랜드 컬러" 섹션 업데이트 + 히스토리에 추가 |
+| **새 Context/상태 추가** | CLAUDE.md "상태 관리" 테이블에 추가 |
+| **새 주요 파일 추가** | CLAUDE.md "주요 파일 위치" 테이블에 추가 |
+| **접근성 패턴 추가** | CLAUDE.md "접근성 규칙"에 추가 |
+| **SEO 규칙 변경** | CLAUDE.md "SEO / GEO 가이드라인" + `docs/SEO_GEO_GUIDE.md` 업데이트 |
+| **Cloudflare 설정 변경** | CLAUDE.md "주요 파일 위치"에 반영 + `public/_headers` 또는 `public/_redirects` 업데이트 |
+
 ## 버전 관리 규칙
 - 버전은 Header.jsx, ReleaseNotesModal.jsx, package.json 3곳에서 동기화
 - 릴리즈 노트는 사용자가 읽기 쉬운 한/영 설명으로 작성
