@@ -169,7 +169,11 @@ src/
 | `public/_headers` | Cloudflare 캐시 헤더 |
 | `public/_redirects` | 블로그 trailing-slash + SPA 라우팅 |
 | `public/manifest.json` | PWA 설정 (앱 이름, 아이콘, 테마 컬러) |
-| `public/blog/*.html` | 블로그 포스트 (독립 HTML, 각자 JSON-LD 포함) |
+| `public/privacy.html` | 개인정보처리방침 (독립 HTML) |
+| `public/terms.html` | 이용약관 (독립 HTML) |
+| `public/about.html` | 소개 페이지 (독립 HTML) |
+| `public/contact.html` | 문의 페이지 (독립 HTML) |
+| `public/blog/*.html` | 블로그 포스트 15개 (독립 HTML, 각자 JSON-LD 포함) |
 | `vite.config.js` | 빌드 설정 (esnext target, 청크 분리) |
 | `tailwind.config.js` | Tailwind 설정 (브랜드 컬러, 반응형 브레이크포인트) |
 | `scripts/pre-push-check.js` | 푸시 전 자동 검증 (7개 항목, 28개 체크) |

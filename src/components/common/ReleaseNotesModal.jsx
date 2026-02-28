@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.1.0'
+const APP_VERSION = '2.2.0'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '✨',
+    emoji: '📝',
     title: `What's New in v${APP_VERSION}`,
-    titleKr: `v${APP_VERSION} 품질 개선!`,
-    desc: '7 new features — product browser, share cards, skin timeline, reminders, and more!',
-    descKr: '7개 신규 기능 — 제품 브라우저, 공유 카드, 피부 타임라인, 루틴 알림 등!',
+    titleKr: `v${APP_VERSION} 콘텐츠 대업데이트!`,
+    desc: 'New standalone pages, 6 new blog posts, and expanded content for AdSense compliance.',
+    descKr: '독립 페이지 추가, 블로그 6개 신규 작성, 기존 블로그 보강!',
     items: [
-      { emoji: '🛒', label: 'Product Browser', labelKr: '제품 브라우저', desc: 'Browse all K-beauty products with filters for skin type, price, and concerns.', descKr: '피부타입, 가격대, 고민별 필터로 K-뷰티 제품을 탐색하세요.' },
-      { emoji: '🖼️', label: 'Share Cards', labelKr: '공유 카드', desc: 'Create beautiful Instagram-style cards to share your analysis results.', descKr: '분석 결과를 인스타그램 스타일의 예쁜 카드로 공유하세요.' },
-      { emoji: '📊', label: 'Skin Timeline', labelKr: '피부 타임라인', desc: 'Multi-metric chart showing skin trends over time + analysis history.', descKr: '다중 지표 차트로 피부 변화 추적 + 분석 기록 보기.' },
-      { emoji: '🔔', label: 'Routine Reminders', labelKr: '루틴 알림', desc: 'Set AM/PM skincare reminders with push notifications.', descKr: 'AM/PM 스킨케어 알림을 설정하세요.' },
+      { emoji: '📄', label: 'Legal Pages', labelKr: '법적 페이지', desc: 'Standalone About, Contact, Privacy, and Terms pages now live at their own URLs.', descKr: 'About, Contact, Privacy, Terms 페이지가 독립 URL로 접근 가능합니다.' },
+      { emoji: '✍️', label: '6 New Blog Posts', labelKr: '블로그 6개 추가', desc: 'Double cleansing, dry skin routine, snail mucin, retinol, niacinamide, and AI skin analysis guides.', descKr: '더블클렌징, 건성 루틴, 달팽이 뮤신, 레티놀, 나이아신아마이드, AI 피부분석 가이드.' },
+      { emoji: '📈', label: 'Blog Expansion', labelKr: '기존 블로그 보강', desc: '3 existing blog posts expanded from ~250 to 800+ words with deeper content.', descKr: '기존 블로그 3개를 250단어에서 800+ 단어로 대폭 보강했습니다.' },
+      { emoji: '🔗', label: 'Better Navigation', labelKr: '네비게이션 개선', desc: 'Footer links now crawlable by search engines. Blog footers include legal page links.', descKr: '푸터 링크를 검색엔진이 인식할 수 있게 개선하고, 블로그 푸터에 법적 페이지 링크를 추가했습니다.' },
     ],
   },
 ]

@@ -38,6 +38,19 @@
 - [AI Face Shape Analysis](https://glowmi.org/blog/ai-face-shape-analysis): How AI face shape analysis works and style recommendations for 7 face shapes.
 - [피부타입별 K-뷰티 루틴 가이드](https://glowmi.org/blog/skin-type-kbeauty-routine-guide): 건성·지성·복합성·민감성별 맞춤 K-뷰티 스킨케어 루틴.
 - [강남 피부과 시술 가격 비교 2026](https://glowmi.org/blog/gangnam-dermatology-price-guide-2026): 보톡스·필러·레이저·피부 부스터 시술 가격 총정리.
+- [Double Cleansing Guide](https://glowmi.org/blog/double-cleansing-guide): Complete guide to the Korean double cleansing method — oil cleanser + water cleanser for every skin type.
+- [Korean Skincare Routine for Dry Skin](https://glowmi.org/blog/korean-skincare-routine-dry-skin): Step-by-step K-Beauty hydration routine for dry and dehydrated skin.
+- [Snail Mucin Benefits Guide](https://glowmi.org/blog/snail-mucin-benefits-guide): Everything about snail mucin in K-Beauty — benefits, how to use, and top product picks.
+- [Retinol in Korean Skincare](https://glowmi.org/blog/retinol-korean-skincare): Beginner's guide to retinol in K-Beauty — how to start, what to expect, and best products.
+- [Niacinamide in Korean Skincare](https://glowmi.org/blog/niacinamide-korean-skincare): Complete guide to niacinamide — the #1 K-Beauty active for pores, brightening, and oil control.
+- [AI 피부 분석 가이드](https://glowmi.org/blog/ai-skin-analysis-guide): AI로 무료 피부 상태 확인하는 방법 — 피부 점수, 분석 항목, 활용법 총정리.
+
+## Legal & Information
+
+- [About Glowmi](https://glowmi.org/about): Our mission, features, and what we offer as your K-Beauty companion.
+- [Contact Us](https://glowmi.org/contact): Questions, feedback, content corrections, and partnership inquiries.
+- [Privacy Policy](https://glowmi.org/privacy): How we collect, use, and protect your personal data.
+- [Terms of Service](https://glowmi.org/terms): Usage agreement for the Glowmi service.
 
 ## Technical
 
