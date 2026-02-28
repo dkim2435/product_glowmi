@@ -20,7 +20,7 @@ export const pageContent = {
         '<p class="page-subtitle">\ubb38\uc758\ud558\uae30</p>' +
         '<p>We value your feedback and are always looking to improve Glowmi. If you have questions, suggestions, corrections, or partnership inquiries, please reach out to us through the following channels:</p>' +
         '<div class="contact-info">' +
-        '<div class="contact-item"><strong>Email</strong><p>support@glowmi.co</p></div>' +
+        '<div class="contact-item"><strong>Feedback</strong><p>Use the in-app feedback widget at <a href="https://glowmi.org">glowmi.org</a></p></div>' +
         '<div class="contact-item"><strong>Response Time</strong><p>We typically respond within 48 hours during business days.</p></div>' +
         '</div>' +
         '<h3>Feedback</h3>' +
@@ -53,11 +53,11 @@ export const pageContent = {
         '<h3>8. Children\'s Privacy</h3>' +
         '<p>Our website is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13.</p>' +
         '<h3>9. Your Rights</h3>' +
-        '<p>Depending on your location, you may have the right to: (a) access the personal data we hold about you; (b) request correction or deletion of your data; (c) object to or restrict processing of your data; and (d) data portability. To exercise any of these rights, please contact us at support@glowmi.co or use the in-app data deletion feature.</p>' +
+        '<p>Depending on your location, you may have the right to: (a) access the personal data we hold about you; (b) request correction or deletion of your data; (c) object to or restrict processing of your data; and (d) data portability. To exercise any of these rights, please use the in-app feedback widget or the in-app data deletion feature.</p>' +
         '<h3>10. Changes to This Policy</h3>' +
         '<p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page with an updated revision date.</p>' +
         '<h3>11. Contact Us</h3>' +
-        '<p>If you have questions about this Privacy Policy or our data practices, please contact us at support@glowmi.co.</p>',
+        '<p>If you have questions about this Privacy Policy or our data practices, please visit our <a href="/contact">Contact page</a>.</p>',
 
     terms: '<h2>Terms of Service</h2>' +
         '<p class="page-subtitle">\uc774\uc6a9\uc57d\uad00</p>' +
@@ -86,5 +86,5 @@ export const pageContent = {
         '<h3>11. Governing Law</h3>' +
         '<p>These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.</p>' +
         '<h3>12. Contact</h3>' +
-        '<p>If you have questions about these Terms of Service, please contact us at support@glowmi.co.</p>'
+        '<p>If you have questions about these Terms of Service, please visit our <a href="/contact">Contact page</a>.</p>'
 };
