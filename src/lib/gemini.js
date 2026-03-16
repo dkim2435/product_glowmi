@@ -1,29 +1,5 @@
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ''
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
-const EMBEDDING_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent'
-const USE_PROXY = !GEMINI_API_KEY
-
-/**
- * Send request body to Gemini — via proxy (production) or direct (local dev).
- */
-async function postToGemini(body) {
-  if (USE_PROXY) {
-    const res = await fetch('/api/gemini', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    return res
-  }
-
-  const url = `${GEMINI_URL}?key=${GEMINI_API_KEY}`
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  })
-  return res
-}
 
 /**
  * Resize an image to max 720px (longest side) and return base64 (no prefix).
@@ -59,7 +35,9 @@ function resizeImageToBase64(imageSrc) {
  * Returns parsed JSON object from Gemini's response.
  */
 async function callGemini(imageBase64, prompt) {
-  if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
+  if (!GEMINI_API_KEY) throw new Error('Gemini API key not configured')
+
+  const url = `${GEMINI_URL}?key=${GEMINI_API_KEY}`
 
   const body = {
     contents: [{
@@ -79,7 +57,11 @@ async function callGemini(imageBase64, prompt) {
     }
   }
 
-  const res = await postToGemini(body)
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
 
   if (!res.ok) {
     const errText = await res.text().catch(() => '')
@@ -102,8 +84,9 @@ async function callGemini(imageBase64, prompt) {
  * Returns parsed JSON or raw text based on parseJson flag.
  */
 async function callGeminiText(prompt, opts = {}) {
-  if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
+  if (!GEMINI_API_KEY) throw new Error('Gemini API key not configured')
 
+  const url = `${GEMINI_URL}?key=${GEMINI_API_KEY}`
   const temperature = opts.temperature ?? 0.1
   const maxOutputTokens = opts.maxOutputTokens ?? 1024
 
@@ -112,7 +95,11 @@ async function callGeminiText(prompt, opts = {}) {
     generationConfig: { temperature, maxOutputTokens }
   }
 
-  const res = await postToGemini(body)
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
 
   if (!res.ok) {
     const errText = await res.text().catch(() => '')
@@ -134,8 +121,9 @@ async function callGeminiText(prompt, opts = {}) {
  * Call Gemini API with multiple images + text prompt.
  */
 async function callGeminiMultiImage(imageSrcs, prompt, opts = {}) {
-  if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
+  if (!GEMINI_API_KEY) throw new Error('Gemini API key not configured')
 
+  const url = `${GEMINI_URL}?key=${GEMINI_API_KEY}`
   const parts = [{ text: prompt }]
 
   for (const src of imageSrcs) {
@@ -151,7 +139,11 @@ async function callGeminiMultiImage(imageSrcs, prompt, opts = {}) {
     }
   }
 
-  const res = await postToGemini(body)
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
 
   if (!res.ok) {
     const errText = await res.text().catch(() => '')
@@ -267,41 +259,10 @@ Be honest but encouraging. Focus on visible changes between the photos.`
 }
 
 /**
- * Get embedding vector for text — via proxy (production) or direct (local dev).
- * @returns {number[]} 768-dimensional vector
+ * AI skincare chat — multi-turn conversation.
  */
-export async function getEmbedding(text) {
-  const body = { content: { parts: [{ text }] }, outputDimensionality: 768 }
-
-  let res
-  if (USE_PROXY) {
-    res = await fetch('/api/embedding', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-  } else {
-    res = await fetch(`${EMBEDDING_URL}?key=${GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-  }
-
-  if (!res.ok) {
-    const errText = await res.text().catch(() => '')
-    throw new Error(`Embedding API error ${res.status}: ${errText}`)
-  }
-
-  const data = await res.json()
-  return data.embedding?.values
-}
-
-/**
- * AI skincare chat — multi-turn conversation with optional RAG context.
- */
-export async function chatSkincare(conversationHistory, userContext, ragContext) {
-  let systemPrompt = `You are a friendly, knowledgeable K-Beauty skincare advisor named Glowmi AI. You provide personalized skincare advice.
+export async function chatSkincare(conversationHistory, userContext) {
+  const systemPrompt = `You are a friendly, knowledgeable K-Beauty skincare advisor named Glowmi AI. You provide personalized skincare advice.
 
 User's skin profile:
 ${userContext}
@@ -313,15 +274,6 @@ Rules:
 - Answer in the same language the user writes in (Korean or English)
 - If asked about medical conditions, recommend seeing a dermatologist
 - Stay on topic (skincare, beauty, K-beauty products)`
-
-  if (ragContext) {
-    systemPrompt += `
-
-Reference Data (from Glowmi's product/ingredient database — use this to give specific recommendations):
-${ragContext}
-
-When recommending products or ingredients, prefer items from the reference data above. Mention the product name and brand naturally in your response.`
-  }
 
   const contents = [
     { role: 'user', parts: [{ text: systemPrompt + '\n\nPlease greet the user briefly.' }] },

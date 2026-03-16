@@ -48,19 +48,17 @@
 - 배포: Cloudflare Pages (자동 배포: GitHub main 브랜치 푸시 시)
 - 인증: Supabase Auth (Google OAuth)
 - DB: Supabase (분석 결과, 피부 일지, 루틴 저장)
-- AI 분석: Google Gemini 2.0 Flash (프로덕션: `/api/gemini` 프록시 경유, 로컬: VITE_GEMINI_API_KEY 직접 호출)
+- AI 분석: Google Gemini 2.0 Flash (API 키: VITE_GEMINI_API_KEY)
 - 폴백: Gemini 실패 시 MediaPipe 로컬 분석으로 자동 전환
 - 알림: Discord Webhook (신규 가입 알림, Cloudflare Function)
-- RAG: Gemini text-embedding-004 + Supabase pgvector (SkinChat에서 제품/성분 벡터 검색 → 맞춤 추천)
 
 ## 환경변수
-- **VITE_GEMINI_API_KEY** — Google Gemini API 키 (로컬 개발 전용, 브라우저에서 직접 호출)
-- **GEMINI_API_KEY** — Google Gemini API 키 (프로덕션 서버 사이드 프록시용, Cloudflare Secret)
+- **VITE_GEMINI_API_KEY** — Google Gemini API 키 (AI 분석용)
 - **VITE_SUPABASE_URL** — Supabase 프로젝트 URL
 - **VITE_SUPABASE_ANON_KEY** — Supabase 공개 키
 - **DISCORD_WEBHOOK_URL** — Discord 가입 알림 웹훅 (Cloudflare Function에서 사용)
-- 로컬 개발: `.env` 파일에 `VITE_GEMINI_API_KEY` 설정 → 브라우저에서 직접 Gemini 호출
-- 프로덕션: `GEMINI_API_KEY`를 Cloudflare Pages Settings > Variables and Secrets (Type: **Secret**)에 설정 → `/api/gemini` 프록시 경유
+- 로컬 개발: `.env` 파일에 설정 (`.env.example` 참고)
+- 프로덕션: Cloudflare Pages Settings > Variables and Secrets (Type: Text)
 
 ## 브랜드 컬러
 - **Primary**: `#CF8BA9` (더스티 로즈)
@@ -158,8 +156,6 @@ src/
 ├── context/                   — React Context (위 표 참고)
 ├── data/                      — 정적 데이터 (제품 DB, 성분, 퀴즈 등)
 ├── lib/                       — 유틸리티 (Gemini API, Supabase, 스토리지)
-│   ├── rag.js                        — RAG 벡터 검색 + 결과 포맷팅
-│   └── ...
 └── hooks/                     — 커스텀 훅 (useCamera)
 ```
 
@@ -182,14 +178,8 @@ src/
 | `tailwind.config.js` | Tailwind 설정 (브랜드 컬러, 반응형 브레이크포인트) |
 | `scripts/pre-push-check.js` | 푸시 전 자동 검증 (7개 항목, 28개 체크) |
 | `functions/api/notify-signup.js` | Cloudflare Function — 가입 시 Discord 알림 |
-| `functions/api/gemini.js` | Cloudflare Function — Gemini API 프록시 (API 키 서버 사이드 보호) |
-| `functions/api/embedding.js` | Cloudflare Function — Gemini 임베딩 프록시 (RAG용) |
-| `scripts/generate-embeddings.js` | 임베딩 일괄 생성 스크립트 (일회성) |
-| `scripts/supabase-rag-setup.sql` | Supabase pgvector 테이블 + RPC 함수 SQL |
 | `src/App.jsx` | 라우팅, lazy import, Suspense |
 | `src/index.css` | 전역 스타일 (CSS 변수, 접근성, CLS 방지) |
-| `src/lib/gemini.js` | Google Gemini API 연동 (프록시/직접 호출 자동 분기 + 임베딩) |
-| `src/lib/rag.js` | RAG 벡터 검색 + 결과 포맷팅 (SkinChat에서 사용) |
+| `src/lib/gemini.js` | Google Gemini API 연동 |
 | `src/lib/db.js` | Supabase DB 쿼리 (결과 저장, 일지, 루틴) |
 | `docs/SEO_GEO_GUIDE.md` | SEO 전략 상세 문서 |
-| `docs/RAG_ARCHITECTURE.md` | RAG 아키텍처 문서 (Mermaid 다이어그램 포함) |

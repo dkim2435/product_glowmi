@@ -3,7 +3,6 @@ import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { loadAnalysisResults } from '../../lib/db'
 import { chatSkincare } from '../../lib/gemini'
-import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
 
 const SUGGESTED_QUESTIONS = [
   { en: 'What ingredients suit my skin?', kr: '내 피부에 맞는 성분은?' },
@@ -67,17 +66,7 @@ export default function SkinChat({ showToast }) {
 
     try {
       const history = newMessages.filter(m => !m.isError).slice(-10)
-
-      // RAG: 관련 제품/성분 검색 (실패해도 기존 대화 유지)
-      let ragContext = ''
-      try {
-        const results = await searchRelevantContext(text.trim())
-        ragContext = formatRAGContext(results)
-      } catch (ragErr) {
-        console.warn('RAG search skipped:', ragErr.message)
-      }
-
-      const response = await chatSkincare(history, userContext || 'No skin data available.', ragContext || undefined)
+      const response = await chatSkincare(history, userContext || 'No skin data available.')
       setMessages(prev => [...prev, { role: 'model', parts: [{ text: response }] }])
     } catch (e) {
       console.error('Chat error:', e)
