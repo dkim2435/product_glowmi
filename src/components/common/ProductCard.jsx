@@ -40,9 +40,16 @@ export default function ProductCard({ product, compact = false, onAdd = null }) 
           </div>
         )}
       </div>
-      {onAdd && (
-        <button className="pcard-add" onClick={() => onAdd(product)} title={t('Add to shelf', '선반에 추가')}>+</button>
-      )}
+      <div className="pcard-actions">
+        {product.amazonUrl && (
+          <a className="pcard-amazon" href={product.amazonUrl} target="_blank" rel="noopener noreferrer nofollow" title={t('Buy on Amazon', '아마존에서 구매')}>
+            {t('Buy', '구매')} 🛒
+          </a>
+        )}
+        {onAdd && (
+          <button className="pcard-add" onClick={() => onAdd(product)} title={t('Add to shelf', '선반에 추가')}>+</button>
+        )}
+      </div>
     </div>
   )
 }

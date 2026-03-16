@@ -336,6 +336,7 @@ body {
   color: #aaa;
   margin-top: 5px;
 }
+.footer-affiliate { font-size: 0.65rem; color: #999; margin-top: 3px; }
 
 /* ========== Page Modal ========== */
 .page-modal {
@@ -6424,6 +6425,10 @@ body {
   background: var(--primary-pink);
   color: white;
 }
+
+.pcard-actions { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.pcard-amazon { display: inline-flex; align-items: center; gap: 2px; padding: 4px 10px; background: #f0c14b; color: #111; font-size: 0.72rem; font-weight: 600; border-radius: 6px; text-decoration: none; white-space: nowrap; transition: all 0.15s; }
+.pcard-amazon:hover { background: #ddb347; }
 
 /* Compact variant */
 .pcard-compact {

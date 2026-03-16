@@ -14,6 +14,7 @@ export default function Footer() {
           <a className="footer-link" href="/blog/">{t('Blog', '블로그')}</a>
         </div>
         <p className="footer-copy">&copy; 2026 Glowmi. {t('All rights reserved.', '모든 권리 보유.')}</p>
+        <p className="footer-affiliate">{t('As an Amazon Associate, Glowmi earns from qualifying purchases.', 'Glowmi는 Amazon Associate로서 적격 구매에 대해 수수료를 받습니다.')}</p>
       </div>
     </footer>
   )
