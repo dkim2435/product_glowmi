@@ -1,12 +1,27 @@
 import { useState } from 'react'
 import IngredientAnalyzer from './IngredientAnalyzer'
-import CompatibilityChecker from './CompatibilityChecker'
 import ProductBrowser from './ProductBrowser'
+import SkinChat from '../ai/SkinChat'
+import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 
 export default function ProductsTab({ showToast }) {
   const [activeSub, setActiveSub] = useState('products')
+  const { user, loginWithGoogle } = useAuth()
   const { t } = useLang()
+
+  function handleAIRecClick() {
+    if (!user) {
+      if (confirm(t(
+        'Sign up (free) to get AI-powered product recommendations! Continue to login?',
+        'AI 맞춤 제품 추천은 무료 가입 후 이용 가능해요! 로그인할까요?'
+      ))) {
+        loginWithGoogle()
+      }
+      return
+    }
+    setActiveSub('aiRec')
+  }
 
   return (
     <section className="tab-panel" id="products">
@@ -14,11 +29,11 @@ export default function ProductsTab({ showToast }) {
         <button className={'sub-tab-btn' + (activeSub === 'products' ? ' active' : '')} onClick={() => setActiveSub('products')}>
           {'🛒 ' + t('Products', '제품')}
         </button>
+        <button className={'sub-tab-btn sub-tab-highlight' + (activeSub === 'aiRec' ? ' active' : '')} onClick={handleAIRecClick}>
+          {'🤖 ' + t('AI Rec', 'AI 추천')}
+        </button>
         <button className={'sub-tab-btn' + (activeSub === 'analyzer' ? ' active' : '')} onClick={() => setActiveSub('analyzer')}>
           {'🧪 ' + t('Analyzer', '성분 분석')}
-        </button>
-        <button className={'sub-tab-btn' + (activeSub === 'compatibility' ? ' active' : '')} onClick={() => setActiveSub('compatibility')}>
-          {'⚡ ' + t('Compat', '호환성')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
           {'📖 ' + t('Guide', '가이드')}
@@ -26,8 +41,8 @@ export default function ProductsTab({ showToast }) {
       </div>
 
       {activeSub === 'products' && <ProductBrowser />}
+      {activeSub === 'aiRec' && <SkinChat showToast={showToast} />}
       {activeSub === 'analyzer' && <IngredientAnalyzer showToast={showToast} />}
-      {activeSub === 'compatibility' && <CompatibilityChecker showToast={showToast} />}
       {activeSub === 'guide' && <SkincareGuide />}
     </section>
   )

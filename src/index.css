@@ -8423,6 +8423,19 @@ body {
 [data-theme="dark"] .reminder-perm-default { background: #4e342e; color: #ffcc80; }
 
 /* UX Helper Text */
+/* AI Chat banner in Product Browser */
+.pb-ai-banner { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem; margin-bottom: 0.8rem; background: linear-gradient(135deg, #fdf5f8 0%, #f8eef3 100%); border-radius: 12px; border: 1px solid #f0dce5; }
+.pb-ai-banner-icon { font-size: 1.5rem; flex-shrink: 0; }
+.pb-ai-banner-text { font-size: 0.8rem; line-height: 1.4; color: #555; }
+.pb-ai-banner-text strong { display: block; font-size: 0.85rem; color: #A66A85; margin-bottom: 2px; }
+
+/* Pagination */
+.pb-pagination { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; padding: 0.5rem 0; }
+.pb-page-btn { padding: 6px 14px; border: 1px solid #ddd; border-radius: 8px; background: #fff; font-size: 0.82rem; cursor: pointer; transition: all 0.15s; color: #555; }
+.pb-page-btn:hover:not(:disabled) { border-color: var(--primary-pink); color: var(--primary-pink); }
+.pb-page-btn:disabled { opacity: 0.4; cursor: default; }
+.pb-page-info { font-size: 0.82rem; color: #888; font-weight: 500; }
+
 .pb-helper-text, .ah-helper-text, .diary-section-hint, .diary-field-hint,
 .compat-compare-hint, .ai-match-desc { font-size: 0.75rem; color: #999; margin: 0 0 10px; line-height: 1.4; }
 .diary-field-hint { margin: -2px 0 4px; font-size: 0.7rem; color: #aaa; }
@@ -8433,6 +8446,12 @@ body {
 [data-theme="dark"] .ah-guide { background: #2a2a40; }
 [data-theme="dark"] .ah-guide-desc { color: #ccc; }
 [data-theme="dark"] .ah-guide-tip { color: #888; }
+[data-theme="dark"] .pb-ai-banner { background: linear-gradient(135deg, #2a2030 0%, #25203a 100%); border-color: #3a3050; }
+[data-theme="dark"] .pb-ai-banner-text { color: #bbb; }
+[data-theme="dark"] .pb-ai-banner-text strong { color: #CF8BA9; }
+[data-theme="dark"] .pb-page-btn { background: #2a2a40; border-color: #3a3a50; color: #bbb; }
+[data-theme="dark"] .pb-page-btn:hover:not(:disabled) { border-color: var(--primary-pink); color: var(--primary-pink); }
+[data-theme="dark"] .pb-page-info { color: #777; }
 [data-theme="dark"] .pb-helper-text, [data-theme="dark"] .ah-helper-text,
 [data-theme="dark"] .diary-section-hint, [data-theme="dark"] .diary-field-hint,
 [data-theme="dark"] .compat-compare-hint, [data-theme="dark"] .ai-match-desc { color: #777; }

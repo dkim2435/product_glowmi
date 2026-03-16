@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { PRODUCT_DB, PRODUCT_CATEGORIES } from '../../data/products'
 import ProductCard from '../common/ProductCard'
@@ -36,6 +36,11 @@ export default function ProductBrowser() {
   const [priceRange, setPriceRange] = useState('all')
   const [concern, setConcern] = useState('all')
   const [sortBy, setSortBy] = useState('rating')
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 12
+
+  // Reset page when filters change
+  useEffect(() => { setPage(1) }, [search, category, skinType, priceRange, concern, sortBy])
 
   const filtered = useMemo(() => {
     let products = [...PRODUCT_DB]
@@ -71,8 +76,18 @@ export default function ProductBrowser() {
     setSearch('')
   }
 
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+  const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
   return (
     <div className="product-browser">
+      <div className="pb-ai-banner">
+        <span className="pb-ai-banner-icon">🤖</span>
+        <div className="pb-ai-banner-text">
+          <strong>{t('Want personalized recommendations?', '맞춤 추천을 원하세요?')}</strong>
+          <span>{t('Try AI Beauty > Skin Analysis first, then ask AI Chat for products tailored to YOUR skin!', 'AI Beauty > 피부 분석 후 AI Chat에서 내 피부에 딱 맞는 제품을 추천받아 보세요!')}</span>
+        </div>
+      </div>
       <p className="pb-helper-text">{t(
         'Use filters to find products that match your skin type and concerns.',
         '필터를 조합하여 내 피부 타입과 고민에 맞는 제품을 찾아보세요.'
@@ -169,9 +184,21 @@ export default function ProductBrowser() {
             <button className="secondary-btn" onClick={clearFilters}>{t('Clear filters', '필터 초기화')}</button>
           </div>
         ) : (
-          filtered.map(p => <ProductCard key={p.id} product={p} />)
+          paged.map(p => <ProductCard key={p.id} product={p} />)
         )}
       </div>
+
+      {totalPages > 1 && (
+        <div className="pb-pagination">
+          <button className="pb-page-btn" disabled={page === 1} onClick={() => setPage(page - 1)}>
+            {t('← Prev', '← 이전')}
+          </button>
+          <span className="pb-page-info">{page} / {totalPages}</span>
+          <button className="pb-page-btn" disabled={page === totalPages} onClick={() => setPage(page + 1)}>
+            {t('Next →', '다음 →')}
+          </button>
+        </div>
+      )}
     </div>
   )
 }
