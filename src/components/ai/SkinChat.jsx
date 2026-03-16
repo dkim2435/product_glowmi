@@ -6,6 +6,18 @@ import { chatSkincare } from '../../lib/gemini'
 import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
 import { runAgentChat } from '../../lib/agent'
 
+/** Render markdown links [text](url) as clickable <a> tags */
+function renderChatText(text) {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g)
+  return parts.map((part, i) => {
+    const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (match) {
+      return <a key={i} href={match[2]} target="_blank" rel="noopener noreferrer nofollow" className="chat-link">{match[1]}</a>
+    }
+    return part
+  })
+}
+
 const SUGGESTED_QUESTIONS = [
   { en: 'Recommend a sunscreen for my skin', kr: '내 피부에 맞는 선크림 추천해줘', emoji: '☀️' },
   { en: 'Is my current routine good enough?', kr: '내 루틴 괜찮아?', emoji: '🧴' },
@@ -193,7 +205,7 @@ export default function SkinChat({ showToast }) {
 
         {messages.map((msg, i) => (
           <div key={i} className={'chat-bubble ' + (msg.role === 'user' ? 'user' : 'ai')}>
-            {msg.parts[0].text}
+            {msg.role === 'model' ? renderChatText(msg.parts[0].text) : msg.parts[0].text}
           </div>
         ))}
 

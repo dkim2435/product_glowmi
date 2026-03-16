@@ -44,7 +44,8 @@ export async function searchProductsRAG(query) {
     .filter(r => r.similarity >= 0.3)
     .map(r => {
       const p = r.metadata
-      return `${p.name} (${p.nameKr}) by ${p.brand} — ${p.category}, ${p.priceRange}, key ingredients: ${p.keyIngredients?.join(', ') || 'N/A'}, for: ${p.skinTypes?.join(', ') || 'all'}, concerns: ${p.skinConcerns?.join(', ') || 'general'}`
+      const amazonPart = p.amazonUrl ? ` | Amazon: ${p.amazonUrl}` : ''
+      return `${p.name} (${p.nameKr}) by ${p.brand} — ${p.category}, ${p.priceRange}, key ingredients: ${p.keyIngredients?.join(', ') || 'N/A'}, for: ${p.skinTypes?.join(', ') || 'all'}, concerns: ${p.skinConcerns?.join(', ') || 'general'}${amazonPart}`
     })
     .join('\n') || 'No matching products found.'
 }
