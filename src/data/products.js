@@ -78,7 +78,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "redness"],
     priceRange: "budget",
     description: "Cushiony amino acid foam cleanser enriched with Jeju green tea that gently cleanses while calming redness and maintaining hydration.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B0CX2QR1HR?tag=glowmi07-20"
   },
   {
     id: "round-lab-1025-dokdo-cleanser",
@@ -107,7 +108,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["redness", "dryness"],
     priceRange: "budget",
     description: "Ultra-gentle low-pH whip cleanser with 98.9% naturally derived ingredients, free of fragrance and parabens, ideal for sensitive skin.",
-    rating: 4.6
+    rating: 4.6,
+    amazonUrl: "https://www.amazon.com/dp/B092PTSDB4?tag=glowmi07-20"
   },
   {
     id: "innisfree-volcanic-pore-cleansing-foam",
@@ -121,7 +123,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["pores", "oiliness", "texture"],
     priceRange: "budget",
     description: "Deep-cleansing foam with Jeju volcanic ash and BHA that removes excess sebum, unclogs pores, and refines skin texture.",
-    rating: 4.2
+    rating: 4.2,
+    amazonUrl: "https://www.amazon.com/dp/B006XAG1U4?tag=glowmi07-20"
   },
   {
     id: "round-lab-birch-juice-moisturizing-cleanser",
@@ -135,7 +138,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "redness"],
     priceRange: "mid",
     description: "Soft gel-type low-pH cleanser with birch juice containing 17 amino acids and minerals that cleanses while delivering deep hydration.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B093W78YWZ?tag=glowmi07-20"
   },
   {
     id: "some-by-mi-aha-bha-pha-miracle-acne-cleanser",
@@ -149,7 +153,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["acne", "oiliness", "pores", "texture"],
     priceRange: "budget",
     description: "Triple-acid foam cleanser with tea tree extract that targets acne, exfoliates dead skin cells, and controls excess oil production.",
-    rating: 4.2
+    rating: 4.2,
+    amazonUrl: "https://www.amazon.com/dp/B07Q34Y99J?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -272,7 +277,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["redness", "texture", "dark_spots"],
     priceRange: "mid",
     description: "Gentle PHA toner with 84% centella asiatica extract that soothes sensitive skin, mildly exfoliates, brightens, and strengthens the barrier.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B07NS3T4W2?tag=glowmi07-20"
   },
   {
     id: "torriden-dive-in-low-molecular-hyaluronic-acid-toner",
@@ -549,7 +555,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["aging", "dryness", "texture"],
     priceRange: "premium",
     description: "Luxury anti-aging serum powered by Korean ginseng actives and ginseng peptide that firms skin, reduces wrinkles, and supports self-rejuvenation.",
-    rating: 4.6
+    rating: 4.6,
+    amazonUrl: "https://www.amazon.com/dp/B0BS769YGX?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -766,7 +773,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "aging"],
     priceRange: "mid",
     description: "Moisturizing sun cream with birch juice that hydrates while providing SPF50+ PA++++ broad-spectrum protection, ideal for dry and sensitive skin.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B0DNDL1CY9?tag=glowmi07-20"
   },
   {
     id: "innisfree-daily-uv-defense-sunscreen",
@@ -795,7 +803,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["aging", "oiliness"],
     priceRange: "budget",
     description: "Lightweight watery essence sunscreen that absorbs quickly with no white cast, providing daily broad-spectrum protection for all skin types.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B00ENTM3FY?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -843,7 +852,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "dark_spots", "texture"],
     priceRange: "budget",
     description: "Brightening overnight mask with 68% rice extract that intensively hydrates, evens skin tone, and improves texture for a radiant morning glow.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B01N13W31F?tag=glowmi07-20"
   },
   {
     id: "cosrx-ultimate-moisturizing-honey-overnight-mask",
@@ -857,7 +867,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "redness"],
     priceRange: "budget",
     description: "Versatile honey and propolis overnight mask that can be used as sleeping mask, wash-off mask, or moisturizer for deep soothing hydration.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B01MZCQM0V?tag=glowmi07-20"
   },
   {
     id: "sulwhasoo-first-care-activating-mask",
@@ -871,7 +882,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["aging", "dryness", "texture"],
     priceRange: "premium",
     description: "Luxury sheet mask infused with ginseng and herbal complex that delivers concentrated anti-aging and hydrating benefits in a single treatment.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B0CKWN8FQP?tag=glowmi07-20"
   },
   {
     id: "medicube-zero-pore-pad",
@@ -904,7 +916,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["aging", "dryness"],
     priceRange: "premium",
     description: "Luxury anti-aging eye cream with potent ginseng and retinol that targets wrinkles, firms delicate eye area skin, and provides intense nourishment.",
-    rating: 4.6
+    rating: 4.6,
+    amazonUrl: "https://www.amazon.com/dp/B09F3VSQG1?tag=glowmi07-20"
   },
   {
     id: "innisfree-jeju-orchid-eye-cream",
@@ -918,7 +931,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["aging", "dryness"],
     priceRange: "mid",
     description: "Firming eye cream with powerful orchid extract and peptides that improves elasticity, nourishes, and smooths tired under-eyes with quick absorption.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B08WZRDXK8?tag=glowmi07-20"
   },
   {
     id: "missha-misa-geum-sul-vitalizing-eye-cream",
@@ -932,7 +946,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["aging", "dryness", "dark_spots"],
     priceRange: "mid",
     description: "Luxurious eye cream with 24K gold and traditional hanbang ingredients that firms, moisturizes, and brightens the delicate eye area.",
-    rating: 4.2
+    rating: 4.2,
+    amazonUrl: "https://www.amazon.com/dp/B07ST4J39W?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -950,7 +965,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["pores", "texture", "acne"],
     priceRange: "budget",
     description: "Mild daily exfoliating toner with AHA and BHA that prepares skin by gently sweeping away dead cells and balancing pH for better product absorption.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B073P6BPF5?tag=glowmi07-20"
   },
   {
     id: "neogen-bio-peel-gauze-peeling-wine",
@@ -983,7 +999,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["acne", "redness"],
     priceRange: "budget",
     description: "Targeted spot treatment with centella asiatica and zinc oxide that calms active blemishes, reduces redness, and helps heal acne marks.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B00XY0ONRY?tag=glowmi07-20"
   },
   {
     id: "cosrx-acne-pimple-master-patch",
@@ -1012,7 +1029,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "oiliness"],
     priceRange: "mid",
     description: "Lightweight oil-free hydrating serum with 75.9% green tea extract and encapsulated hyaluronic acid that delivers 72-hour moisture without heaviness.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B09CQHJB4M?tag=glowmi07-20"
   },
   {
     id: "pyunkang-yul-moisture-serum",
@@ -1026,7 +1044,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "redness"],
     priceRange: "budget",
     description: "Minimalist 15-ingredient serum with olive oil and barberry root that naturally moisturizes, calms sensitivity, and reduces skin temperature.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B06ZZ8ND68?tag=glowmi07-20"
   },
   {
     id: "purito-centella-green-level-recovery-cream",
@@ -1085,7 +1104,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["dryness", "oiliness"],
     priceRange: "mid",
     description: "Lightweight fast-absorbing lotion enriched with deep seawater minerals that provides lasting hydration, leaving skin smooth, plump, and balanced.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B077Z13WKC?tag=glowmi07-20"
   },
   {
     id: "isntree-chestnut-aha-8-clear-essence",
@@ -1099,7 +1119,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["texture", "dark_spots", "pores", "aging"],
     priceRange: "mid",
     description: "Gentle 8% glycolic acid exfoliating essence with chestnut shell extract that smooths texture, fades dark spots, and unclogs pores.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B07VZY8KYB?tag=glowmi07-20"
   },
   {
     id: "tirtir-milk-skin-toner",
@@ -1128,7 +1149,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["aging", "texture", "dryness"],
     priceRange: "mid",
     description: "Advanced bio-fermented anti-aging essence with NAD+ technology that firms, lifts, and improves skin elasticity for a more youthful complexion.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B0DLKGLBPG?tag=glowmi07-20"
   },
   {
     id: "anua-heartleaf-70-daily-lotion",
@@ -1142,7 +1164,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["redness", "oiliness", "acne"],
     priceRange: "mid",
     description: "Lightweight daily lotion with 70% heartleaf extract that soothes redness, calms irritation, and provides balanced hydration for oily and sensitive skin.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B0CHZ6KJGQ?tag=glowmi07-20"
   },
   {
     id: "some-by-mi-snail-truecica-miracle-repair-serum",
@@ -1156,7 +1179,8 @@ export const PRODUCT_DB = [
     skinConcerns: ["acne", "redness", "texture", "dark_spots"],
     priceRange: "mid",
     description: "Repair serum with black snail mucin and centella asiatica that heals blemishes, fades acne marks, calms inflammation, and improves skin texture.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B07RT4JZQG?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -1175,7 +1199,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["PDRN"],
     description: "Olive Young No.1 serum and Glow Pick Awards winner with salmon-derived PDRN, multi-weight hyaluronic acid, and collagen that delivers intense hydration and plumping for glass skin.",
-    rating: 4.6
+    rating: 4.6,
+    amazonUrl: "https://www.amazon.com/dp/B0DLB58CWR?tag=glowmi07-20"
   },
   {
     id: "mixsoon-pdrn-collagen-cream",
@@ -1190,7 +1215,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["PDRN"],
     description: "Lightweight gel cream with plant-based PDRN, low-molecular collagen, and liposomal peptides that restores skin elasticity and firmness while brightening with rice ferment filtrate.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B0FJ8NWZZS?tag=glowmi07-20"
   },
   {
     id: "medicube-pdrn-pink-peptide-ampoule",
@@ -1221,7 +1247,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["PDRN", "Ceramides"],
     description: "Barrier-repair cream featuring 93.5% ultra-pure Alaska Salmon PDRN complex with 5 types of ceramides, clinically proven to improve skin barrier function by 199% in 7 days.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B0F8Q2S9HG?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -1240,7 +1267,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Exosomes"],
     description: "Exosome-coated spicule ampoule with lacto-exosome technology that delivers anti-inflammatory and pore-tightening effects, enhancing active ingredient uptake by 242%.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B0D137TMRB?tag=glowmi07-20"
   },
   {
     id: "medicube-zero-one-day-exosome-shot-2000",
@@ -1255,7 +1283,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Exosomes"],
     description: "Entry-level exosome-coated spicule ampoule for sensitive skin with gentler 2000 PPM concentration that refines pores and smooths skin texture with minimal irritation.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B0D16L5F2M?tag=glowmi07-20"
   },
   {
     id: "medicube-exosome-cica-calming-pad",
@@ -1270,7 +1299,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Exosomes", "Centella/Cica"],
     description: "Hypoallergenic calming toner pad with nano-sized exosome cica that is 5.3x more powerful than regular cica, featuring 12 types of centella for soothing sensitive and acne-prone skin.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B0DFG4MRC9?tag=glowmi07-20"
   },
   {
     id: "vt-cica-exosome-moisture-mask",
@@ -1301,7 +1331,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Exosomes", "PDRN", "Ceramides"],
     description: "Triple-trending-ingredient firming ampoule combining PDRN, exosomes, and ceramides with peptides for advanced anti-aging, wrinkle care, and deep hydration.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B0F4QRGK2N?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -1336,7 +1367,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Mugwort"],
     description: "Soothing repair cream with 73.55% mugwort extract that calms sensitive and troubled skin, reduces redness, and provides a healthy radiance. Vegan and cruelty-free.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B07TY8S6TZ?tag=glowmi07-20"
   },
   {
     id: "im-from-mugwort-mask",
@@ -1351,7 +1383,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Mugwort"],
     description: "Wash-off mask packed with real mugwort leaves from Ganghwa Island that deeply purifies pores, soothes irritation, and calms inflamed, troubled skin.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B07FPG3NQ7?tag=glowmi07-20"
   },
   {
     id: "bringgreen-artemisia-cera-calming-repair-cream",
@@ -1366,7 +1399,8 @@ export const PRODUCT_DB = [
     priceRange: "budget",
     trendingIngredients: ["Mugwort", "Ceramides"],
     description: "Vegan calming repair cream with Artemisia Ceramide complex that strengthens the skin moisture barrier, reduces redness, and soothes stressed and irritated sensitive skin.",
-    rating: 4.3
+    rating: 4.3,
+    amazonUrl: "https://www.amazon.com/dp/B0CL3RQBHC?tag=glowmi07-20"
   },
   {
     id: "bringgreen-artemisia-calming-ex-water-cream",
@@ -1381,7 +1415,8 @@ export const PRODUCT_DB = [
     priceRange: "budget",
     trendingIngredients: ["Mugwort"],
     description: "Lightweight water cream with low-molecular artemisia that synergizes with high-molecular soothing ingredients for effective calming, ideal for oily and combination skin.",
-    rating: 4.2
+    rating: 4.2,
+    amazonUrl: "https://www.amazon.com/dp/B0DKFJGN2H?tag=glowmi07-20"
   },
   {
     id: "bringgreen-artemisia-cera-calming-toner",
@@ -1396,7 +1431,8 @@ export const PRODUCT_DB = [
     priceRange: "budget",
     trendingIngredients: ["Mugwort", "Ceramides"],
     description: "Calming toner with artemisia ceramide complex that preps and hydrates sensitive skin while strengthening the moisture barrier and reducing irritation.",
-    rating: 4.2
+    rating: 4.2,
+    amazonUrl: "https://www.amazon.com/dp/B0CL3R5YW5?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -1467,7 +1503,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Ceramides"],
     description: "Olive Young Awards No.1 cream with long-chain and linker ceramides that provides 120-hour moisturization, repairs the damaged skin barrier, and protects sensitive skin from external irritants.",
-    rating: 4.6
+    rating: 4.6,
+    amazonUrl: "https://www.amazon.com/dp/B09YDCCJBJ?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -1486,7 +1523,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Centella/Cica"],
     description: "pH 4.5 soothing repair cream with madecassoside and beta-glucan that forms a moisture coating film preventing evaporation for 48 hours, proven for all trouble-prone sensitive skin types.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B09Z6L1FDC?tag=glowmi07-20"
   },
 
   // ============================================================
@@ -1540,7 +1578,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Mugwort"],
     description: "Concentrated mugwort serum that targets skin troubles and inflammation, calms reactive skin, and strengthens the natural skin barrier for healthy, balanced complexion.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B0CM37532R?tag=glowmi07-20"
   },
   {
     id: "bringgreen-artemisia-cera-calming-cleanser",
@@ -1555,7 +1594,8 @@ export const PRODUCT_DB = [
     priceRange: "budget",
     trendingIngredients: ["Mugwort", "Ceramides"],
     description: "pH-balanced gentle foam cleanser with artemisia ceramide complex that cleanses without stripping, soothes sensitive skin, and maintains the moisture barrier.",
-    rating: 4.1
+    rating: 4.1,
+    amazonUrl: "https://www.amazon.com/dp/B0CL3S7V3H?tag=glowmi07-20"
   },
   {
     id: "aestura-a-cica-365-hydrating-relief-toner",
@@ -1570,7 +1610,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Centella/Cica"],
     description: "pH 4.5 mildly acidic toner with madecassoside and beta-glucan that hydrates, calms sensitive skin, and preps the barrier for optimal absorption of subsequent skincare steps.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B0BZ3R8F9V?tag=glowmi07-20"
   },
   {
     id: "aestura-a-cica-365-soothing-relief-serum",
@@ -1585,7 +1626,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Centella/Cica"],
     description: "Soothing serum that pairs with A-Cica cream to strengthen the barrier up to 218%, featuring madecassoside for intensive calming and repair of stressed, trouble-prone skin.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B09Z6L7NRC?tag=glowmi07-20"
   },
   {
     id: "isntree-tranexamic-acid-glutathione-serum",
@@ -1615,7 +1657,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Heartleaf"],
     description: "Concentrated 80% heartleaf ampoule that delivers intense soothing and moisture to irritated and troubled skin, reducing redness and strengthening the barrier.",
-    rating: 4.5
+    rating: 4.5,
+    amazonUrl: "https://www.amazon.com/dp/B08CMVXQ9W?tag=glowmi07-20"
   },
   {
     id: "skin1004-centella-tone-brightening-capsule-ampoule",
@@ -1630,7 +1673,8 @@ export const PRODUCT_DB = [
     priceRange: "mid",
     trendingIngredients: ["Centella/Cica", "Tranexamic Acid", "Niacinamide"],
     description: "Triple-brightening ampoule combining centella with tranexamic acid, niacinamide, and glutathione that fades dark spots while calming sensitive skin.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B09C29LSCY?tag=glowmi07-20"
   },
   {
     id: "mixsoon-bean-essence",
@@ -1676,7 +1720,8 @@ export const PRODUCT_DB = [
     priceRange: "budget",
     trendingIngredients: ["Ceramides", "Centella/Cica"],
     description: "Lightweight gel moisturizer with ceramide capsule technology ideal for oily and combination skin that calms, hydrates, and reinforces the moisture barrier.",
-    rating: 4.4
+    rating: 4.4,
+    amazonUrl: "https://www.amazon.com/dp/B081PXPDQ9?tag=glowmi07-20"
   }
 ];
 
