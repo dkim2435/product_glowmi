@@ -7,12 +7,12 @@ import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
 import { runAgentChat } from '../../lib/agent'
 
 const SUGGESTED_QUESTIONS = [
-  { en: 'What ingredients suit my skin?', kr: '내 피부에 맞는 성분은?', emoji: '🧪' },
-  { en: 'Recommend a sunscreen for me', kr: '내 피부에 맞는 선크림 추천해줘', emoji: '☀️' },
-  { en: 'How should I build my routine?', kr: '루틴을 어떻게 짜야 해?', emoji: '🧴' },
-  { en: 'Is retinol safe for sensitive skin?', kr: '레티놀 민감성 피부에 괜찮아?', emoji: '💡' },
+  { en: 'Recommend a sunscreen for my skin', kr: '내 피부에 맞는 선크림 추천해줘', emoji: '☀️' },
+  { en: 'Is my current routine good enough?', kr: '내 루틴 괜찮아?', emoji: '🧴' },
+  { en: 'Best products for my skin concerns?', kr: '내 피부 고민에 맞는 제품은?', emoji: '🛍️' },
+  { en: 'What skincare fits today\'s weather?', kr: '오늘 날씨에 맞는 스킨케어는?', emoji: '🌤️' },
   { en: 'How to reduce dark spots?', kr: '다크스팟 줄이는 방법?', emoji: '✨' },
-  { en: 'Best moisturizer for dry skin?', kr: '건성 피부에 좋은 보습제?', emoji: '💧' },
+  { en: 'Can I use retinol with niacinamide?', kr: '레티놀이랑 나이아신아마이드 같이 써도 돼?', emoji: '🧪' },
 ]
 
 export default function SkinChat({ showToast }) {
@@ -171,6 +171,14 @@ export default function SkinChat({ showToast }) {
                   : t('Ask me anything about skincare, ingredients, or routines.', '스킨케어, 성분, 루틴에 대해 뭐든 물어보세요.')
                 }
               </div>
+              {(!userContext || userContext === 'No skin data available yet.') && (
+                <div className="chat-best-result-tip">
+                  {t(
+                    '💡 Tip: For the best results, try Skin / Color / Face analysis first — the AI will personalize answers to YOUR skin!',
+                    '💡 팁: 피부/컬러/얼굴형 분석을 먼저 하면 AI가 내 피부에 딱 맞는 답변을 해줘요!'
+                  )}
+                </div>
+              )}
             </div>
             <div className="chat-suggestions">
               <div className="chat-suggestions-label">{t('Popular questions:', '자주 묻는 질문:')}</div>
@@ -216,6 +224,16 @@ export default function SkinChat({ showToast }) {
         <button className="chat-send-btn" onClick={() => sendMessage(input)} disabled={loading || !input.trim()}>
           {t('Send', '전송')}
         </button>
+        {messages.length > 0 && (
+          <button
+            className="chat-clear-btn"
+            onClick={() => { setMessages([]); localStorage.removeItem(CHAT_STORAGE_KEY) }}
+            disabled={loading}
+            aria-label={t('Clear chat', '대화 지우기')}
+          >
+            {t('Clear', '지우기')}
+          </button>
+        )}
       </div>
     </div>
   )

@@ -7540,6 +7540,12 @@ body {
 .tool-status { font-size: 0.78rem; color: #CF8BA9; font-weight: 500; animation: toolPulse 1.5s infinite; }
 @keyframes toolPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
+.chat-clear-btn { background: none; border: 1px solid #ddd; border-radius: 20px; padding: 0.5rem 0.7rem; font-size: 0.78rem; color: #999; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+.chat-clear-btn:hover { border-color: #ff5252; color: #ff5252; }
+.chat-clear-btn:disabled { opacity: 0.4; cursor: default; }
+
+.chat-best-result-tip { margin-top: 0.6rem; padding: 0.5rem 0.7rem; background: #fff8e1; border-radius: 10px; font-size: 0.78rem; color: #e65100; line-height: 1.4; }
+
 .chat-suggestions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
 .chat-suggestion-chip { background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 0.35rem 0.8rem; font-size: 0.78rem; cursor: pointer; transition: all 0.15s; color: #555; }
 .chat-suggestion-chip:hover { border-color: #CF8BA9; color: #CF8BA9; background: #fff5f8; }
@@ -7631,6 +7637,9 @@ body {
 [data-theme="dark"] .chat-context-active { background: #1a2e1a; color: #6fcf97; }
 [data-theme="dark"] .chat-context-hint { background: #2e2a1a; color: #ffb74d; }
 [data-theme="dark"] .mypage-nav-btn.highlight { border-color: var(--primary-pink); color: var(--primary-pink); }
+[data-theme="dark"] .chat-clear-btn { border-color: #3a3a50; color: #777; }
+[data-theme="dark"] .chat-clear-btn:hover { border-color: #ff5252; color: #ff5252; }
+[data-theme="dark"] .chat-best-result-tip { background: #2e2a1a; color: #ffb74d; }
 
 /* ========== Nutrient Recommendations ========== */
 .nutrient-section-title {
