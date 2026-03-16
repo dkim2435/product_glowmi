@@ -1,92 +1,141 @@
-# Glowmi RAG Architecture
+# Glowmi AI Architecture — RAG + Agentic AI
 
 ## Overview
-RAG (Retrieval-Augmented Generation) pipeline that grounds SkinChat responses in our curated product/ingredient database — so the AI recommends real K-beauty products instead of generic advice.
+SkinChat uses a **Single Agent with Function Calling** powered by Gemini 2.5 Flash. The AI autonomously decides which tools to call based on the user's question — searching products, checking skin data, reading weather, etc. — then synthesizes a personalized answer grounded in real data.
 
-SkinChat에서 사용자 질문에 대해 우리 제품/성분 DB를 참고하여 맞춤 답변을 생성하는 RAG 파이프라인. AI가 일반론이 아닌 실제 K-뷰티 제품을 추천할 수 있게 해줌.
+SkinChat은 Gemini 2.5 Flash 기반 **Single Agent + Function Calling** 구조. AI가 사용자 질문을 보고 어떤 도구를 쓸지 자율적으로 판단 — 제품 검색, 피부 데이터 조회, 날씨 확인 등 — 실제 데이터 기반 맞춤 답변 생성.
 
-## Flow
+---
+
+## Architecture (Mermaid Diagram)
+
+```mermaid
+flowchart TD
+    A["👤 User Question<br/>사용자 질문"] --> B["🤖 Gemini 2.5 Flash<br/>Agent with Function Calling"]
+
+    B -->|"Decides which tools to call<br/>어떤 도구 쓸지 판단"| C{"Tool Calls?<br/>도구 호출?"}
+
+    C -->|Yes| D["⚡ Execute Tools<br/>도구 실행"]
+    C -->|No| H["💬 Final Answer<br/>최종 답변"]
+
+    D --> E["searchProducts 🛍️<br/>제품 DB 검색"]
+    D --> F["searchIngredients 🧪<br/>성분 DB 검색"]
+    D --> G["getUserSkinData 🔬<br/>피부 분석 결과"]
+    D --> I["getWeather ☀️<br/>날씨/UV 확인"]
+    D --> J["getUserRoutine 🧴<br/>AM/PM 루틴"]
+    D --> K["getUserDiary 📝<br/>피부 일지"]
+
+    E --> L["📊 Tool Results → Back to Agent<br/>결과를 에이전트에 피드백"]
+    F --> L
+    G --> L
+    I --> L
+    J --> L
+    K --> L
+
+    L --> B
+
+    H --> M["👤 User sees answer<br/>사용자에게 답변 표시"]
+
+    style B fill:#CF8BA9,color:#fff
+    style D fill:#A66A85,color:#fff
+    style H fill:#2e7d32,color:#fff
+```
+
+## Agent Loop Flow (에이전트 루프 플로우)
 
 ```
-User Question (사용자 질문)
+1. User sends question (사용자가 질문)
+2. Agent (Gemini) receives question + tool definitions (에이전트가 질문 + 도구 목록 받음)
+3. Agent decides: "I need searchProducts + getUserSkinData" (판단: "제품 검색 + 피부 데이터 필요")
+4. Tools execute in browser (브라우저에서 도구 실행)
+   └─ searchProducts → Embedding → pgvector cosine search → top 5 products
+   └─ getUserSkinData → Supabase query → skin scores
+5. Results sent back to Agent (결과를 에이전트에 피드백)
+6. Agent synthesizes final answer using tool results (도구 결과로 최종 답변 생성)
+7. If more data needed → loop back to step 3 (max 3 iterations)
+   추가 데이터 필요 시 → 3번으로 (최대 3회 반복)
+```
+
+---
+
+## 6 Agent Tools (6가지 에이전트 도구)
+
+| Tool (도구) | What it does (역할) | Data Source (데이터 소스) |
+|------|------|------|
+| `searchProducts` | Search K-beauty product DB by query (제품 검색) | Supabase pgvector (108 products) |
+| `searchIngredients` | Search ingredient DB by query (성분 검색) | Supabase pgvector (99 ingredients) |
+| `getUserSkinData` | Get user's skin scores, color type, skin type (피부 분석 결과) | Supabase `analysis_results` |
+| `getWeather` | Get current temp, humidity, UV index (날씨/UV) | localStorage cache (Open-Meteo API) |
+| `getUserRoutine` | Get user's AM/PM routine (AM/PM 루틴) | Supabase `routines` |
+| `getUserDiary` | Get last 14 days of skin diary (피부 일지) | Supabase `skin_diary` |
+
+---
+
+## RAG Pipeline (within searchProducts / searchIngredients)
+
+```
+Query text
     │
     ▼
-┌──────────────┐
-│  Embedding   │  Convert question to 768-dim vector via Gemini embedding-001
-│              │  질문을 768차원 벡터로 변환
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│ Vector Search│  Cosine similarity search in Supabase pgvector
-│  (pgvector)  │  Top 5 results, filtered by similarity > 0.3
-│              │  코사인 유사도로 가장 관련 있는 제품/성분 5개 검색
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│   Format     │  Format results as text (product name, brand, ingredients, skin types)
-│              │  검색 결과를 텍스트로 포맷
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│  Gemini LLM  │  User question + skin data + RAG context → personalized answer
-│ (2.5 Flash)  │  사용자 질문 + 피부 데이터 + RAG 컨텍스트 → 맞춤 답변 생성
-└──────────────┘
+Gemini embedding-001 → 768-dim vector (768차원 벡터)
+    │
+    ▼
+Supabase pgvector → cosine similarity search (코사인 유사도 검색)
+    │ Top 5 results, similarity > 0.3
+    ▼
+Formatted text → fed back to Agent (에이전트에 텍스트로 피드백)
 ```
+
+---
 
 ## Tech Stack
 
 | Component (구성요소) | Technology (기술) | Role (역할) |
 |---------|------|------|
-| Embedding (임베딩) | Gemini embedding-001 | Text → 768-dim vector (텍스트 → 768차원 벡터 변환) |
+| Agent / LLM | Gemini 2.5 Flash | Function calling + answer generation (도구 호출 판단 + 답변 생성) |
+| Embedding (임베딩) | Gemini embedding-001 | Text → 768-dim vector (텍스트 → 벡터 변환) |
 | Vector DB (벡터 DB) | Supabase pgvector | Vector storage + cosine similarity search (벡터 저장 + 유사도 검색) |
-| LLM | Gemini 2.5 Flash | Context-aware answer generation (컨텍스트 기반 답변 생성) |
+| User Data (사용자 데이터) | Supabase PostgreSQL | Skin results, routines, diary (피부 결과, 루틴, 일지) |
+| Weather (날씨) | Open-Meteo API + localStorage | Temperature, humidity, UV index |
 | Proxy (프록시) | Cloudflare Functions | Server-side API key protection (API 키 서버 사이드 보호) |
+| Frontend (프론트엔드) | React 18 + Vite 6 | Agent loop runs in browser (에이전트 루프 브라우저 실행) |
+
+---
 
 ## Data
 
-- **Products (제품)**: 108 items (K-beauty — cleansers, toners, serums, creams, sunscreens, etc.)
-- **Ingredients (성분)**: 99 items (actives, humectants, emollients, botanicals, etc.)
+- **Products (제품)**: 108 K-beauty products (cleansers, toners, serums, creams, sunscreens, etc.)
+- **Ingredients (성분)**: 99 skincare ingredients (actives, humectants, emollients, botanicals, etc.)
 - **Total embeddings (총 임베딩)**: 207, each 768 dimensions
 - **Search index (검색 인덱스)**: IVFFlat (lists=1, optimized for small dataset)
+
+---
 
 ## Key Files (주요 파일)
 
 | File (파일) | Role (역할) |
 |------|------|
-| `src/lib/rag.js` | Vector search + result formatting (벡터 검색 + 결과 포맷팅) |
-| `src/lib/gemini.js` | Gemini API calls (auto proxy/direct switch) + `getEmbedding()` |
-| `src/components/ai/SkinChat.jsx` | Injects RAG context into AI Chat (RAG 컨텍스트를 채팅에 주입) |
-| `functions/api/gemini.js` | Cloudflare Function — Gemini generateContent proxy |
-| `functions/api/embedding.js` | Cloudflare Function — Gemini embedding proxy |
-| `scripts/generate-embeddings.js` | Batch embedding generation (임베딩 일괄 생성, 일회성) |
+| `src/lib/agent.js` | **Agent loop + 6 tool definitions + tool executor** (에이전트 코어) |
+| `src/lib/rag.js` | Vector search: `searchProductsRAG()`, `searchIngredientsRAG()` (벡터 검색) |
+| `src/lib/gemini.js` | `callGeminiAgent()` for function calling + `getEmbedding()` |
+| `src/components/ai/SkinChat.jsx` | Chat UI + agent integration + fallback to RAG (채팅 UI + 에이전트 연동) |
+| `functions/api/gemini.js` | Cloudflare Function — Gemini API proxy |
+| `functions/api/embedding.js` | Cloudflare Function — Embedding API proxy |
+| `scripts/generate-embeddings.js` | Batch embedding generation (임베딩 일괄 생성) |
 | `scripts/supabase-rag-setup.sql` | pgvector table + RPC function SQL |
 
-## Supabase Schema
-
-```sql
--- embeddings table (임베딩 테이블)
-id text primary key          -- e.g. "product:cosrx-snail-mucin" or "ingredient:niacinamide"
-type text                    -- "product" or "ingredient"
-content text                 -- Original text used for embedding (임베딩 생성에 사용된 원본 텍스트)
-metadata jsonb               -- Source data (name, brand, category, etc.) (원본 데이터)
-embedding vector(768)        -- 768-dimensional vector (768차원 벡터)
-
--- RPC function: match_embeddings(query_embedding, match_count, filter_type)
--- Cosine similarity search → returns: id, type, content, metadata, similarity
--- 코사인 유사도 검색 → 결과: id, type, content, metadata, similarity
-```
+---
 
 ## Error Handling (에러 처리)
 
-- RAG search fails → chat continues without product context (graceful fallback)
-  RAG 검색 실패 시 → 제품 추천 없이 일반 대화 유지
-- Embedding API fails → falls back to non-RAG AI answer
-  임베딩 API 실패 시 → RAG 없이 일반 AI 답변
-- similarity < 0.3 → filtered out (irrelevant results excluded)
-  유사도 0.3 미만 → 필터링 (관련 없는 결과 제외)
+- **Agent fails** → falls back to RAG pipeline (에이전트 실패 → RAG 파이프라인으로 폴백)
+- **RAG fails** → falls back to plain AI chat (RAG 실패 → 일반 AI 대화)
+- **Individual tool fails** → returns error message, agent continues with other data (개별 도구 실패 → 에러 메시지 반환, 다른 데이터로 계속)
+- **Max 3 iterations** → prevents infinite agent loops (최대 3회 반복 → 무한 루프 방지)
+- **5-8s timeout per tool** → prevents hanging (도구당 5-8초 타임아웃)
+- **similarity < 0.3** → filtered out (유사도 0.3 미만 필터링)
+
+---
 
 ## API Key Flow (API 키 흐름)
 
@@ -102,12 +151,22 @@ Local Dev (로컬 개발):
   .env 파일에서 키 로드
 ```
 
-## Example: Before vs After RAG (RAG 적용 전후 비교)
+---
 
-**Without RAG (RAG 없이):**
-> User: "선크림 추천해줘"
-> AI: "SPF 50 이상의 선크림을 매일 사용하세요." (generic / 일반적)
+## Example Interactions (사용 예시)
 
-**With RAG (RAG 적용 후):**
+**Product recommendation (제품 추천):**
 > User: "선크림 추천해줘"
-> AI: "건성 피부시니까 **Beauty of Joseon Relief Sun**이나 **Skin1004 Hyaluronic Acid Watery Sun Gel** 추천해요!" (real products from our DB / 우리 DB의 실제 제품)
+> Agent calls: `getUserSkinData` → `searchProducts("sunscreen")`
+> Shows: "제품 검색 중..." → "피부 데이터 확인 중..."
+> Answer: "건성 피부시니까 **Beauty of Joseon Relief Sun** 추천해요! 프로바이오틱스 성분이라 보습도 되고..."
+
+**Weather-aware advice (날씨 맞춤 조언):**
+> User: "오늘 스킨케어 어떻게 해?"
+> Agent calls: `getWeather` → `getUserSkinData` → `searchProducts`
+> Answer: "오늘 UV 지수가 7로 높네요! SPF 50 필수고, 습도가 낮으니 히알루론산 세럼 추천..."
+
+**Routine optimization (루틴 최적화):**
+> User: "내 루틴 괜찮아?"
+> Agent calls: `getUserRoutine` → `getUserSkinData` → `searchIngredients`
+> Answer: "AM 루틴에 비타민C 세럼이 빠져 있네요. 건성 피부에 항산화 보호가 중요하니..."

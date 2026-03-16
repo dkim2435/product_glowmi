@@ -79,16 +79,18 @@ async function executeToolCall(name, args, userId) {
       case 'getWeather': {
         const w = getWeatherCache()
         if (!w) return 'Weather data not available.'
-        return `Temperature: ${w.temperature}°C, Humidity: ${w.humidity}%, UV Index: ${w.uvIndex}, Condition: ${w.description || 'unknown'}`
+        return `Temperature: ${w.temp}°C, Humidity: ${w.humidity}%, UV Index: ${w.uvIndex}`
       }
       case 'getUserRoutine': {
         if (!userId) return 'User not logged in.'
-        const routines = await withTimeout(loadRoutines(userId), 5000)
-        if (!routines?.am?.length && !routines?.pm?.length) return 'No routine saved yet.'
+        const routineRows = await withTimeout(loadRoutines(userId), 5000)
+        if (!routineRows?.length) return 'No routine saved yet.'
+        const am = routineRows.find(r => r.routine_type === 'am')
+        const pm = routineRows.find(r => r.routine_type === 'pm')
         const lines = []
-        if (routines.am?.length) lines.push('AM: ' + routines.am.map(s => `${s.category}: ${s.name}`).join(' → '))
-        if (routines.pm?.length) lines.push('PM: ' + routines.pm.map(s => `${s.category}: ${s.name}`).join(' → '))
-        return lines.join('\n')
+        if (am?.steps?.length) lines.push('AM: ' + am.steps.map(s => `${s.category}: ${s.name}`).join(' → '))
+        if (pm?.steps?.length) lines.push('PM: ' + pm.steps.map(s => `${s.category}: ${s.name}`).join(' → '))
+        return lines.length > 0 ? lines.join('\n') : 'No routine saved yet.'
       }
       case 'getUserDiary': {
         if (!userId) return 'User not logged in.'
@@ -160,13 +162,14 @@ RULES:
     const parts = data?.candidates?.[0]?.content?.parts
     if (!parts?.length) throw new Error('Empty response from agent')
 
-    // Check for text (final answer)
-    const textPart = parts.find(p => p.text)
-    if (textPart) return textPart.text
-
-    // Check for function calls
+    // Check for function calls first (prioritize tool use over text)
     const functionCalls = parts.filter(p => p.functionCall)
-    if (functionCalls.length === 0) throw new Error('No text or function calls in response')
+    if (functionCalls.length === 0) {
+      // No function calls — check for text (final answer)
+      const textPart = parts.find(p => p.text)
+      if (textPart) return textPart.text
+      throw new Error('No text or function calls in response')
+    }
 
     // Add model response to conversation
     contents.push({ role: 'model', parts })
