@@ -4,6 +4,7 @@ import { useLang } from '../../context/LanguageContext'
 import { loadAnalysisResults } from '../../lib/db'
 import { chatSkincare } from '../../lib/gemini'
 import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
+import { runAgentChat } from '../../lib/agent'
 
 const SUGGESTED_QUESTIONS = [
   { en: 'What ingredients suit my skin?', kr: '내 피부에 맞는 성분은?', emoji: '🧪' },
@@ -26,6 +27,7 @@ export default function SkinChat({ showToast }) {
   })
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [toolStatus, setToolStatus] = useState(null)
   const [userContext, setUserContext] = useState(null)
 
   useEffect(() => {
@@ -70,22 +72,34 @@ export default function SkinChat({ showToast }) {
     try {
       const history = newMessages.filter(m => !m.isError).slice(-10)
 
-      // RAG: 관련 제품/성분 검색 (실패해도 기존 대화 유지)
-      let ragContext = ''
+      // Try agentic approach first (AI decides which tools to call)
+      let response
       try {
-        const results = await searchRelevantContext(text.trim())
-        ragContext = formatRAGContext(results)
-      } catch (ragErr) {
-        console.warn('RAG search skipped:', ragErr.message)
+        response = await runAgentChat(history, user?.id, userContext, {
+          onToolCall: (label) => setToolStatus(t(label.en, label.kr))
+        })
+      } catch (agentErr) {
+        console.warn('Agent mode failed, falling back to RAG:', agentErr.message)
+        setToolStatus(null)
+        // Fallback: existing RAG pipeline
+        let ragContext = ''
+        try {
+          const results = await searchRelevantContext(text.trim())
+          ragContext = formatRAGContext(results)
+        } catch (ragErr) {
+          console.warn('RAG search skipped:', ragErr.message)
+        }
+        response = await chatSkincare(history, userContext || 'No skin data available.', ragContext || undefined)
       }
 
-      const response = await chatSkincare(history, userContext || 'No skin data available.', ragContext || undefined)
+      setToolStatus(null)
       setMessages(prev => [...prev, { role: 'model', parts: [{ text: response }] }])
     } catch (e) {
       console.error('Chat error:', e)
       setMessages(prev => [...prev, { role: 'model', parts: [{ text: t('Sorry, I had trouble responding. Please try again.', '죄송합니다, 응답에 문제가 있었습니다. 다시 시도해주세요.') }], isError: true }])
     }
     setLoading(false)
+    setToolStatus(null)
   }
 
   function handleInputFocus() {
@@ -177,7 +191,10 @@ export default function SkinChat({ showToast }) {
 
         {loading && (
           <div className="chat-bubble ai chat-typing">
-            <span className="typing-dot" /><span className="typing-dot" /><span className="typing-dot" />
+            {toolStatus
+              ? <span className="tool-status">{toolStatus}</span>
+              : <><span className="typing-dot" /><span className="typing-dot" /><span className="typing-dot" /></>
+            }
           </div>
         )}
 

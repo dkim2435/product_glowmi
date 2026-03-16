@@ -7537,6 +7537,9 @@ body {
 .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
 
+.tool-status { font-size: 0.78rem; color: #CF8BA9; font-weight: 500; animation: toolPulse 1.5s infinite; }
+@keyframes toolPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
 .chat-suggestions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
 .chat-suggestion-chip { background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 0.35rem 0.8rem; font-size: 0.78rem; cursor: pointer; transition: all 0.15s; color: #555; }
 .chat-suggestion-chip:hover { border-color: #CF8BA9; color: #CF8BA9; background: #fff5f8; }
