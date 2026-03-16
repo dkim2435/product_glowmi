@@ -332,7 +332,7 @@ When recommending products or ingredients, prefer items from the reference data 
   return await callGeminiText('', {
     contents,
     temperature: 0.7,
-    maxOutputTokens: 512,
+    maxOutputTokens: 1024,
     rawText: true
   })
 }
