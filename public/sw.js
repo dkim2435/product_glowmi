@@ -1,4 +1,4 @@
-const CACHE_NAME = 'glowmi-v3'
+const CACHE_NAME = 'glowmi-v4'
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
