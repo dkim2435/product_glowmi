@@ -298,6 +298,19 @@ export async function getEmbedding(text) {
 }
 
 /**
+ * Raw Gemini API call for agentic use — supports tools/function calling.
+ * Returns the full parsed JSON response (not just text).
+ */
+export async function callGeminiAgent(body) {
+  const res = await postToGemini(body)
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '')
+    throw new Error(`Gemini API error ${res.status}: ${errText}`)
+  }
+  return await res.json()
+}
+
+/**
  * AI skincare chat — multi-turn conversation with optional RAG context.
  */
 export async function chatSkincare(conversationHistory, userContext, ragContext) {

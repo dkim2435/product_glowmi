@@ -29,6 +29,48 @@ export async function searchRelevantContext(query) {
 }
 
 /**
+ * 제품만 검색 (agent 도구용).
+ */
+export async function searchProductsRAG(query) {
+  const embedding = await getEmbedding(query)
+  const { data, error } = await supabase.rpc('match_embeddings', {
+    query_embedding: JSON.stringify(embedding),
+    match_count: 5,
+    filter_type: 'product',
+  })
+  if (error) throw error
+  if (!data?.length) return 'No matching products found.'
+  return data
+    .filter(r => r.similarity >= 0.3)
+    .map(r => {
+      const p = r.metadata
+      return `${p.name} (${p.nameKr}) by ${p.brand} — ${p.category}, ${p.priceRange}, key ingredients: ${p.keyIngredients?.join(', ') || 'N/A'}, for: ${p.skinTypes?.join(', ') || 'all'}, concerns: ${p.skinConcerns?.join(', ') || 'general'}`
+    })
+    .join('\n') || 'No matching products found.'
+}
+
+/**
+ * 성분만 검색 (agent 도구용).
+ */
+export async function searchIngredientsRAG(query) {
+  const embedding = await getEmbedding(query)
+  const { data, error } = await supabase.rpc('match_embeddings', {
+    query_embedding: JSON.stringify(embedding),
+    match_count: 5,
+    filter_type: 'ingredient',
+  })
+  if (error) throw error
+  if (!data?.length) return 'No matching ingredients found.'
+  return data
+    .filter(r => r.similarity >= 0.3)
+    .map(r => {
+      const ing = r.metadata
+      return `${ing.name} (${ing.nameKr}) — ${ing.category}, rating: ${ing.rating}, comedogenic: ${ing.comedogenic}/5, irritation: ${ing.irritation}/5. ${ing.description}`
+    })
+    .join('\n') || 'No matching ingredients found.'
+}
+
+/**
  * RAG 검색 결과를 Gemini 프롬프트용 텍스트로 포맷.
  */
 export function formatRAGContext(results) {
