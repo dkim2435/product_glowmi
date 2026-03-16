@@ -1,5 +1,12 @@
 import { supabase } from './supabase'
 import { getEmbedding } from './gemini'
+import { PRODUCT_DB } from '../data/products'
+
+// Quick lookup: product id → amazonUrl
+const AMAZON_MAP = {}
+for (const p of PRODUCT_DB) {
+  if (p.amazonUrl) AMAZON_MAP[p.id] = p.amazonUrl
+}
 
 /**
  * 사용자 질문으로 관련 제품/성분을 벡터 검색.
@@ -44,7 +51,8 @@ export async function searchProductsRAG(query) {
     .filter(r => r.similarity >= 0.3)
     .map(r => {
       const p = r.metadata
-      const amazonPart = p.amazonUrl ? ` | Amazon: ${p.amazonUrl}` : ''
+      const amazonUrl = p.amazonUrl || AMAZON_MAP[r.id?.replace('product:', '')] || ''
+      const amazonPart = amazonUrl ? ` | Amazon: ${amazonUrl}` : ''
       return `${p.name} (${p.nameKr}) by ${p.brand} — ${p.category}, ${p.priceRange}, key ingredients: ${p.keyIngredients?.join(', ') || 'N/A'}, for: ${p.skinTypes?.join(', ') || 'all'}, concerns: ${p.skinConcerns?.join(', ') || 'general'}${amazonPart}`
     })
     .join('\n') || 'No matching products found.'
