@@ -85,11 +85,14 @@ export default function SkinChat({ showToast }) {
       const history = newMessages.filter(m => !m.isError).slice(-10)
 
       // Try agentic approach first (AI decides which tools to call)
-      let response
+      let responseText
+      let responseProducts = []
       try {
-        response = await runAgentChat(history, user?.id, userContext, {
+        const agentResult = await runAgentChat(history, user?.id, userContext, {
           onToolCall: (label) => setToolStatus(t(label.en, label.kr))
         })
+        responseText = agentResult.text
+        responseProducts = agentResult.products || []
       } catch (agentErr) {
         console.warn('Agent mode failed, falling back to RAG:', agentErr.message)
         setToolStatus(null)
@@ -101,11 +104,13 @@ export default function SkinChat({ showToast }) {
         } catch (ragErr) {
           console.warn('RAG search skipped:', ragErr.message)
         }
-        response = await chatSkincare(history, userContext || 'No skin data available.', ragContext || undefined)
+        responseText = await chatSkincare(history, userContext || 'No skin data available.', ragContext || undefined)
       }
 
       setToolStatus(null)
-      setMessages(prev => [...prev, { role: 'model', parts: [{ text: response }] }])
+      const aiMsg = { role: 'model', parts: [{ text: responseText }] }
+      if (responseProducts.length > 0) aiMsg.products = responseProducts
+      setMessages(prev => [...prev, aiMsg])
     } catch (e) {
       console.error('Chat error:', e)
       setMessages(prev => [...prev, { role: 'model', parts: [{ text: t('Sorry, I had trouble responding. Please try again.', '죄송합니다, 응답에 문제가 있었습니다. 다시 시도해주세요.') }], isError: true }])
@@ -206,6 +211,19 @@ export default function SkinChat({ showToast }) {
         {messages.map((msg, i) => (
           <div key={i} className={'chat-bubble ' + (msg.role === 'user' ? 'user' : 'ai')}>
             {msg.role === 'model' ? renderChatText(msg.parts[0].text) : msg.parts[0].text}
+            {msg.products?.length > 0 && (
+              <div className="chat-product-cards">
+                <div className="chat-product-label">{t('🛒 Recommended Products — click to buy', '🛒 추천 제품 — 클릭하면 구매 사이트로 이동')}</div>
+                {msg.products.map((p, j) => (
+                  <a key={j} href={p.amazonUrl} target="_blank" rel="noopener noreferrer nofollow" className="chat-product-card">
+                    <span className="chat-product-name">{p.name}</span>
+                    {p.nameKr && <span className="chat-product-name-kr">{p.nameKr}</span>}
+                    <span className="chat-product-brand">{p.brand}</span>
+                    <span className="chat-product-buy">{t('Buy on Amazon →', '아마존에서 구매 →')}</span>
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         ))}
 

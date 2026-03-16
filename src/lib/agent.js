@@ -2,6 +2,34 @@ import { callGeminiAgent } from './gemini'
 import { searchProductsRAG, searchIngredientsRAG } from './rag'
 import { loadAnalysisResults, loadRoutines, loadDiaryEntries } from './db'
 import { getWeatherCache } from './storage'
+import { PRODUCT_DB } from '../data/products'
+
+// Quick lookup for matching product names to DB entries with Amazon URLs
+function findMatchingProducts(toolResults) {
+  const matched = []
+  const seen = new Set()
+  for (const result of toolResults) {
+    if (!result.includes('Amazon:')) continue
+    // Each line has "ProductName (한국어) by Brand ... | Amazon: URL"
+    for (const line of result.split('\n')) {
+      const amazonMatch = line.match(/\| Amazon: (https:\/\/[^\s]+)/)
+      const nameMatch = line.match(/^(.+?) \(/)
+      if (amazonMatch && nameMatch) {
+        const name = nameMatch[1].trim()
+        if (seen.has(name)) continue
+        seen.add(name)
+        // Find in PRODUCT_DB for full info
+        const dbProduct = PRODUCT_DB.find(p => p.name === name)
+        if (dbProduct) {
+          matched.push({ name: dbProduct.name, nameKr: dbProduct.nameKr, brand: dbProduct.brand, amazonUrl: amazonMatch[1] })
+        } else {
+          matched.push({ name, nameKr: '', brand: '', amazonUrl: amazonMatch[1] })
+        }
+      }
+    }
+  }
+  return matched.slice(0, 5)
+}
 
 const MAX_ITERATIONS = 3
 
@@ -153,6 +181,7 @@ RULES:
   ]
 
   const tools = [{ functionDeclarations: TOOL_DECLARATIONS }]
+  const allToolResults = [] // collect searchProducts results for product cards
 
   for (let i = 0; i < MAX_ITERATIONS; i++) {
     const data = await callGeminiAgent({
@@ -169,7 +198,10 @@ RULES:
     if (functionCalls.length === 0) {
       // No function calls — check for text (final answer)
       const textPart = parts.find(p => p.text)
-      if (textPart) return textPart.text
+      if (textPart) {
+        const products = findMatchingProducts(allToolResults)
+        return { text: textPart.text, products }
+      }
       throw new Error('No text or function calls in response')
     }
 
@@ -183,6 +215,12 @@ RULES:
       if (label) opts.onToolCall?.(label)
 
       const result = await executeToolCall(fc.functionCall.name, fc.functionCall.args, userId)
+
+      // Track searchProducts results for product cards
+      if (fc.functionCall.name === 'searchProducts' && typeof result === 'string') {
+        allToolResults.push(result)
+      }
+
       responseParts.push({
         functionResponse: {
           name: fc.functionCall.name,
