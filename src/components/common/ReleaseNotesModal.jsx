@@ -1,23 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.2.1'
+const APP_VERSION = '2.3.1'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '📝',
+    emoji: '🧠',
     title: `What's New in v${APP_VERSION}`,
-    titleKr: `v${APP_VERSION} 콘텐츠 대업데이트!`,
-    desc: 'New standalone pages, 6 new blog posts, and expanded content for AdSense compliance.',
-    descKr: '독립 페이지 추가, 블로그 6개 신규 작성, 기존 블로그 보강!',
+    titleKr: `v${APP_VERSION} AI 상담 대폭 업그레이드!`,
+    desc: 'AI Chat now recommends products and ingredients from our database for truly personalized advice.',
+    descKr: 'AI 상담이 우리 DB의 제품/성분 데이터를 활용해서 진짜 맞춤 추천을 해줍니다.',
     items: [
-      { emoji: '📄', label: 'Legal Pages', labelKr: '법적 페이지', desc: 'Standalone About, Contact, Privacy, and Terms pages now live at their own URLs.', descKr: 'About, Contact, Privacy, Terms 페이지가 독립 URL로 접근 가능합니다.' },
-      { emoji: '✍️', label: '6 New Blog Posts', labelKr: '블로그 6개 추가', desc: 'Double cleansing, dry skin routine, snail mucin, retinol, niacinamide, and AI skin analysis guides.', descKr: '더블클렌징, 건성 루틴, 달팽이 뮤신, 레티놀, 나이아신아마이드, AI 피부분석 가이드.' },
-      { emoji: '📈', label: 'Blog Expansion', labelKr: '기존 블로그 보강', desc: '3 existing blog posts expanded from ~250 to 800+ words with deeper content.', descKr: '기존 블로그 3개를 250단어에서 800+ 단어로 대폭 보강했습니다.' },
-      { emoji: '🔗', label: 'Better Navigation', labelKr: '네비게이션 개선', desc: 'Footer links now crawlable by search engines. Blog footers include legal page links.', descKr: '푸터 링크를 검색엔진이 인식할 수 있게 개선하고, 블로그 푸터에 법적 페이지 링크를 추가했습니다.' },
+      { emoji: '🔍', label: 'Smart Search', labelKr: '스마트 검색', desc: 'Chat now searches 100+ K-Beauty products and ingredients to match your question.', descKr: '100개 이상의 K-뷰티 제품과 성분을 검색해서 질문에 맞는 답변을 드려요.' },
+      { emoji: '💬', label: 'Better Recommendations', labelKr: '정확한 추천', desc: 'Get specific product names and brands tailored to your skin profile.', descKr: '피부 프로필에 맞는 구체적인 제품명과 브랜드를 추천해드려요.' },
     ],
   },
 ]
