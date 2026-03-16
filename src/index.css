@@ -2193,6 +2193,11 @@ body {
   color: var(--primary-pink);
 }
 
+.sub-tab-highlight { border: 1.5px solid var(--primary-pink); color: var(--primary-pink); font-weight: 600; position: relative; }
+.sub-tab-highlight::after { content: ''; position: absolute; top: 2px; right: 2px; width: 6px; height: 6px; background: #ff5252; border-radius: 50%; }
+.sub-tab-highlight.active { border-color: transparent; }
+.sub-tab-highlight.active::after { display: none; }
+
 .beta-badge {
   display: inline-block;
   background: #16a34a;
