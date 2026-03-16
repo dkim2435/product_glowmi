@@ -7923,6 +7923,8 @@ body {
   border-radius: 20px;
   border: 1px solid rgba(108, 92, 231, 0.15);
 }
+a.brand-chip-link { text-decoration: none; cursor: pointer; transition: all 0.15s; }
+a.brand-chip-link:hover { background: linear-gradient(135deg, #e8e4ff, #d8d0ff); border-color: #6c5ce7; box-shadow: 0 1px 4px rgba(108, 92, 231, 0.2); }
 
 .ktrend-brand-card .ktrend-brand-top {
   display: flex;

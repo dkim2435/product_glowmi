@@ -2,6 +2,27 @@ import { useState } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { TRENDING_INGREDIENTS } from '../../data/trendingIngredients'
 import { KTREND_METHODS, KTREND_PHILOSOPHY, KTREND_BRANDS } from '../../data/ktrends'
+import { PRODUCT_DB } from '../../data/products'
+
+// Match product display name to DB entry for Amazon link
+const productAmazonMap = {}
+for (const p of PRODUCT_DB) {
+  if (p.amazonUrl) {
+    productAmazonMap[p.name.toLowerCase()] = p.amazonUrl
+    if (p.nameKr) productAmazonMap[p.nameKr] = p.amazonUrl
+  }
+}
+
+function findAmazonUrl(displayName) {
+  // Try exact match first
+  const lower = displayName.toLowerCase().trim()
+  if (productAmazonMap[lower]) return productAmazonMap[lower]
+  // Try partial match
+  for (const [key, url] of Object.entries(productAmazonMap)) {
+    if (lower.includes(key) || key.includes(lower)) return url
+  }
+  return null
+}
 
 const SECTIONS = [
   { id: 'ingredients', emoji: '🧪', label: 'Trending Ingredients', labelKr: '트렌딩 성분' },
@@ -49,9 +70,12 @@ export default function KTrends() {
                   <h4>{t(ing.name, ing.nameKr)}</h4>
                   <p className="ktrend-card-desc">{t(ing.desc, ing.descKr)}</p>
                   <div className="ktrend-card-products">
-                    {ing.products.map((p, j) => (
-                      <span key={j} className="brand-chip">{p}</span>
-                    ))}
+                    {ing.products.map((p, j) => {
+                      const url = findAmazonUrl(p)
+                      return url
+                        ? <a key={j} className="brand-chip brand-chip-link" href={url} target="_blank" rel="noopener noreferrer nofollow">{p}</a>
+                        : <span key={j} className="brand-chip">{p}</span>
+                    })}
                   </div>
                 </div>
               ))}
@@ -76,7 +100,13 @@ export default function KTrends() {
                     <span className="ktrend-brand-emoji">{b.emoji}</span>
                     <div>
                       <h4>{b.name}</h4>
-                      <span className="brand-chip">{t(b.hero, b.heroKr)}</span>
+                      {(() => {
+                        const heroText = t(b.hero, b.heroKr)
+                        const url = findAmazonUrl(b.hero)
+                        return url
+                          ? <a className="brand-chip brand-chip-link" href={url} target="_blank" rel="noopener noreferrer nofollow">{heroText}</a>
+                          : <span className="brand-chip">{heroText}</span>
+                      })()}
                     </div>
                   </div>
                   <p className="ktrend-card-desc">{t(b.note, b.noteKr)}</p>

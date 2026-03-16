@@ -213,13 +213,13 @@ export default function SkinChat({ showToast }) {
             {msg.role === 'model' ? renderChatText(msg.parts[0].text) : msg.parts[0].text}
             {msg.products?.length > 0 && (
               <div className="chat-product-cards">
-                <div className="chat-product-label">{t('🛒 Recommended Products — click to buy', '🛒 추천 제품 — 클릭하면 구매 사이트로 이동')}</div>
+                <div className="chat-product-label">{t('🛒 Related Products', '🛒 관련 제품')}</div>
                 {msg.products.map((p, j) => (
                   <a key={j} href={p.amazonUrl} target="_blank" rel="noopener noreferrer nofollow" className="chat-product-card">
                     <span className="chat-product-name">{p.name}</span>
                     {p.nameKr && <span className="chat-product-name-kr">{p.nameKr}</span>}
                     <span className="chat-product-brand">{p.brand}</span>
-                    <span className="chat-product-buy">{t('Buy on Amazon →', '아마존에서 구매 →')}</span>
+                    <span className="chat-product-buy">{t('View on Amazon →', '아마존에서 보기 →')}</span>
                   </a>
                 ))}
               </div>
