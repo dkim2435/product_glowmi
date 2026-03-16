@@ -6,10 +6,12 @@ import { chatSkincare } from '../../lib/gemini'
 import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
 
 const SUGGESTED_QUESTIONS = [
-  { en: 'What ingredients suit my skin?', kr: '내 피부에 맞는 성분은?' },
-  { en: 'How should I build my routine?', kr: '루틴을 어떻게 짜야 해?' },
-  { en: 'Is retinol safe for sensitive skin?', kr: '레티놀 민감성 피부에 괜찮아?' },
-  { en: 'What SPF should I use daily?', kr: '매일 선크림 어떤거?' }
+  { en: 'What ingredients suit my skin?', kr: '내 피부에 맞는 성분은?', emoji: '🧪' },
+  { en: 'Recommend a sunscreen for me', kr: '내 피부에 맞는 선크림 추천해줘', emoji: '☀️' },
+  { en: 'How should I build my routine?', kr: '루틴을 어떻게 짜야 해?', emoji: '🧴' },
+  { en: 'Is retinol safe for sensitive skin?', kr: '레티놀 민감성 피부에 괜찮아?', emoji: '💡' },
+  { en: 'How to reduce dark spots?', kr: '다크스팟 줄이는 방법?', emoji: '✨' },
+  { en: 'Best moisturizer for dry skin?', kr: '건성 피부에 좋은 보습제?', emoji: '💧' },
 ]
 
 export default function SkinChat({ showToast }) {
@@ -106,12 +108,29 @@ export default function SkinChat({ showToast }) {
 
   if (!user) {
     return (
-      <div className="chat-login-prompt">
-        <span className="chat-login-icon">💬</span>
-        <p>{t('Sign up to chat with your AI skincare advisor!', '가입하고 AI 스킨케어 상담을 받아보세요!')}</p>
-        <button className="primary-btn" onClick={loginWithGoogle} style={{ marginTop: '0.8rem' }}>
-          {t('Sign up / Login', '가입 / 로그인')}
+      <div className="chat-login-prompt chat-login-enhanced">
+        <div className="chat-promo-header">
+          <span className="chat-promo-icon">🤖</span>
+          <h3>{t('AI Skincare Advisor', 'AI 스킨케어 상담사')}</h3>
+          <p className="chat-promo-desc">
+            {t(
+              'Get personalized skincare advice based on YOUR skin analysis results — powered by AI.',
+              'AI가 내 피부 분석 결과를 바탕으로 맞춤 스킨케어 조언을 해줘요.'
+            )}
+          </p>
+        </div>
+        <div className="chat-promo-examples">
+          <p className="chat-promo-label">{t('Try asking:', '이런 질문을 해보세요:')}</p>
+          {SUGGESTED_QUESTIONS.slice(0, 4).map((q, i) => (
+            <div key={i} className="chat-promo-example">
+              <span>{q.emoji}</span> {t(q.en, q.kr)}
+            </div>
+          ))}
+        </div>
+        <button className="primary-btn signup-cta-btn" onClick={loginWithGoogle}>
+          {t('Start Free AI Chat', '무료 AI 상담 시작하기')}
         </button>
+        <p className="signup-cta-note">{t('Free with Google sign-up — no credit card needed.', 'Google 가입으로 무료 — 카드 정보 불필요.')}</p>
       </div>
     )
   }
@@ -119,25 +138,35 @@ export default function SkinChat({ showToast }) {
   return (
     <div className="skin-chat" ref={chatRef}>
       <div className="chat-header">
-        <h4>{'💬 ' + t('AI Skincare Chat', 'AI 스킨케어 상담')}</h4>
-        {userContext && userContext !== 'No skin data available yet.' && (
-          <span className="chat-context-badge">{t('Using your skin data', '피부 데이터 활용 중')}</span>
+        <h4>{'🤖 ' + t('AI Skincare Advisor', 'AI 스킨케어 상담사')}</h4>
+        {userContext && userContext !== 'No skin data available yet.' ? (
+          <span className="chat-context-badge chat-context-active">{t('Personalized to YOUR skin', '내 피부 맞춤 답변 중')}</span>
+        ) : (
+          <span className="chat-context-badge chat-context-hint">{t('Analyze skin first for personalized advice', '피부 분석하면 맞춤 답변 가능!')}</span>
         )}
       </div>
 
       <div className="chat-messages">
-        <div className="chat-bubble ai">
-          {t('Hi! Ask me anything about skincare. I can give personalized advice based on your skin analysis.', '안녕하세요! 스킨케어에 대해 무엇이든 물어보세요. 피부 분석 결과를 바탕으로 맞춤 조언을 드릴게요.')}
-        </div>
-
         {messages.length === 0 && (
-          <div className="chat-suggestions">
-            {SUGGESTED_QUESTIONS.map((q, i) => (
-              <button key={i} className="chat-suggestion-chip" onClick={() => sendMessage(t(q.en, q.kr))}>
-                {t(q.en, q.kr)}
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="chat-welcome-card">
+              <div className="chat-welcome-title">{t('Hi! I\'m your AI skincare advisor.', '안녕하세요! AI 스킨케어 상담사예요.')}</div>
+              <div className="chat-welcome-desc">
+                {userContext && userContext !== 'No skin data available yet.'
+                  ? t('I\'m using your skin analysis to give personalized answers!', '피부 분석 결과를 활용해서 맞춤 답변을 드릴게요!')
+                  : t('Ask me anything about skincare, ingredients, or routines.', '스킨케어, 성분, 루틴에 대해 뭐든 물어보세요.')
+                }
+              </div>
+            </div>
+            <div className="chat-suggestions">
+              <div className="chat-suggestions-label">{t('Popular questions:', '자주 묻는 질문:')}</div>
+              {SUGGESTED_QUESTIONS.map((q, i) => (
+                <button key={i} className="chat-suggestion-chip" onClick={() => sendMessage(t(q.en, q.kr))}>
+                  {q.emoji} {t(q.en, q.kr)}
+                </button>
+              ))}
+            </div>
+          </>
         )}
 
         {messages.map((msg, i) => (

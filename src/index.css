@@ -7546,6 +7546,38 @@ body {
 .chat-login-icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
 .chat-login-prompt p { color: #888; font-size: 0.9rem; }
 
+/* Enhanced login prompt for AI Chat */
+.chat-login-enhanced { padding: 1.5rem; text-align: left; }
+.chat-promo-header { text-align: center; margin-bottom: 1.2rem; }
+.chat-promo-icon { font-size: 2.8rem; display: block; margin-bottom: 0.4rem; }
+.chat-promo-header h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.4rem; }
+.chat-promo-desc { color: #555; font-size: 0.9rem; line-height: 1.5; }
+.chat-promo-examples { background: #fdf5f8; border-radius: 12px; padding: 0.8rem 1rem; margin-bottom: 1.2rem; }
+.chat-promo-label { font-size: 0.72rem; font-weight: 600; color: #999; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.chat-promo-example { font-size: 0.85rem; color: #555; padding: 0.35rem 0; border-bottom: 1px solid #f0e8ec; }
+.chat-promo-example:last-child { border-bottom: none; }
+.chat-login-enhanced .signup-cta-btn { display: block; margin: 0 auto; }
+.chat-login-enhanced .signup-cta-note { text-align: center; margin-top: 0.5rem; }
+
+/* Welcome card inside chat */
+.chat-welcome-card { background: linear-gradient(135deg, #fdf5f8 0%, #f8eef3 100%); border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 0.3rem; }
+.chat-welcome-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; }
+.chat-welcome-desc { font-size: 0.82rem; color: #777; line-height: 1.4; }
+.chat-suggestions-label { font-size: 0.72rem; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.3rem; }
+
+/* Active/hint context badges */
+.chat-context-active { background: #e8f5e9; color: #2e7d32; }
+.chat-context-hint { background: #fff3e0; color: #e65100; }
+
+/* AI Chat nav button highlight */
+.mypage-nav-btn.highlight { border: 1.5px solid var(--primary-pink); color: var(--primary-pink); font-weight: 600; position: relative; }
+.mypage-nav-btn.highlight::after { content: ''; position: absolute; top: -2px; right: -2px; width: 7px; height: 7px; background: #ff5252; border-radius: 50%; }
+.mypage-nav-btn.highlight.active { border-color: transparent; }
+.mypage-nav-btn.highlight.active::after { display: none; }
+
+/* Highlight feature in signup CTA */
+.signup-cta-feature-highlight { background: linear-gradient(135deg, #CF8BA9 0%, #A66A85 100%) !important; color: #fff !important; font-weight: 600; }
+
 /* ===== Dark Mode: AI Features ===== */
 [data-theme="dark"] .ai-routine-section { background: linear-gradient(135deg, #2a2030 0%, #25203a 100%); }
 [data-theme="dark"] .ai-routine-desc { color: #999; }
@@ -7582,6 +7614,15 @@ body {
 [data-theme="dark"] .chat-input-area { background: #1a1a2a; border-top-color: #3a3a50; }
 [data-theme="dark"] .chat-input { background: #2a2a40; border-color: #3a3a50; color: #e0e0e8; }
 [data-theme="dark"] .chat-login-prompt p { color: #888; }
+[data-theme="dark"] .chat-promo-desc { color: #aaa; }
+[data-theme="dark"] .chat-promo-examples { background: #2a2030; }
+[data-theme="dark"] .chat-promo-example { color: #ccc; border-bottom-color: #3a3050; }
+[data-theme="dark"] .chat-welcome-card { background: linear-gradient(135deg, #2a2030 0%, #25203a 100%); }
+[data-theme="dark"] .chat-welcome-title { color: #e0e0e8; }
+[data-theme="dark"] .chat-welcome-desc { color: #999; }
+[data-theme="dark"] .chat-context-active { background: #1a2e1a; color: #6fcf97; }
+[data-theme="dark"] .chat-context-hint { background: #2e2a1a; color: #ffb74d; }
+[data-theme="dark"] .mypage-nav-btn.highlight { border-color: var(--primary-pink); color: var(--primary-pink); }
 
 /* ========== Nutrient Recommendations ========== */
 .nutrient-section-title {

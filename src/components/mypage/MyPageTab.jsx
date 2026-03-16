@@ -23,6 +23,7 @@ export default function MyPageTab({ showToast, onNavigate }) {
           <h3>{t('Your Beauty Hub', '나만의 뷰티 허브')}</h3>
           <p className="signup-cta-desc">{t('Sign up free to unlock all features:', '무료 가입하고 모든 기능을 이용하세요:')}</p>
           <div className="signup-cta-features">
+            <div className="signup-cta-feature signup-cta-feature-highlight">🤖 {t('AI Skincare Chat — personalized to YOUR skin', 'AI 스킨케어 상담 — 내 피부 맞춤 답변')}</div>
             <div className="signup-cta-feature">🏆 {t('Save AI analysis results', 'AI 분석 결과 저장')}</div>
             <div className="signup-cta-feature">📈 {t('Track skin changes over time', '피부 변화 추적')}</div>
             <div className="signup-cta-feature">📝 {t('Write daily skin diary', '매일 피부 일지 기록')}</div>
@@ -46,11 +47,11 @@ export default function MyPageTab({ showToast, onNavigate }) {
           { id: 'diary', emoji: '📝', label: t('Diary', '일지') },
           { id: 'routine', emoji: '🧴', label: t('Routine', '루틴') },
           { id: 'history', emoji: '📊', label: t('Analysis Log', '분석기록') },
-          { id: 'skinChat', emoji: '💬', label: t('AI Chat', 'AI 상담') },
+          { id: 'skinChat', emoji: '🤖', label: t('AI Chat', 'AI 상담'), highlight: true },
         ].map(s => (
           <button
             key={s.id}
-            className={'mypage-nav-btn' + (section === s.id ? ' active' : '')}
+            className={'mypage-nav-btn' + (section === s.id ? ' active' : '') + (s.highlight ? ' highlight' : '')}
             onClick={() => setSection(s.id)}
           >
             {s.emoji} {s.label}
