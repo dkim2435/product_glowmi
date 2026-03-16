@@ -8,18 +8,20 @@ import { PRODUCT_DB } from '../../data/products'
 const productAmazonMap = {}
 for (const p of PRODUCT_DB) {
   if (p.amazonUrl) {
+    // Index by full name, brand+name combo, nameKr
     productAmazonMap[p.name.toLowerCase()] = p.amazonUrl
-    if (p.nameKr) productAmazonMap[p.nameKr] = p.amazonUrl
+    productAmazonMap[`${p.brand} ${p.name}`.toLowerCase()] = p.amazonUrl
+    if (p.nameKr) productAmazonMap[p.nameKr.toLowerCase()] = p.amazonUrl
   }
 }
 
 function findAmazonUrl(displayName) {
-  // Try exact match first
   const lower = displayName.toLowerCase().trim()
+  // Exact match
   if (productAmazonMap[lower]) return productAmazonMap[lower]
-  // Try partial match
+  // Check if display name matches any key or vice versa
   for (const [key, url] of Object.entries(productAmazonMap)) {
-    if (lower.includes(key) || key.includes(lower)) return url
+    if (lower === key || lower.includes(key) || key.includes(lower)) return url
   }
   return null
 }
