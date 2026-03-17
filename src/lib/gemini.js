@@ -58,6 +58,13 @@ function resizeImageToBase64(imageSrc) {
  * Call Gemini API with an image and text prompt.
  * Returns parsed JSON object from Gemini's response.
  */
+const SAFETY_SETTINGS = [
+  { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+  { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+  { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+  { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+]
+
 async function callGemini(imageBase64, prompt) {
   if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
 
@@ -76,7 +83,8 @@ async function callGemini(imageBase64, prompt) {
     generationConfig: {
       temperature: 0.1,
       maxOutputTokens: 1024
-    }
+    },
+    safetySettings: SAFETY_SETTINGS
   }
 
   const res = await postToGemini(body)
@@ -109,7 +117,8 @@ async function callGeminiText(prompt, opts = {}) {
 
   const body = {
     contents: opts.contents || [{ parts: [{ text: prompt }] }],
-    generationConfig: { temperature, maxOutputTokens }
+    generationConfig: { temperature, maxOutputTokens },
+    safetySettings: SAFETY_SETTINGS
   }
 
   const res = await postToGemini(body)
@@ -148,7 +157,8 @@ async function callGeminiMultiImage(imageSrcs, prompt, opts = {}) {
     generationConfig: {
       temperature: opts.temperature ?? 0.1,
       maxOutputTokens: opts.maxOutputTokens ?? 1500
-    }
+    },
+    safetySettings: SAFETY_SETTINGS
   }
 
   const res = await postToGemini(body)
