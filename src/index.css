@@ -790,6 +790,14 @@ body {
 .result-content .result-type,
 .result-content .result-type-korean,
 .result-content .season-badge,
+.result-content .season-result-badge,
+.result-content .fs-confidence,
+.result-content .ai-badge,
+.result-content .pc-skin-swatch,
+.result-content .pc-axis-section,
+.result-content .pc-all-types,
+.result-content .pc-skincare-recs,
+.result-content .fs-result-buttons,
 .result-content .result-description,
 .result-content .recommended-products,
 .result-content .save-result-btn,
@@ -6299,10 +6307,13 @@ body {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 12px 10px;
+  padding: 12px 4px;
   background: linear-gradient(135deg, #fff5f9, #fef0ff);
-  min-width: 56px;
+  width: 62px;
+  min-width: 62px;
+  max-width: 62px;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .pcard-cat-icon {
@@ -8323,13 +8334,11 @@ a.brand-chip-link:hover { background: linear-gradient(135deg, #e8e4ff, #d8d0ff);
 .pb-search-input { width: 100%; padding: 10px 36px 10px 12px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 0.9rem; background: #fafafa; outline: none; box-sizing: border-box; }
 .pb-search-input:focus { border-color: #CF8BA9; background: #fff; }
 .pb-search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.2rem; color: #999; cursor: pointer; }
-.pb-filters { margin-bottom: 12px; }
-.pb-filter-row { margin-bottom: 8px; }
-.pb-filter-row > label { font-size: 0.75rem; font-weight: 600; color: #888; margin-bottom: 4px; display: block; }
-.pb-chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
-.pb-chip { padding: 5px 10px; border-radius: 16px; border: 1.5px solid #e0e0e0; background: #fff; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-.pb-chip:hover { border-color: #CF8BA9; }
-.pb-chip.active { background: #CF8BA9; color: #fff; border-color: #CF8BA9; }
+.pb-filters-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.pb-filter-select { display: flex; flex-direction: column; }
+.pb-filter-select > label { font-size: 0.7rem; font-weight: 600; color: #888; margin-bottom: 3px; }
+.pb-filter-select > select { padding: 8px 10px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 0.8rem; background: #fff; color: #333; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; cursor: pointer; }
+.pb-filter-select > select:focus { outline: none; border-color: #CF8BA9; }
 .pb-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 2px; }
 .pb-count { font-size: 0.8rem; color: #888; }
 .pb-clear-btn { background: none; border: none; color: #CF8BA9; font-size: 0.75rem; cursor: pointer; margin-left: 6px; text-decoration: underline; }
@@ -8338,8 +8347,7 @@ a.brand-chip-link:hover { background: linear-gradient(135deg, #e8e4ff, #d8d0ff);
 .pb-grid .product-card { flex: 1 1 calc(50% - 10px); min-width: 140px; }
 .pb-empty { text-align: center; padding: 30px 10px; color: #999; }
 [data-theme="dark"] .pb-search-input { background: #2a2a2a; border-color: #444; color: #eee; }
-[data-theme="dark"] .pb-chip { background: #2a2a2a; border-color: #444; color: #ccc; }
-[data-theme="dark"] .pb-chip.active { background: #CF8BA9; color: #fff; border-color: #CF8BA9; }
+[data-theme="dark"] .pb-filter-select > select { background-color: #2a2a2a; border-color: #444; color: #ccc; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E"); }
 [data-theme="dark"] .pb-sort { background: #2a2a2a; border-color: #444; color: #ccc; }
 
 /* ===== Ingredient Comparison ===== */

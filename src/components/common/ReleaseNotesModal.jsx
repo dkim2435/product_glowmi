@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.4.1'
+const APP_VERSION = '2.4.2'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🔧',
+    emoji: '✨',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'Fixed the AI Routine generation that was failing for many users.',
-    descKr: 'AI 루틴 추천 기능 오류를 수정했습니다.',
+    desc: 'Bug fixes and cleaner mobile UI for product filters and color analysis.',
+    descKr: '버그 수정 및 모바일 UI 개선!',
     items: [
-      { emoji: '✅', label: 'AI Routine Fix', labelKr: 'AI 루틴 추천 수정', desc: 'The "Generate AI Routine" button in Skin Analysis was failing with an error. This has been fixed — routines now generate reliably.', descKr: '피부 분석 후 "AI 루틴 추천받기" 버튼이 오류가 나던 문제를 해결했습니다. 이제 정상적으로 루틴이 생성됩니다.' },
+      { emoji: '✅', label: 'AI Routine Fix', labelKr: 'AI 루틴 추천 수정', desc: 'The "Generate AI Routine" button was failing for many users. Now works reliably!', descKr: '"AI 루틴 추천받기" 버튼 오류를 수정했습니다. 이제 정상 작동합니다!' },
+      { emoji: '🎛️', label: 'Compact Filters', labelKr: '필터 UI 개선', desc: 'Product filters are now clean dropdowns instead of long chip lists — much better on mobile.', descKr: '제품 필터가 드롭다운 방식으로 바뀌어 모바일에서 훨씬 깔끔해졌습니다.' },
+      { emoji: '🎨', label: 'Color Analysis Layout', labelKr: '컬러 분석 레이아웃', desc: 'Personal Color results are now properly centered instead of shifted to the right.', descKr: '퍼스널컬러 분석 결과가 오른쪽으로 치우치던 문제를 수정했습니다.' },
+      { emoji: '📦', label: 'Consistent Cards', labelKr: '제품 카드 정렬', desc: 'Product category labels now have uniform width for a tidier look.', descKr: '제품 카드의 카테고리 라벨 너비가 통일되어 더 깔끔해졌습니다.' },
     ],
   },
 ]

@@ -103,61 +103,42 @@ export default function ProductBrowser() {
         {search && <button className="pb-search-clear" onClick={() => setSearch('')}>&times;</button>}
       </div>
 
-      <div className="pb-filters">
-        <div className="pb-filter-row">
+      <div className="pb-filters-grid">
+        <div className="pb-filter-select">
           <label>{t('Category', '카테고리')}</label>
-          <div className="pb-chip-row">
-            <button className={'pb-chip' + (category === 'all' ? ' active' : '')} onClick={() => setCategory('all')}>
-              {t('All', '전체')}
-            </button>
+          <select value={category} onChange={e => setCategory(e.target.value)}>
+            <option value="all">{t('All', '전체')}</option>
             {Object.entries(PRODUCT_CATEGORIES).map(([key, cat]) => (
-              <button key={key} className={'pb-chip' + (category === key ? ' active' : '')} onClick={() => setCategory(key)}>
-                {cat.icon} {t(cat.name, cat.nameKr)}
-              </button>
+              <option key={key} value={key}>{cat.icon} {t(cat.name, cat.nameKr)}</option>
             ))}
-          </div>
+          </select>
         </div>
-
-        <div className="pb-filter-row">
+        <div className="pb-filter-select">
           <label>{t('Skin Type', '피부 타입')}</label>
-          <div className="pb-chip-row">
-            <button className={'pb-chip' + (skinType === 'all' ? ' active' : '')} onClick={() => setSkinType('all')}>
-              {t('All', '전체')}
-            </button>
+          <select value={skinType} onChange={e => setSkinType(e.target.value)}>
+            <option value="all">{t('All', '전체')}</option>
             {SKIN_TYPES.map(st => (
-              <button key={st.value} className={'pb-chip' + (skinType === st.value ? ' active' : '')} onClick={() => setSkinType(st.value)}>
-                {t(st.label, st.labelKr)}
-              </button>
+              <option key={st.value} value={st.value}>{t(st.label, st.labelKr)}</option>
             ))}
-          </div>
+          </select>
         </div>
-
-        <div className="pb-filter-row">
+        <div className="pb-filter-select">
           <label>{t('Price', '가격대')}</label>
-          <div className="pb-chip-row">
-            <button className={'pb-chip' + (priceRange === 'all' ? ' active' : '')} onClick={() => setPriceRange('all')}>
-              {t('All', '전체')}
-            </button>
+          <select value={priceRange} onChange={e => setPriceRange(e.target.value)}>
+            <option value="all">{t('All', '전체')}</option>
             {PRICE_RANGES.map(pr => (
-              <button key={pr.value} className={'pb-chip' + (priceRange === pr.value ? ' active' : '')} onClick={() => setPriceRange(pr.value)}>
-                {pr.emoji} {t(pr.label, pr.labelKr)}
-              </button>
+              <option key={pr.value} value={pr.value}>{pr.emoji} {t(pr.label, pr.labelKr)}</option>
             ))}
-          </div>
+          </select>
         </div>
-
-        <div className="pb-filter-row">
+        <div className="pb-filter-select">
           <label>{t('Concern', '피부 고민')}</label>
-          <div className="pb-chip-row">
-            <button className={'pb-chip' + (concern === 'all' ? ' active' : '')} onClick={() => setConcern('all')}>
-              {t('All', '전체')}
-            </button>
+          <select value={concern} onChange={e => setConcern(e.target.value)}>
+            <option value="all">{t('All', '전체')}</option>
             {CONCERNS.map(c => (
-              <button key={c.value} className={'pb-chip' + (concern === c.value ? ' active' : '')} onClick={() => setConcern(c.value)}>
-                {t(c.label, c.labelKr)}
-              </button>
+              <option key={c.value} value={c.value}>{t(c.label, c.labelKr)}</option>
             ))}
-          </div>
+          </select>
         </div>
       </div>
 
