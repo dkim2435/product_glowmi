@@ -196,7 +196,7 @@ Respond with ONLY a JSON object:
   "summaryKr": "한국어 루틴 전략 요약"
 }`
 
-  return await callGeminiText(prompt)
+  return await callGeminiText(prompt, { maxOutputTokens: 2048 })
 }
 
 /**
