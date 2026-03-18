@@ -123,6 +123,8 @@ export default function WeatherTips() {
   const [error, setError] = useState(null)
   const [expanded, setExpanded] = useState(false)
   const [skinData, setSkinData] = useState(null)
+  const [cityInput, setCityInput] = useState('')
+  const [cityLoading, setCityLoading] = useState(false)
 
   useEffect(() => {
     fetchWeather()
@@ -136,8 +138,26 @@ export default function WeatherTips() {
     }
   }, [user])
 
+  async function fetchWeatherByCoords(latitude, longitude) {
+    const res = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,uv_index,weather_code&timezone=auto`
+    )
+    const data = await res.json()
+    if (!data.current) throw new Error('No weather data')
+
+    const weatherData = {
+      temp: Math.round(data.current.temperature_2m),
+      humidity: data.current.relative_humidity_2m,
+      uvIndex: data.current.uv_index,
+      weatherCode: data.current.weather_code,
+      lat: latitude,
+      lng: longitude,
+    }
+    setWeatherCache(weatherData)
+    setWeather(weatherData)
+  }
+
   async function fetchWeather() {
-    // Check cache first
     const cached = getWeatherCache()
     if (cached) {
       setWeather(cached)
@@ -146,7 +166,6 @@ export default function WeatherTips() {
     }
 
     try {
-      // Get location
       const pos = await new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
           reject(new Error('no-geo'))
@@ -154,28 +173,7 @@ export default function WeatherTips() {
         }
         navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 8000 })
       })
-
-      const { latitude, longitude } = pos.coords
-
-      // Fetch from Open-Meteo (free, no API key)
-      const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,uv_index,weather_code&timezone=auto`
-      )
-      const data = await res.json()
-
-      if (!data.current) throw new Error('No weather data')
-
-      const weatherData = {
-        temp: Math.round(data.current.temperature_2m),
-        humidity: data.current.relative_humidity_2m,
-        uvIndex: data.current.uv_index,
-        weatherCode: data.current.weather_code,
-        lat: latitude,
-        lng: longitude,
-      }
-
-      setWeatherCache(weatherData)
-      setWeather(weatherData)
+      await fetchWeatherByCoords(pos.coords.latitude, pos.coords.longitude)
     } catch (err) {
       if (err.message === 'no-geo' || err.code === 1) {
         setError('location')
@@ -184,6 +182,28 @@ export default function WeatherTips() {
       }
     }
     setLoading(false)
+  }
+
+  async function handleCitySearch() {
+    if (!cityInput.trim()) return
+    setCityLoading(true)
+    try {
+      const geoRes = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput.trim())}&count=1&language=en&format=json`
+      )
+      const geoData = await geoRes.json()
+      if (!geoData.results || geoData.results.length === 0) {
+        setError('city-not-found')
+        setCityLoading(false)
+        return
+      }
+      const { latitude, longitude } = geoData.results[0]
+      await fetchWeatherByCoords(latitude, longitude)
+      setError(null)
+    } catch {
+      setError('fetch')
+    }
+    setCityLoading(false)
   }
 
   if (loading) {
@@ -205,10 +225,29 @@ export default function WeatherTips() {
               ? t('Enable location for personalized skincare tips based on today\'s weather.', '위치를 허용하면 오늘 날씨에 맞는 스킨케어 팁을 받을 수 있어요.')
               : t('Could not load weather data.', '날씨 데이터를 불러올 수 없습니다.')}
           </p>
-          {error === 'location' && (
+          {(error === 'location' || error === 'city-not-found') && (
             <>
               <button className="weather-retry-btn" onClick={fetchWeather}>📍 {t('Enable Location', '위치 허용')}</button>
-              <p className="weather-perm-hint">{t('If the button doesn\'t work, enable location in your browser settings.', '버튼이 작동하지 않으면 브라우저 설정에서 위치 권한을 켜주세요.')}</p>
+              <div className="weather-city-search">
+                <p className="weather-city-or">{t('or enter city name:', '또는 도시 이름 입력:')}</p>
+                <div className="weather-city-row">
+                  <input
+                    type="text"
+                    className="weather-city-input"
+                    placeholder={t('e.g. Seoul, Tokyo, New York', '예: 서울, 도쿄, 뉴욕')}
+                    value={cityInput}
+                    onChange={e => setCityInput(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleCitySearch()}
+                    disabled={cityLoading}
+                  />
+                  <button className="weather-city-btn" onClick={handleCitySearch} disabled={cityLoading || !cityInput.trim()}>
+                    {cityLoading ? '...' : t('Search', '검색')}
+                  </button>
+                </div>
+                {error === 'city-not-found' && (
+                  <p className="weather-city-error">{t('City not found. Try another name.', '도시를 찾을 수 없어요. 다른 이름으로 시도해보세요.')}</p>
+                )}
+              </div>
             </>
           )}
         </div>

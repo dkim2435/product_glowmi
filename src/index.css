@@ -7428,8 +7428,40 @@ body {
 [data-theme="dark"] .weather-products-label { color: #b0b0c0; }
 [data-theme="dark"] .weather-extra-tip { color: #c0c0d0; }
 [data-theme="dark"] .weather-retry-btn { background: #2a2a40; border-color: var(--primary-pink); color: var(--primary-pink); }
-.weather-perm-hint { font-size: 0.7rem; color: #999; margin-top: 4px; }
+.weather-perm-hint { font-size: 0.7rem; color: #999; margin-top: 4px; display: none; }
+
+.weather-city-search { margin-top: 8px; }
+.weather-city-or { font-size: 0.75rem; color: #888; margin-bottom: 6px; }
+.weather-city-row { display: flex; gap: 6px; }
+.weather-city-input {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  outline: none;
+  background: white;
+  color: #333;
+}
+.weather-city-input:focus { border-color: var(--primary-pink, #CF8BA9); }
+.weather-city-btn {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary-pink, #CF8BA9);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.weather-city-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.weather-city-error { font-size: 0.72rem; color: #e57373; margin-top: 4px; }
+
 [data-theme="dark"] .weather-perm-hint { color: #777; }
+[data-theme="dark"] .weather-city-or { color: #666; }
+[data-theme="dark"] .weather-city-input { background: #1e1e30; border-color: #3a3a50; color: #e0e0e8; }
+[data-theme="dark"] .weather-city-input:focus { border-color: var(--primary-pink); }
 [data-theme="dark"] .weather-product-tag { background: #2a2a40; border-color: #3a3a50; }
 
 /* ===== Product Cards (pcard) ===== */
