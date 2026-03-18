@@ -363,7 +363,7 @@ Respond with ONLY a JSON object:
 
 Be specific and personalized. The description should explain WHY this type was determined based on both photo data and quiz responses. Provide 3-5 tips and 3-5 key/avoid ingredients each.`
 
-  return await callGeminiText(prompt)
+  return await callGeminiText(prompt, { maxOutputTokens: 2048 })
 }
 
 /**
