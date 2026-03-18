@@ -95,7 +95,8 @@ async function callGemini(imageBase64, prompt) {
     }],
     generationConfig: {
       temperature: 0.1,
-      maxOutputTokens: 1024
+      maxOutputTokens: 2048,
+      thinkingConfig: { thinkingBudget: 0 }
     },
     safetySettings: SAFETY_SETTINGS
   }
@@ -108,17 +109,12 @@ async function callGemini(imageBase64, prompt) {
   }
 
   const data = await res.json()
-  const parts = data?.candidates?.[0]?.content?.parts
-  // DEBUG: expose parts structure for mobile debugging
-  if (typeof window !== 'undefined') {
-    window.__geminiDebug = JSON.stringify((parts || []).map(p => ({ keys: Object.keys(p), thought: p.thought, textLen: p.text?.length })))
-  }
-  const text = extractTextFromParts(parts)
-  if (!text) throw new Error('No response from Gemini | parts: ' + JSON.stringify((parts || []).map(p => Object.keys(p))))
+  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
+  if (!text) throw new Error('No response from Gemini')
 
   // Extract JSON from response (may be wrapped in ```json ... ```)
   const jsonMatch = text.match(/\{[\s\S]*\}/)
-  if (!jsonMatch) throw new Error('No JSON in Gemini response | textLen:' + text.length + ' | start:' + text.substring(0, 100))
+  if (!jsonMatch) throw new Error('No JSON in Gemini response')
 
   return JSON.parse(jsonMatch[0])
 }
@@ -135,7 +131,7 @@ async function callGeminiText(prompt, opts = {}) {
 
   const body = {
     contents: opts.contents || [{ parts: [{ text: prompt }] }],
-    generationConfig: { temperature, maxOutputTokens },
+    generationConfig: { temperature, maxOutputTokens, thinkingConfig: { thinkingBudget: 0 } },
     safetySettings: SAFETY_SETTINGS
   }
 
@@ -174,7 +170,8 @@ async function callGeminiMultiImage(imageSrcs, prompt, opts = {}) {
     contents: [{ parts }],
     generationConfig: {
       temperature: opts.temperature ?? 0.1,
-      maxOutputTokens: opts.maxOutputTokens ?? 1500
+      maxOutputTokens: opts.maxOutputTokens ?? 1500,
+      thinkingConfig: { thinkingBudget: 0 }
     },
     safetySettings: SAFETY_SETTINGS
   }
