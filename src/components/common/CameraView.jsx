@@ -51,6 +51,28 @@ export default function CameraView({
           <div className="camera-placeholder">
             <span className="camera-placeholder-icon">📷</span>
             <span className="camera-placeholder-text">{t('Camera Preview', '카메라 미리보기')}</span>
+            <div className="photo-guide">
+              <div className="photo-guide-row">
+                <div className="photo-guide-item photo-guide-good">
+                  <span className="photo-guide-icon">☀️</span>
+                  <span>{t('Natural light', '자연광')}</span>
+                </div>
+                <div className="photo-guide-item photo-guide-good">
+                  <span className="photo-guide-icon">😊</span>
+                  <span>{t('Face centered', '얼굴 정면')}</span>
+                </div>
+              </div>
+              <div className="photo-guide-row">
+                <div className="photo-guide-item photo-guide-bad">
+                  <span className="photo-guide-icon">🚫</span>
+                  <span>{t('No filters', '필터 금지')}</span>
+                </div>
+                <div className="photo-guide-item photo-guide-bad">
+                  <span className="photo-guide-icon">💡</span>
+                  <span>{t('No backlight', '역광 금지')}</span>
+                </div>
+              </div>
+            </div>
           </div>
         )}
         <canvas ref={canvasRef} style={{ display: 'none' }} />

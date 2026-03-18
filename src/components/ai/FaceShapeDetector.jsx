@@ -116,6 +116,14 @@ export default function FaceShapeDetector({ showToast }) {
           <p className="tool-desc">{t('AI analyzes 468 facial landmarks to determine your face shape and provide styling tips.', 'AI가 468개의 얼굴 랜드마크를 분석하여 얼굴형을 판별하고 스타일링 팁을 제공합니다.')}</p>
           <p className="privacy-note">🔒 {t('Photos are analyzed by AI for your results. Not stored.', '사진은 AI가 분석 후 바로 삭제됩니다. 저장되지 않아요.')}</p>
         </div>
+        <div className="photo-tips-inline">
+          <p className="photo-tips-title">{t('📸 For best results', '📸 정확한 분석을 위해')}</p>
+          <ul className="photo-tips-list">
+            <li>{t('Use natural lighting (near a window)', '자연광에서 촬영 (창가 추천)')}</li>
+            <li>{t('Face the camera straight on', '카메라를 정면으로 바라보기')}</li>
+            <li>{t('Pull hair back to show face outline', '얼굴 윤곽이 보이게 머리 넘기기')}</li>
+          </ul>
+        </div>
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
           {t('Start Analysis', '분석 시작')}
         </button>

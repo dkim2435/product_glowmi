@@ -138,6 +138,14 @@ export default function PersonalColorAnalysis({ showToast }) {
           <p className="tool-desc">{t('Discover your personal color type from a selfie. AI analyzes your skin tone to classify you into one of 10 types.', '셀카 한 장으로 퍼스널컬러를 알아보세요. AI가 피부톤을 분석하여 10가지 타입 중 하나로 분류합니다.')}</p>
           <p className="privacy-note">🔒 {t('Photos are analyzed by AI for your results. Not stored.', '사진은 AI가 분석 후 바로 삭제됩니다. 저장되지 않아요.')}</p>
         </div>
+        <div className="photo-tips-inline">
+          <p className="photo-tips-title">{t('📸 For best results', '📸 정확한 분석을 위해')}</p>
+          <ul className="photo-tips-list">
+            <li>{t('Use natural lighting (near a window)', '자연광에서 촬영 (창가 추천)')}</li>
+            <li>{t('Face the camera straight on', '카메라를 정면으로 바라보기')}</li>
+            <li>{t('Remove heavy makeup & filters', '짙은 화장과 필터 제거')}</li>
+          </ul>
+        </div>
         <button className="primary-btn" onClick={() => { setScreen('camera'); camera.startCamera() }}>
           {t('Start Analysis', '분석 시작')}
         </button>

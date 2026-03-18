@@ -819,6 +819,45 @@ body {
   white-space: nowrap;
 }
 
+/* Photo tips — start screen inline tips */
+.photo-tips-inline {
+  width: 100%;
+  background: var(--bg-card, #f8f8fc);
+  border: 1px solid var(--border-light, #eee);
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.photo-tips-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-primary, #333);
+}
+
+.photo-tips-list {
+  margin: 0;
+  padding-left: 18px;
+  list-style: none;
+}
+
+.photo-tips-list li {
+  font-size: 0.78rem;
+  color: var(--text-secondary, #666);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 4px;
+}
+
+.photo-tips-list li::before {
+  content: '✓';
+  position: absolute;
+  left: -16px;
+  color: #4caf50;
+  font-weight: 700;
+}
+
 /* Camera controls — always row */
 .camera-controls {
   display: flex;
@@ -933,6 +972,48 @@ body {
 
 .camera-placeholder-text {
   font-size: 0.85rem;
+}
+
+.photo-guide {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 85%;
+  max-width: 280px;
+}
+
+.photo-guide-row {
+  display: flex;
+  gap: 8px;
+}
+
+.photo-guide-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.photo-guide-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.photo-guide-good {
+  background: rgba(76, 175, 80, 0.2);
+  color: #81c784;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.photo-guide-bad {
+  background: rgba(244, 67, 54, 0.15);
+  color: #e57373;
+  border: 1px solid rgba(244, 67, 54, 0.25);
 }
 
 .face-guide {
@@ -7224,6 +7305,11 @@ body {
 
 /* Privacy note */
 [data-theme="dark"] .privacy-note { color: #888; }
+
+/* Photo tips */
+[data-theme="dark"] .photo-tips-inline { background: #1e1e30; border-color: #2a2a40; }
+[data-theme="dark"] .photo-tips-title { color: #d0d0e0; }
+[data-theme="dark"] .photo-tips-list li { color: #a0a0b8; }
 
 /* ===== Routine ===== */
 [data-theme="dark"] .routine-step-name { color: #e0e0e8; }
