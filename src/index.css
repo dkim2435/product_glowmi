@@ -842,6 +842,7 @@ body {
 .result-content .share-buttons,
 .result-content .skin-overall,
 .result-content .skin-scores,
+.result-content .skin-compare-card,
 .result-content .skin-recommendations,
 .result-content .skin-product-recs {
   width: 100%;
@@ -1656,6 +1657,59 @@ body {
 .skin-bar-high { background: linear-gradient(90deg, #ff6b6b, #d32f2f); }
 .skin-bar-med { background: linear-gradient(90deg, #ffd93d, #f0a500); }
 .skin-bar-low { background: linear-gradient(90deg, #6bcb77, #389e0d); }
+
+/* Skin compare card */
+.skin-compare-card {
+  width: 100%;
+  background: var(--bg-card, #f8f8fc);
+  border: 1px solid var(--border-light, #eee);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.skin-compare-card h4 {
+  margin: 0 0 4px;
+  font-size: 0.88rem;
+  color: var(--primary-pink, #CF8BA9);
+}
+
+.skin-compare-date {
+  font-size: 0.72rem;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.skin-compare-overall {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light, #eee);
+  margin-bottom: 8px;
+}
+
+.skin-compare-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skin-compare-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
+
+.skin-compare-delta {
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.skin-compare-delta.improved { color: #4caf50; }
+.skin-compare-delta.declined { color: #e57373; }
 
 .skin-recommendations {
   margin-bottom: 16px;
@@ -7370,6 +7424,9 @@ body {
 
 /* Skin analysis bars */
 [data-theme="dark"] .skin-bar-track { background: #2a2a40; }
+[data-theme="dark"] .skin-compare-card { background: #2a2a40; border-color: #35354a; }
+[data-theme="dark"] .skin-compare-date { color: #666; }
+[data-theme="dark"] .skin-compare-overall { border-color: #3a3a50; }
 [data-theme="dark"] .skin-rec-card { background: #2a2a40; border-color: #35354a; }
 
 /* Tool usage guide, login gate, compat scan, unknown hint */
