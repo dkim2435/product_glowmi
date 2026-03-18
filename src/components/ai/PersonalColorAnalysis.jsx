@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
+import { useResultPersistence } from '../../hooks/useResultPersistence'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { savePersonalColorResult } from '../../lib/db'
 import { addHistoryEntry } from '../../lib/analysisHistory'
@@ -9,15 +10,18 @@ import { analyzeSkinTone, cropFaceFromPhoto } from './analysis/personalColorLogi
 import { analyzePersonalColorAI } from '../../lib/gemini'
 import { personalColorResults } from '../../data/personalColor'
 import { getRecommendations } from '../../data/products'
+import { MSG, CONFETTI_DURATION } from '../../constants/aiMessages'
 import ProductCard from '../common/ProductCard'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
 import ShareCard from '../common/ShareCard'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
+import StartBenefitsCard from '../common/StartBenefitsCard'
+import GatedContent from '../common/GatedContent'
 
 export default function PersonalColorAnalysis({ showToast, onNavigate }) {
-  const { user, loginWithGoogle } = useAuth()
+  const { user } = useAuth()
   const { lang, t } = useLang()
   const camera = useCamera()
   const startUploadRef = useRef(null)
@@ -28,25 +32,10 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
   const [usedGemini, setUsedGemini] = useState(false)
   const [showShareCard, setShowShareCard] = useState(false)
 
-  // Restore result after OAuth login redirect
-  useEffect(() => {
-    const saved = sessionStorage.getItem('pc_pending_result')
-    if (saved && user) {
-      try {
-        const parsed = JSON.parse(saved)
-        setResult(parsed)
-        setScreen('result')
-        sessionStorage.removeItem('pc_pending_result')
-      } catch { /* ignore */ }
-    }
-  }, [user])
-
-  function loginAndKeepResult() {
-    if (result) {
-      sessionStorage.setItem('pc_pending_result', JSON.stringify(result))
-    }
-    loginWithGoogle()
-  }
+  const { loginAndKeepResult } = useResultPersistence('pc_pending_result', {
+    onRestore: (parsed) => { setResult(parsed); setScreen('result') },
+    getResult: () => result
+  })
 
   async function handleAnalyze() {
     setScreen('analyzing')
@@ -73,7 +62,7 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
 
         if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
           setScreen('camera')
-          showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
+          showToast(t(MSG.noFace.en, MSG.noFace.ko))
           return
         }
 
@@ -103,11 +92,11 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
 
       setScreen('result')
       setShowConfetti(true)
-      setTimeout(() => setShowConfetti(false), 4000)
+      setTimeout(() => setShowConfetti(false), CONFETTI_DURATION)
     } catch (e) {
       console.error('Color analysis failed:', e)
       setScreen('camera')
-      showToast(t('Analysis failed. Please try again.', '분석에 실패했습니다.'))
+      showToast(t(MSG.analysisFailed.en, MSG.analysisFailed.ko))
     }
   }
 
@@ -116,9 +105,9 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
     try {
       await savePersonalColorResult(user.id, result)
       addHistoryEntry('personalColor', { type: result.type, confidence: result.confidence })
-      showToast(t('Saved! View in My Page > Results', '저장 완료! 마이페이지 > 결과에서 확인하세요'))
+      showToast(t(MSG.saved.en, MSG.saved.ko))
     } catch {
-      showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
+      showToast(t(MSG.saveFailed.en, MSG.saveFailed.ko))
     }
   }
 
@@ -157,17 +146,7 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
           if (file) { camera.handleUpload(file).then(() => setScreen('camera')).catch(err => showToast(err.message)) }
           e.target.value = ''
         }} />
-        {!user && (
-          <div className="start-benefits-card">
-            <p className="start-benefits-title">{'🆓 ' + t('100% Free — Sign up to unlock:', '완전 무료 — 가입하면:')}</p>
-            <div className="start-benefits-list">
-              <span>💾 {t('Save results', '결과 저장')}</span>
-              <span>📈 {t('Track progress', '변화 추적')}</span>
-              <span>🎨 {t('Full color palette', '전체 컬러 팔레트')}</span>
-              <span>🤖 {t('AI Chat', 'AI 상담')}</span>
-            </div>
-          </div>
-        )}
+        <StartBenefitsCard benefits={[{emoji:'💾',en:'Save results',ko:'결과 저장'},{emoji:'📈',en:'Track progress',ko:'변화 추적'},{emoji:'🎨',en:'Full color palette',ko:'전체 컬러 팔레트'},{emoji:'🤖',en:'AI Chat',ko:'AI 상담'}]} />
       </div>
     )
   }
@@ -272,17 +251,7 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
       </div>
 
       {/* 2) About Your Colors — blurred for non-members */}
-      <div className={'result-description' + (!user ? ' gated-blur' : '')}>
-        {!user && (
-          <div className="gated-overlay">
-            <div className="gated-overlay-content">
-              <span className="gated-lock">🔒</span>
-              <p className="gated-title">{t('Sign up to unlock your full color analysis', '가입하면 나만의 컬러 분석을 볼 수 있어요')}</p>
-              <p className="gated-free">{t('100% Free', '완전 무료')}</p>
-              <button className="gated-login-btn" onClick={loginAndKeepResult}>{t('Free Sign Up', '무료 가입')}</button>
-            </div>
-          </div>
-        )}
+      <GatedContent className="result-description" locked={!user} title="Sign up to unlock your full color analysis" titleKr="가입하면 나만의 컬러 분석을 볼 수 있어요" onLogin={loginAndKeepResult}>
         <h4>{t('About Your Colors', '나의 컬러 분석')}</h4>
         <p>{t(r.description, r.descriptionKr)}</p>
 
@@ -326,20 +295,10 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
             (r.celebsKr || r.celebs).map((c, i) => <span key={i} className="celeb-item">{c}</span>)
           )}
         </div>
-      </div>
+      </GatedContent>
 
       {/* 3) Skincare Recommendations — blurred for non-members */}
-      <div className={'pc-skincare-recs' + (!user ? ' gated-blur' : '')}>
-        {!user && (
-          <div className="gated-overlay">
-            <div className="gated-overlay-content">
-              <span className="gated-lock">🔒</span>
-              <p className="gated-title">{t('Save your result to see skincare picks', '결과를 저장하면 스킨케어 추천을 볼 수 있어요')}</p>
-              <p className="gated-free">{t('100% Free', '완전 무료')}</p>
-              <button className="gated-login-btn" onClick={loginAndKeepResult}>{t('Free Sign Up', '무료 가입')}</button>
-            </div>
-          </div>
-        )}
+      <GatedContent className="pc-skincare-recs" locked={!user} title="Save your result to see skincare picks" titleKr="결과를 저장하면 스킨케어 추천을 볼 수 있어요" onLogin={loginAndKeepResult}>
         <h4>🧴 {t('Recommended Skincare', '스킨케어 추천')}</h4>
         <div className="product-card-list">
           {getRecommendations({
@@ -352,7 +311,7 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
             .slice(0, 3)
             .map(p => <ProductCard key={p.id} product={p} />)}
         </div>
-      </div>
+      </GatedContent>
 
       {onNavigate && (
         <div className="result-action-links">

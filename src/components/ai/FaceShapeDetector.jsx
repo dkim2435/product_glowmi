@@ -1,21 +1,25 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
+import { useResultPersistence } from '../../hooks/useResultPersistence'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveFaceShapeResult } from '../../lib/db'
 import { addHistoryEntry } from '../../lib/analysisHistory'
 import { classifyFaceShape } from './analysis/faceShapeLogic'
 import { analyzeFaceShapeAI } from '../../lib/gemini'
 import { fsShapeData } from '../../data/faceShape'
+import { MSG, CONFETTI_DURATION } from '../../constants/aiMessages'
 import CameraView from '../common/CameraView'
 import ShareButtons from '../common/ShareButtons'
 import ShareCard from '../common/ShareCard'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
+import StartBenefitsCard from '../common/StartBenefitsCard'
+import GatedContent from '../common/GatedContent'
 
 export default function FaceShapeDetector({ showToast }) {
-  const { user, loginWithGoogle } = useAuth()
+  const { user } = useAuth()
   const { lang, t } = useLang()
   const camera = useCamera()
   const startUploadRef = useRef(null)
@@ -25,25 +29,10 @@ export default function FaceShapeDetector({ showToast }) {
   const [usedGemini, setUsedGemini] = useState(false)
   const [showShareCard, setShowShareCard] = useState(false)
 
-  // Restore result after OAuth login redirect
-  useEffect(() => {
-    const saved = sessionStorage.getItem('fs_pending_result')
-    if (saved && user) {
-      try {
-        const parsed = JSON.parse(saved)
-        setResult(parsed)
-        setScreen('result')
-        sessionStorage.removeItem('fs_pending_result')
-      } catch { /* ignore */ }
-    }
-  }, [user])
-
-  function loginAndKeepResult() {
-    if (result) {
-      sessionStorage.setItem('fs_pending_result', JSON.stringify(result))
-    }
-    loginWithGoogle()
-  }
+  const { loginAndKeepResult } = useResultPersistence('fs_pending_result', {
+    onRestore: (parsed) => { setResult(parsed); setScreen('result') },
+    getResult: () => result
+  })
 
   async function handleAnalyze() {
     setScreen('analyzing')
@@ -69,7 +58,7 @@ export default function FaceShapeDetector({ showToast }) {
         const detection = landmarker.detect(img)
         if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
           setScreen('camera')
-          showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
+          showToast(t(MSG.noFace.en, MSG.noFace.ko))
           return
         }
 
@@ -79,13 +68,13 @@ export default function FaceShapeDetector({ showToast }) {
       setResult(shape)
       setScreen('result')
       setShowConfetti(true)
-      setTimeout(() => setShowConfetti(false), 4000)
+      setTimeout(() => setShowConfetti(false), CONFETTI_DURATION)
     } catch (e) {
       console.error('Face analysis error:', e)
       setScreen('camera')
       const msg = e.message?.includes('MediaPipe')
         ? t('AI model is loading. Please wait and try again.', 'AI 모델을 불러오는 중입니다.')
-        : t('Analysis failed. Please try again.', '분석에 실패했습니다.')
+        : t(MSG.analysisFailed.en, MSG.analysisFailed.ko)
       showToast(msg)
     }
   }
@@ -95,9 +84,9 @@ export default function FaceShapeDetector({ showToast }) {
     try {
       await saveFaceShapeResult(user.id, result)
       addHistoryEntry('faceShape', { shape: result.shape, confidence: result.confidence })
-      showToast(t('Saved! View in My Page > Results', '저장 완료! 마이페이지 > 결과에서 확인하세요'))
+      showToast(t(MSG.saved.en, MSG.saved.ko))
     } catch {
-      showToast(t('Failed to save. Please try again.', '저장에 실패했습니다.'))
+      showToast(t(MSG.saveFailed.en, MSG.saveFailed.ko))
     }
   }
 
@@ -135,17 +124,7 @@ export default function FaceShapeDetector({ showToast }) {
           if (file) { camera.handleUpload(file).then(() => setScreen('camera')).catch(err => showToast(err.message)) }
           e.target.value = ''
         }} />
-        {!user && (
-          <div className="start-benefits-card">
-            <p className="start-benefits-title">{'🆓 ' + t('100% Free — Sign up to unlock:', '완전 무료 — 가입하면:')}</p>
-            <div className="start-benefits-list">
-              <span>💾 {t('Save results', '결과 저장')}</span>
-              <span>📈 {t('Track progress', '변화 추적')}</span>
-              <span>💇 {t('Full styling tips', '전체 스타일링 팁')}</span>
-              <span>🤖 {t('AI Chat', 'AI 상담')}</span>
-            </div>
-          </div>
-        )}
+        <StartBenefitsCard benefits={[{emoji:'💾',en:'Save results',ko:'결과 저장'},{emoji:'📈',en:'Track progress',ko:'변화 추적'},{emoji:'💇',en:'Full styling tips',ko:'전체 스타일링 팁'},{emoji:'🤖',en:'AI Chat',ko:'AI 상담'}]} />
       </div>
     )
   }
@@ -213,17 +192,7 @@ export default function FaceShapeDetector({ showToast }) {
       </div>
 
       {/* 2) About Your Face Shape — blurred for non-members */}
-      <div className={'result-description' + (!user ? ' gated-blur' : '')}>
-        {!user && (
-          <div className="gated-overlay">
-            <div className="gated-overlay-content">
-              <span className="gated-lock">🔒</span>
-              <p className="gated-title">{t('Sign up to see your personalized styling tips', '가입하면 나만의 스타일링 팁을 볼 수 있어요')}</p>
-              <p className="gated-free">{t('100% Free', '완전 무료')}</p>
-              <button className="gated-login-btn" onClick={loginAndKeepResult}>{t('Free Sign Up', '무료 가입')}</button>
-            </div>
-          </div>
-        )}
+      <GatedContent className="result-description" locked={!user} title="Sign up to see your personalized styling tips" titleKr="가입하면 나만의 스타일링 팁을 볼 수 있어요" onLogin={loginAndKeepResult}>
         <h4>{t('About Your Face Shape', '나의 얼굴형 분석')}</h4>
         <p>{t(data.description, data.descriptionKr || data.description)}</p>
         <h4>{t('Styling Tips', '스타일링 팁')}</h4>
@@ -239,7 +208,7 @@ export default function FaceShapeDetector({ showToast }) {
             )
           })}
         </div>
-      </div>
+      </GatedContent>
 
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji={data.emoji} english={data.name} korean={data.korean} showToast={showToast} />

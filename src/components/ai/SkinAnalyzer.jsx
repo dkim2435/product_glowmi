@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
+import { useResultPersistence } from '../../hooks/useResultPersistence'
+import StartBenefitsCard from '../common/StartBenefitsCard'
+import { MSG, CONFETTI_DURATION } from '../../constants/aiMessages'
 import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday, saveRoutine, saveQuizResult, loadSkinProgressDB } from '../../lib/db'
 import { resizePhoto } from '../../lib/storage'
@@ -21,7 +24,7 @@ import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
 export default function SkinAnalyzer({ showToast, onNavigate }) {
-  const { user, loginWithGoogle } = useAuth()
+  const { user } = useAuth()
   const { t } = useLang()
   const camera = useCamera()
   const startUploadRef = useRef(null)
@@ -46,19 +49,10 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
   const [quizAnswers, setQuizAnswers] = useState([])
   const [combinedResult, setCombinedResult] = useState(null)
 
-  // Restore result after OAuth login redirect
-  useEffect(() => {
-    const saved = sessionStorage.getItem('skin_pending_result')
-    if (saved && user) {
-      try {
-        const parsed = JSON.parse(saved)
-        setScores(parsed.scores)
-        setOverallScore(parsed.overallScore)
-        setScreen('result')
-        sessionStorage.removeItem('skin_pending_result')
-      } catch { /* ignore */ }
-    }
-  }, [user])
+  const { loginAndKeepResult } = useResultPersistence('skin_pending_result', {
+    onRestore: (parsed) => { setScores(parsed.scores); setOverallScore(parsed.overallScore); setScreen('result') },
+    getResult: () => scores && overallScore ? { scores, overallScore } : null
+  })
 
   // Load previous analysis for comparison when result screen shows
   useEffect(() => {
@@ -71,13 +65,6 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
       }).catch(() => {})
     }
   }, [user, screen])
-
-  function loginAndKeepResult() {
-    if (scores && overallScore) {
-      sessionStorage.setItem('skin_pending_result', JSON.stringify({ scores, overallScore }))
-    }
-    loginWithGoogle()
-  }
 
   async function handleAnalyze() {
     setScreen('analyzing')
@@ -103,7 +90,7 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
         const detection = landmarker.detect(img)
         if (!detection.faceLandmarks || detection.faceLandmarks.length === 0) {
           setScreen('camera')
-          showToast(t('No face detected. Please try again.', '얼굴이 감지되지 않았습니다.'))
+          showToast(t(MSG.noFace.en, MSG.noFace.ko))
           return
         }
 
@@ -124,11 +111,11 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
       setOverallScore(overall)
       setScreen('result')
       setShowConfetti(true)
-      setTimeout(() => setShowConfetti(false), 4000)
+      setTimeout(() => setShowConfetti(false), CONFETTI_DURATION)
     } catch (e) {
       console.error('Skin analysis error:', e)
       setScreen('camera')
-      showToast(t('Analysis failed. Please try again.', '분석에 실패했습니다.'))
+      showToast(t(MSG.analysisFailed.en, MSG.analysisFailed.ko))
     }
   }
 
@@ -293,17 +280,7 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
           if (file) { camera.handleUpload(file).then(() => setScreen('camera')).catch(err => showToast(err.message)) }
           e.target.value = ''
         }} />
-        {!user && (
-          <div className="start-benefits-card">
-            <p className="start-benefits-title">{'🆓 ' + t('100% Free — Sign up to unlock:', '완전 무료 — 가입하면:')}</p>
-            <div className="start-benefits-list">
-              <span>💾 {t('Save results', '결과 저장')}</span>
-              <span>📈 {t('Track progress', '변화 추적')}</span>
-              <span>🧴 {t('AI Routine', 'AI 루틴')}</span>
-              <span>🤖 {t('AI Chat', 'AI 상담')}</span>
-            </div>
-          </div>
-        )}
+        <StartBenefitsCard benefits={[{emoji:'💾',en:'Save results',ko:'결과 저장'},{emoji:'📈',en:'Track progress',ko:'변화 추적'},{emoji:'🧴',en:'AI Routine',ko:'AI 루틴'},{emoji:'🤖',en:'AI Chat',ko:'AI 상담'}]} />
       </div>
     )
   }
