@@ -56,6 +56,7 @@
 - **VITE_GEMINI_API_KEY** — Google Gemini API 키 (AI 분석용)
 - **VITE_SUPABASE_URL** — Supabase 프로젝트 URL
 - **VITE_SUPABASE_ANON_KEY** — Supabase 공개 키
+- **VITE_LAMBDA_GEMINI_URL** — AWS Lambda Gemini 프록시 URL (설정 시 Cloudflare 프록시 대신 사용)
 - **DISCORD_WEBHOOK_URL** — Discord 가입 알림 웹훅 (Cloudflare Function에서 사용)
 - 로컬 개발: `.env` 파일에 설정 (`.env.example` 참고)
 - 프로덕션: Cloudflare Pages Settings > Variables and Secrets (Type: Text)

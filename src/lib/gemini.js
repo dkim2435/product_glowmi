@@ -1,28 +1,24 @@
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ''
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent'
 const EMBEDDING_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent'
+const LAMBDA_URL = import.meta.env.VITE_LAMBDA_GEMINI_URL || ''
 const USE_PROXY = !GEMINI_API_KEY
 
 /**
- * Send request body to Gemini — via proxy (production) or direct (local dev).
+ * Send request body to Gemini.
+ * Priority: Lambda proxy → Cloudflare proxy → direct API call.
  */
 async function postToGemini(body) {
-  if (USE_PROXY) {
-    const res = await fetch('/api/gemini', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    return res
-  }
+  const payload = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
 
-  const url = `${GEMINI_URL}?key=${GEMINI_API_KEY}`
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  })
-  return res
+  // 1) AWS Lambda proxy (production — API key secured server-side)
+  if (LAMBDA_URL) return await fetch(LAMBDA_URL, payload)
+
+  // 2) Cloudflare proxy (fallback)
+  if (USE_PROXY) return await fetch('/api/gemini', payload)
+
+  // 3) Direct API call (local dev only)
+  return await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, payload)
 }
 
 /**
