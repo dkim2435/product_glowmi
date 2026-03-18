@@ -189,7 +189,7 @@ export default function SkinChat({ showToast }) {
         </div>
         <div className="chat-promo-examples">
           <p className="chat-promo-label">{t('Try asking:', '이런 질문을 해보세요:')}</p>
-          {SUGGESTED_QUESTIONS.slice(0, 4).map((q, i) => (
+          {DEFAULT_QUESTIONS.slice(0, 4).map((q, i) => (
             <div key={i} className="chat-promo-example">
               <span>{q.emoji}</span> {t(q.en, q.kr)}
             </div>

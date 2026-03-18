@@ -192,9 +192,19 @@ export async function deleteSkinProgressDB(userId, entryId) {
 // ===== Account =====
 
 export async function deleteAllUserData(userId) {
-  await supabase.from('skin_progress').delete().eq('user_id', userId)
-  await supabase.from('skin_diary').delete().eq('user_id', userId)
-  await supabase.from('routines').delete().eq('user_id', userId)
-  await supabase.from('analysis_results').delete().eq('id', userId)
-  await supabase.from('profiles').delete().eq('id', userId)
+  const tables = [
+    { table: 'skin_progress', key: 'user_id' },
+    { table: 'skin_diary', key: 'user_id' },
+    { table: 'routines', key: 'user_id' },
+    { table: 'analysis_results', key: 'id' },
+    { table: 'profiles', key: 'id' },
+  ]
+  const errors = []
+  for (const { table, key } of tables) {
+    const { error } = await supabase.from(table).delete().eq(key, userId)
+    if (error) errors.push({ table, error })
+  }
+  if (errors.length > 0) {
+    throw new Error(`Failed to delete from: ${errors.map(e => e.table).join(', ')}`)
+  }
 }
