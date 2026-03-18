@@ -108,12 +108,17 @@ async function callGemini(imageBase64, prompt) {
   }
 
   const data = await res.json()
-  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
-  if (!text) throw new Error('No response from Gemini')
+  const parts = data?.candidates?.[0]?.content?.parts
+  // DEBUG: expose parts structure for mobile debugging
+  if (typeof window !== 'undefined') {
+    window.__geminiDebug = JSON.stringify((parts || []).map(p => ({ keys: Object.keys(p), thought: p.thought, textLen: p.text?.length })))
+  }
+  const text = extractTextFromParts(parts)
+  if (!text) throw new Error('No response from Gemini | parts: ' + JSON.stringify((parts || []).map(p => Object.keys(p))))
 
   // Extract JSON from response (may be wrapped in ```json ... ```)
   const jsonMatch = text.match(/\{[\s\S]*\}/)
-  if (!jsonMatch) throw new Error('No JSON in Gemini response')
+  if (!jsonMatch) throw new Error('No JSON in Gemini response | textLen:' + text.length + ' | start:' + text.substring(0, 100))
 
   return JSON.parse(jsonMatch[0])
 }
