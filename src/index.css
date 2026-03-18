@@ -3949,6 +3949,42 @@ body {
   text-align: center;
 }
 
+.start-benefits-card {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(207, 139, 169, 0.08), rgba(166, 106, 133, 0.05));
+  border: 1px solid rgba(207, 139, 169, 0.25);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: center;
+}
+
+.start-benefits-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-pink, #CF8BA9);
+  margin-bottom: 8px;
+}
+
+.start-benefits-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 12px;
+}
+
+.start-benefits-list span {
+  font-size: 0.74rem;
+  color: var(--text-secondary, #666);
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .start-benefits-card {
+  background: linear-gradient(135deg, rgba(207, 139, 169, 0.06), rgba(166, 106, 133, 0.03));
+  border-color: rgba(207, 139, 169, 0.2);
+}
+
+[data-theme="dark"] .start-benefits-list span { color: #a0a0b8; }
+
 .daily-limit-overlay {
   position: fixed;
   inset: 0;
