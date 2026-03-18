@@ -59,7 +59,6 @@ export default function PersonalColorAnalysis({ showToast }) {
         setUsedGemini(true)
       } catch (geminiErr) {
         console.warn('Gemini failed, falling back to local analysis:', geminiErr)
-        showToast('[DEBUG] Gemini error: ' + (geminiErr?.message || String(geminiErr)))
         setUsedGemini(false)
       }
 

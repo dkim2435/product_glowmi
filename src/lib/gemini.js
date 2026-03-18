@@ -65,6 +65,19 @@ const SAFETY_SETTINGS = [
   { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
 ]
 
+/**
+ * Extract text from Gemini response parts, skipping "thought" parts.
+ * Gemini 2.5 models may return thinking parts before the actual response.
+ */
+function extractTextFromParts(parts) {
+  if (!parts || parts.length === 0) return ''
+  // Try non-thought parts first (the actual response)
+  const responseParts = parts.filter(p => !p.thought && p.text)
+  if (responseParts.length > 0) return responseParts.map(p => p.text).join('')
+  // Fallback: use all text parts
+  return parts.filter(p => p.text).map(p => p.text).join('')
+}
+
 async function callGemini(imageBase64, prompt) {
   if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
 
@@ -95,7 +108,7 @@ async function callGemini(imageBase64, prompt) {
   }
 
   const data = await res.json()
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
+  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
   if (!text) throw new Error('No response from Gemini')
 
   // Extract JSON from response (may be wrapped in ```json ... ```)
@@ -129,7 +142,7 @@ async function callGeminiText(prompt, opts = {}) {
   }
 
   const data = await res.json()
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
+  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
   if (!text) throw new Error('No response from Gemini')
 
   if (opts.rawText) return text
@@ -169,7 +182,7 @@ async function callGeminiMultiImage(imageSrcs, prompt, opts = {}) {
   }
 
   const data = await res.json()
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text
+  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
   if (!text) throw new Error('No response from Gemini')
 
   const jsonMatch = text.match(/\{[\s\S]*\}/)
