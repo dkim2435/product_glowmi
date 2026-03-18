@@ -16,7 +16,7 @@ import ShareCard from '../common/ShareCard'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
-export default function PersonalColorAnalysis({ showToast }) {
+export default function PersonalColorAnalysis({ showToast, onNavigate }) {
   const { user, loginWithGoogle } = useAuth()
   const { lang, t } = useLang()
   const camera = useCamera()
@@ -347,6 +347,17 @@ export default function PersonalColorAnalysis({ showToast }) {
             .map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       </div>
+
+      {onNavigate && (
+        <div className="result-action-links">
+          <button className="action-link-btn" onClick={() => onNavigate('products', 'products')}>
+            {'🛒 ' + t('Browse Matching Products', '맞춤 제품 보러가기')}
+          </button>
+          <button className="action-link-btn" onClick={() => onNavigate('products', 'analyzer')}>
+            {'🧪 ' + t('Check Ingredient Compatibility', '성분 호환성 확인하기')}
+          </button>
+        </div>
+      )}
 
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
       <ShareButtons emoji={r.emoji} english={r.english} korean={r.korean} showToast={showToast} />

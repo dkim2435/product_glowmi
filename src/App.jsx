@@ -76,8 +76,8 @@ export default function App() {
             <main className="main-content">
               <WeatherTips />
               <Suspense fallback={<TabLoadingFallback />}>
-                {activeTab === 'ai' && <AiBeautyTab showToast={showToast} />}
-                {activeTab === 'products' && <ProductsTab showToast={showToast} />}
+                {activeTab === 'ai' && <AiBeautyTab showToast={showToast} onNavigate={navigateTo} />}
+                {activeTab === 'products' && <ProductsTab showToast={showToast} onNavigate={navigateTo} />}
                 {activeTab === 'procedures' && <ProceduresTab />}
                 {activeTab === 'wellness' && <WellnessTab onNavigate={navigateTo} />}
                 {activeTab === 'mypage' && <MyPageTab showToast={showToast} onNavigate={navigateTo} />}

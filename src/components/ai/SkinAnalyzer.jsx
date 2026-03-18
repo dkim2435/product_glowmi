@@ -20,7 +20,7 @@ import ShareCard from '../common/ShareCard'
 import SaveResultBtn from '../common/SaveResultBtn'
 import Confetti from '../common/Confetti'
 
-export default function SkinAnalyzer({ showToast }) {
+export default function SkinAnalyzer({ showToast, onNavigate }) {
   const { user, loginWithGoogle } = useAuth()
   const { t } = useLang()
   const camera = useCamera()
@@ -509,6 +509,17 @@ export default function SkinAnalyzer({ showToast }) {
           </div>
         )}
       </div>
+
+      {onNavigate && (
+        <div className="result-action-links">
+          <button className="action-link-btn" onClick={() => onNavigate('products', 'products')}>
+            {'🛒 ' + t('Browse K-Beauty Products', 'K-뷰티 제품 보러가기')}
+          </button>
+          <button className="action-link-btn" onClick={() => onNavigate('products', 'analyzer')}>
+            {'🧪 ' + t('Analyze Your Product Ingredients', '내 제품 성분 분석하기')}
+          </button>
+        </div>
+      )}
 
       <div className="ai-routine-section">
         <h4>{t('AI Routine Recommendation', 'AI 루틴 추천')}</h4>

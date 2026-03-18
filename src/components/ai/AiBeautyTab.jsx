@@ -13,7 +13,7 @@ const AI_TOOLS = [
   { id: 'aiChat', label: 'AI Chat', labelKr: 'AI 상담', emoji: '🤖', highlight: true }
 ]
 
-export default function AiBeautyTab({ showToast }) {
+export default function AiBeautyTab({ showToast, onNavigate }) {
   const { t } = useLang()
   const { user, loginWithGoogle } = useAuth()
   const [activeTool, setActiveTool] = useState('skinAnalyzer')
@@ -56,10 +56,10 @@ export default function AiBeautyTab({ showToast }) {
       </div>
 
       <div style={{ display: activeTool === 'skinAnalyzer' ? 'block' : 'none' }}>
-        <SkinAnalyzer showToast={showToast} />
+        <SkinAnalyzer showToast={showToast} onNavigate={onNavigate} />
       </div>
       <div style={{ display: activeTool === 'personalColor' ? 'block' : 'none' }}>
-        <PersonalColorAnalysis showToast={showToast} />
+        <PersonalColorAnalysis showToast={showToast} onNavigate={onNavigate} />
       </div>
       <div style={{ display: activeTool === 'faceShape' ? 'block' : 'none' }}>
         <FaceShapeDetector showToast={showToast} />
