@@ -78,118 +78,77 @@ function extractTextFromParts(parts) {
   return parts.filter(p => p.text).map(p => p.text).join('')
 }
 
-async function callGemini(imageBase64, prompt) {
+function ensureApiKey() {
   if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
+}
 
+function createGenConfig(opts = {}) {
+  return {
+    temperature: opts.temperature ?? 0.1,
+    maxOutputTokens: opts.maxOutputTokens ?? 1024,
+    thinkingConfig: { thinkingBudget: 0 }
+  }
+}
+
+async function handleResponse(res, { rawText = false } = {}) {
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '')
+    throw new Error(`Gemini API error ${res.status}: ${errText}`)
+  }
+  const data = await res.json()
+  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
+  if (!text) throw new Error('No response from Gemini')
+  if (rawText) return text
+  const jsonMatch = text.match(/\{[\s\S]*\}/)
+  if (!jsonMatch) throw new Error('No JSON in Gemini response')
+  return JSON.parse(jsonMatch[0])
+}
+
+async function callGemini(imageBase64, prompt) {
+  ensureApiKey()
   const body = {
     contents: [{
       parts: [
         { text: prompt },
-        {
-          inlineData: {
-            mimeType: 'image/jpeg',
-            data: imageBase64
-          }
-        }
+        { inlineData: { mimeType: 'image/jpeg', data: imageBase64 } }
       ]
     }],
-    generationConfig: {
-      temperature: 0.1,
-      maxOutputTokens: 2048,
-      thinkingConfig: { thinkingBudget: 0 }
-    },
+    generationConfig: createGenConfig({ maxOutputTokens: 2048 }),
     safetySettings: SAFETY_SETTINGS
   }
-
-  const res = await postToGemini(body)
-
-  if (!res.ok) {
-    const errText = await res.text().catch(() => '')
-    throw new Error(`Gemini API error ${res.status}: ${errText}`)
-  }
-
-  const data = await res.json()
-  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
-  if (!text) throw new Error('No response from Gemini')
-
-  // Extract JSON from response (may be wrapped in ```json ... ```)
-  const jsonMatch = text.match(/\{[\s\S]*\}/)
-  if (!jsonMatch) throw new Error('No JSON in Gemini response')
-
-  return JSON.parse(jsonMatch[0])
+  return handleResponse(await postToGemini(body))
 }
 
 /**
  * Call Gemini API with text-only prompt (no image).
- * Returns parsed JSON or raw text based on parseJson flag.
+ * Returns parsed JSON or raw text based on opts.rawText flag.
  */
 async function callGeminiText(prompt, opts = {}) {
-  if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
-
-  const temperature = opts.temperature ?? 0.1
-  const maxOutputTokens = opts.maxOutputTokens ?? 1024
-
+  ensureApiKey()
   const body = {
     contents: opts.contents || [{ parts: [{ text: prompt }] }],
-    generationConfig: { temperature, maxOutputTokens, thinkingConfig: { thinkingBudget: 0 } },
+    generationConfig: createGenConfig(opts),
     safetySettings: SAFETY_SETTINGS
   }
-
-  const res = await postToGemini(body)
-
-  if (!res.ok) {
-    const errText = await res.text().catch(() => '')
-    throw new Error(`Gemini API error ${res.status}: ${errText}`)
-  }
-
-  const data = await res.json()
-  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
-  if (!text) throw new Error('No response from Gemini')
-
-  if (opts.rawText) return text
-
-  const jsonMatch = text.match(/\{[\s\S]*\}/)
-  if (!jsonMatch) throw new Error('No JSON in Gemini response')
-  return JSON.parse(jsonMatch[0])
+  return handleResponse(await postToGemini(body), { rawText: opts.rawText })
 }
 
 /**
  * Call Gemini API with multiple images + text prompt.
  */
 async function callGeminiMultiImage(imageSrcs, prompt, opts = {}) {
-  if (!USE_PROXY && !GEMINI_API_KEY) throw new Error('Gemini API key not configured')
-
+  ensureApiKey()
   const parts = [{ text: prompt }]
-
   for (const src of imageSrcs) {
     const base64 = await resizeImageToBase64(src)
     parts.push({ inlineData: { mimeType: 'image/jpeg', data: base64 } })
   }
-
   const body = {
     contents: [{ parts }],
-    generationConfig: {
-      temperature: opts.temperature ?? 0.1,
-      maxOutputTokens: opts.maxOutputTokens ?? 1500,
-      thinkingConfig: { thinkingBudget: 0 }
-    },
+    generationConfig: createGenConfig({ maxOutputTokens: opts.maxOutputTokens ?? 1500, temperature: opts.temperature }),
     safetySettings: SAFETY_SETTINGS
   }
-
-  const res = await postToGemini(body)
-
-  if (!res.ok) {
-    const errText = await res.text().catch(() => '')
-    throw new Error(`Gemini API error ${res.status}: ${errText}`)
-  }
-
-  const data = await res.json()
-  const text = extractTextFromParts(data?.candidates?.[0]?.content?.parts)
-  if (!text) throw new Error('No response from Gemini')
-
-  const jsonMatch = text.match(/\{[\s\S]*\}/)
-  if (!jsonMatch) throw new Error('No JSON in Gemini response')
-  return JSON.parse(jsonMatch[0])
+  return handleResponse(await postToGemini(body))
 }
 
 /**
@@ -297,27 +256,16 @@ Be honest but encouraging. Focus on visible changes between the photos.`
  */
 export async function getEmbedding(text) {
   const body = { content: { parts: [{ text }] }, outputDimensionality: 768 }
-
-  let res
-  if (USE_PROXY) {
-    res = await fetch('/api/embedding', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-  } else {
-    res = await fetch(`${EMBEDDING_URL}?key=${GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-  }
-
+  const url = USE_PROXY ? '/api/embedding' : `${EMBEDDING_URL}?key=${GEMINI_API_KEY}`
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
   if (!res.ok) {
     const errText = await res.text().catch(() => '')
     throw new Error(`Embedding API error ${res.status}: ${errText}`)
   }
-
   const data = await res.json()
   return data.embedding?.values
 }
