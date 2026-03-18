@@ -26,10 +26,6 @@ export function getHistory(type) {
   return loadHistory().filter(e => !type || e.type === type)
 }
 
-export function getHistoryByType(type) {
-  return loadHistory().filter(e => e.type === type)
-}
-
 export function clearHistory() {
   localStorage.removeItem(HISTORY_KEY)
 }

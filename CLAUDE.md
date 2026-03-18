@@ -144,7 +144,6 @@ src/
 │   │   ├── WeatherTips.jsx           — 날씨 기반 스킨케어 팁
 │   │   ├── OnboardingModal.jsx       — 첫 방문 튜토리얼
 │   │   ├── ReleaseNotesModal.jsx     — 업데이트 알림
-│   │   ├── PageModal.jsx             — 범용 모달
 │   │   ├── ShareCard.jsx             — 인스타 공유 카드 (디스패처)
 │   │   ├── shareCards/               — 카드별 캔버스 드로잉
 │   │   │   ├── drawSkinCard.js       — 피부 분석 카드
