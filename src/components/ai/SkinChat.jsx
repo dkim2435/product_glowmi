@@ -6,13 +6,18 @@ import { chatSkincare } from '../../lib/gemini'
 import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
 import { runAgentChat } from '../../lib/agent'
 
-/** Render markdown bold **text** and links [text](url) as formatted elements */
+/** Render markdown bold **text**, links [text](url), and bare URLs as formatted elements */
 function renderChatText(text) {
-  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
+  // Fix broken markdown links: [text](url  → [text](url)
+  const fixed = text.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\s*/g, '[$1]($2)')
+  const parts = fixed.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)\s]+\)|https?:\/\/[^\s)\]]+)/g)
   return parts.map((part, i) => {
-    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/)
     if (linkMatch) {
       return <a key={i} href={linkMatch[2]} target="_blank" rel="noopener noreferrer nofollow" className="chat-link">{linkMatch[1]}</a>
+    }
+    if (/^https?:\/\//.test(part)) {
+      return <a key={i} href={part} target="_blank" rel="noopener noreferrer nofollow" className="chat-link">{part}</a>
     }
     const boldMatch = part.match(/^\*\*([^*]+)\*\*$/)
     if (boldMatch) {
