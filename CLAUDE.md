@@ -145,7 +145,13 @@ src/
 │   │   ├── OnboardingModal.jsx       — 첫 방문 튜토리얼
 │   │   ├── ReleaseNotesModal.jsx     — 업데이트 알림
 │   │   ├── PageModal.jsx             — 범용 모달
-│   │   ├── ShareCard.jsx             — 인스타 공유 카드
+│   │   ├── ShareCard.jsx             — 인스타 공유 카드 (디스패처)
+│   │   ├── shareCards/               — 카드별 캔버스 드로잉
+│   │   │   ├── drawSkinCard.js       — 피부 분석 카드
+│   │   │   ├── drawPCCard.js         — 퍼스널컬러 카드
+│   │   │   └── drawFSCard.js         — 얼굴형 카드
+│   │   ├── GatedContent.jsx          — 비회원 블러 게이트 (공통)
+│   │   ├── StartBenefitsCard.jsx     — 가입 혜택 카드 (공통)
 │   │   └── CameraView.jsx           — 웹캠 촬영
 │   │
 │   └── layout/                — 레이아웃
@@ -153,10 +159,16 @@ src/
 │       ├── TabNav.jsx                — 하단 탭 네비게이션
 │       └── Footer.jsx                — 푸터 링크
 │
+├── constants/                 — 공유 상수
+│   └── aiMessages.js                — AI 분석 공통 메시지, CONFETTI_DURATION
 ├── context/                   — React Context (위 표 참고)
 ├── data/                      — 정적 데이터 (제품 DB, 성분, 퀴즈 등)
 ├── lib/                       — 유틸리티 (Gemini API, Supabase, 스토리지)
-└── hooks/                     — 커스텀 훅 (useCamera)
+│   ├── canvasHelpers.js             — 캔버스 공통 함수 (roundRect, drawCircle 등)
+│   └── classNames.js                — 조건부 className 결합 유틸
+└── hooks/                     — 커스텀 훅
+    ├── useCamera.js                 — 웹캠/사진 업로드
+    └── useResultPersistence.js      — OAuth 리다이렉트 결과 보존
 ```
 
 ## 주요 파일 위치
