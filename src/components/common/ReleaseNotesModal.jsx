@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.4.2'
+const APP_VERSION = '2.4.3'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
@@ -11,13 +11,15 @@ const RELEASE_NOTES = [
     emoji: '✨',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'Bug fixes and cleaner mobile UI for product filters and color analysis.',
-    descKr: '버그 수정 및 모바일 UI 개선!',
+    desc: 'AI Beauty UX upgrades — photo guides, smarter navigation, and personalized experiences!',
+    descKr: 'AI 뷰티 UX 대폭 개선 — 사진 가이드, 스마트 내비게이션, 개인화 경험!',
     items: [
-      { emoji: '✅', label: 'AI Routine Fix', labelKr: 'AI 루틴 추천 수정', desc: 'The "Generate AI Routine" button was failing for many users. Now works reliably!', descKr: '"AI 루틴 추천받기" 버튼 오류를 수정했습니다. 이제 정상 작동합니다!' },
-      { emoji: '🎛️', label: 'Compact Filters', labelKr: '필터 UI 개선', desc: 'Product filters are now clean dropdowns instead of long chip lists — much better on mobile.', descKr: '제품 필터가 드롭다운 방식으로 바뀌어 모바일에서 훨씬 깔끔해졌습니다.' },
-      { emoji: '🎨', label: 'Color Analysis Layout', labelKr: '컬러 분석 레이아웃', desc: 'Personal Color results are now properly centered instead of shifted to the right.', descKr: '퍼스널컬러 분석 결과가 오른쪽으로 치우치던 문제를 수정했습니다.' },
-      { emoji: '📦', label: 'Consistent Cards', labelKr: '제품 카드 정렬', desc: 'Product category labels now have uniform width for a tidier look.', descKr: '제품 카드의 카테고리 라벨 너비가 통일되어 더 깔끔해졌습니다.' },
+      { emoji: '📸', label: 'Photo Guide', labelKr: '사진 가이드', desc: 'Tips for taking better photos shown before analysis — natural light, face centered, no filters.', descKr: '분석 전 좋은 사진 찍는 팁 제공 — 자연광, 정면, 필터 금지.' },
+      { emoji: '🔗', label: 'Result → Products', labelKr: '결과 → 제품 연결', desc: 'Analysis results now link directly to matching products and ingredient analyzer.', descKr: '분석 결과에서 맞춤 제품과 성분 분석기로 바로 이동할 수 있어요.' },
+      { emoji: '🤖', label: 'Smarter AI Chat', labelKr: 'AI 상담 개선', desc: 'Personalized suggested questions based on your skin analysis data.', descKr: '피부 분석 데이터 기반 맞춤 추천 질문이 표시됩니다.' },
+      { emoji: '💎', label: 'Face Shape Cards', labelKr: '얼굴형 카드 뷰', desc: 'Styling tips now displayed as visual cards instead of a plain list.', descKr: '스타일링 팁이 카드 형태로 보기 좋게 바뀌었어요.' },
+      { emoji: '📊', label: 'Score Comparison', labelKr: '점수 비교', desc: 'Skin analysis now shows changes compared to your last result.', descKr: '피부 분석 시 이전 결과와 점수 변화를 보여줍니다.' },
+      { emoji: '🌤️', label: 'Weather + Skin', labelKr: '날씨 + 피부 연동', desc: 'Weather tips now reference your skin scores. City search when location is blocked.', descKr: '날씨 팁에 피부 점수가 반영되고, 위치 거부 시 도시 검색이 가능해요.' },
     ],
   },
 ]
