@@ -1342,6 +1342,39 @@ body {
   color: #666;
 }
 
+/* Face shape style cards */
+.fs-style-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.fs-style-card {
+  background: var(--bg-card, #f8f8fc);
+  border: 1px solid var(--border-light, #eee);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+}
+
+.fs-style-card-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--primary-pink, #CF8BA9);
+}
+
+.fs-style-card-desc {
+  font-size: 0.76rem;
+  color: var(--text-secondary, #666);
+  line-height: 1.45;
+}
+
+@media (max-width: 400px) {
+  .fs-style-cards { grid-template-columns: 1fr; }
+}
+
 .fs-ref-section {
   text-align: left;
   margin-top: 25px;
@@ -7389,6 +7422,8 @@ body {
 [data-theme="dark"] .swatch-name { color: #c0c0d0; }
 [data-theme="dark"] .worst-colors h4 { color: #909098; }
 [data-theme="dark"] .celeb-item { color: #c0c0d0; }
+[data-theme="dark"] .fs-style-card { background: #2a2a40; border-color: #3a3a50; }
+[data-theme="dark"] .fs-style-card-desc { color: #a0a0b8; }
 [data-theme="dark"] .fs-ref-item { background: #2a2a40; }
 [data-theme="dark"] .fs-ref-text { color: #e0e0e8; }
 [data-theme="dark"] .fs-ref-detail { color: #b0b0c0; }
