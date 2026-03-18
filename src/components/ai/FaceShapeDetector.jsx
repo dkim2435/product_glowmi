@@ -221,7 +221,18 @@ export default function FaceShapeDetector({ showToast }) {
         <h4>{t('About Your Face Shape', '나의 얼굴형 분석')}</h4>
         <p>{t(data.description, data.descriptionKr || data.description)}</p>
         <h4>{t('Styling Tips', '스타일링 팁')}</h4>
-        <ul>{(lang === 'ko' && data.tipsKr ? data.tipsKr : data.tips).map((tip, i) => <li key={i}>{tip}</li>)}</ul>
+        <div className="fs-style-cards">
+          {(lang === 'ko' && data.tipsKr ? data.tipsKr : data.tips).map((tip, i) => {
+            const [category, ...rest] = tip.split(':')
+            const detail = rest.join(':').trim()
+            return (
+              <div key={i} className="fs-style-card">
+                <div className="fs-style-card-title">{category}</div>
+                <div className="fs-style-card-desc">{detail}</div>
+              </div>
+            )
+          })}
+        </div>
       </div>
 
       <SaveResultBtn onSave={handleSave} onLogin={loginAndKeepResult} />
