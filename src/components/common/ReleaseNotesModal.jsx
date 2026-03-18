@@ -1,25 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.4.5'
+const APP_VERSION = '2.4.6'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '✨',
+    emoji: '🔧',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'AI Beauty UX upgrades — photo guides, smarter navigation, and personalized experiences!',
-    descKr: 'AI 뷰티 UX 대폭 개선 — 사진 가이드, 스마트 내비게이션, 개인화 경험!',
+    desc: 'Bug fixes and SEO improvements for a more stable and discoverable experience.',
+    descKr: '버그 수정과 SEO 개선으로 더 안정적이고 검색에 잘 노출되도록 했어요.',
     items: [
-      { emoji: '📸', label: 'Photo Guide', labelKr: '사진 가이드', desc: 'Tips for taking better photos shown before analysis — natural light, face centered, no filters.', descKr: '분석 전 좋은 사진 찍는 팁 제공 — 자연광, 정면, 필터 금지.' },
-      { emoji: '🔗', label: 'Result → Products', labelKr: '결과 → 제품 연결', desc: 'Analysis results now link directly to matching products and ingredient analyzer.', descKr: '분석 결과에서 맞춤 제품과 성분 분석기로 바로 이동할 수 있어요.' },
-      { emoji: '🤖', label: 'Smarter AI Chat', labelKr: 'AI 상담 개선', desc: 'Personalized suggested questions based on your skin analysis data.', descKr: '피부 분석 데이터 기반 맞춤 추천 질문이 표시됩니다.' },
-      { emoji: '💎', label: 'Face Shape Cards', labelKr: '얼굴형 카드 뷰', desc: 'Styling tips now displayed as visual cards instead of a plain list.', descKr: '스타일링 팁이 카드 형태로 보기 좋게 바뀌었어요.' },
-      { emoji: '📊', label: 'Score Comparison', labelKr: '점수 비교', desc: 'Skin analysis now shows changes compared to your last result.', descKr: '피부 분석 시 이전 결과와 점수 변화를 보여줍니다.' },
-      { emoji: '🌤️', label: 'Weather + Skin', labelKr: '날씨 + 피부 연동', desc: 'Weather tips now reference your skin scores. City search when location is blocked.', descKr: '날씨 팁에 피부 점수가 반영되고, 위치 거부 시 도시 검색이 가능해요.' },
+      { emoji: '🐛', label: 'AI Chat Fix', labelKr: 'AI 상담 버그 수정', desc: 'Fixed a crash on the AI chat screen for users who haven\'t signed in yet.', descKr: '로그인 전 AI 상담 화면에서 발생하던 오류를 수정했어요.' },
+      { emoji: '🛡️', label: 'Safer Account Deletion', labelKr: '계정 삭제 안정화', desc: 'Account data deletion now properly handles errors and reports which step failed.', descKr: '계정 데이터 삭제 시 에러 처리가 개선되어 더 안전해졌어요.' },
+      { emoji: '🔍', label: 'Better SEO', labelKr: 'SEO 개선', desc: 'Blog posts now include proper language tags for better search engine visibility.', descKr: '블로그 포스트에 언어 태그가 추가되어 검색 노출이 개선됩니다.' },
     ],
   },
 ]
