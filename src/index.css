@@ -587,6 +587,43 @@ body {
   color: #1a1a1a;
 }
 
+/* ========== Result Action Links ========== */
+.result-action-links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.action-link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1.5px solid var(--primary-pink, #CF8BA9);
+  background: transparent;
+  color: var(--primary-pink, #CF8BA9);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.action-link-btn:hover {
+  background: var(--primary-pink, #CF8BA9);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.action-link-btn:focus-visible {
+  outline: 2px solid var(--primary-pink, #CF8BA9);
+  outline-offset: 2px;
+}
+
 /* ========== Save Result Button ========== */
 .save-result-btn {
   display: inline-block;
@@ -800,6 +837,7 @@ body {
 .result-content .fs-result-buttons,
 .result-content .result-description,
 .result-content .recommended-products,
+.result-content .result-action-links,
 .result-content .save-result-btn,
 .result-content .share-buttons,
 .result-content .skin-overall,

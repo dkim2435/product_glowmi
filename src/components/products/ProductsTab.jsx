@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import IngredientAnalyzer from './IngredientAnalyzer'
 import ProductBrowser from './ProductBrowser'
 import SkinChat from '../ai/SkinChat'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 
+const PRODUCT_SUBS = ['products', 'aiRec', 'analyzer', 'guide']
+
 export default function ProductsTab({ showToast }) {
   const [activeSub, setActiveSub] = useState('products')
+
+  useEffect(() => {
+    function handleToolSelect(e) {
+      if (e.detail && PRODUCT_SUBS.includes(e.detail)) {
+        setActiveSub(e.detail)
+      }
+    }
+    window.addEventListener('glowmi-select-tool', handleToolSelect)
+    return () => window.removeEventListener('glowmi-select-tool', handleToolSelect)
+  }, [])
   const { user, loginWithGoogle } = useAuth()
   const { t } = useLang()
 
