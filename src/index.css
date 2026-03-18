@@ -5351,6 +5351,15 @@ body {
   transform: rotate(180deg);
 }
 
+.weather-skin-note {
+  text-align: center;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--primary-pink, #CF8BA9);
+  padding: 4px 12px 2px;
+  line-height: 1.4;
+}
+
 .weather-tap-hint {
   text-align: center;
   font-size: 0.7rem;

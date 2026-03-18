@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { getWeatherCache, setWeatherCache } from '../../lib/storage'
 import { getRecommendations } from '../../data/products'
 import { useLang } from '../../context/LanguageContext'
+import { useAuth } from '../../context/AuthContext'
+import { loadAnalysisResults } from '../../lib/db'
 import ProductCard from './ProductCard'
 
 const TIPS = {
@@ -80,16 +82,59 @@ function getSkincareAdvice(temp, humidity, uvIndex) {
   return advice
 }
 
+/** Build a personal note linking weather + skin scores */
+function getSkinWeatherNote(advice, skinData, t) {
+  if (!skinData) return null
+  const links = []
+  for (const a of advice) {
+    if (a === TIPS.dryAir && skinData.skin_dryness >= 40) {
+      links.push(t(
+        `Your dryness score is ${skinData.skin_dryness} — extra moisture is key today!`,
+        `건조 점수 ${skinData.skin_dryness}점 — 오늘 보습이 특히 중요해요!`
+      ))
+    }
+    if ((a === TIPS.uvHigh || a === TIPS.uvMod) && skinData.skin_dark_spots >= 40) {
+      links.push(t(
+        `Your dark spots score is ${skinData.skin_dark_spots} — sunscreen is extra important!`,
+        `잡티 점수 ${skinData.skin_dark_spots}점 — 자외선 차단이 더욱 중요해요!`
+      ))
+    }
+    if (a === TIPS.humid && skinData.skin_oiliness >= 40) {
+      links.push(t(
+        `Your oiliness score is ${skinData.skin_oiliness} — oil control matters today!`,
+        `유분 점수 ${skinData.skin_oiliness}점 — 오늘 유분 관리에 신경 쓰세요!`
+      ))
+    }
+    if (a === TIPS.cold && skinData.skin_redness >= 40) {
+      links.push(t(
+        `Your redness score is ${skinData.skin_redness} — protect your skin barrier!`,
+        `홍조 점수 ${skinData.skin_redness}점 — 피부 장벽 보호가 중요해요!`
+      ))
+    }
+  }
+  return links.length > 0 ? links[0] : null
+}
+
 export default function WeatherTips() {
   const { t } = useLang()
+  const { user } = useAuth()
   const [weather, setWeather] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [expanded, setExpanded] = useState(false)
+  const [skinData, setSkinData] = useState(null)
 
   useEffect(() => {
     fetchWeather()
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      loadAnalysisResults(user.id).then(data => {
+        if (data && data.skin_redness) setSkinData(data)
+      }).catch(() => {})
+    }
+  }, [user])
 
   async function fetchWeather() {
     // Check cache first
@@ -208,6 +253,10 @@ export default function WeatherTips() {
         </div>
         <span className={'weather-expand-icon' + (expanded ? ' expanded' : '')}>▾</span>
       </div>
+      {skinData && (() => {
+        const note = getSkinWeatherNote(advice, skinData, t)
+        return note ? <div className="weather-skin-note">{note}</div> : null
+      })()}
       {!expanded && (
         <div className="weather-tap-hint" onClick={() => setExpanded(true)}>{t('Tap for product recommendations', '탭하여 추천 제품 보기')}</div>
       )}
