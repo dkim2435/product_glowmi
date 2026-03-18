@@ -55,9 +55,15 @@ export default function AiBeautyTab({ showToast }) {
         ))}
       </div>
 
-      {activeTool === 'personalColor' && <PersonalColorAnalysis showToast={showToast} />}
-      {activeTool === 'faceShape' && <FaceShapeDetector showToast={showToast} />}
-      {activeTool === 'skinAnalyzer' && <SkinAnalyzer showToast={showToast} />}
+      <div style={{ display: activeTool === 'skinAnalyzer' ? 'block' : 'none' }}>
+        <SkinAnalyzer showToast={showToast} />
+      </div>
+      <div style={{ display: activeTool === 'personalColor' ? 'block' : 'none' }}>
+        <PersonalColorAnalysis showToast={showToast} />
+      </div>
+      <div style={{ display: activeTool === 'faceShape' ? 'block' : 'none' }}>
+        <FaceShapeDetector showToast={showToast} />
+      </div>
       {activeTool === 'aiChat' && <SkinChat showToast={showToast} />}
     </section>
   )
