@@ -3,7 +3,7 @@ import { useCamera } from '../../hooks/useCamera'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
 import { initFaceLandmarker } from '../../lib/mediapipe'
-import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday, saveRoutine, saveQuizResult } from '../../lib/db'
+import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday, saveRoutine, saveQuizResult, loadSkinProgressDB } from '../../lib/db'
 import { resizePhoto } from '../../lib/storage'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
 import { analyzeSkinAI, generateRoutineAI, analyzeSkinCombinedAI } from '../../lib/gemini'
@@ -36,6 +36,9 @@ export default function SkinAnalyzer({ showToast }) {
   const [showRoutineModal, setShowRoutineModal] = useState(false)
   const [showShareCard, setShowShareCard] = useState(false)
 
+  // Previous analysis for comparison
+  const [prevScores, setPrevScores] = useState(null)
+
   // Quiz integration state
   const [quizPhase, setQuizPhase] = useState(null) // null | 'questions' | 'analyzing' | 'done'
   const [quizQ, setQuizQ] = useState(0)
@@ -56,6 +59,18 @@ export default function SkinAnalyzer({ showToast }) {
       } catch { /* ignore */ }
     }
   }, [user])
+
+  // Load previous analysis for comparison when result screen shows
+  useEffect(() => {
+    if (user && screen === 'result') {
+      loadSkinProgressDB(user.id).then(entries => {
+        if (entries.length >= 1) {
+          const last = entries[entries.length - 1]
+          if (last.scores) setPrevScores(last)
+        }
+      }).catch(() => {})
+    }
+  }, [user, screen])
 
   function loginAndKeepResult() {
     if (scores && overallScore) {
@@ -452,6 +467,37 @@ export default function SkinAnalyzer({ showToast }) {
           )
         })}
       </div>
+
+      {prevScores && prevScores.scores && (
+        <div className="skin-compare-card">
+          <h4>{t('Compared to Last Analysis', '이전 분석과 비교')}</h4>
+          <p className="skin-compare-date">{prevScores.date}</p>
+          <div className="skin-compare-overall">
+            <span>{t('Overall', '종합')}: {prevScores.overallScore || '?'} → <strong>{overallScore}</strong></span>
+            {prevScores.overallScore && (
+              <span className={'skin-compare-delta ' + (overallScore >= prevScores.overallScore ? 'improved' : 'declined')}>
+                {overallScore >= prevScores.overallScore ? '↑' : '↓'} {Math.abs(overallScore - prevScores.overallScore)}
+              </span>
+            )}
+          </div>
+          <div className="skin-compare-details">
+            {Object.keys(scores).map(key => {
+              const concern = SKIN_CONCERNS[key]
+              if (!concern || !prevScores.scores[key]) return null
+              const diff = scores[key] - prevScores.scores[key]
+              if (diff === 0) return null
+              return (
+                <div key={key} className="skin-compare-row">
+                  <span>{concern.emoji} {t(concern.name, concern.nameKr)}</span>
+                  <span className={'skin-compare-delta ' + (diff < 0 ? 'improved' : 'declined')}>
+                    {diff < 0 ? '↓' : '↑'} {Math.abs(diff)}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="skin-recommendations">
         <h4>{t('Personalized Recommendations', '맞춤 추천')}</h4>
