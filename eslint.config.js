@@ -18,18 +18,10 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
-
-      // React hooks — core rules only (v7 experimental rules too strict)
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-
-      // React refresh
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true, allowExportNames: ['shouldShowReleaseNotes', 'markReleaseNotesSeen', 'seedVersionForNewUser', 'shouldShowOnboarding', 'markOnboardingSeen'] }],
-
-      // Code quality
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       'no-empty': ['warn', { allowEmptyCatch: true }],
-      'no-useless-assignment': 'warn',
     },
   },
 ]
