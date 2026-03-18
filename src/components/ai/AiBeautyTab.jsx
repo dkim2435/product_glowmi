@@ -50,7 +50,7 @@ export default function AiBeautyTab({ showToast, onNavigate }) {
             className={'sub-tab-btn' + (activeTool === tool.id ? ' active' : '') + (tool.highlight ? ' sub-tab-highlight' : '')}
             onClick={() => handleToolClick(tool.id)}
           >
-            <span>{tool.emoji}</span> {t(tool.label, tool.labelKr)}
+            <span>{tool.id === 'aiChat' && !user ? '🔒' : tool.emoji}</span> {t(tool.label, tool.labelKr)}
           </button>
         ))}
       </div>

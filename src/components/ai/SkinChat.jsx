@@ -18,7 +18,7 @@ function renderChatText(text) {
   })
 }
 
-const SUGGESTED_QUESTIONS = [
+const DEFAULT_QUESTIONS = [
   { en: 'Recommend a sunscreen for my skin', kr: '내 피부에 맞는 선크림 추천해줘', emoji: '☀️' },
   { en: 'Is my current routine good enough?', kr: '내 루틴 괜찮아?', emoji: '🧴' },
   { en: 'Best products for my skin concerns?', kr: '내 피부 고민에 맞는 제품은?', emoji: '🛍️' },
@@ -26,6 +26,32 @@ const SUGGESTED_QUESTIONS = [
   { en: 'How to reduce dark spots?', kr: '다크스팟 줄이는 방법?', emoji: '✨' },
   { en: 'Can I use retinol with niacinamide?', kr: '레티놀이랑 나이아신아마이드 같이 써도 돼?', emoji: '🧪' },
 ]
+
+/** Build personalized suggestions when user has analysis data */
+function getPersonalizedQuestions(analysis) {
+  if (!analysis) return null
+  const qs = []
+  if (analysis.skin_redness) {
+    const concerns = [
+      { key: 'skin_redness', en: 'redness', kr: '홍조', emoji: '🔴' },
+      { key: 'skin_oiliness', en: 'oiliness', kr: '유분', emoji: '💧' },
+      { key: 'skin_dryness', en: 'dryness', kr: '건조', emoji: '🏜️' },
+      { key: 'skin_dark_spots', en: 'dark spots', kr: '잡티', emoji: '✨' },
+      { key: 'skin_texture', en: 'texture', kr: '피부결', emoji: '🪞' },
+    ]
+    const top = concerns.sort((a, b) => (analysis[b.key] || 0) - (analysis[a.key] || 0))[0]
+    if (top) {
+      qs.push({ en: `How to improve my ${top.en}? (score: ${analysis[top.key]})`, kr: `내 ${top.kr} 개선하려면? (점수: ${analysis[top.key]})`, emoji: top.emoji })
+    }
+  }
+  if (analysis.pc_type) {
+    qs.push({ en: `Best makeup colors for ${analysis.pc_type}?`, kr: `${analysis.pc_type} 타입에 어울리는 메이크업은?`, emoji: '🎨' })
+  }
+  if (analysis.quiz_type) {
+    qs.push({ en: `Best routine for ${analysis.quiz_type} skin?`, kr: `${analysis.quiz_type} 피부에 맞는 루틴은?`, emoji: '🧴' })
+  }
+  return qs.length > 0 ? qs : null
+}
 
 export default function SkinChat({ showToast }) {
   const { user, loginWithGoogle } = useAuth()
@@ -41,6 +67,7 @@ export default function SkinChat({ showToast }) {
   const [loading, setLoading] = useState(false)
   const [toolStatus, setToolStatus] = useState(null)
   const [userContext, setUserContext] = useState(null)
+  const [analysisData, setAnalysisData] = useState(null)
 
   useEffect(() => {
     try { localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages)) } catch {}
@@ -53,6 +80,7 @@ export default function SkinChat({ showToast }) {
     if (user) {
       loadAnalysisResults(user.id).then(analysis => {
         if (analysis) {
+          setAnalysisData(analysis)
           const parts = []
           if (analysis.skin_redness) {
             parts.push(`Skin scores - Redness: ${analysis.skin_redness}, Oiliness: ${analysis.skin_oiliness}, Dryness: ${analysis.skin_dryness}, Dark Spots: ${analysis.skin_dark_spots}, Texture: ${analysis.skin_texture}, Overall: ${analysis.skin_overall_score || '?'}`)
@@ -66,6 +94,11 @@ export default function SkinChat({ showToast }) {
       }).catch(() => setUserContext('No skin data available yet.'))
     }
   }, [user])
+
+  const personalizedQs = getPersonalizedQuestions(analysisData)
+  const suggestedQuestions = personalizedQs
+    ? [...personalizedQs, ...DEFAULT_QUESTIONS.slice(0, 6 - personalizedQs.length)]
+    : DEFAULT_QUESTIONS
 
   useEffect(() => {
     // Scroll inside chat-messages only, not the whole page
@@ -199,7 +232,7 @@ export default function SkinChat({ showToast }) {
             </div>
             <div className="chat-suggestions">
               <div className="chat-suggestions-label">{t('Popular questions:', '자주 묻는 질문:')}</div>
-              {SUGGESTED_QUESTIONS.map((q, i) => (
+              {suggestedQuestions.map((q, i) => (
                 <button key={i} className="chat-suggestion-chip" onClick={() => sendMessage(t(q.en, q.kr))}>
                   {q.emoji} {t(q.en, q.kr)}
                 </button>
