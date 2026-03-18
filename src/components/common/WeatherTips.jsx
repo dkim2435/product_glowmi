@@ -87,30 +87,37 @@ function getSkinWeatherNote(advice, skinData, t) {
   if (!skinData) return null
   const links = []
   for (const a of advice) {
-    if (a === TIPS.dryAir && skinData.skin_dryness >= 40) {
+    if (a === TIPS.dryAir && skinData.skin_dryness > 0) {
       links.push(t(
         `Your dryness score is ${skinData.skin_dryness} — extra moisture is key today!`,
-        `건조 점수 ${skinData.skin_dryness}점 — 오늘 보습이 특히 중요해요!`
+        `내 건조 점수 ${skinData.skin_dryness}점 — 오늘 보습이 특히 중요해요!`
       ))
     }
-    if ((a === TIPS.uvHigh || a === TIPS.uvMod) && skinData.skin_dark_spots >= 40) {
+    if ((a === TIPS.uvHigh || a === TIPS.uvMod) && skinData.skin_dark_spots > 0) {
       links.push(t(
         `Your dark spots score is ${skinData.skin_dark_spots} — sunscreen is extra important!`,
-        `잡티 점수 ${skinData.skin_dark_spots}점 — 자외선 차단이 더욱 중요해요!`
+        `내 잡티 점수 ${skinData.skin_dark_spots}점 — 자외선 차단이 더욱 중요해요!`
       ))
     }
-    if (a === TIPS.humid && skinData.skin_oiliness >= 40) {
+    if (a === TIPS.humid && skinData.skin_oiliness > 0) {
       links.push(t(
         `Your oiliness score is ${skinData.skin_oiliness} — oil control matters today!`,
-        `유분 점수 ${skinData.skin_oiliness}점 — 오늘 유분 관리에 신경 쓰세요!`
+        `내 유분 점수 ${skinData.skin_oiliness}점 — 오늘 유분 관리에 신경 쓰세요!`
       ))
     }
-    if (a === TIPS.cold && skinData.skin_redness >= 40) {
+    if (a === TIPS.cold && skinData.skin_redness > 0) {
       links.push(t(
         `Your redness score is ${skinData.skin_redness} — protect your skin barrier!`,
-        `홍조 점수 ${skinData.skin_redness}점 — 피부 장벽 보호가 중요해요!`
+        `내 홍조 점수 ${skinData.skin_redness}점 — 피부 장벽 보호가 중요해요!`
       ))
     }
+  }
+  // Fallback: show overall score if no specific weather-skin match
+  if (links.length === 0 && skinData.skin_overall_score) {
+    links.push(t(
+      `Your skin score: ${skinData.skin_overall_score}/100 — check today's tips above!`,
+      `내 피부 점수: ${skinData.skin_overall_score}/100 — 위 날씨 팁을 참고하세요!`
+    ))
   }
   return links.length > 0 ? links[0] : null
 }

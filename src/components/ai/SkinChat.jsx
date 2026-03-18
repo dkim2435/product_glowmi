@@ -6,13 +6,17 @@ import { chatSkincare } from '../../lib/gemini'
 import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
 import { runAgentChat } from '../../lib/agent'
 
-/** Render markdown links [text](url) as clickable <a> tags */
+/** Render markdown bold **text** and links [text](url) as formatted elements */
 function renderChatText(text) {
-  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g)
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
   return parts.map((part, i) => {
-    const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
-    if (match) {
-      return <a key={i} href={match[2]} target="_blank" rel="noopener noreferrer nofollow" className="chat-link">{match[1]}</a>
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (linkMatch) {
+      return <a key={i} href={linkMatch[2]} target="_blank" rel="noopener noreferrer nofollow" className="chat-link">{linkMatch[1]}</a>
+    }
+    const boldMatch = part.match(/^\*\*([^*]+)\*\*$/)
+    if (boldMatch) {
+      return <strong key={i}>{boldMatch[1]}</strong>
     }
     return part
   })
