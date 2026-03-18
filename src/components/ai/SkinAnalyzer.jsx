@@ -294,9 +294,15 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
           e.target.value = ''
         }} />
         {!user && (
-          <p className="start-signup-nudge">
-            {'🆓 ' + t('Free! Sign up to save results & track progress.', '무료! 가입하면 결과 저장 & 변화 추적이 가능해요.')}
-          </p>
+          <div className="start-benefits-card">
+            <p className="start-benefits-title">{'🆓 ' + t('100% Free — Sign up to unlock:', '완전 무료 — 가입하면:')}</p>
+            <div className="start-benefits-list">
+              <span>💾 {t('Save results', '결과 저장')}</span>
+              <span>📈 {t('Track progress', '변화 추적')}</span>
+              <span>🧴 {t('AI Routine', 'AI 루틴')}</span>
+              <span>🤖 {t('AI Chat', 'AI 상담')}</span>
+            </div>
+          </div>
         )}
       </div>
     )
