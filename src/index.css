@@ -8,12 +8,38 @@
    --primary-pink: #CF8BA9;  (peach, v2.0.14)
 */
 :root {
+  /* Brand colors */
   --primary-pink: #CF8BA9;
   --secondary-pink: #A66A85;
   --light-pink: #FDF0F5;
   --gradient: linear-gradient(135deg, #CF8BA9 0%, #A66A85 100%);
+
+  /* Shadows */
   --shadow: 0 4px 15px rgba(166, 106, 133, 0.2);
-  --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 8px 30px rgba(166, 106, 133, 0.18);
+  --card-shadow: var(--shadow-lg);
+
+  /* Border radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 25px;
+  --radius-pill: 30px;
+  --radius-full: 50%;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 40px;
 }
 
 /* ========== Reset ========== */
