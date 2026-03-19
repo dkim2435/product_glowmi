@@ -1,22 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.4.7'
+const APP_VERSION = '2.4.8'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🧴',
+    emoji: '⚡',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'Skin analysis now recommends real products with Amazon links and builds your routine from actual K-Beauty products.',
-    descKr: '피부 분석 후 실제 K-뷰티 제품을 추천하고, 진짜 제품으로 루틴을 만들어줘요.',
+    desc: 'UX improvements, faster loading, and smarter AI features.',
+    descKr: 'UX 개선, 더 빠른 로딩, 더 똑똑한 AI 기능.',
     items: [
-      { emoji: '🛒', label: 'Smart Product Recommendations', labelKr: '스마트 제품 추천', desc: 'Skin analysis now finds personalized products from our database with Amazon links.', descKr: '피부 분석 결과에 맞는 제품을 자동으로 찾아서 아마존 링크와 함께 보여줘요.' },
-      { emoji: '✨', label: 'Real Product Routines', labelKr: '진짜 제품 루틴', desc: 'AI routines now use actual K-Beauty products instead of generic suggestions.', descKr: 'AI 루틴이 이제 가상 제품이 아닌 실제 K-뷰티 제품으로 구성돼요.' },
-      { emoji: '💡', label: 'Routine Reasons', labelKr: '추천 이유 표시', desc: 'Each routine step now explains why that product was chosen for your skin.', descKr: '루틴의 각 단계마다 왜 그 제품이 추천되었는지 이유를 알려줘요.' },
+      { emoji: '📱', label: 'Better Mobile Experience', labelKr: '모바일 경험 개선', desc: 'Larger tap targets, bigger tab labels, and a cancel button during AI analysis.', descKr: '더 큰 터치 영역, 탭 글씨 확대, AI 분석 중 취소 버튼 추가.' },
+      { emoji: '🎯', label: 'AI Personalized Badge', labelKr: 'AI 맞춤 뱃지', desc: 'Now shows whether product recommendations are AI-personalized or general suggestions.', descKr: '제품 추천이 AI 맞춤인지 일반 추천인지 표시돼요.' },
+      { emoji: '⚡', label: 'Faster Loading', labelKr: '더 빠른 로딩', desc: 'Initial page load is 78% smaller — app opens noticeably faster.', descKr: '초기 페이지 용량이 78% 줄어서 앱이 더 빨리 열려요.' },
+      { emoji: '💬', label: 'Chat Daily Limit', labelKr: '채팅 일일 한도', desc: '20 AI chat messages per day to ensure stable service for everyone.', descKr: '안정적인 서비스를 위해 AI 채팅은 하루 20회까지 사용 가능해요.' },
     ],
   },
 ]
