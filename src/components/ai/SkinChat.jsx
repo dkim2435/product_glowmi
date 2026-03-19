@@ -62,6 +62,23 @@ function getPersonalizedQuestions(analysis) {
   return qs.length > 0 ? qs : null
 }
 
+const DAILY_LIMIT = 20
+const CHAT_LIMIT_KEY = 'glowmi_chat_daily'
+
+function getChatCount() {
+  try {
+    const data = JSON.parse(localStorage.getItem(CHAT_LIMIT_KEY) || '{}')
+    const today = new Date().toISOString().slice(0, 10)
+    return data.date === today ? data.count : 0
+  } catch { return 0 }
+}
+
+function incrementChatCount() {
+  const today = new Date().toISOString().slice(0, 10)
+  const current = getChatCount()
+  localStorage.setItem(CHAT_LIMIT_KEY, JSON.stringify({ date: today, count: current + 1 }))
+}
+
 export default function SkinChat({ showToast }) {
   const { user, loginWithGoogle } = useAuth()
   const { t } = useLang()
@@ -117,6 +134,11 @@ export default function SkinChat({ showToast }) {
 
   async function sendMessage(text) {
     if (!text.trim() || loading) return
+    if (getChatCount() >= DAILY_LIMIT) {
+      showToast(t(`Daily chat limit reached (${DAILY_LIMIT}/day). Resets at midnight!`, `일일 채팅 한도에 도달했어요 (${DAILY_LIMIT}회/일). 자정에 초기화됩니다!`))
+      return
+    }
+    incrementChatCount()
     const userMsg = { role: 'user', parts: [{ text: text.trim() }] }
     const newMessages = [...messages, userMsg]
     setMessages(newMessages)
@@ -282,6 +304,13 @@ export default function SkinChat({ showToast }) {
       </div>
 
       <div className="chat-input-area">
+        {getChatCount() >= DAILY_LIMIT - 5 && (
+          <p className="chat-limit-note">
+            {getChatCount() >= DAILY_LIMIT
+              ? t('Daily limit reached. Resets at midnight.', '일일 한도 도달. 자정에 초기화돼요.')
+              : t(`${DAILY_LIMIT - getChatCount()} chats remaining today`, `오늘 ${DAILY_LIMIT - getChatCount()}회 남음`)}
+          </p>
+        )}
         <input
           ref={inputRef}
           type="text"

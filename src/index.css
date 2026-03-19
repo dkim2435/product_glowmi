@@ -8073,7 +8073,9 @@ body {
 .chat-suggestion-chip { background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 0.35rem 0.8rem; font-size: 0.78rem; cursor: pointer; transition: all 0.15s; color: #555; }
 .chat-suggestion-chip:hover { border-color: #CF8BA9; color: #CF8BA9; background: #fff5f8; }
 
-.chat-input-area { display: flex; gap: 0.4rem; padding: 0.6rem 0.8rem; border-top: 1px solid #f0f0f0; background: #fafafa; }
+.chat-input-area { display: flex; gap: 0.4rem; padding: 0.6rem 0.8rem; border-top: 1px solid #f0f0f0; background: #fafafa; flex-wrap: wrap; }
+.chat-limit-note { width: 100%; text-align: center; font-size: 0.72rem; color: #CF8BA9; margin: 0 0 2px; }
+[data-theme="dark"] .chat-limit-note { color: #CF8BA9; }
 .chat-input { flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 0.5rem 0.9rem; font-size: 0.88rem; outline: none; }
 .chat-input:focus { border-color: #CF8BA9; }
 .chat-send-btn { background: #CF8BA9; color: #fff; border: none; border-radius: 20px; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
