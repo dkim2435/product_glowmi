@@ -119,15 +119,19 @@ const CONCERN_QUERY_MAP = {
 
 /**
  * 피부 점수 → RAG 검색 쿼리 변환 (Gemini 호출 없음).
- * 점수 40 이상인 고민만 추출, 내림차순 정렬, 최대 3개.
+ * 내림차순 정렬, 최소 2개 ~ 최대 3개 (점수 무관하게 상위 2개는 항상 포함).
  */
 export function skinScoresToQueries(scores) {
-  return Object.entries(scores)
-    .filter(([, v]) => v >= 40)
+  const sorted = Object.entries(scores)
+    .filter(([key]) => CONCERN_QUERY_MAP[key])
     .sort((a, b) => b[1] - a[1])
+
+  // 항상 상위 2개 + 40점 이상인 추가 고민 (최대 3개)
+  const top2 = sorted.slice(0, 2)
+  const extra = sorted.slice(2).filter(([, v]) => v >= 40)
+  return [...top2, ...extra]
     .slice(0, 3)
     .map(([key]) => CONCERN_QUERY_MAP[key])
-    .filter(Boolean)
 }
 
 /**
