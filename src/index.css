@@ -192,7 +192,7 @@ body {
 }
 
 .tab-label {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   white-space: nowrap;
 }
 
@@ -680,7 +680,7 @@ body {
   background: none;
   color: #888;
   border: none;
-  padding: 8px 4px;
+  padding: 8px 8px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -688,6 +688,9 @@ body {
   gap: 2px;
   white-space: nowrap;
   transition: color 0.2s;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
 }
 
 .nav-login-btn:hover {
@@ -695,12 +698,12 @@ body {
 }
 
 .nav-login-icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .nav-login-label {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 500;
 }
 
@@ -709,16 +712,19 @@ body {
 .nav-avatar-btn {
   background: none;
   border: none;
-  padding: 0;
+  padding: 4px 6px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
 }
 
 .nav-avatar-label {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: #888;
   white-space: nowrap;
 }
@@ -734,9 +740,14 @@ body {
   color: #aaa;
   font-size: 0.85rem;
   cursor: pointer;
-  padding: 2px 4px;
+  padding: 8px 8px;
   line-height: 1;
-  align-self: flex-start;
+  align-self: center;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-avatar-menu-btn:hover {
