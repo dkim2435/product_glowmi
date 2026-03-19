@@ -8,8 +8,7 @@ import Footer from './components/layout/Footer'
 import Toast from './components/common/Toast'
 import OnboardingModal, { shouldShowOnboarding } from './components/common/OnboardingModal'
 import ReleaseNotesModal, { shouldShowReleaseNotes, seedVersionForNewUser } from './components/common/ReleaseNotesModal'
-import WeatherTips from './components/common/WeatherTips'
-
+const WeatherTips = lazy(() => import('./components/common/WeatherTips'))
 const AiBeautyTab = lazy(() => import('./components/ai/AiBeautyTab'))
 const ProductsTab = lazy(() => import('./components/products/ProductsTab'))
 const ProceduresTab = lazy(() => import('./components/procedures/ProceduresTab'))
@@ -74,7 +73,7 @@ export default function App() {
             <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
 
             <main className="main-content">
-              <WeatherTips />
+              <Suspense fallback={null}><WeatherTips /></Suspense>
               <Suspense fallback={<TabLoadingFallback />}>
                 {activeTab === 'ai' && <AiBeautyTab showToast={showToast} onNavigate={navigateTo} />}
                 {activeTab === 'products' && <ProductsTab showToast={showToast} onNavigate={navigateTo} />}
