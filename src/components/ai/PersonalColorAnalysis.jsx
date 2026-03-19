@@ -182,6 +182,7 @@ export default function PersonalColorAnalysis({ showToast, onNavigate }) {
             '퍼스널 컬러 분석은 1980년대에 시작되어 K-뷰티 문화의 핵심이 되었어요. 언더톤에 따라 어떤 메이크업 색상과 옷 색이 가장 잘 어울리는지 결정돼요.'
           )}</p>
         </div>
+        <button className="analyzing-cancel-btn" onClick={handleRetake}>{t('Cancel', '취소')}</button>
       </div>
     )
   }

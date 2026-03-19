@@ -9000,6 +9000,10 @@ a.brand-chip-link:hover { background: linear-gradient(135deg, #e8e4ff, #d8d0ff);
 [data-theme="dark"] .analyzing-screen > p { color: #aaa; }
 [data-theme="dark"] .analyzing-tip { background: #2a2020; border-color: #3a2a2e; }
 [data-theme="dark"] .analyzing-tip p { color: #999; }
+.analyzing-cancel-btn { background: none; border: 1px solid #ddd; color: #888; padding: 8px 24px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; margin-top: 16px; transition: all 0.2s; min-height: 44px; }
+.analyzing-cancel-btn:hover { border-color: var(--primary-pink); color: var(--primary-pink); }
+[data-theme="dark"] .analyzing-cancel-btn { border-color: #444; color: #999; }
+[data-theme="dark"] .analyzing-cancel-btn:hover { border-color: var(--primary-pink); color: var(--primary-pink); }
 [data-theme="dark"] .analyzing-spinner { border-color: #3a2a3a; border-top-color: var(--primary-pink); }
 
 /* v2.0.9 — Dark mode additions */

@@ -336,6 +336,7 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
             'AI가 5가지 핵심 지표(홍조, 유분, 건조, 잡티, 피부결)를 0-100점으로 분석해요. 점수가 낮을수록 해당 부분의 피부 상태가 좋아요.'
           )}</p>
         </div>
+        <button className="analyzing-cancel-btn" onClick={handleRetake}>{t('Cancel', '취소')}</button>
       </div>
     )
   }

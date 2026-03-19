@@ -160,6 +160,7 @@ export default function FaceShapeDetector({ showToast }) {
             '얼굴형 분석은 AI로 얼굴 비율을 측정하고 7가지 유형(타원형, 둥근형, 사각형, 하트형, 긴형, 다이아몬드형, 삼각형)으로 분류하여 맞춤 스타일을 추천해요.'
           )}</p>
         </div>
+        <button className="analyzing-cancel-btn" onClick={handleRetake}>{t('Cancel', '취소')}</button>
       </div>
     )
   }
