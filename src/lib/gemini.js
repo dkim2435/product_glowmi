@@ -205,9 +205,10 @@ ${productList}
 Rules:
 - AM routine: 4-6 steps, MUST end with sunscreen
 - PM routine: 5-8 steps, MUST start with oil_cleanser then water_cleanser (double cleanse)
-- MUST choose products ONLY from the provided list above. Do NOT invent products.
+- MUST choose products ONLY from the provided list above. Do NOT invent or fabricate product names.
 - category MUST be one of: oil_cleanser, water_cleanser, exfoliator, toner, essence, serum, sheet_mask, eye_cream, moisturizer, sunscreen, sleeping_mask, other
-- If the product list lacks a needed category, use a generic description with brand ""
+- If no exact category match exists in the list, pick the closest product (e.g., a hydrating cream for moisturizer, a tone-up cream for sunscreen). NEVER use generic names like "Generic Moisturizer".
+- Copy the exact "name", "brand", and "amazonUrl" from the product list. Do NOT modify them.
 - Include "reason" explaining why each product suits this skin
 - Tailor recommendations to the skin concerns shown by the scores
 
