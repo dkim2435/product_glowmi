@@ -7969,6 +7969,11 @@ body {
 .routine-modal-amazon { font-size: 0.75rem; color: #CF8BA9; text-decoration: none; font-weight: 500; }
 .routine-modal-amazon:hover { text-decoration: underline; }
 .rag-loading-text { font-size: 0.85rem; color: #999; text-align: center; padding: 1rem 0; }
+.rag-rec-badge { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 12px; margin-bottom: 8px; }
+.rag-rec-badge-ai { background: linear-gradient(135deg, #FDF0F5, #F5E4ED); color: var(--primary-pink); }
+.rag-rec-badge-basic { background: #f0f0f0; color: #888; }
+[data-theme="dark"] .rag-rec-badge-ai { background: linear-gradient(135deg, #2a2030, #25203a); }
+[data-theme="dark"] .rag-rec-badge-basic { background: #2a2a40; color: #888; }
 
 .routine-modal-tips { margin: 0.3rem 0 0 1.2rem; font-size: 0.82rem; color: #666; }
 .routine-modal-tips li { margin-bottom: 0.25rem; }

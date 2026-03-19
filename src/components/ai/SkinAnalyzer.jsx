@@ -550,12 +550,19 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
           ragLoading ? (
             <p className="rag-loading-text">{t('Finding personalized products...', '맞춤 제품을 찾고 있어요...')}</p>
           ) : (
-            <div className="product-card-list">
-              {(ragProducts?.all?.length > 0
-                ? ragProducts.all.slice(0, 6)
-                : getRecommendations({ concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k) }).slice(0, 4)
-              ).map(p => <ProductCard key={p.id || p.name} product={p} />)}
-            </div>
+            <>
+              <div className={'rag-rec-badge ' + (ragProducts?.all?.length > 0 ? 'rag-rec-badge-ai' : 'rag-rec-badge-basic')}>
+                {ragProducts?.all?.length > 0
+                  ? t('AI Personalized Picks', 'AI 맞춤 추천')
+                  : t('Suggested Products', '추천 제품')}
+              </div>
+              <div className="product-card-list">
+                {(ragProducts?.all?.length > 0
+                  ? ragProducts.all.slice(0, 6)
+                  : getRecommendations({ concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k) }).slice(0, 4)
+                ).map(p => <ProductCard key={p.id || p.name} product={p} />)}
+              </div>
+            </>
           )
         ) : (
           <div className="login-gate-card">
