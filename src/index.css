@@ -7949,9 +7949,15 @@ body {
 
 .routine-modal-section { margin-bottom: 1rem; }
 .routine-modal-section h4 { font-size: 0.95rem; margin: 0 0 0.5rem; }
-.routine-modal-step { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0; border-bottom: 1px solid #f0f0f0; }
-.routine-modal-num { width: 22px; height: 22px; background: #CF8BA9; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
-.routine-modal-name { font-size: 0.85rem; }
+.routine-modal-step { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; }
+.routine-modal-num { width: 22px; height: 22px; background: #CF8BA9; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
+.routine-modal-step-detail { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.routine-modal-name { font-size: 0.85rem; font-weight: 500; }
+.routine-modal-brand { font-size: 0.75rem; color: #888; }
+.routine-modal-reason { font-size: 0.75rem; color: #999; font-style: italic; }
+.routine-modal-amazon { font-size: 0.75rem; color: #CF8BA9; text-decoration: none; font-weight: 500; }
+.routine-modal-amazon:hover { text-decoration: underline; }
+.rag-loading-text { font-size: 0.85rem; color: #999; text-align: center; padding: 1rem 0; }
 
 .routine-modal-tips { margin: 0.3rem 0 0 1.2rem; font-size: 0.82rem; color: #666; }
 .routine-modal-tips li { margin-bottom: 0.25rem; }
@@ -8102,6 +8108,10 @@ body {
 [data-theme="dark"] .routine-modal-summary { color: #aaa; }
 [data-theme="dark"] .routine-modal-step { border-bottom-color: #3a3a50; }
 [data-theme="dark"] .routine-modal-tips { color: #999; }
+[data-theme="dark"] .routine-modal-brand { color: #777; }
+[data-theme="dark"] .routine-modal-reason { color: #777; }
+[data-theme="dark"] .routine-modal-amazon { color: #CF8BA9; }
+[data-theme="dark"] .rag-loading-text { color: #777; }
 
 [data-theme="dark"] .ai-skin-match-section { border-top-color: #3a3a50; }
 [data-theme="dark"] .ai-verdict-card { color: #e0e0e8; }

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { saveRoutine, loadRoutines, loadAnalysisResults } from '../../lib/db'
 import { useLang } from '../../context/LanguageContext'
-import { generateRoutineAI } from '../../lib/gemini'
+import { generateRoutineAI, generateRoutineWithRAG } from '../../lib/gemini'
+import { searchProductsForRoutine } from '../../lib/rag'
 import ReminderSettings from './ReminderSettings'
 
 const ROUTINE_CATEGORIES = [
@@ -95,7 +96,14 @@ export default function MyRoutine({ userId, showToast }) {
         darkSpots: analysis.skin_dark_spots,
         texture: analysis.skin_texture
       }
-      const result = await generateRoutineAI(skinScores)
+      let result
+      try {
+        const ragResult = await searchProductsForRoutine(skinScores)
+        result = await generateRoutineWithRAG(skinScores, ragResult?.all || [])
+      } catch (ragErr) {
+        console.warn('RAG routine failed, falling back:', ragErr)
+        result = await generateRoutineAI(skinScores)
+      }
       setAiRoutine(result)
       setShowAiModal(true)
     } catch (e) {
@@ -207,7 +215,16 @@ export default function MyRoutine({ userId, showToast }) {
               {(aiRoutine.am || []).map((step, i) => (
                 <div key={i} className="routine-modal-step">
                   <span className="routine-modal-num">{i + 1}</span>
-                  <span className="routine-modal-name">{step.name}</span>
+                  <div className="routine-modal-step-detail">
+                    <span className="routine-modal-name">{step.name}</span>
+                    {step.brand && <span className="routine-modal-brand">{step.brand}</span>}
+                    {step.reason && <span className="routine-modal-reason">{step.reason}</span>}
+                    {step.amazonUrl && (
+                      <a className="routine-modal-amazon" href={step.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
+                        {'🛒 ' + t('Buy on Amazon', '아마존에서 구매')}
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -216,7 +233,16 @@ export default function MyRoutine({ userId, showToast }) {
               {(aiRoutine.pm || []).map((step, i) => (
                 <div key={i} className="routine-modal-step">
                   <span className="routine-modal-num">{i + 1}</span>
-                  <span className="routine-modal-name">{step.name}</span>
+                  <div className="routine-modal-step-detail">
+                    <span className="routine-modal-name">{step.name}</span>
+                    {step.brand && <span className="routine-modal-brand">{step.brand}</span>}
+                    {step.reason && <span className="routine-modal-reason">{step.reason}</span>}
+                    {step.amazonUrl && (
+                      <a className="routine-modal-amazon" href={step.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
+                        {'🛒 ' + t('Buy on Amazon', '아마존에서 구매')}
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

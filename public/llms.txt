@@ -6,7 +6,7 @@
 
 - [AI Personal Color Analysis](https://glowmi.org/): Upload a selfie and get classified into one of 10 personal color types using Google Gemini AI. Results in under 3 seconds, free, no sign-up required.
 - [AI Face Shape Analysis](https://glowmi.org/): AI analyzes 468 facial landmarks to determine your face shape (7 types) with personalized hairstyle and accessory recommendations.
-- [AI Skin Condition Analyzer](https://glowmi.org/): Evaluates 5 skin metrics (redness, oiliness, dryness, dark spots, texture) on a 0-100 scale from a selfie photo.
+- [AI Skin Condition Analyzer](https://glowmi.org/): Evaluates 5 skin metrics (redness, oiliness, dryness, dark spots, texture) on a 0-100 scale from a selfie photo. Automatically recommends matching K-Beauty products via RAG search and generates personalized AM/PM routines with real products, brands, and Amazon purchase links.
 - [AI Beauty Chat](https://glowmi.org/): Ask any beauty or skincare question and get AI-powered answers.
 
 ## K-Beauty Tools

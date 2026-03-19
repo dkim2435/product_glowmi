@@ -180,6 +180,50 @@ Respond with ONLY a JSON object:
 }
 
 /**
+ * Generate AI routine using RAG products (real products from DB).
+ * Falls back to generateRoutineAI if ragProducts is empty.
+ */
+export async function generateRoutineWithRAG(skinScores, ragProducts) {
+  if (!ragProducts?.length) return generateRoutineAI(skinScores)
+
+  const productList = ragProducts.map(p =>
+    `- "${p.name}" by ${p.brand || 'Unknown'} | category: ${p.category}${p.subcategory ? '/' + p.subcategory : ''} | ingredients: ${(p.keyIngredients || []).join(', ')} | concerns: ${(p.skinConcerns || []).join(', ')}${p.amazonUrl ? ' | amazonUrl: ' + p.amazonUrl : ''}`
+  ).join('\n')
+
+  const prompt = `You are an expert K-Beauty skincare advisor. Based on the user's skin analysis scores, create personalized AM and PM skincare routines.
+
+Skin scores (5=minimal concern, 95=severe):
+- Redness: ${skinScores.redness}
+- Oiliness: ${skinScores.oiliness}
+- Dryness: ${skinScores.dryness}
+- Dark Spots: ${skinScores.darkSpots}
+- Texture: ${skinScores.texture}
+
+Available products from our database:
+${productList}
+
+Rules:
+- AM routine: 4-6 steps, MUST end with sunscreen
+- PM routine: 5-8 steps, MUST start with oil_cleanser then water_cleanser (double cleanse)
+- MUST choose products ONLY from the provided list above. Do NOT invent products.
+- category MUST be one of: oil_cleanser, water_cleanser, exfoliator, toner, essence, serum, sheet_mask, eye_cream, moisturizer, sunscreen, sleeping_mask, other
+- If the product list lacks a needed category, use a generic description with brand ""
+- Include "reason" explaining why each product suits this skin
+- Tailor recommendations to the skin concerns shown by the scores
+
+Respond with ONLY a JSON object:
+{
+  "am": [{"category": "water_cleanser", "name": "Exact Product Name", "brand": "Brand", "amazonUrl": "url or empty", "reason": "Why this product suits the skin"}],
+  "pm": [{"category": "oil_cleanser", "name": "Exact Product Name", "brand": "Brand", "amazonUrl": "url or empty", "reason": "Why this product suits the skin"}],
+  "weeklyTips": ["AHA exfoliation 2x/week"],
+  "summary": "English summary of the routine strategy",
+  "summaryKr": "한국어 루틴 전략 요약"
+}`
+
+  return await callGeminiText(prompt, { maxOutputTokens: 2048 })
+}
+
+/**
  * Assess ingredient list against user's skin profile.
  */
 export async function assessIngredientsForSkinAI(ingredientNames, skinScores) {

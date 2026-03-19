@@ -9,7 +9,8 @@ import { initFaceLandmarker } from '../../lib/mediapipe'
 import { saveSkinResult, saveSkinProgressDB, checkSkinProgressToday, saveRoutine, saveQuizResult, loadSkinProgressDB } from '../../lib/db'
 import { resizePhoto } from '../../lib/storage'
 import { analyzeSkinPixels } from './analysis/skinAnalysisLogic'
-import { analyzeSkinAI, generateRoutineAI, analyzeSkinCombinedAI } from '../../lib/gemini'
+import { analyzeSkinAI, generateRoutineAI, generateRoutineWithRAG, analyzeSkinCombinedAI } from '../../lib/gemini'
+import { searchProductsForRoutine } from '../../lib/rag'
 import { SKIN_CONCERNS, SKIN_RECOMMENDATIONS } from '../../data/skinConcerns'
 import { addHistoryEntry } from '../../lib/analysisHistory'
 import { getLocalDate } from '../../lib/dateUtils'
@@ -38,6 +39,10 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
   const [routineResult, setRoutineResult] = useState(null)
   const [showRoutineModal, setShowRoutineModal] = useState(false)
   const [showShareCard, setShowShareCard] = useState(false)
+
+  // RAG product recommendations
+  const [ragProducts, setRagProducts] = useState(null) // null=not started, {all,byCategory}=loaded
+  const [ragLoading, setRagLoading] = useState(false)
 
   // Previous analysis for comparison
   const [prevScores, setPrevScores] = useState(null)
@@ -112,6 +117,13 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
       setScreen('result')
       setShowConfetti(true)
       setTimeout(() => setShowConfetti(false), CONFETTI_DURATION)
+
+      // Start RAG product search in background
+      setRagLoading(true)
+      searchProductsForRoutine(skinScores)
+        .then(result => setRagProducts(result))
+        .catch(err => { console.warn('RAG product search failed:', err); setRagProducts(null) })
+        .finally(() => setRagLoading(false))
     } catch (e) {
       console.error('Skin analysis error:', e)
       setScreen('camera')
@@ -215,7 +227,13 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
     if (!scores) return
     setRoutineLoading(true)
     try {
-      const result = await generateRoutineAI(scores)
+      let result
+      try {
+        result = await generateRoutineWithRAG(scores, ragProducts?.all || [])
+      } catch (ragErr) {
+        console.warn('RAG routine failed, falling back:', ragErr)
+        result = await generateRoutineAI(scores)
+      }
       setRoutineResult(result)
       setShowRoutineModal(true)
     } catch (e) {
@@ -249,6 +267,8 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
     setQuizScores({ dry: 0, oily: 0, combination: 0, sensitive: 0, normal: 0 })
     setQuizAnswers([])
     setCombinedResult(null)
+    setRagProducts(null)
+    setRagLoading(false)
     setScreen('start')
   }
 
@@ -526,11 +546,16 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
       <div className="skin-product-recs">
         <h4>{'🛒 ' + t('Recommended Products', '추천 제품')}</h4>
         {user ? (
-          <div className="product-card-list">
-            {getRecommendations({
-              concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k)
-            }).slice(0, 4).map(p => <ProductCard key={p.id} product={p} />)}
-          </div>
+          ragLoading ? (
+            <p className="rag-loading-text">{t('Finding personalized products...', '맞춤 제품을 찾고 있어요...')}</p>
+          ) : (
+            <div className="product-card-list">
+              {(ragProducts?.all?.length > 0
+                ? ragProducts.all.slice(0, 6)
+                : getRecommendations({ concerns: topConcerns.map(k => k === 'darkSpots' ? 'dark_spots' : k) }).slice(0, 4)
+              ).map(p => <ProductCard key={p.id || p.name} product={p} />)}
+            </div>
+          )
         ) : (
           <div className="login-gate-card">
             <p>{t('Sign up to see personalized product recommendations!', '가입하면 맞춤 제품 추천을 볼 수 있어요!')}</p>
@@ -577,7 +602,16 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
               {(routineResult.am || []).map((step, i) => (
                 <div key={i} className="routine-modal-step">
                   <span className="routine-modal-num">{i + 1}</span>
-                  <span className="routine-modal-name">{step.name}</span>
+                  <div className="routine-modal-step-detail">
+                    <span className="routine-modal-name">{step.name}</span>
+                    {step.brand && <span className="routine-modal-brand">{step.brand}</span>}
+                    {step.reason && <span className="routine-modal-reason">{step.reason}</span>}
+                    {step.amazonUrl && (
+                      <a className="routine-modal-amazon" href={step.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
+                        {'🛒 ' + t('Buy on Amazon', '아마존에서 구매')}
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -587,7 +621,16 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
               {(routineResult.pm || []).map((step, i) => (
                 <div key={i} className="routine-modal-step">
                   <span className="routine-modal-num">{i + 1}</span>
-                  <span className="routine-modal-name">{step.name}</span>
+                  <div className="routine-modal-step-detail">
+                    <span className="routine-modal-name">{step.name}</span>
+                    {step.brand && <span className="routine-modal-brand">{step.brand}</span>}
+                    {step.reason && <span className="routine-modal-reason">{step.reason}</span>}
+                    {step.amazonUrl && (
+                      <a className="routine-modal-amazon" href={step.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
+                        {'🛒 ' + t('Buy on Amazon', '아마존에서 구매')}
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

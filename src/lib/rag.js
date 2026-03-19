@@ -12,12 +12,12 @@ for (const p of PRODUCT_DB) {
  * 사용자 질문으로 관련 제품/성분을 벡터 검색.
  * @returns {{ products: object[], ingredients: object[] }} 최대 5개
  */
-export async function searchRelevantContext(query) {
+export async function searchRelevantContext(query, { matchCount = 5 } = {}) {
   const embedding = await getEmbedding(query)
 
   const { data, error } = await supabase.rpc('match_embeddings', {
     query_embedding: JSON.stringify(embedding),
-    match_count: 5,
+    match_count: matchCount,
   })
 
   if (error) throw error
@@ -105,4 +105,80 @@ export function formatRAGContext(results) {
   }
 
   return lines.length > 0 ? lines.join('\n') : ''
+}
+
+// ── Skin Analysis → Product Pipeline ──────────────────────────
+
+const CONCERN_QUERY_MAP = {
+  redness: 'soothing calming product for redness sensitive skin centella cica',
+  oiliness: 'oil control mattifying product for oily acne prone skin niacinamide BHA',
+  dryness: 'hydrating moisturizing product for dry dehydrated skin hyaluronic acid ceramide',
+  darkSpots: 'brightening product for dark spots hyperpigmentation vitamin C niacinamide',
+  texture: 'exfoliating smoothing product for rough uneven texture AHA BHA',
+}
+
+/**
+ * 피부 점수 → RAG 검색 쿼리 변환 (Gemini 호출 없음).
+ * 점수 40 이상인 고민만 추출, 내림차순 정렬, 최대 3개.
+ */
+export function skinScoresToQueries(scores) {
+  return Object.entries(scores)
+    .filter(([, v]) => v >= 40)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([key]) => CONCERN_QUERY_MAP[key])
+    .filter(Boolean)
+}
+
+/**
+ * 피부 점수 기반 RAG 제품 검색.
+ * 병렬 검색 → 중복 제거 → PRODUCT_DB enrichment.
+ * @returns {{ all: object[], byCategory: Record<string, object[]> }}
+ */
+export async function searchProductsForRoutine(scores) {
+  const queries = skinScoresToQueries(scores)
+  if (queries.length === 0) return { all: [], byCategory: {} }
+
+  const results = await Promise.all(
+    queries.map(q => searchRelevantContext(q, { matchCount: 8 }))
+  )
+
+  // Deduplicate by product name, keep highest similarity
+  const seen = new Map()
+  for (const r of results) {
+    for (const p of r.products) {
+      const key = p.name || p.id
+      if (!seen.has(key) || seen.get(key).similarity < p.similarity) {
+        seen.set(key, p)
+      }
+    }
+  }
+
+  // Enrich with PRODUCT_DB data (amazonUrl, rating, etc.)
+  const all = []
+  for (const p of seen.values()) {
+    const dbMatch = PRODUCT_DB.find(
+      db => db.name === p.name || db.id === p.id
+    )
+    all.push({
+      ...p,
+      amazonUrl: p.amazonUrl || dbMatch?.amazonUrl || AMAZON_MAP[p.id] || '',
+      rating: p.rating ?? dbMatch?.rating,
+      priceRange: p.priceRange || dbMatch?.priceRange,
+      subcategory: p.subcategory || dbMatch?.subcategory,
+    })
+  }
+
+  // Sort by similarity desc
+  all.sort((a, b) => (b.similarity || 0) - (a.similarity || 0))
+
+  // Group by category
+  const byCategory = {}
+  for (const p of all) {
+    const cat = p.category || 'other'
+    if (!byCategory[cat]) byCategory[cat] = []
+    byCategory[cat].push(p)
+  }
+
+  return { all, byCategory }
 }

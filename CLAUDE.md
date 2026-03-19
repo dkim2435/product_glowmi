@@ -89,6 +89,33 @@
 - **블로그 수정 시**: sitemap.xml `lastmod` + JSON-LD `dateModified` 날짜도 함께 업데이트
 - **제3자 스크립트**: AdSense, gtag는 requestIdleCallback으로 지연 로딩 (LCP 보호)
 
+## 피부분석 → 제품추천 → 루틴 파이프라인
+피부 분석 결과가 제품 추천과 루틴 생성까지 자동으로 이어지는 흐름.
+
+```
+[1] 피부 분석 완료 → scores { redness, oiliness, dryness, darkSpots, texture }
+         │
+[2] skinScoresToQueries(scores) → 점수 40+ 고민을 검색 쿼리로 변환 (Gemini 호출 없음)
+         │
+[3] searchProductsForRoutine(scores) → 병렬 RAG 검색 → 제품 15~20개 + 카테고리 분류
+         │
+[4] 결과 화면: RAG 기반 추천 제품 표시 (아마존 링크 포함)
+         │
+[5] "AI 루틴 추천받기" → generateRoutineWithRAG(scores, ragProducts)
+         │  → Gemini에 피부 점수 + 실제 제품 목록 전달 → 실제 제품으로 AM/PM 루틴 구성
+         │
+[6] 루틴에 진짜 제품 + 브랜드 + 아마존 링크 + 추천 이유 표시
+```
+
+| 단계 | 함수 | 파일 | Gemini 호출 |
+|------|------|------|-------------|
+| 쿼리 변환 | `skinScoresToQueries` | `src/lib/rag.js` | 없음 (키워드 맵) |
+| RAG 검색 | `searchProductsForRoutine` | `src/lib/rag.js` | Embedding 2~3회 |
+| 루틴 생성 | `generateRoutineWithRAG` | `src/lib/gemini.js` | Text 1회 |
+
+**Fallback**: RAG 실패 → `getRecommendations()` (로컬), 루틴 실패 → `generateRoutineAI()` (가상 제품)
+**적용 화면**: `SkinAnalyzer.jsx` (분석 직후), `MyRoutine.jsx` (마이페이지)
+
 ## 성능 최적화 규칙
 - 탭 컴포넌트: React.lazy + Suspense (AiBeautyTab, ProductsTab, ProceduresTab, WellnessTab, MyPageTab)
 - Vendor chunk 분리: vendor-react, vendor-supabase, vendor-tesseract (vite.config.js)

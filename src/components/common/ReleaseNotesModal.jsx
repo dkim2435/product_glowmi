@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 
-const APP_VERSION = '2.4.6'
+const APP_VERSION = '2.4.7'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🔧',
+    emoji: '🧴',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'Bug fixes and SEO improvements for a more stable and discoverable experience.',
-    descKr: '버그 수정과 SEO 개선으로 더 안정적이고 검색에 잘 노출되도록 했어요.',
+    desc: 'Skin analysis now recommends real products with Amazon links and builds your routine from actual K-Beauty products.',
+    descKr: '피부 분석 후 실제 K-뷰티 제품을 추천하고, 진짜 제품으로 루틴을 만들어줘요.',
     items: [
-      { emoji: '🐛', label: 'AI Chat Fix', labelKr: 'AI 상담 버그 수정', desc: 'Fixed a crash on the AI chat screen for users who haven\'t signed in yet.', descKr: '로그인 전 AI 상담 화면에서 발생하던 오류를 수정했어요.' },
-      { emoji: '🛡️', label: 'Safer Account Deletion', labelKr: '계정 삭제 안정화', desc: 'Account data deletion now properly handles errors and reports which step failed.', descKr: '계정 데이터 삭제 시 에러 처리가 개선되어 더 안전해졌어요.' },
-      { emoji: '🔍', label: 'Better SEO', labelKr: 'SEO 개선', desc: 'Blog posts now include proper language tags for better search engine visibility.', descKr: '블로그 포스트에 언어 태그가 추가되어 검색 노출이 개선됩니다.' },
+      { emoji: '🛒', label: 'Smart Product Recommendations', labelKr: '스마트 제품 추천', desc: 'Skin analysis now finds personalized products from our database with Amazon links.', descKr: '피부 분석 결과에 맞는 제품을 자동으로 찾아서 아마존 링크와 함께 보여줘요.' },
+      { emoji: '✨', label: 'Real Product Routines', labelKr: '진짜 제품 루틴', desc: 'AI routines now use actual K-Beauty products instead of generic suggestions.', descKr: 'AI 루틴이 이제 가상 제품이 아닌 실제 K-뷰티 제품으로 구성돼요.' },
+      { emoji: '💡', label: 'Routine Reasons', labelKr: '추천 이유 표시', desc: 'Each routine step now explains why that product was chosen for your skin.', descKr: '루틴의 각 단계마다 왜 그 제품이 추천되었는지 이유를 알려줘요.' },
     ],
   },
 ]
