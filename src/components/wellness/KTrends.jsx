@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../../context/LanguageContext'
-import { TRENDING_INGREDIENTS } from '../../data/trendingIngredients'
+import { TRENDING_INGREDIENTS, TRENDS_LAST_UPDATED } from '../../data/trendingIngredients'
 import { KTREND_METHODS, KTREND_PHILOSOPHY, KTREND_BRANDS } from '../../data/ktrends'
 import { PRODUCT_DB } from '../../data/products'
 
@@ -52,6 +52,7 @@ export default function KTrends() {
           '한국 스킨케어를 이끄는 최신 트렌드 — 성분, 방법, 철학, 브랜드.'
         )}
       </p>
+      <p className="data-freshness-note">{t(`Last updated: ${TRENDS_LAST_UPDATED}`, `마지막 업데이트: ${TRENDS_LAST_UPDATED}`)}</p>
 
       {SECTIONS.map(section => (
         <div key={section.id} className="ktrend-section">

@@ -1,3 +1,5 @@
+export const TRENDS_LAST_UPDATED = '2026-02'
+
 export const TRENDING_INGREDIENTS = [
   {
     name: 'PDRN (Salmon DNA)',

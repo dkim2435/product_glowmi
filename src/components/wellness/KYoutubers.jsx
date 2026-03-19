@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../../context/LanguageContext'
-import { KBEAUTY_YOUTUBERS } from '../../data/kbeautyYoutubers'
+import { KBEAUTY_YOUTUBERS, YOUTUBERS_LAST_UPDATED } from '../../data/kbeautyYoutubers'
 
 export default function KYoutubers() {
   const { t } = useLang()
@@ -21,6 +21,7 @@ export default function KYoutubers() {
           '유튜브에서 K-뷰티의 글로벌 인기를 이끄는 크리에이터들.'
         )}
       </p>
+      <p className="data-freshness-note">{t(`Last updated: ${YOUTUBERS_LAST_UPDATED}`, `마지막 업데이트: ${YOUTUBERS_LAST_UPDATED}`)}</p>
 
       <div className="kyoutuber-grid">
         {KBEAUTY_YOUTUBERS.map((yt, i) => {

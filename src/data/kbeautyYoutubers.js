@@ -1,3 +1,5 @@
+export const YOUTUBERS_LAST_UPDATED = '2026-02'
+
 export const KBEAUTY_YOUTUBERS = [
   {
     name: 'PONY (포니)',

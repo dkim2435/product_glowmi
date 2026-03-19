@@ -8188,6 +8188,9 @@ body {
   margin-bottom: 18px;
 }
 
+.data-freshness-note { text-align: center; font-size: 0.7rem; color: #bbb; margin: -10px 0 14px; }
+[data-theme="dark"] .data-freshness-note { color: #666; }
+
 .nutrient-generic-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
