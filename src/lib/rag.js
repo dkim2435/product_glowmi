@@ -139,13 +139,17 @@ export function skinScoresToQueries(scores) {
  * 병렬 검색 → 중복 제거 → PRODUCT_DB enrichment.
  * @returns {{ all: object[], byCategory: Record<string, object[]> }}
  */
+const ROUTINE_ESSENTIALS_QUERY = 'oil cleanser water cleanser moisturizer sunscreen daily skincare routine essentials'
+
 export async function searchProductsForRoutine(scores) {
   const queries = skinScoresToQueries(scores)
   if (queries.length === 0) return { all: [], byCategory: {} }
 
-  const results = await Promise.all(
-    queries.map(q => searchRelevantContext(q, { matchCount: 8 }))
-  )
+  // 고민별 검색 + 루틴 필수 카테고리 검색 병렬 실행
+  const results = await Promise.all([
+    ...queries.map(q => searchRelevantContext(q, { matchCount: 8 })),
+    searchRelevantContext(ROUTINE_ESSENTIALS_QUERY, { matchCount: 8 }),
+  ])
 
   // Deduplicate by product name, keep highest similarity
   const seen = new Map()
