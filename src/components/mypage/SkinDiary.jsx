@@ -3,6 +3,7 @@ import { useLang } from '../../context/LanguageContext'
 import { saveDiaryEntry, loadDiaryEntries, deleteDiaryEntry } from '../../lib/db'
 import { analyzeDiaryAI } from '../../lib/gemini'
 import { getLocalDate } from '../../lib/dateUtils'
+import { CheckCircle, AlertCircle, AlertTriangle, XCircle, Thermometer, Droplet, Zap } from 'lucide-react'
 
 const CONDITIONS = [
   { value: 'good', emoji: '😊', label: 'Good', labelKr: '좋음' },
@@ -10,18 +11,28 @@ const CONDITIONS = [
   { value: 'bad', emoji: '😫', label: 'Bad', labelKr: '나쁨' }
 ]
 
+const LEVEL_ICONS = {
+  none: CheckCircle,
+  mild: AlertCircle,
+  moderate: AlertTriangle,
+  severe: XCircle,
+  few: AlertCircle,
+  some: AlertTriangle,
+  many: XCircle,
+}
+
 const SKIN_LEVELS = [
-  { value: 'none', score: 10, emoji: '✅', label: 'None', labelKr: '없음' },
-  { value: 'mild', score: 30, emoji: '🟡', label: 'Mild', labelKr: '약간' },
-  { value: 'moderate', score: 55, emoji: '🟠', label: 'Moderate', labelKr: '보통' },
-  { value: 'severe', score: 80, emoji: '🔴', label: 'Severe', labelKr: '심함' }
+  { value: 'none', score: 10, icon: CheckCircle, label: 'None', labelKr: '없음' },
+  { value: 'mild', score: 30, icon: AlertCircle, label: 'Mild', labelKr: '약간' },
+  { value: 'moderate', score: 55, icon: AlertTriangle, label: 'Moderate', labelKr: '보통' },
+  { value: 'severe', score: 80, icon: XCircle, label: 'Severe', labelKr: '심함' }
 ]
 
 const BREAKOUT_LEVELS = [
-  { value: 'none', score: 10, emoji: '✅', label: 'None', labelKr: '없음' },
-  { value: 'few', score: 30, emoji: '🟡', label: 'Few', labelKr: '조금' },
-  { value: 'some', score: 55, emoji: '🟠', label: 'Some', labelKr: '보통' },
-  { value: 'many', score: 80, emoji: '🔴', label: 'Many', labelKr: '많음' }
+  { value: 'none', score: 10, icon: CheckCircle, label: 'None', labelKr: '없음' },
+  { value: 'few', score: 30, icon: AlertCircle, label: 'Few', labelKr: '조금' },
+  { value: 'some', score: 55, icon: AlertTriangle, label: 'Some', labelKr: '보통' },
+  { value: 'many', score: 80, icon: XCircle, label: 'Many', labelKr: '많음' }
 ]
 
 const SLEEP_OPTS = ['<4h', '5-6h', '7-8h', '9h+']
@@ -257,7 +268,7 @@ export default function SkinDiary({ userId, showToast }) {
 
         {todaySaved && !form._editing ? (
           <div className="diary-saved-state">
-            <div className="diary-saved-icon">✅</div>
+            <div className="diary-saved-icon"><CheckCircle size={24} /></div>
             <p className="diary-saved-msg">{t("Today's entry saved!", '오늘의 기록이 저장되었습니다!')}</p>
             <div className="diary-saved-summary">
               {form.overall_condition && <span className="diary-tag">{condEmoji[form.overall_condition]} {t(CONDITIONS.find(c => c.value === form.overall_condition)?.label || '', CONDITIONS.find(c => c.value === form.overall_condition)?.labelKr || '')}</span>}
@@ -292,60 +303,60 @@ export default function SkinDiary({ userId, showToast }) {
               <p className="diary-section-hint">{t('Rate each condition based on how your skin feels today.', '오늘 피부가 느껴지는 정도를 선택하세요.')}</p>
 
               <div className="diary-field">
-                <label>{'🏜️ ' + t('Dryness', '건조함')}</label>
+                <label><Thermometer size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Dryness', '건조함')}</label>
                 <p className="diary-field-hint">{t('Tightness, flaking, or rough patches', '당김, 각질, 거친 부위')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.dryness === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, dryness: l.value })}>
-                      {l.emoji + ' ' + t(l.label, l.labelKr)}
+                      <l.icon size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 3 }} />{t(l.label, l.labelKr)}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="diary-field">
-                <label>{'💧 ' + t('Oiliness', '유분')}</label>
+                <label><Droplet size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Oiliness', '유분')}</label>
                 <p className="diary-field-hint">{t('Shine or greasiness on T-zone or cheeks', 'T존이나 볼의 번들거림')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.oiliness === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, oiliness: l.value })}>
-                      {l.emoji + ' ' + t(l.label, l.labelKr)}
+                      <l.icon size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 3 }} />{t(l.label, l.labelKr)}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="diary-field">
-                <label>{'🔴 ' + t('Redness', '홍조')}</label>
+                <label><XCircle size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4, color: '#ef4444' }} />{t('Redness', '홍조')}</label>
                 <p className="diary-field-hint">{t('Visible redness or flushing', '눈에 보이는 붉은기나 홍조')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.redness === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, redness: l.value })}>
-                      {l.emoji + ' ' + t(l.label, l.labelKr)}
+                      <l.icon size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 3 }} />{t(l.label, l.labelKr)}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="diary-field">
-                <label>{'🫧 ' + t('Breakouts', '트러블')}</label>
+                <label><AlertTriangle size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Breakouts', '트러블')}</label>
                 <p className="diary-field-hint">{t('Pimples, whiteheads, or bumps', '여드름, 좁쌀, 뾰루지')}</p>
                 <div className="diary-pill-btns">
                   {BREAKOUT_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.breakouts === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, breakouts: l.value })}>
-                      {l.emoji + ' ' + t(l.label, l.labelKr)}
+                      <l.icon size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 3 }} />{t(l.label, l.labelKr)}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="diary-field">
-                <label>{'⚡ ' + t('Sensitivity', '민감도')}</label>
+                <label><Zap size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Sensitivity', '민감도')}</label>
                 <p className="diary-field-hint">{t('Stinging, itching, or reaction to products', '따가움, 가려움, 제품 반응')}</p>
                 <div className="diary-pill-btns">
                   {SKIN_LEVELS.map(l => (
                     <button key={l.value} className={'diary-pill-btn' + (form.sensitivity === l.value ? ' diary-pill-selected' : '')} onClick={() => setForm({ ...form, sensitivity: l.value })}>
-                      {l.emoji + ' ' + t(l.label, l.labelKr)}
+                      <l.icon size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 3 }} />{t(l.label, l.labelKr)}
                     </button>
                   ))}
                 </div>
@@ -479,7 +490,10 @@ export default function SkinDiary({ userId, showToast }) {
       <div className="diary-timeline-section">
         <h4>{t('Recent Entries', '최근 일지')}</h4>
         {entries.length === 0 ? (
-          <p className="mypage-empty-hint">{t('No entries yet. Start tracking today!', '아직 일지가 없습니다. 오늘부터 시작해보세요!')}</p>
+          <>
+            <img src="/illustrations/empty-diary.png" alt="" className="empty-illustration" width={160} height={160} />
+            <p className="mypage-empty-hint">{t('No entries yet. Start tracking today!', '아직 일지가 없습니다. 오늘부터 시작해보세요!')}</p>
+          </>
         ) : (
           <div className="diary-timeline">
             {entries.map(entry => (

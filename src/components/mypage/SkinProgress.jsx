@@ -202,8 +202,8 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
 
     // Gradient fill under line
     const gradient = ctx.createLinearGradient(0, pad.top, 0, pad.top + plotH)
-    gradient.addColorStop(0, 'rgba(255, 107, 157, 0.3)')
-    gradient.addColorStop(1, 'rgba(255, 107, 157, 0.02)')
+    gradient.addColorStop(0, 'rgba(139, 126, 200, 0.3)')
+    gradient.addColorStop(1, 'rgba(139, 126, 200, 0.02)')
 
     ctx.beginPath()
     for (let i = 0; i < allScores.length; i++) {
@@ -220,7 +220,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     ctx.fill()
 
     // Line
-    ctx.strokeStyle = '#CF8BA9'
+    ctx.strokeStyle = '#8B7EC8'
     ctx.lineWidth = 2.5
     ctx.lineJoin = 'round'
     ctx.beginPath()
@@ -240,7 +240,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       // Dot
       ctx.beginPath()
       ctx.arc(x, y, allScores[i].hasPhoto ? 5 : 3.5, 0, Math.PI * 2)
-      ctx.fillStyle = allScores[i].hasPhoto ? '#A66A85' : '#CF8BA9'
+      ctx.fillStyle = allScores[i].hasPhoto ? '#6C5FA7' : '#8B7EC8'
       ctx.fill()
       ctx.strokeStyle = '#fff'
       ctx.lineWidth = 2

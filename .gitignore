@@ -6,3 +6,7 @@ nul
 skills/
 .env
 .dev.vars
+
+# Capacitor native projects (generated, rebuild with `npx cap sync`)
+ios/
+android/

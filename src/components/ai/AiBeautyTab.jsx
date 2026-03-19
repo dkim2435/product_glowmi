@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { useAuth } from '../../context/AuthContext'
+import { Microscope, Palette, Gem, Bot, Lock } from 'lucide-react'
 import PersonalColorAnalysis from './PersonalColorAnalysis'
 import FaceShapeDetector from './FaceShapeDetector'
 import SkinAnalyzer from './SkinAnalyzer'
 import SkinChat from './SkinChat'
 
 const AI_TOOLS = [
-  { id: 'skinAnalyzer', label: 'Skin', labelKr: '피부 분석', emoji: '🔬' },
-  { id: 'personalColor', label: 'Color', labelKr: '퍼스널컬러', emoji: '🎨' },
-  { id: 'faceShape', label: 'Face', labelKr: '얼굴형', emoji: '💎' },
-  { id: 'aiChat', label: 'AI Chat', labelKr: 'AI 상담', emoji: '🤖', highlight: true }
+  { id: 'skinAnalyzer', label: 'Skin', labelKr: '피부 분석', icon: Microscope },
+  { id: 'personalColor', label: 'Color', labelKr: '퍼스널컬러', icon: Palette },
+  { id: 'faceShape', label: 'Face', labelKr: '얼굴형', icon: Gem },
+  { id: 'aiChat', label: 'AI Chat', labelKr: 'AI 상담', icon: Bot, highlight: true }
 ]
 
 export default function AiBeautyTab({ showToast, onNavigate }) {
@@ -50,7 +51,7 @@ export default function AiBeautyTab({ showToast, onNavigate }) {
             className={'sub-tab-btn' + (activeTool === tool.id ? ' active' : '') + (tool.highlight ? ' sub-tab-highlight' : '')}
             onClick={() => handleToolClick(tool.id)}
           >
-            <span>{tool.id === 'aiChat' && !user ? '🔒' : tool.emoji}</span> {t(tool.label, tool.labelKr)}
+            <span>{tool.id === 'aiChat' && !user ? <Lock size={16} /> : <tool.icon size={16} />}</span> {t(tool.label, tool.labelKr)}
           </button>
         ))}
       </div>

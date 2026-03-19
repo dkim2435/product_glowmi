@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
+import { Sparkles, Droplets, Heart, Syringe } from 'lucide-react'
 
 const TABS = [
-  { id: 'ai', label: 'AI Beauty', labelKr: 'AI 뷰티', emoji: '✨' },
-  { id: 'products', label: 'K-Beauty', labelKr: 'K-뷰티', emoji: '🧴' },
-  { id: 'wellness', label: 'Wellness', labelKr: '웰니스', emoji: '🧘' },
-  { id: 'procedures', label: 'Treatments', labelKr: '시술 가이드', emoji: '💉' },
+  { id: 'ai', label: 'AI Beauty', labelKr: 'AI 뷰티', icon: Sparkles },
+  { id: 'products', label: 'K-Beauty', labelKr: 'K-뷰티', icon: Droplets },
+  { id: 'wellness', label: 'Wellness', labelKr: '웰니스', icon: Heart },
+  { id: 'procedures', label: 'Treatments', labelKr: '시술 가이드', icon: Syringe },
 ]
 
 export default function TabNav({ activeTab, onTabChange }) {
@@ -46,7 +47,7 @@ export default function TabNav({ activeTab, onTabChange }) {
               aria-controls={`tabpanel-${tab.id}`}
               onClick={() => onTabChange(tab.id)}
             >
-              <span className="tab-emoji">{tab.emoji}</span>
+              <span className="tab-emoji"><tab.icon size={18} /></span>
               <span className="tab-label">{t(tab.label, tab.labelKr)}</span>
             </button>
           ))}

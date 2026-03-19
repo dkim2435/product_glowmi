@@ -12,7 +12,7 @@ export default function AnalysisHistory({ showToast }) {
   if (history.length === 0) {
     return (
       <div className="ah-empty">
-        <span className="ah-empty-icon">📊</span>
+        <img src="/illustrations/empty-history.png" alt="" className="empty-illustration" width={180} height={180} />
         <p>{t('No analysis history yet.', '아직 분석 기록이 없습니다.')}</p>
         <p className="ah-empty-hint">{t(
           'Run any AI analysis (Skin Scan, Personal Color, or Face Shape) and your results will be automatically saved here for comparison.',

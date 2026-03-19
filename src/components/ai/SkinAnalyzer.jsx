@@ -275,8 +275,8 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
   if (screen === 'start') {
     return (
       <div className="pc-start-card">
+        <img src="/illustrations/start-skin.png" alt="" className="tool-illustration" width={200} height={200} />
         <div className="tool-intro">
-          <span className="tool-icon">🔬</span>
           <h3>{t('AI Skin Condition Analyzer', 'AI 피부 상태 분석')}</h3>
           <p className="tool-desc">{t('AI analyzes your skin for redness, oiliness, dryness, dark spots, and texture to provide personalized recommendations.', 'AI가 홍조, 유분, 건조, 색소침착, 피부결을 분석하여 맞춤 추천을 제공합니다.')}</p>
           <p className="privacy-note">🔒 {t('Photos are analyzed by AI for your results. Not stored.', '사진은 AI가 분석 후 바로 삭제됩니다. 저장되지 않아요.')}</p>
@@ -327,6 +327,7 @@ export default function SkinAnalyzer({ showToast, onNavigate }) {
   if (screen === 'analyzing') {
     return (
       <div className="analyzing-screen">
+        <img src="/illustrations/success-analysis.png" alt="" className="empty-illustration" width={140} height={140} />
         <div className="analyzing-spinner" />
         <p>{t('Analyzing your skin condition...', '피부 상태를 분석하고 있습니다...')}</p>
         <div className="analyzing-tip">

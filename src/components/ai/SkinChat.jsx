@@ -5,6 +5,7 @@ import { loadAnalysisResults } from '../../lib/db'
 import { chatSkincare } from '../../lib/gemini'
 import { searchRelevantContext, formatRAGContext } from '../../lib/rag'
 import { runAgentChat } from '../../lib/agent'
+import { Bot, MessageCircle } from 'lucide-react'
 
 /** Render markdown bold **text**, links [text](url), and bare URLs as formatted elements */
 function renderChatText(text) {
@@ -205,7 +206,7 @@ export default function SkinChat({ showToast }) {
     return (
       <div className="chat-login-prompt chat-login-enhanced">
         <div className="chat-promo-header">
-          <span className="chat-promo-icon">🤖</span>
+          <img src="/illustrations/start-chat.png" alt="" className="tool-illustration" width={180} height={180} />
           <h3>{t('AI Skincare Advisor', 'AI 스킨케어 상담사')}</h3>
           <p className="chat-promo-desc">
             {t(
@@ -233,7 +234,7 @@ export default function SkinChat({ showToast }) {
   return (
     <div className="skin-chat" ref={chatRef}>
       <div className="chat-header">
-        <h4>{'🤖 ' + t('AI Skincare Advisor', 'AI 스킨케어 상담사')}</h4>
+        <h4><Bot size={18} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} />{t('AI Skincare Advisor', 'AI 스킨케어 상담사')}</h4>
         {userContext && userContext !== 'No skin data available yet.' ? (
           <span className="chat-context-badge chat-context-active">{t('Personalized to YOUR skin', '내 피부 맞춤 답변 중')}</span>
         ) : (

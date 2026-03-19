@@ -4,6 +4,7 @@ import ProductBrowser from './ProductBrowser'
 import SkinChat from '../ai/SkinChat'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
+import { ShoppingCart, Bot, FlaskConical, BookOpen } from 'lucide-react'
 
 const PRODUCT_SUBS = ['products', 'aiRec', 'analyzer', 'guide']
 
@@ -39,16 +40,16 @@ export default function ProductsTab({ showToast }) {
     <section className="tab-panel" id="products">
       <div className="ai-tool-tabs">
         <button className={'sub-tab-btn' + (activeSub === 'products' ? ' active' : '')} onClick={() => setActiveSub('products')}>
-          {'🛒 ' + t('Products', '제품')}
+          <ShoppingCart size={16} /> {t('Products', '제품')}
         </button>
         <button className={'sub-tab-btn sub-tab-highlight' + (activeSub === 'aiRec' ? ' active' : '')} onClick={handleAIRecClick}>
-          {'🤖 ' + t('AI Rec', 'AI 추천')}
+          <Bot size={16} /> {t('AI Rec', 'AI 추천')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'analyzer' ? ' active' : '')} onClick={() => setActiveSub('analyzer')}>
-          {'🧪 ' + t('Analyzer', '성분 분석')}
+          <FlaskConical size={16} /> {t('Analyzer', '성분 분석')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'guide' ? ' active' : '')} onClick={() => setActiveSub('guide')}>
-          {'📖 ' + t('Guide', '가이드')}
+          <BookOpen size={16} /> {t('Guide', '가이드')}
         </button>
       </div>
 

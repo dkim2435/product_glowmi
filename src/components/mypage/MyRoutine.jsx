@@ -3,21 +3,22 @@ import { saveRoutine, loadRoutines, loadAnalysisResults } from '../../lib/db'
 import { useLang } from '../../context/LanguageContext'
 import { generateRoutineAI, generateRoutineWithRAG } from '../../lib/gemini'
 import { searchProductsForRoutine } from '../../lib/rag'
+import { CircleDot, Waves, Eraser, Droplet, Gem, FlaskConical, Smile, Eye, Droplets, Sun, Moon, Sparkles, ShoppingCart } from 'lucide-react'
 import ReminderSettings from './ReminderSettings'
 
 const ROUTINE_CATEGORIES = [
-  { key: 'oil_cleanser', label: 'Oil Cleanser', labelKr: '오일 클렌저', emoji: '🫒' },
-  { key: 'water_cleanser', label: 'Water Cleanser', labelKr: '폼 클렌저', emoji: '🫧' },
-  { key: 'exfoliator', label: 'Exfoliator', labelKr: '각질 제거제', emoji: '🧽' },
-  { key: 'toner', label: 'Toner', labelKr: '토너', emoji: '💦' },
-  { key: 'essence', label: 'Essence', labelKr: '에센스', emoji: '💎' },
-  { key: 'serum', label: 'Serum', labelKr: '세럼', emoji: '🧪' },
-  { key: 'sheet_mask', label: 'Sheet Mask', labelKr: '시트 마스크', emoji: '🎭' },
-  { key: 'eye_cream', label: 'Eye Cream', labelKr: '아이크림', emoji: '👁️' },
-  { key: 'moisturizer', label: 'Moisturizer', labelKr: '보습제', emoji: '🧴' },
-  { key: 'sunscreen', label: 'Sunscreen', labelKr: '선크림', emoji: '☀️' },
-  { key: 'sleeping_mask', label: 'Sleeping Mask', labelKr: '수면팩', emoji: '🌙' },
-  { key: 'other', label: 'Other', labelKr: '기타', emoji: '✨' }
+  { key: 'oil_cleanser', label: 'Oil Cleanser', labelKr: '오일 클렌저', icon: CircleDot },
+  { key: 'water_cleanser', label: 'Water Cleanser', labelKr: '폼 클렌저', icon: Waves },
+  { key: 'exfoliator', label: 'Exfoliator', labelKr: '각질 제거제', icon: Eraser },
+  { key: 'toner', label: 'Toner', labelKr: '토너', icon: Droplet },
+  { key: 'essence', label: 'Essence', labelKr: '에센스', icon: Gem },
+  { key: 'serum', label: 'Serum', labelKr: '세럼', icon: FlaskConical },
+  { key: 'sheet_mask', label: 'Sheet Mask', labelKr: '시트 마스크', icon: Smile },
+  { key: 'eye_cream', label: 'Eye Cream', labelKr: '아이크림', icon: Eye },
+  { key: 'moisturizer', label: 'Moisturizer', labelKr: '보습제', icon: Droplets },
+  { key: 'sunscreen', label: 'Sunscreen', labelKr: '선크림', icon: Sun },
+  { key: 'sleeping_mask', label: 'Sleeping Mask', labelKr: '수면팩', icon: Moon },
+  { key: 'other', label: 'Other', labelKr: '기타', icon: Sparkles }
 ]
 
 function getCategoryByKey(key) {
@@ -152,16 +153,17 @@ export default function MyRoutine({ userId, showToast }) {
     <div className="mypage-routine-content">
       <div className="routine-type-toggle">
         <button className={'routine-toggle-btn' + (activeType === 'am' ? ' active' : '')} onClick={() => setActiveType('am')}>
-          {'☀️ ' + t('Morning AM', '아침 AM')}
+          <Sun size={16} /> {t('Morning AM', '아침 AM')}
         </button>
         <button className={'routine-toggle-btn' + (activeType === 'pm' ? ' active' : '')} onClick={() => setActiveType('pm')}>
-          {'🌙 ' + t('Evening PM', '저녁 PM')}
+          <Moon size={16} /> {t('Evening PM', '저녁 PM')}
         </button>
       </div>
 
       <div className="routine-steps">
         {steps.length === 0 ? (
           <div className="mypage-empty-hint">
+            <img src="/illustrations/empty-routine.png" alt="" className="empty-illustration" width={160} height={160} />
             <p>{t('No steps added yet.', '아직 추가된 단계가 없습니다.')}</p>
             <p style={{ fontSize: '0.78rem', color: '#999', marginTop: 4 }}>
               {t('Build your skincare routine step by step so you never skip a step!', '스킨케어 루틴을 단계별로 정리해보세요!')}
@@ -179,7 +181,7 @@ export default function MyRoutine({ userId, showToast }) {
             return (
               <div key={i} className="routine-step-item">
                 <span className="routine-step-num">{i + 1}</span>
-                <span className="routine-step-emoji">{cat ? cat.emoji : '✨'}</span>
+                <span className="routine-step-emoji">{cat ? <cat.icon size={16} /> : <Sparkles size={16} />}</span>
                 <div className="routine-step-info">
                   <span className="routine-step-name">{step.name || ''}</span>
                   {step.brand && <span className="routine-step-brand">{step.brand}</span>}
@@ -211,7 +213,7 @@ export default function MyRoutine({ userId, showToast }) {
             <h3>{t('Your AI Routine', 'AI 맞춤 루틴')}</h3>
             <p className="routine-modal-summary">{t(aiRoutine.summary, aiRoutine.summaryKr)}</p>
             <div className="routine-modal-section">
-              <h4>{'☀️ ' + t('Morning (AM)', '아침 (AM)')}</h4>
+              <h4><Sun size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Morning (AM)', '아침 (AM)')}</h4>
               {(aiRoutine.am || []).map((step, i) => (
                 <div key={i} className="routine-modal-step">
                   <span className="routine-modal-num">{i + 1}</span>
@@ -221,7 +223,7 @@ export default function MyRoutine({ userId, showToast }) {
                     {step.reason && <span className="routine-modal-reason">{step.reason}</span>}
                     {step.amazonUrl && (
                       <a className="routine-modal-amazon" href={step.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
-                        {'🛒 ' + t('Buy on Amazon', '아마존에서 구매')}
+                        <ShoppingCart size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Buy on Amazon', '아마존에서 구매')}
                       </a>
                     )}
                   </div>
@@ -229,7 +231,7 @@ export default function MyRoutine({ userId, showToast }) {
               ))}
             </div>
             <div className="routine-modal-section">
-              <h4>{'🌙 ' + t('Evening (PM)', '저녁 (PM)')}</h4>
+              <h4><Moon size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Evening (PM)', '저녁 (PM)')}</h4>
               {(aiRoutine.pm || []).map((step, i) => (
                 <div key={i} className="routine-modal-step">
                   <span className="routine-modal-num">{i + 1}</span>
@@ -239,7 +241,7 @@ export default function MyRoutine({ userId, showToast }) {
                     {step.reason && <span className="routine-modal-reason">{step.reason}</span>}
                     {step.amazonUrl && (
                       <a className="routine-modal-amazon" href={step.amazonUrl} target="_blank" rel="noopener noreferrer nofollow">
-                        {'🛒 ' + t('Buy on Amazon', '아마존에서 구매')}
+                        <ShoppingCart size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Buy on Amazon', '아마존에서 구매')}
                       </a>
                     )}
                   </div>
@@ -267,7 +269,7 @@ export default function MyRoutine({ userId, showToast }) {
         <div className="routine-add-form">
           <select className="routine-select" value={newStep.category} onChange={e => setNewStep({ ...newStep, category: e.target.value })}>
             {ROUTINE_CATEGORIES.map(cat => (
-              <option key={cat.key} value={cat.key}>{cat.emoji} {t(cat.label, cat.labelKr)}</option>
+              <option key={cat.key} value={cat.key}>{t(cat.label, cat.labelKr)}</option>
             ))}
           </select>
           <input

@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
+import { Sparkles, Palette, Gem, Sun } from 'lucide-react'
 
-const APP_VERSION = '2.4.8'
+const APP_VERSION = '3.1.1'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '⚡',
+    emoji: '✨',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'UX improvements, faster loading, and smarter AI features.',
-    descKr: 'UX 개선, 더 빠른 로딩, 더 똑똑한 AI 기능.',
+    desc: 'Desktop layout overhaul! Cleaner navigation, product grid view, and warmer design.',
+    descKr: '데스크톱 레이아웃 개편! 깔끔한 네비게이션, 제품 그리드 뷰, 따뜻한 디자인.',
     items: [
-      { emoji: '📱', label: 'Better Mobile Experience', labelKr: '모바일 경험 개선', desc: 'Larger tap targets, bigger tab labels, and a cancel button during AI analysis.', descKr: '더 큰 터치 영역, 탭 글씨 확대, AI 분석 중 취소 버튼 추가.' },
-      { emoji: '🎯', label: 'AI Personalized Badge', labelKr: 'AI 맞춤 뱃지', desc: 'Now shows whether product recommendations are AI-personalized or general suggestions.', descKr: '제품 추천이 AI 맞춤인지 일반 추천인지 표시돼요.' },
-      { emoji: '⚡', label: 'Faster Loading', labelKr: '더 빠른 로딩', desc: 'Initial page load is 78% smaller — app opens noticeably faster.', descKr: '초기 페이지 용량이 78% 줄어서 앱이 더 빨리 열려요.' },
-      { emoji: '💬', label: 'Chat Daily Limit', labelKr: '채팅 일일 한도', desc: '20 AI chat messages per day to ensure stable service for everyone.', descKr: '안정적인 서비스를 위해 AI 채팅은 하루 20회까지 사용 가능해요.' },
+      { emoji: '🖥️', label: 'Desktop Layout', labelKr: '데스크톱 레이아웃', desc: 'Replaced sidebar with top navigation for a cleaner, wider layout.', descKr: '사이드바를 상단 탭 네비로 교체해서 더 넓고 깔끔한 레이아웃으로 개선했어요.' },
+      { emoji: '🛍️', label: 'Product Grid', labelKr: '제품 그리드', desc: 'Products now display in a 3-4 column grid on desktop — browse faster!', descKr: '데스크톱에서 제품이 3-4열 그리드로 표시돼요. 더 빠르게 둘러보세요!' },
+      { emoji: '🎨', label: 'Warm Design', labelKr: '따뜻한 디자인', desc: 'New warm cream background for a softer, more inviting feel.', descKr: '따뜻한 크림색 배경으로 더 부드럽고 편안한 느낌이에요.' },
     ],
   },
 ]

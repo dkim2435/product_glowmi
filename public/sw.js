@@ -1,9 +1,11 @@
-const CACHE_NAME = 'glowmi-v6'
+const CACHE_NAME = 'glowmi-v7'
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/favicon.svg',
-  '/favicon-32x32.png'
+  '/favicon-32x32.png',
+  '/icon-192x192.png',
+  '/icon-512x512.png'
 ]
 
 // Install: pre-cache static assets

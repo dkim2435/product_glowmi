@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
+import { Sparkles, Palette, Droplets, Rocket, MapPin } from 'lucide-react'
 
 const SLIDES = [
   {
     emoji: '✨',
+    illustration: '/illustrations/onboarding-welcome.png',
     title: 'Welcome to Glowmi!',
     titleKr: 'Glowmi에 오신 걸 환영합니다!',
     desc: 'Your free, all-in-one K-Beauty companion powered by AI — skincare analysis, product guides, and more in English & Korean.',
@@ -18,6 +20,7 @@ const SLIDES = [
   },
   {
     emoji: '🎨',
+    illustration: '/illustrations/onboarding-ai-analysis.png',
     title: 'AI Beauty Analysis',
     titleKr: 'AI 뷰티 분석',
     desc: 'Upload a selfie for instant AI analysis — Personal Color (10 types), Face Shape (7 types), Skin Score (5 metrics), plus AI Chat.',
@@ -34,6 +37,7 @@ const SLIDES = [
   },
   {
     emoji: '🧴',
+    illustration: '/illustrations/onboarding-kbeauty.png',
     title: 'K-Beauty & Wellness',
     titleKr: 'K-뷰티 & 웰니스',
     desc: 'Product ingredient analysis, 10-step routine guide, K-beauty trends, personalized nutrients, and daily weather skincare tips.',
@@ -50,6 +54,7 @@ const SLIDES = [
   },
   {
     emoji: '🙋',
+    illustration: '/illustrations/onboarding-mypage.png',
     title: 'My Page — Track & Save',
     titleKr: '마이페이지 — 저장 & 추적',
     desc: 'Free sign-up with Google — save results, track skin changes with graphs, keep a diary, and manage your AM/PM routine.',
@@ -66,6 +71,7 @@ const SLIDES = [
   },
   {
     emoji: '🚀',
+    illustration: '/illustrations/onboarding-start.png',
     title: 'Ready to Glow!',
     titleKr: '이제 시작해볼까요!',
     desc: 'Start right now — everything is free, no sign-up required to explore!',
@@ -139,7 +145,10 @@ export default function OnboardingModal({ onClose }) {
         </button>
 
         <div className="onboard-slide" key={current}>
-          <div className="onboard-emoji">{slide.emoji}</div>
+          {slide.illustration
+            ? <img src={slide.illustration} alt="" className="onboard-illustration" width={200} height={200} />
+            : <div className="onboard-emoji">{slide.emoji}</div>
+          }
           <h2 className="onboard-title" id="onboard-title">{t(slide.title, slide.titleKr)}</h2>
           <p className="onboard-desc">{t(slide.desc, slide.descKr)}</p>
 
@@ -173,14 +182,14 @@ export default function OnboardingModal({ onClose }) {
               <svg viewBox="0 0 200 80" className="onboard-chart-svg">
                 <defs>
                   <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#CF8BA9" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#CF8BA9" stopOpacity="0.02" />
+                    <stop offset="0%" stopColor="#8B7EC8" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#8B7EC8" stopOpacity="0.02" />
                   </linearGradient>
                 </defs>
                 <path d="M10,60 L40,50 L70,55 L100,40 L130,35 L160,25 L190,20 L190,70 L10,70 Z" fill="url(#chartGrad)" />
-                <polyline points="10,60 40,50 70,55 100,40 130,35 160,25 190,20" fill="none" stroke="#CF8BA9" strokeWidth="2.5" strokeLinejoin="round" />
-                <circle cx="10" cy="60" r="3" fill="#CF8BA9" />
-                <circle cx="190" cy="20" r="3" fill="#A66A85" />
+                <polyline points="10,60 40,50 70,55 100,40 130,35 160,25 190,20" fill="none" stroke="#8B7EC8" strokeWidth="2.5" strokeLinejoin="round" />
+                <circle cx="10" cy="60" r="3" fill="#8B7EC8" />
+                <circle cx="190" cy="20" r="3" fill="#6C5FA7" />
               </svg>
             </div>
           )}
@@ -201,7 +210,7 @@ export default function OnboardingModal({ onClose }) {
 
           {slide.where && (
             <div className="onboard-where">
-              📍 {t(slide.where, slide.whereKr)}
+              <MapPin size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t(slide.where, slide.whereKr)}
             </div>
           )}
         </div>

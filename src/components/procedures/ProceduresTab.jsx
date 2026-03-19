@@ -4,6 +4,7 @@ import { clinicsData } from '../../data/clinics'
 import { useLang } from '../../context/LanguageContext'
 import { useAuth } from '../../context/AuthContext'
 import { loadAnalysisResults } from '../../lib/db'
+import { Syringe, Bot, Hospital, Microscope } from 'lucide-react'
 
 /** Map skin concerns to procedure tags */
 const CONCERN_TAG_MAP = {
@@ -66,13 +67,13 @@ export default function ProceduresTab() {
     <section className="tab-panel" id="procedures">
       <div className="ai-tool-tabs">
         <button className={'sub-tab-btn' + (activeSub === 'procedures' ? ' active' : '')} onClick={() => setActiveSub('procedures')}>
-          {'💉 ' + t('Procedures', '시술')}
+          <Syringe size={16} /> {t('Procedures', '시술')}
         </button>
         <button className={'sub-tab-btn sub-tab-highlight' + (activeSub === 'aiRec' ? ' active' : '')} onClick={handleAIRecClick}>
-          {'🤖 ' + t('AI Rec', 'AI 추천')}
+          <Bot size={16} /> {t('AI Rec', 'AI 추천')}
         </button>
         <button className={'sub-tab-btn' + (activeSub === 'clinics' ? ' active' : '')} onClick={() => setActiveSub('clinics')}>
-          {'🏥 ' + t('Clinics', '클리닉')}
+          <Hospital size={16} /> {t('Clinics', '클리닉')}
         </button>
       </div>
 
@@ -121,7 +122,7 @@ function ProcedureRec() {
   if (!skinScores) {
     return (
       <div className="proc-rec-empty">
-        <span className="proc-rec-icon">🔬</span>
+        <span className="proc-rec-icon"><Microscope size={32} /></span>
         <h4>{t('Skin analysis needed', '피부 분석이 필요해요')}</h4>
         <p>{t(
           'Take a skin analysis first in the AI Beauty tab, then come back here to see personalized procedure recommendations!',
@@ -331,7 +332,7 @@ function ClinicFinder() {
 
           return (
             <div key={i} className={'clinic-card' + (isOpen ? ' clinic-expanded' : '')} onClick={() => toggle(i)}>
-              <div className="clinic-icon">🏥</div>
+              <div className="clinic-icon"><Hospital size={20} /></div>
               <div className="clinic-title">{t(c.name, c.korean)}</div>
               <div className="clinic-rating-big">{c.rating}</div>
               <div className="clinic-stars">{'★'.repeat(Math.floor(c.rating))}{'☆'.repeat(5 - Math.floor(c.rating))}</div>

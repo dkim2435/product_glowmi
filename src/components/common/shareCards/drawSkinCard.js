@@ -3,9 +3,9 @@ import { roundRect, drawCircle, drawDecoDots, drawBranding, drawWatermark } from
 export default function drawSkinCard(ctx, w, h, data, t) {
   // Background gradient (pink → purple)
   const bg = ctx.createLinearGradient(0, 0, w * 0.4, h)
-  bg.addColorStop(0, '#CF8BA9')
-  bg.addColorStop(0.5, '#c850c0')
-  bg.addColorStop(1, '#a855f7')
+  bg.addColorStop(0, '#8B7EC8')
+  bg.addColorStop(0.5, '#7B6DB8')
+  bg.addColorStop(1, '#6C5FA7')
   ctx.fillStyle = bg
   ctx.fillRect(0, 0, w, h)
 

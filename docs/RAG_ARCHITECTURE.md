@@ -36,8 +36,8 @@ flowchart TD
 
     H --> M["👤 User sees answer<br/>사용자에게 답변 표시"]
 
-    style B fill:#CF8BA9,color:#fff
-    style D fill:#A66A85,color:#fff
+    style B fill:#8B7EC8,color:#fff
+    style D fill:#6C5FA7,color:#fff
     style H fill:#2e7d32,color:#fff
 ```
 

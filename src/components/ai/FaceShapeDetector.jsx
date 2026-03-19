@@ -99,8 +99,8 @@ export default function FaceShapeDetector({ showToast }) {
   if (screen === 'start') {
     return (
       <div className="pc-start-card">
+        <img src="/illustrations/start-face.png" alt="" className="tool-illustration" width={200} height={200} />
         <div className="tool-intro">
-          <span className="tool-icon">💎</span>
           <h3>{t('AI Face Shape Detector', 'AI 얼굴형 분석')}</h3>
           <p className="tool-desc">{t('AI analyzes 468 facial landmarks to determine your face shape and provide styling tips.', 'AI가 468개의 얼굴 랜드마크를 분석하여 얼굴형을 판별하고 스타일링 팁을 제공합니다.')}</p>
           <p className="privacy-note">🔒 {t('Photos are analyzed by AI for your results. Not stored.', '사진은 AI가 분석 후 바로 삭제됩니다. 저장되지 않아요.')}</p>
@@ -151,6 +151,7 @@ export default function FaceShapeDetector({ showToast }) {
   if (screen === 'analyzing') {
     return (
       <div className="analyzing-screen">
+        <img src="/illustrations/success-analysis.png" alt="" className="empty-illustration" width={140} height={140} />
         <div className="analyzing-spinner" />
         <p>{t('Analyzing your face shape...', '얼굴형을 분석하고 있습니다...')}</p>
         <div className="analyzing-tip">

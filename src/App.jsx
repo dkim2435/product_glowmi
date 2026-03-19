@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, lazy, Suspense } from 'react'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { LanguageProvider } from './context/LanguageContext'
+import { HelpCircle } from 'lucide-react'
 import Header from './components/layout/Header'
 import TabNav from './components/layout/TabNav'
 import Footer from './components/layout/Footer'
@@ -68,26 +69,28 @@ export default function App() {
     <ThemeProvider>
       <LanguageProvider>
         <AuthProvider>
-          <div className="app-container">
+          <div className="app-shell">
             <Header onLogoClick={() => setActiveTab('ai')} />
-            <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
+            <div className="app-body">
+              <TabNav activeTab={activeTab} onTabChange={setActiveTab} />
 
-            <main className="main-content">
-              <Suspense fallback={null}><WeatherTips /></Suspense>
-              <Suspense fallback={<TabLoadingFallback />}>
-                {activeTab === 'ai' && <AiBeautyTab showToast={showToast} onNavigate={navigateTo} />}
-                {activeTab === 'products' && <ProductsTab showToast={showToast} onNavigate={navigateTo} />}
-                {activeTab === 'procedures' && <ProceduresTab />}
-                {activeTab === 'wellness' && <WellnessTab onNavigate={navigateTo} />}
-                {activeTab === 'mypage' && <MyPageTab showToast={showToast} onNavigate={navigateTo} />}
-              </Suspense>
-            </main>
+              <main className="main-content">
+                <Suspense fallback={null}><WeatherTips /></Suspense>
+                <Suspense fallback={<TabLoadingFallback />}>
+                  {activeTab === 'ai' && <AiBeautyTab showToast={showToast} onNavigate={navigateTo} />}
+                  {activeTab === 'products' && <ProductsTab showToast={showToast} onNavigate={navigateTo} />}
+                  {activeTab === 'procedures' && <ProceduresTab />}
+                  {activeTab === 'wellness' && <WellnessTab onNavigate={navigateTo} />}
+                  {activeTab === 'mypage' && <MyPageTab showToast={showToast} onNavigate={navigateTo} />}
+                </Suspense>
+              </main>
+            </div>
 
             <Footer />
 
             {/* Help / Tutorial button */}
             <button className="help-fab" onClick={() => setShowOnboarding(true)} title="Tutorial / 튜토리얼" aria-label="Tutorial">
-              ?
+              <HelpCircle size={20} />
             </button>
 
             {toast && <Toast message={toast} />}

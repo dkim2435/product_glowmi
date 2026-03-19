@@ -1,5 +1,6 @@
 import { useTheme } from '../../context/ThemeContext'
 import { useLang } from '../../context/LanguageContext'
+import { Moon, Sun } from 'lucide-react'
 
 export default function Header({ onLogoClick }) {
   const { theme, toggleTheme } = useTheme()
@@ -10,7 +11,7 @@ export default function Header({ onLogoClick }) {
       <div className="header-inner">
         <h1 className="logo" onClick={onLogoClick} style={{ cursor: 'pointer' }}>
           Glowmi
-          <span className="logo-version">v2.4.8</span>
+          <span className="logo-version">v3.1.1</span>
         </h1>
         <p className="subtitle">{t('Your K-Beauty Companion', '나만의 K-뷰티 가이드')}</p>
       </div>
@@ -29,7 +30,7 @@ export default function Header({ onLogoClick }) {
           title={theme === 'light' ? t('Switch to Dark Mode', '다크 모드로 전환') : t('Switch to Light Mode', '라이트 모드로 전환')}
           aria-label={theme === 'light' ? t('Switch to Dark Mode', '다크 모드로 전환') : t('Switch to Light Mode', '라이트 모드로 전환')}
         >
-          {theme === 'light' ? '🌙' : '☀️'}
+          {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
         </button>
       </div>
     </header>

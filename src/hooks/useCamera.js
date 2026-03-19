@@ -1,4 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { Capacitor } from '@capacitor/core'
+
+/** Check if running as a native app (iOS/Android) */
+const isNative = Capacitor.isNativePlatform()
 
 export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight = 480 } = {}) {
   const videoRef = useRef(null)
@@ -18,6 +22,28 @@ export function useCamera({ facingMode = 'user', idealWidth = 640, idealHeight =
   const startCamera = useCallback(async () => {
     setCameraError(null)
     setCapturedImage(null)
+
+    // On native platforms, use Capacitor Camera plugin
+    if (isNative) {
+      try {
+        const { Camera, CameraResultType, CameraSource } = await import('@capacitor/camera')
+        const photo = await Camera.getPhoto({
+          quality: 90,
+          allowEditing: false,
+          resultType: CameraResultType.DataUrl,
+          source: CameraSource.Camera,
+          direction: facingMode === 'user' ? 'FRONT' : 'REAR',
+          width: idealWidth,
+          height: idealHeight,
+        })
+        setCapturedImage(photo.dataUrl)
+        return
+      } catch (e) {
+        // Fall through to web camera if native fails
+        console.warn('Native camera failed, falling back to web:', e)
+      }
+    }
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode, width: { ideal: idealWidth }, height: { ideal: idealHeight } }

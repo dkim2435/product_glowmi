@@ -12,6 +12,7 @@ export default defineConfig({
           'vendor-react': ['react', 'react-dom'],
           'vendor-supabase': ['@supabase/supabase-js'],
           'vendor-tesseract': ['tesseract.js'],
+          'vendor-lucide': ['lucide-react'],
         },
       },
     },

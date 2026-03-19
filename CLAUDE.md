@@ -45,6 +45,9 @@
 
 ## 프로젝트 구조
 - 프론트엔드: React 18 + Vite 6 (build target: esnext)
+- 아이콘: Lucide React (tree-shaking, vendor-lucide 청크 분리)
+- 레이아웃: 모바일 탭 네비 / 데스크톱(768px+) 사이드바 네비
+- 앱스토어: Capacitor (iOS/Android 빌드 준비 완료)
 - 배포: Cloudflare Pages (자동 배포: GitHub main 브랜치 푸시 시)
 - 인증: Supabase Auth (Google OAuth)
 - DB: Supabase (분석 결과, 피부 일지, 루틴 저장)
@@ -62,12 +65,14 @@
 - 프로덕션: Cloudflare Pages Settings > Variables and Secrets (Type: Text)
 
 ## 브랜드 컬러
-- **Primary**: `#CF8BA9` (더스티 로즈)
-- **Secondary**: `#A66A85` (진한 로즈)
-- **Light**: `#FDF0F5` (연한 로즈 배경)
-- **Gradient**: `linear-gradient(135deg, #CF8BA9 0%, #A66A85 100%)`
+- **Primary**: `#8B7EC8` (소프트 라벤더)
+- **Secondary**: `#6C5FA7` (딥 라벤더)
+- **Accent**: `#E8A0BF` (로즈 핑크, 포인트)
+- **Light BG**: `#F5F0FF` (연보라 배경)
+- **Dark BG**: `#1A1028` (딥 퍼플)
+- **Gradient**: `linear-gradient(135deg, #8B7EC8 0%, #6C5FA7 100%)`
 - 컬러 변경 시 반드시 동기화할 곳: CSS 변수 (index.css :root), 하드코딩된 값 (index.css 전체), JSX 파일 (SVG, Canvas), tailwind.config.js, index.html (theme-color), manifest.json, 404.html, 블로그 HTML, js/ 파일들
-- 이전 컬러 히스토리: `#ff6b9d` (원조 핑크) → `#F4A698` (피치, v2.0.14) → `#CF8BA9` (더스티 로즈, v2.0.16)
+- 이전 컬러 히스토리: `#ff6b9d` (원조 핑크) → `#F4A698` (피치, v2.0.14) → `#CF8BA9` (더스티 로즈, v2.0.16) → `#8B7EC8` (소프트 라벤더, v2.5.0)
 
 ## 접근성 (Accessibility) 규칙
 - 모든 버튼에 `:focus-visible` 스타일 필수 (키보드 사용자 지원)
@@ -179,6 +184,7 @@ src/
 │   │   │   └── drawFSCard.js         — 얼굴형 카드
 │   │   ├── GatedContent.jsx          — 비회원 블러 게이트 (공통)
 │   │   ├── StartBenefitsCard.jsx     — 가입 혜택 카드 (공통)
+│   │   ├── IllustrationPlaceholder.jsx — 일러스트 플레이스홀더 (라벤더 그라데이션)
 │   │   └── CameraView.jsx           — 웹캠 촬영
 │   │
 │   └── layout/                — 레이아웃
@@ -222,3 +228,5 @@ src/
 | `src/lib/gemini.js` | Google Gemini API 연동 |
 | `src/lib/db.js` | Supabase DB 쿼리 (결과 저장, 일지, 루틴) |
 | `docs/SEO_GEO_GUIDE.md` | SEO 전략 상세 문서 |
+| `capacitor.config.json` | Capacitor 앱 설정 (iOS/Android) |
+| `scripts/generate-icons.js` | PWA 아이콘 PNG 생성 스크립트 |

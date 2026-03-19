@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useLang } from '../../context/LanguageContext'
+import { Trophy, LineChart, NotebookPen, Droplets, BarChart3, Bot, Save, TrendingUp } from 'lucide-react'
 import MyResults from './MyResults'
 import SkinProgress from './SkinProgress'
 import SkinDiary from './SkinDiary'
@@ -19,15 +20,15 @@ export default function MyPageTab({ showToast, onNavigate }) {
     return (
       <section className="tab-panel" id="mypage">
         <div className="mypage-signup-cta">
-          <div className="signup-cta-icon">🙋</div>
+          <div className="signup-cta-icon"><Bot size={40} /></div>
           <h3>{t('Your Beauty Hub', '나만의 뷰티 허브')}</h3>
           <p className="signup-cta-desc">{t('Sign up free to unlock all features:', '무료 가입하고 모든 기능을 이용하세요:')}</p>
           <div className="signup-cta-features">
-            <div className="signup-cta-feature signup-cta-feature-highlight">🤖 {t('AI Skincare Chat — personalized to YOUR skin', 'AI 스킨케어 상담 — 내 피부 맞춤 답변')}</div>
-            <div className="signup-cta-feature">🏆 {t('Save AI analysis results', 'AI 분석 결과 저장')}</div>
-            <div className="signup-cta-feature">📈 {t('Track skin changes over time', '피부 변화 추적')}</div>
-            <div className="signup-cta-feature">📝 {t('Write daily skin diary', '매일 피부 일지 기록')}</div>
-            <div className="signup-cta-feature">🧴 {t('Build your AM/PM routine', 'AM/PM 루틴 관리')}</div>
+            <div className="signup-cta-feature signup-cta-feature-highlight"><Bot size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('AI Skincare Chat — personalized to YOUR skin', 'AI 스킨케어 상담 — 내 피부 맞춤 답변')}</div>
+            <div className="signup-cta-feature"><Trophy size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Save AI analysis results', 'AI 분석 결과 저장')}</div>
+            <div className="signup-cta-feature"><LineChart size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Track skin changes over time', '피부 변화 추적')}</div>
+            <div className="signup-cta-feature"><NotebookPen size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Write daily skin diary', '매일 피부 일지 기록')}</div>
+            <div className="signup-cta-feature"><Droplets size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} />{t('Build your AM/PM routine', 'AM/PM 루틴 관리')}</div>
           </div>
           <button className="primary-btn signup-cta-btn" onClick={loginWithGoogle}>
             {t('Sign Up Free with Google', 'Google로 무료 가입')}
@@ -42,19 +43,19 @@ export default function MyPageTab({ showToast, onNavigate }) {
     <section className="tab-panel" id="mypage">
       <div className="mypage-nav">
         {[
-          { id: 'results', emoji: '🏆', label: t('Results', '결과') },
-          { id: 'progress', emoji: '📈', label: t('Skin Progress', '피부현황') },
-          { id: 'diary', emoji: '📝', label: t('Diary', '일지') },
-          { id: 'routine', emoji: '🧴', label: t('Routine', '루틴') },
-          { id: 'history', emoji: '📊', label: t('Analysis Log', '분석기록') },
-          { id: 'skinChat', emoji: '🤖', label: t('AI Chat', 'AI 상담'), highlight: true },
+          { id: 'results', icon: Trophy, label: t('Results', '결과') },
+          { id: 'progress', icon: LineChart, label: t('Skin Progress', '피부현황') },
+          { id: 'diary', icon: NotebookPen, label: t('Diary', '일지') },
+          { id: 'routine', icon: Droplets, label: t('Routine', '루틴') },
+          { id: 'history', icon: BarChart3, label: t('Analysis Log', '분석기록') },
+          { id: 'skinChat', icon: Bot, label: t('AI Chat', 'AI 상담'), highlight: true },
         ].map(s => (
           <button
             key={s.id}
             className={'mypage-nav-btn' + (section === s.id ? ' active' : '') + (s.highlight ? ' highlight' : '')}
             onClick={() => setSection(s.id)}
           >
-            {s.emoji} {s.label}
+            <s.icon size={14} /> {s.label}
           </button>
         ))}
       </div>

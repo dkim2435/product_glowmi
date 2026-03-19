@@ -4,6 +4,7 @@ import { getRecommendations } from '../../data/products'
 import { useLang } from '../../context/LanguageContext'
 import { useAuth } from '../../context/AuthContext'
 import { loadAnalysisResults } from '../../lib/db'
+import { CloudSun, MapPin } from 'lucide-react'
 import ProductCard from './ProductCard'
 
 const TIPS = {
@@ -216,7 +217,7 @@ export default function WeatherTips() {
   if (loading) {
     return (
       <div className="weather-card weather-loading">
-        <span className="weather-loading-icon">🌤️</span>
+        <span className="weather-loading-icon"><CloudSun size={20} /></span>
         <span>{t('Loading weather tips...', '날씨 정보 불러오는 중...')}</span>
       </div>
     )
@@ -225,7 +226,7 @@ export default function WeatherTips() {
   if (error) {
     return (
       <div className="weather-card weather-error">
-        <span className="weather-error-icon">📍</span>
+        <span className="weather-error-icon"><MapPin size={20} /></span>
         <div>
           <p className="weather-error-msg">
             {error === 'location'
