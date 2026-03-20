@@ -2,22 +2,21 @@ import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { Sparkles, Palette, Gem, Sun } from 'lucide-react'
 
-const APP_VERSION = '3.1.1'
+const APP_VERSION = '3.1.2'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '✨',
+    emoji: '🎨',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'Desktop layout overhaul! Cleaner navigation, product grid view, and warmer design.',
-    descKr: '데스크톱 레이아웃 개편! 깔끔한 네비게이션, 제품 그리드 뷰, 따뜻한 디자인.',
+    desc: 'Fresh illustrations and light mode default for a brighter experience.',
+    descKr: '새로운 일러스트와 라이트 모드 기본 적용으로 더 밝고 산뜻한 느낌!',
     items: [
-      { emoji: '🖥️', label: 'Desktop Layout', labelKr: '데스크톱 레이아웃', desc: 'Replaced sidebar with top navigation for a cleaner, wider layout.', descKr: '사이드바를 상단 탭 네비로 교체해서 더 넓고 깔끔한 레이아웃으로 개선했어요.' },
-      { emoji: '🛍️', label: 'Product Grid', labelKr: '제품 그리드', desc: 'Products now display in a 3-4 column grid on desktop — browse faster!', descKr: '데스크톱에서 제품이 3-4열 그리드로 표시돼요. 더 빠르게 둘러보세요!' },
-      { emoji: '🎨', label: 'Warm Design', labelKr: '따뜻한 디자인', desc: 'New warm cream background for a softer, more inviting feel.', descKr: '따뜻한 크림색 배경으로 더 부드럽고 편안한 느낌이에요.' },
+      { emoji: '🖼️', label: 'New Illustrations', labelKr: '새 일러스트', desc: 'All illustrations have been refreshed with new artwork.', descKr: '모든 일러스트가 새로운 그림으로 교체됐어요.' },
+      { emoji: '☀️', label: 'Light Mode Default', labelKr: '라이트 모드 기본', desc: 'The app now defaults to light mode for new users.', descKr: '새 사용자는 기본으로 라이트 모드가 적용돼요.' },
     ],
   },
 ]
