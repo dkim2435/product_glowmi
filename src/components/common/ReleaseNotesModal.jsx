@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { Sparkles, Palette, Gem, Sun } from 'lucide-react'
 
-const APP_VERSION = '3.1.4'
+const APP_VERSION = '3.1.5'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'

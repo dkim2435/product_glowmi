@@ -204,11 +204,11 @@ export default function ReminderSettings({ showToast }) {
       </p>
 
       <div className="reminder-permission-row">
-        <span className="reminder-permission-label">{t('Notifications:', '알림 상태:')}</span>
-        <span className={'reminder-badge ' + permissionClass}>{permissionLabel}</span>
+        <span className="reminder-permission-label">{t('Notifications', '알림 상태')}</span>
+        <span className={'reminder-perm-badge ' + permissionClass}>{permissionLabel}</span>
         {permission !== 'granted' && (
           <button className="reminder-permission-btn" onClick={requestPermission}>
-            {t('Allow Notifications', '알림 허용')}
+            {t('Allow', '허용')}
           </button>
         )}
       </div>
@@ -223,18 +223,16 @@ export default function ReminderSettings({ showToast }) {
       )}
 
       <div className="reminder-toggle-row">
-        <label className="reminder-toggle-label">
+        <span className="reminder-toggle-label">{t('Enable Reminders', '알림 켜기')}</span>
+        <label className="reminder-toggle">
           <input
             type="checkbox"
             checked={settings.enabled}
             onChange={handleToggle}
-            className="reminder-checkbox"
           />
-          <span>{t('Enable Reminders', '알림 켜기')}</span>
+          <span className="reminder-toggle-track" />
+          <span className="reminder-toggle-thumb" />
         </label>
-        {settings.enabled && permission === 'granted' && (
-          <span className="reminder-active-indicator">{t('Active', '활성')}</span>
-        )}
       </div>
 
       <div className="reminder-time-row">
