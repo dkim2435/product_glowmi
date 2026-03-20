@@ -7903,7 +7903,29 @@ body {
 [data-theme="dark"] .pcard { background: #2a2a40; border-color: #35354a; }
 
 /* Gated blur */
+[data-theme="dark"] .gated-overlay { background: rgba(20, 16, 30, 0.4); }
 [data-theme="dark"] .gated-overlay-content { background: rgba(30,30,46,0.95); }
+[data-theme="dark"] .gated-title { color: #e0e0e8; }
+[data-theme="dark"] .gated-title-kr { color: #909098; }
+
+/* Result card & recommended products */
+[data-theme="dark"] .result-card { background: #252538; }
+[data-theme="dark"] .result-type-korean { color: #909098; }
+[data-theme="dark"] .season-tip { background: #1a2e1a; color: #5fd35f; border-left-color: #2e7d32; }
+[data-theme="dark"] .product-item { background: #2a2a40; color: #e0e0e8; }
+[data-theme="dark"] .product-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+/* Skin analysis ingredient tags */
+[data-theme="dark"] .skin-ing-tag-found { background: #2a2040; color: #b0a8d0; border-color: #3a3050; }
+
+/* Save login prompt */
+[data-theme="dark"] .save-login-prompt { background: linear-gradient(135deg, #2a2040, #25203a); border-color: #3a3050; }
+[data-theme="dark"] .save-login-text { color: #c0c0d0; }
+[data-theme="dark"] .save-login-text-kr { color: #909098; }
+
+/* Action link buttons */
+[data-theme="dark"] .action-link-btn { border-color: #8B7EC8; color: #b0a8d0; }
+[data-theme="dark"] .action-link-btn:hover { background: #8B7EC8; color: white; }
 
 /* Result description */
 [data-theme="dark"] .result-description { background: #252538; }
@@ -8045,6 +8067,8 @@ body {
 
 /* ===== Product Cards (pcard) ===== */
 [data-theme="dark"] .pcard { background: #2a2a40; border-color: #35354a; }
+[data-theme="dark"] .pcard-left { background: linear-gradient(135deg, #2a2040, #25203a); }
+[data-theme="dark"] .pcard-cat-label { color: #b0a8d0; }
 [data-theme="dark"] .pcard-name { color: #e0e0e8; }
 [data-theme="dark"] .pcard-name-kr { color: #909098; }
 [data-theme="dark"] .pcard-price { background: #1a2e1a; color: #5fd35f; }
@@ -8343,7 +8367,7 @@ body {
 .ai-report-encouragement { font-size: 0.88rem; color: #8B7EC8; font-weight: 500; margin: 0.5rem 0 0; text-align: center; }
 
 /* ===== AI Skincare Chat ===== */
-.skin-chat { display: flex; flex-direction: column; height: 480px; max-height: 65dvh; background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #eee; }
+.skin-chat { display: flex; flex-direction: column; height: 480px; max-height: 65dvh; background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #eee; width: 100%; }
 .chat-header { padding: 0.8rem 1rem; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 0.5rem; justify-content: space-between; }
 .chat-header h4 { margin: 0; font-size: 0.95rem; }
 .chat-context-badge { font-size: 0.7rem; background: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 10px; }
@@ -8474,6 +8498,37 @@ body {
 [data-theme="dark"] .chat-clear-btn { border-color: #3a3a50; color: #777; }
 [data-theme="dark"] .chat-clear-btn:hover { border-color: #ff5252; color: #ff5252; }
 [data-theme="dark"] .chat-best-result-tip { background: #2e2a1a; color: #ffb74d; }
+
+/* Dark mode — modal close button */
+[data-theme="dark"] .page-modal-close { background: #3a3a50; color: #ccc; }
+
+/* Dark mode — routine flow tips */
+[data-theme="dark"] .routine-water { background: linear-gradient(135deg, #1a2030, #1a2e1e); }
+[data-theme="dark"] .routine-water strong { color: #64b5f6; }
+[data-theme="dark"] .routine-oil { background: linear-gradient(135deg, #2e2a1a, #2a2040); }
+[data-theme="dark"] .routine-oil strong { color: #ffb74d; }
+[data-theme="dark"] .routine-sun { background: linear-gradient(135deg, #2e2a1a, #2e2e1a); }
+[data-theme="dark"] .routine-sun strong { color: #ffd54f; }
+[data-theme="dark"] .routine-flow-info p { color: #999; }
+[data-theme="dark"] .routine-flow-arrow { color: #555; }
+[data-theme="dark"] .texture-bar-arrow { color: #999; }
+[data-theme="dark"] .texture-bar-bg { background: linear-gradient(90deg, #1a2a40 0%, #2a2040 50%, #2e2a1a 100%); }
+
+/* Dark mode — rating badges */
+[data-theme="dark"] .rating-great { background: #1a2e1a; color: #5fd35f; }
+[data-theme="dark"] .rating-good { background: #1a2a2e; color: #4dd0e1; }
+[data-theme="dark"] .rating-average { background: #2e2a1a; color: #ffd54f; }
+[data-theme="dark"] .rating-poor { background: #2e251a; color: #ffb74d; }
+[data-theme="dark"] .rating-bad { background: #2e1a1a; color: #ff6b6b; }
+
+/* Dark mode — AI skin match */
+[data-theme="dark"] .ai-skin-match-section { border-top-color: #3a3a50; }
+
+/* Dark mode — reminder toggle */
+[data-theme="dark"] .reminder-toggle-track { background: #3a3a50; }
+[data-theme="dark"] .reminder-time-input { background: #2a2a40; border-color: #3a3a50; color: #e0e0e8; }
+[data-theme="dark"] .reminder-perm-denied { background: #2e1a1a; color: #ff6b6b; }
+[data-theme="dark"] .reminder-perm-default { background: #2e2a1a; color: #ffb74d; }
 
 /* ========== Nutrient Recommendations ========== */
 .nutrient-section-title {
