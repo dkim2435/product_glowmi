@@ -8435,7 +8435,7 @@ body {
 /* AI Chat nav button highlight */
 .mypage-nav-btn.highlight { border: 1.5px solid var(--primary-pink); color: var(--primary-pink); font-weight: 600; position: relative; }
 .mypage-nav-btn.highlight::after { content: ''; position: absolute; top: -2px; right: -2px; width: 7px; height: 7px; background: #ff5252; border-radius: 50%; }
-.mypage-nav-btn.highlight.active { border-color: transparent; }
+.mypage-nav-btn.highlight.active { border-color: transparent; color: white; }
 .mypage-nav-btn.highlight.active::after { display: none; }
 
 /* Highlight feature in signup CTA */
