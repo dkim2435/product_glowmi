@@ -1,0 +1,31 @@
+name: Sync Docs to Notion
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**/*.md'
+      - 'CLAUDE.md'
+
+jobs:
+  sync:
+    name: Sync to Notion
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install sync dependencies
+        run: cd docs/notion-sync && npm install
+
+      - name: Sync docs to Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: node docs/notion-sync/sync.mjs

@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "type": "module",
+  "name": "glowmi-notion-sync",
+  "version": "1.0.0",
+  "description": "Sync Glowmi docs to Notion",
+  "dependencies": {
+    "@notionhq/client": "^2.2.0"
+  }
+}

@@ -36,8 +36,9 @@
 | **새 Context/상태 추가** | CLAUDE.md "상태 관리" 테이블에 추가 |
 | **새 주요 파일 추가** | CLAUDE.md "주요 파일 위치" 테이블에 추가 |
 | **접근성 패턴 추가** | CLAUDE.md "접근성 규칙"에 추가 |
-| **SEO 규칙 변경** | CLAUDE.md "SEO / GEO 가이드라인" + `docs/SEO_GEO_GUIDE.md` 업데이트 |
+| **SEO 규칙 변경** | CLAUDE.md "SEO / GEO 가이드라인" + `docs/en/seo-geo-guide.md` + `docs/ko/seo-geo-guide.md` 업데이트 |
 | **Cloudflare 설정 변경** | CLAUDE.md "주요 파일 위치"에 반영 + `public/_headers` 또는 `public/_redirects` 업데이트 |
+| **새/수정 문서** | `docs/en/` + `docs/ko/` 양쪽 반영 확인, `docs/notion-sync/config.mjs` 매니페스트에 추가 |
 
 ## 버전 관리 규칙
 - 버전은 Header.jsx, ReleaseNotesModal.jsx, package.json 3곳에서 동기화
@@ -227,6 +228,9 @@ src/
 | `src/index.css` | 전역 스타일 (CSS 변수, 접근성, CLS 방지) |
 | `src/lib/gemini.js` | Google Gemini API 연동 |
 | `src/lib/db.js` | Supabase DB 쿼리 (결과 저장, 일지, 루틴) |
-| `docs/SEO_GEO_GUIDE.md` | SEO 전략 상세 문서 |
+| `docs/en/*.md` | 영문 문서 (AI 아키텍처, SEO, 개발 가이드, 백로그, 환경설정) |
+| `docs/ko/*.md` | 한국어 문서 (위와 동일, 한국어 버전) |
+| `docs/notion-sync/sync.mjs` | Notion 자동 동기화 스크립트 |
+| `.github/workflows/sync-docs-to-notion.yml` | 문서 변경 시 Notion 동기화 워크플로우 |
 | `capacitor.config.json` | Capacitor 앱 설정 (iOS/Android) |
 | `scripts/generate-icons.js` | PWA 아이콘 PNG 생성 스크립트 |

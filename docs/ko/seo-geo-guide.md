@@ -1,3 +1,10 @@
+---
+title: SEO & GEO 가이드
+slug: seo-geo-guide-ko
+language: KO
+category: strategy
+---
+
 # Glowmi SEO & GEO (Generative Engine Optimization) 가이드
 
 > 최종 업데이트: 2026-02-12 (v2.0.3)

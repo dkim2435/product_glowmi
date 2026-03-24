@@ -1,4 +1,11 @@
-# Glowmi Feature Ideas (Backlog)
+---
+title: Feature Backlog
+slug: feature-backlog-en
+language: EN
+category: backlog
+---
+
+# Glowmi Feature Backlog
 
 ## Implemented in v2.0.5
 
@@ -10,6 +17,8 @@
 - [x] Routine Reminder (push notifications for AM/PM routines)
 - [x] OCR Progress Bar (step-by-step scanning stages)
 
+---
+
 ## Affiliate / Monetization (Later)
 
 ### Product Bookmark + Purchase Links
@@ -18,6 +27,8 @@
 - Potential affiliate revenue (Coupang Partners, Olive Young affiliate)
 - Prerequisites: product DB needs real purchase URLs, affiliate account setup
 - Notes: Discuss timing and platform priority later
+
+---
 
 ## Future Ideas
 

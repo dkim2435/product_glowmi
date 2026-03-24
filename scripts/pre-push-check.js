@@ -270,6 +270,31 @@ for (const check of uxChecks) {
   if (allFound) pass(`${check.name}: all guidance text present`)
 }
 
+// ─── 8. Bilingual Doc Parity ────────────────────────────────────
+
+section('8. Bilingual Doc Parity (docs/en ↔ docs/ko)')
+
+const docsEnDir = resolve(ROOT, 'docs/en')
+const docsKoDir = resolve(ROOT, 'docs/ko')
+
+if (existsSync(docsEnDir) && existsSync(docsKoDir)) {
+  const { readdirSync } = await import('fs')
+  const enDocs = readdirSync(docsEnDir).filter(f => f.endsWith('.md')).sort()
+  const koDocs = readdirSync(docsKoDir).filter(f => f.endsWith('.md')).sort()
+
+  const enOnly = enDocs.filter(f => !koDocs.includes(f))
+  const koOnly = koDocs.filter(f => !enDocs.includes(f))
+
+  if (enOnly.length === 0 && koOnly.length === 0) {
+    pass(`EN/KO parity: ${enDocs.length} docs each`)
+  } else {
+    if (enOnly.length) warn(`EN-only docs (missing KO): ${enOnly.join(', ')}`)
+    if (koOnly.length) warn(`KO-only docs (missing EN): ${koOnly.join(', ')}`)
+  }
+} else {
+  warn('docs/en or docs/ko directory not found')
+}
+
 // ─── Summary ────────────────────────────────────────────────────
 
 console.log('\n' + '─'.repeat(50))
