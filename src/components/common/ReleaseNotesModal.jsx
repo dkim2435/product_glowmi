@@ -2,21 +2,20 @@ import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { Sparkles, Palette, Gem, Sun } from 'lucide-react'
 
-const APP_VERSION = '3.1.7'
+const APP_VERSION = '3.1.8'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🎨',
+    emoji: '🛠️',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'Fresh illustrations and light mode default for a brighter experience.',
-    descKr: '새로운 일러스트와 라이트 모드 기본 적용으로 더 밝고 산뜻한 느낌!',
+    desc: 'Stability improvements for skin progress tracking.',
+    descKr: '피부 변화 추적 차트 안정성 개선!',
     items: [
-      { emoji: '🖼️', label: 'New Illustrations', labelKr: '새 일러스트', desc: 'All illustrations have been refreshed with new artwork.', descKr: '모든 일러스트가 새로운 그림으로 교체됐어요.' },
-      { emoji: '☀️', label: 'Light Mode Default', labelKr: '라이트 모드 기본', desc: 'The app now defaults to light mode for new users.', descKr: '새 사용자는 기본으로 라이트 모드가 적용돼요.' },
+      { emoji: '📈', label: 'Chart reliability', labelKr: '차트 안정성', desc: 'Skin progress chart now always re-renders when data updates.', descKr: '피부 점수 차트가 데이터 변경 시 항상 새로 그려지도록 개선됐어요.' },
     ],
   },
 ]

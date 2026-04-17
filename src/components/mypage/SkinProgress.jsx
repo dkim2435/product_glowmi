@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { resizePhoto } from '../../lib/storage'
 import { loadDiaryEntries, loadAnalysisResults, saveSkinProgressDB, loadSkinProgressDB, deleteSkinProgressDB } from '../../lib/db'
@@ -19,9 +19,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
   const chartRef = useRef(null)
   const fileInputRef = useRef(null)
 
-  useEffect(() => { refresh() }, [userId])
-
-  async function refresh() {
+  const refresh = useCallback(async () => {
     setLoading(true)
     try {
       const progressData = userId ? await loadSkinProgressDB(userId) : []
@@ -38,11 +36,9 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
       showToast(t('Failed to load progress data.', '진행 데이터를 불러오지 못했습니다.'))
     }
     setLoading(false)
-  }
+  }, [userId, showToast, t])
 
-  useEffect(() => {
-    if (viewMode === 'chart' && chartRef.current) drawChart()
-  }, [entries, diaryEntries, analysisResult, viewMode])
+  useEffect(() => { refresh() }, [refresh])
 
   // Merge progress entries with diary AI scores and analysis results for the chart
   function getAllScores() {
@@ -163,7 +159,7 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
     setAiReportLoading(false)
   }
 
-  function drawChart() {
+  const drawChart = useCallback(() => {
     const canvas = chartRef.current
     if (!canvas) return
     const allScores = getAllScores()
@@ -260,7 +256,11 @@ export default function SkinProgress({ userId, showToast, onGoToSkinAnalyzer }) 
         ctx.fillText(allScores[i].date.slice(5), x, h - 8)
       }
     }
-  }
+  }, [entries, diaryEntries, analysisResult])
+
+  useEffect(() => {
+    if (viewMode === 'chart' && chartRef.current) drawChart()
+  }, [viewMode, drawChart])
 
   if (loading) return <p className="mypage-loading">{t('Loading...', '불러오는 중...')}</p>
 
