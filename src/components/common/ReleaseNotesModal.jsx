@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react'
 import { useLang } from '../../context/LanguageContext'
 import { Sparkles, Palette, Gem, Sun } from 'lucide-react'
 
-const APP_VERSION = '3.1.8'
+const APP_VERSION = '3.1.9'
 
 const STORAGE_KEY = 'glowmi_last_seen_version'
 const ONBOARDING_KEY = 'glowmi_onboarding_seen'
 
 const RELEASE_NOTES = [
   {
-    emoji: '🛠️',
+    emoji: '🔒',
     title: `What's New in v${APP_VERSION}`,
     titleKr: `v${APP_VERSION} 업데이트`,
-    desc: 'Stability improvements for skin progress tracking.',
-    descKr: '피부 변화 추적 차트 안정성 개선!',
+    desc: 'Security maintenance — build tooling dependencies updated.',
+    descKr: '보안 유지보수 — 빌드 도구 의존성 업데이트!',
     items: [
-      { emoji: '📈', label: 'Chart reliability', labelKr: '차트 안정성', desc: 'Skin progress chart now always re-renders when data updates.', descKr: '피부 점수 차트가 데이터 변경 시 항상 새로 그려지도록 개선됐어요.' },
+      { emoji: '🛡️', label: 'Dependency updates', labelKr: '의존성 업데이트', desc: 'Resolved 5 advisories in build tooling (Vite, ESLint, Capacitor CLI). No production runtime impact.', descKr: '빌드 도구(Vite, ESLint, Capacitor CLI)의 보안 권고 5건을 해결했어요. 실제 앱 동작엔 영향 없어요.' },
     ],
   },
 ]
